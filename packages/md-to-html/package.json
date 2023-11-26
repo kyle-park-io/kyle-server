@@ -1,0 +1,23 @@
+{
+  "name": "md-to-html",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git@kyle-park-io:kyle-park-io/kyle-server.git"
+  },
+  "license": "ISC",
+  "author": "kyle-park-io <andy3638@naver.com>",
+  "main": "lib/md-to-html.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/md-to-html.test.js"
+  }
+}

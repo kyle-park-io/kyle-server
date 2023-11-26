@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "git@kyle-park-io:kyle-park-io/kyle-server.git",
+  "license": "MIT",
+  "author": "kyle-park-io <andy3638@naver.com>",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^7.4.2"
+  }
+}
