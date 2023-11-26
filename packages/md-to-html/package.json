@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": "git@kyle-park-io:kyle-park-io/kyle-server.git"
-  },
+  "repository": "git@kyle-park-io:kyle-park-io/kyle-server.git",
   "license": "ISC",
   "author": "kyle-park-io <andy3638@naver.com>",
   "main": "lib/md-to-html.js",
@@ -19,5 +16,9 @@
   ],
   "scripts": {
     "test": "node ./__tests__/md-to-html.test.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "marked": "^10.0.0"
   }
 }
