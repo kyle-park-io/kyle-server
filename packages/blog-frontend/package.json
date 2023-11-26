@@ -1,5 +1,5 @@
 {
-  "name": "blog",
+  "name": "blog-frontend",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "",
@@ -9,7 +9,7 @@
   },
   "license": "ISC",
   "author": "kyle-park-io <andy3638@naver.com>",
-  "main": "lib/blog.js",
+  "main": "lib/blog-frontend.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -18,6 +18,6 @@
     "lib"
   ],
   "scripts": {
-    "test": "node ./__tests__/blog.test.js"
+    "test": "node ./__tests__/blog-frontend.test.js"
   }
 }

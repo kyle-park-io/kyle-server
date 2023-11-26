@@ -1,11 +1,11 @@
-# `blog`
+# `blog-frontend`
 
 > TODO: description
 
 ## Usage
 
 ```
-const blog = require('blog');
+const blogFrontend = require('blog-frontend');
 
 // TODO: DEMONSTRATE API
 ```
