@@ -3,11 +3,12 @@ import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 import * as path from 'path';
 import apiRouter from './routes/api';
-
+import { serverConfig } from './config/server.config';
 import { update } from './utils/md';
 
+const config = serverConfig();
 const app = express();
-const PORT = 8080;
+const PORT = config.server.port;
 
 async function initialize(): Promise<void> {
   await update();
