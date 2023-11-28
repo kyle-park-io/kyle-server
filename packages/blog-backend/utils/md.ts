@@ -1,4 +1,4 @@
-import { convert } from 'packages/md-to-html/marked';
+import { convert } from 'md-to-html/marked';
 
 export const update = async (): Promise<void> => {
   try {
