@@ -1,6 +1,6 @@
 {
   "name": "md-to-html",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "> TODO: description",
   "homepage": "",
   "repository": "git@kyle-park-io:kyle-park-io/kyle-server.git",
@@ -17,7 +17,6 @@
   "scripts": {
     "test": "node ./__tests__/md-to-html.test.js"
   },
-  "dependencies": {},
   "devDependencies": {
     "marked": "^10.0.0"
   }
