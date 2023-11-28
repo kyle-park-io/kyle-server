@@ -1,0 +1,16 @@
+links:
+  - name: default
+    route: /
+    url: http://blogserv.default.svc.cluster.local:8080
+  - name: assets
+    route: /assets
+    url: http://blogserv.default.svc.cluster.local:8080
+  - name: apis
+    route: /apis
+    url: http://blogserv.default.svc.cluster.local:8080
+  - name: blog
+    route: /blog
+    url: http://blogserv.default.svc.cluster.local:8080
+  - name: dex
+    route: /dex
+    url: http://blogserv.default.svc.cluster.local:8080
