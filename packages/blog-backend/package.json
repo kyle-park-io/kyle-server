@@ -19,5 +19,18 @@
   ],
   "scripts": {
     "test": "node ./__tests__/blog-backend.test.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "pm2": "^5.3.0",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.1"
   }
 }
