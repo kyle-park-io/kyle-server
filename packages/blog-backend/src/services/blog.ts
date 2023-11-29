@@ -4,7 +4,7 @@ import * as path from 'path';
 
 export const blogList = async (req: Request, res: Response): Promise<any> => {
   try {
-    const htmlOutputPath = path.join('/usr/src/app/src/marked/html');
+    const htmlOutputPath = path.join('/usr/src/app/html');
     const list = fs.readdirSync(htmlOutputPath, 'utf8');
     const result: string[] = [];
     for (let i = 0; i < list.length; i++) {
@@ -25,7 +25,7 @@ export const blogList = async (req: Request, res: Response): Promise<any> => {
 export const blogDetail = async (req: Request, res: Response): Promise<any> => {
   try {
     const detail = fs.readFileSync(
-      `/usr/src/app/src/marked/html/${req.params.id}.html`,
+      `/usr/src/app/html/${req.params.id}.html`,
       'utf8',
     );
     const obj = { test: 'test', detail };
