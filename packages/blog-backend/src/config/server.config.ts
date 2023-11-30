@@ -1,12 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs';
+import path from 'path';
 import yaml from 'js-yaml';
 
-const YAML_CONFIG_PROD = 'production.yaml';
-const YAML_CONFIG_DEV = 'config.yaml';
+const root = process.cwd();
+const YAML_CONFIG_PROD = 'prod.yaml';
+const YAML_CONFIG_DEV = 'dev.yaml';
 
 export const serverConfig = (): Record<string, any> => {
-  const configs = [`./config/common.yaml`];
+  const env = process.env.NODE_ENV === undefined ? 'dev' : process.env.NODE_ENV;
+
+  let configs: string[] = [];
+  if (env === 'dev') {
+    configs = [`${root}/config/${YAML_CONFIG_DEV}`];
+  } else if (env === 'prod') {
+    configs = [`${root}/config/${YAML_CONFIG_PROD}`];
+  } else {
+    throw new Error('env error');
+  }
 
   const mergedConfig = configs.reduce((acc, currPath) => {
     try {

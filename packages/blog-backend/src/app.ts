@@ -3,13 +3,12 @@ import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 import * as path from 'path';
 import apiRouter from './routes/api';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { serverConfig } from './config/server.config';
 import { update } from './utils/md';
 
-// const config = serverConfig();
-// const PORT = config.server.port;
-const PORT = 8080;
+const config = serverConfig();
+const PORT = config.server.port;
+
 const app = express();
 
 async function initialize(): Promise<void> {

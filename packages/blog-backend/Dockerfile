@@ -36,8 +36,12 @@ RUN npm install --only=production
 # copy build stage files
 COPY --from=builder /usr/src/app/dist ./dist
 COPY build ./build
+COPY config ./config
 COPY md ./md
 COPY html ./html
+
+# set env
+ENV NODE_ENV="prod"
 
 # alarm port
 EXPOSE 8080
