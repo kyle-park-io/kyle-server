@@ -1,3 +1,5 @@
+docker builder prune -f
+
 cd ../packages/blog-backend
 ./push2gke.sh
 
