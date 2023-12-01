@@ -6,6 +6,9 @@ import apiRouter from './routes/api';
 import { serverConfig } from './config/server.config';
 import { update } from './utils/md';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { setTimeout } from 'timers/promises';
+
 const config = serverConfig();
 const PORT = config.server.port;
 
