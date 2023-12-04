@@ -48,6 +48,7 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY build ./build
 COPY config ./config
 COPY scripts ./scripts
+COPY public ./public
 
 # set env
 ENV NODE_ENV="prod"
