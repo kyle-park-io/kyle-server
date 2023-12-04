@@ -2,6 +2,7 @@ import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
 import { useParams } from '@solidjs/router';
 import axios from 'axios';
+import Spinner from './components/Spinner';
 
 const BlogDetail: Component = (): JSX.Element => {
   const params = useParams();
@@ -26,7 +27,7 @@ const BlogDetail: Component = (): JSX.Element => {
         } else {
           setError(new Error(String(err)));
         }
-        setLoading(false);
+        setLoading(true);
       }
     }
     void fetchData();
@@ -34,15 +35,33 @@ const BlogDetail: Component = (): JSX.Element => {
 
   return (
     <>
-      <div>BlogDetail</div>
-      {!loading() && <div>Loading...</div>}
-      {title() !== '' && (
-        <div style="white-space: pre-wrap;" innerHTML={title()} />
-      )}
-      {htmlContent() !== '' && (
-        <div style="white-space: pre-wrap;" innerHTML={htmlContent()} />
-      )}
-      {error() !== null && <div>{error()?.message}</div>}
+      <div class="flex-grow flex flex-col">
+        <div>BlogDetail</div>
+        {!loading() ? (
+          <div class="flex-grow center-flex">
+            Loading...
+            <Spinner></Spinner>
+          </div>
+        ) : (
+          <div>
+            {error() !== null ? (
+              <div>{error()?.message}</div>
+            ) : (
+              <div>
+                {title() !== '' && (
+                  <div style="white-space: pre-wrap;" innerHTML={title()} />
+                )}
+                {htmlContent() !== '' && (
+                  <div
+                    style="white-space: pre-wrap;"
+                    innerHTML={htmlContent()}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </>
   );
 };

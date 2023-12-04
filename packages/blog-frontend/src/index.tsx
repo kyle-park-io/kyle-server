@@ -24,7 +24,7 @@ if (root != null) {
           <div class="h-12 bg-blue-500">
             <Header></Header>
           </div>
-          <div class="flex-grow bg-green-500">
+          <div class="flex-grow bg-green-500 flex flex-col">
             <Routes>
               <Route path="/" component={App} />
               <Route path="/blog" component={BlogList} />

@@ -2,6 +2,7 @@ import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount, For } from 'solid-js';
 import { Link } from '@solidjs/router';
 import axios from 'axios';
+import Spinner from './components/Spinner';
 
 const BlogList: Component = (): JSX.Element => {
   const [error, setError] = createSignal<Error | null>(null);
@@ -36,7 +37,7 @@ const BlogList: Component = (): JSX.Element => {
         } else {
           setError(new Error(String(err)));
         }
-        setLoading(false);
+        setLoading(true);
       }
     }
     void fetchData();
@@ -44,26 +45,41 @@ const BlogList: Component = (): JSX.Element => {
 
   return (
     <>
-      <div>BlogList</div>
-      {!loading() && <div>Loading...</div>}
-      <div>
-        <button
-          onClick={handleClick}
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Update
-        </button>
+      <div class="flex-grow flex flex-col">
+        <div>BlogList</div>
+        {!loading() ? (
+          <div class="flex-grow center-flex">
+            Loading...
+            <Spinner></Spinner>
+          </div>
+        ) : (
+          <div>
+            {error() !== null ? (
+              <div>{error()?.message}</div>
+            ) : (
+              <div>
+                <div>
+                  <button
+                    onClick={handleClick}
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Update
+                  </button>
+                </div>
+                <div>
+                  <For each={list()}>
+                    {(item) => (
+                      <li>
+                        <Link href={'/blog' + '/' + item}>{item}</Link>
+                      </li>
+                    )}
+                  </For>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
-      <div>
-        <For each={list()}>
-          {(item) => (
-            <li>
-              <Link href={'/blog' + '/' + item}>{item}</Link>
-            </li>
-          )}
-        </For>
-      </div>
-      {error() !== null && <div>{error()?.message}</div>}
     </>
   );
 };
