@@ -2,7 +2,6 @@ import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
 import { useParams } from '@solidjs/router';
 import axios from 'axios';
-import './BlogDetail.css';
 
 const BlogDetail: Component = (): JSX.Element => {
   const params = useParams();

@@ -2,7 +2,6 @@ import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount, For } from 'solid-js';
 import { Link } from '@solidjs/router';
 import axios from 'axios';
-import './BlogList.css';
 
 const BlogList: Component = (): JSX.Element => {
   const [error, setError] = createSignal<Error | null>(null);

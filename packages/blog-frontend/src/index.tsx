@@ -1,8 +1,9 @@
 import { render } from 'solid-js/web';
 import { Router, Route, Routes } from '@solidjs/router';
 
-// root css
-import './index.css';
+// global css
+import 'normalize.css';
+import './css/global.css';
 
 // basic
 import Header from './layout/Header';
@@ -18,17 +19,25 @@ const root = document.getElementById('root');
 if (root != null) {
   render(
     () => (
-      <Router>
-        <Header></Header>
-        <Routes>
-          <Route path="/" component={App} />
-          <Route path="/blog" component={BlogList} />
-          <Route path="/blog/:id" component={BlogDetail} />
-          <Route path="/404" component={NotFoundPage} />
-          <Route path="*" component={NotFoundPage} />
-        </Routes>
-        <Footer></Footer>
-      </Router>
+      <div class="flex flex-col min-h-screen">
+        <Router>
+          <div class="h-12 bg-blue-500">
+            <Header></Header>
+          </div>
+          <div class="flex-grow bg-green-500">
+            <Routes>
+              <Route path="/" component={App} />
+              <Route path="/blog" component={BlogList} />
+              <Route path="/blog/:id" component={BlogDetail} />
+              <Route path="/404" component={NotFoundPage} />
+              <Route path="*" component={NotFoundPage} />
+            </Routes>
+          </div>
+          <div class="center-flex h-10 bg-red-500">
+            <Footer></Footer>
+          </div>
+        </Router>
+      </div>
     ),
     root,
   );

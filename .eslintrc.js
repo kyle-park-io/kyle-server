@@ -21,6 +21,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/method-signature-style': 'off',
+    'import/no-absolute-path': 'off',
   },
   ignorePatterns: ['.eslintrc.js', '/**/*.config.ts'],
 };
