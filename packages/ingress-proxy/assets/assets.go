@@ -19,6 +19,7 @@ var (
 		"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/ads.txt"},
 		"/robots.txt":  {contentType: "text/plain", dataPath: "/app/public/robots.txt"},
 		"/sitemap.xml": {contentType: "text/xml", dataPath: "/app/public/sitemap.xml"},
+		"/home.svg":    {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
 	}
 )
 

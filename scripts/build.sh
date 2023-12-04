@@ -1,5 +1,6 @@
 cd ../packages/blog-backend
 rm -rf build
+rm -rf public
 
 cd ../blog-frontend
 yarn run build
