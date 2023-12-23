@@ -57,4 +57,4 @@ EXPOSE 8080
 
 # run server
 RUN chmod +x scripts/start-server.sh
-ENTRYPOINT ["/scripts/start-server.sh"]
+ENTRYPOINT ["scripts/start-server.sh"]
