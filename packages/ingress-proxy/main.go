@@ -94,17 +94,21 @@ func secureHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			switch link.Name {
 			case "assets":
-				redirect.RedirectHandler(w, r, link)
-			case "apis":
+				redirect.RedirectAssetHandler(w, r, pathSurfix)
+			case "api-blog":
 				redirect.RedirectAPIHandler(w, r, link)
+			case "api-dex":
+				redirect.RedirectAPIHandler(w, r, link)
+			case "blog":
+				redirect.RedirectHandler(w, r, link)
 			case "dex":
+				// redirect.RedirectChangeHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
 			default:
 				redirect.RedirectHandler(w, r, link)
 			}
 		}
 	}
-
 }
 
 func main() {
