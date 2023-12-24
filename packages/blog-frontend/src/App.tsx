@@ -23,7 +23,9 @@ const App: Component = (): JSX.Element => {
               <a href={`${url}/blog`}>블로그</a>
             </div>
             <div class="w-full h-[100px] bg-blue-200 center-flex">CAREER</div>
-            <div class="w-full h-[100px] bg-blue-200 center-flex">DEX</div>
+            <div class="w-full h-[100px] bg-blue-200 center-flex">
+              <a href={`${url}/dex`}>DEX</a>
+            </div>
             <div class="w-full h-[100px] bg-blue-200 center-flex">
               <a
                 href="https://www.linkedin.com/in/kyle-park-io"

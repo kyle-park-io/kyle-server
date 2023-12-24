@@ -16,7 +16,7 @@ const BlogDetail: Component = (): JSX.Element => {
     async function fetchData(): Promise<void> {
       try {
         const res = await axios.get(
-          `https://jungho.dev/apis/api/blog/${params.id}`,
+          `https://jungho.dev/api-blog/api/blog/${params.id}`,
         );
         setTitle(res.data.title);
         setHtmlContent(res.data.detail);

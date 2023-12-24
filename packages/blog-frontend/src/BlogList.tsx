@@ -12,7 +12,7 @@ const BlogList: Component = (): JSX.Element => {
   const handleClick = (): void => {
     async function handleAsyncClick(): Promise<void> {
       try {
-        await axios.get('https://jungho.dev/apis/api/blog/update');
+        await axios.get('https://jungho.dev/api-blog/api/blog/update');
         window.location.reload();
       } catch (err) {
         if (err instanceof Error) {
@@ -28,7 +28,7 @@ const BlogList: Component = (): JSX.Element => {
   onMount(() => {
     async function fetchData(): Promise<void> {
       try {
-        const res = await axios.get('https://jungho.dev/apis/api/blog');
+        const res = await axios.get('https://jungho.dev/api-blog/api/blog');
         setList(res.data);
         setLoading(true);
       } catch (err) {
