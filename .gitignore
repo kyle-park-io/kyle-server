@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,dotenv,go,solidity
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,dotenv,go,solidity
 
+### extra ###
+.vscode
+.DS_Store
+
 ### ini ###
 *.ini
 

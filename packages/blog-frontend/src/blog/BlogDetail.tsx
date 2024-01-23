@@ -2,7 +2,7 @@ import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
 import { useParams } from '@solidjs/router';
 import axios from 'axios';
-import Spinner from './components/Spinner';
+import { Spinner, Container, Row, Col } from 'solid-bootstrap';
 
 const BlogDetail: Component = (): JSX.Element => {
   const params = useParams();
@@ -35,33 +35,43 @@ const BlogDetail: Component = (): JSX.Element => {
 
   return (
     <>
-      <div class="flex-grow flex flex-col">
-        <div>BlogDetail</div>
-        {!loading() ? (
-          <div class="flex-grow center-flex">
-            Loading...
-            <Spinner></Spinner>
-          </div>
-        ) : (
-          <div>
-            {error() !== null ? (
-              <div>{error()?.message}</div>
+      <Container fluid>
+        <Row>
+          <Col md={12}>
+            <h1>BlogDetail</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={2}></Col>
+          <Col md={8} class="tw-flex tw-justify-center">
+            {!loading() ? (
+              <div>
+                <span>Loading...</span>
+                <Spinner animation="border" variant="primary" />
+              </div>
             ) : (
               <div>
-                {title() !== '' && (
-                  <div style="white-space: pre-wrap;" innerHTML={title()} />
-                )}
-                {htmlContent() !== '' && (
-                  <div
-                    style="white-space: pre-wrap;"
-                    innerHTML={htmlContent()}
-                  />
+                {error() !== null ? (
+                  <span>{error()?.message}</span>
+                ) : (
+                  <div>
+                    {title() !== '' && (
+                      <div style="white-space: pre-wrap;" innerHTML={title()} />
+                    )}
+                    {htmlContent() !== '' && (
+                      <div
+                        style="white-space: pre-wrap;"
+                        innerHTML={htmlContent()}
+                      />
+                    )}
+                  </div>
                 )}
               </div>
             )}
-          </div>
-        )}
-      </div>
+          </Col>
+          <Col md={2}></Col>
+        </Row>
+      </Container>
     </>
   );
 };

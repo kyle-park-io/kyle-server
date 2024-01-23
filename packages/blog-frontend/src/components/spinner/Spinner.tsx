@@ -1,7 +1,7 @@
 import { type Component, type JSX } from 'solid-js';
 
 // spinner css
-import '../css/spinner.css';
+import './Spinner.css';
 
 const Spinner: Component = (): JSX.Element => {
   return (

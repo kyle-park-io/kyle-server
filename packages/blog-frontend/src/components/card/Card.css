@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  overflow-y: scroll;
+.card:hover {
+  background-color: gray;
+  border-color: transparent;
+  color: currentColor;
+  box-shadow: none;
+  outline: none;
 }
 
-.offscreen {
-  position: absolute;
-  left: -9999px;
-}
-
-.transparent {
+/* .card {
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -20,7 +19,15 @@ body {
   outline: none;
 }
 
-.transparent:hover {
+.card2:hover {
+  background-color: yellow;
+  border-color: transparent;
+  color: currentColor;
+  box-shadow: none;
+  outline: none;
+}
+
+.card:focus {
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
@@ -28,18 +35,10 @@ body {
   outline: none;
 }
 
-.transparent:focus {
+.card:active {
   background-color: transparent;
   border-color: transparent;
   color: currentColor;
   box-shadow: none;
   outline: none;
-}
-
-.transparent:active {
-  background-color: transparent;
-  border-color: transparent;
-  color: currentColor;
-  box-shadow: none;
-  outline: none;
-}
+} */

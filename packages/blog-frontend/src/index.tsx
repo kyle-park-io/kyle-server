@@ -2,7 +2,6 @@ import { render } from 'solid-js/web';
 import { Router, Route, Routes } from '@solidjs/router';
 
 // global css
-import 'normalize.css';
 import './css/global.css';
 
 // basic
@@ -10,30 +9,36 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';
 
 // route
-import App from './App';
-import BlogList from './BlogList';
-import BlogDetail from './BlogDetail';
-import NotFoundPage from './NotFoundPage';
+import App from './app/App';
+import About from './about/About';
+import Profile from './profile/Profile';
+import BlogList from './blog/BlogList';
+import BlogDetail from './blog/BlogDetail';
+import Chat from './chat/Chat';
+import NotFoundPage from './components/404/NotFoundPage';
 
 const root = document.getElementById('root');
 if (root != null) {
   render(
     () => (
-      <div class="flex flex-col min-h-screen">
+      <div class="tw-flex tw-flex-col tw-min-h-screen">
         <Router>
-          <div class="h-12 bg-blue-500">
+          <div class="tw-bg-white tw-h-10 tw-overflow-auto">
             <Header></Header>
           </div>
-          <div class="flex-grow bg-green-500 flex flex-col">
+          <div class="tw-flex-grow tw-flex tw-flex-wrap">
             <Routes>
               <Route path="/" component={App} />
+              <Route path="/about" component={About} />
+              <Route path="/profile" component={Profile} />
               <Route path="/blog" component={BlogList} />
               <Route path="/blog/:id" component={BlogDetail} />
+              <Route path="/chat" component={Chat} />
               <Route path="/404" component={NotFoundPage} />
               <Route path="*" component={NotFoundPage} />
             </Routes>
           </div>
-          <div class="center-flex h-10 bg-red-500">
+          <div class="tw-bg-gray-400 tw-h-8">
             <Footer></Footer>
           </div>
         </Router>
