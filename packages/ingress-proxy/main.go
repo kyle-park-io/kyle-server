@@ -72,8 +72,15 @@ func testProxy(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func secureHandler(w http.ResponseWriter, r *http.Request) {
 	// w.Write([]byte("Hello, this is HTTPS server!"))
+
+	// cors
+	enableCors(&w)
 
 	log.Info(r.Host)
 	log.Info(r.URL.String())
