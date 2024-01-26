@@ -1,7 +1,9 @@
-docker builder prune -f
+# docker builder prune -f
 
-cd ../packages/blog-backend
+currentDir=$(pwd)
+
+cd ${currentDir}/packages/blog-backend
 ./push2gke.sh
 
-cd ../ingress-proxy
+cd ${currentDir}/packages/ingress-proxy
 ./push2gke.sh

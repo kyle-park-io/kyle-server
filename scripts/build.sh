@@ -1,8 +1,9 @@
-cd ../packages/blog-backend
-rm -rf build
+currentDir=$(pwd)
 
-cd ../blog-frontend
+cd ${currentDir}/packages/blog-backend
+rm -rf build
+cd ${currentDir}/packages/blog-frontend
 yarn run build
-cp -r -p dist ../blog-backend/build
+cp -r -p dist ${currentDir}/packages/blog-backend/build
 # public files
-cp -p public/* ../ingress-proxy/public
+cp -p public/* ${currentDir}/packages/ingress-proxy/public
