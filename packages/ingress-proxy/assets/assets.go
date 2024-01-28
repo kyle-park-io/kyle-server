@@ -37,6 +37,10 @@ var (
 		"/gopher2-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/gopher2-bg.jpg"},
 		"/linkedin-bg.jpg": {contentType: "image/jpeg", dataPath: "/app/public/linkedin-bg.jpg"},
 		"/profile-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/profile-bg.jpg"},
+		"/chart-bg.jpg":    {contentType: "image/jpeg", dataPath: "/app/public/chart-bg.jpg"},
+		"/staking-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/staking-bg.jpg"},
+		"/swap-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/swap-bg.jpg"},
+		"/bridge-bg.jpg":   {contentType: "image/jpeg", dataPath: "/app/public/bridge-bg.jpg"},
 	}
 )
 

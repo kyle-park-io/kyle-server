@@ -74,6 +74,8 @@ func testProxy(w http.ResponseWriter, r *http.Request) {
 
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
 func secureHandler(w http.ResponseWriter, r *http.Request) {
@@ -81,6 +83,10 @@ func secureHandler(w http.ResponseWriter, r *http.Request) {
 
 	// cors
 	enableCors(&w)
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
 
 	log.Info(r.Host)
 	log.Info(r.URL.String())
