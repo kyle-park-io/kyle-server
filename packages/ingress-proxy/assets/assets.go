@@ -2,18 +2,14 @@ package assets
 
 import (
 	"ingress-proxy/logger"
-	"io"
 	"net/http"
 	"os"
+	"sync"
 )
-
-type Asset struct {
-	contentType string
-	dataPath    string
-}
 
 var (
 	log    = logger.InitLogger()
+	cache  = NewCache()
 	assets = map[string]*Asset{
 		"/favicon.ico": {contentType: "image/x-icon", dataPath: "/app/public/favicon.ico"},
 		"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/ads.txt"},
@@ -44,30 +40,78 @@ var (
 	}
 )
 
+type Asset struct {
+	contentType string
+	dataPath    string
+	data        []byte
+}
+
+type Cache struct {
+	items map[string]*Asset
+	mutex sync.RWMutex
+}
+
+func NewCache() *Cache {
+	return &Cache{
+		items: make(map[string]*Asset),
+	}
+}
+
+func (c *Cache) Set(key string, value *Asset) {
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
+	c.items[key] = value
+}
+
+func (c *Cache) Get(key string) (*Asset, bool) {
+	c.mutex.RLock()
+	defer c.mutex.RUnlock()
+	item, exists := c.items[key]
+	return item, exists
+}
+
+func InitCache() error {
+	for key, value := range assets {
+		log.Sugar().Infof("Key: %s, Value: %d\n", key, value)
+		data, err := os.ReadFile(value.dataPath)
+		if err != nil {
+			log.Sugar().Error("Image not found")
+			return err
+		}
+		item := &Asset{contentType: value.contentType, dataPath: value.dataPath, data: data}
+		cache.Set(key, item)
+	}
+	return nil
+}
+
 func IsPathForAsset(path string) bool {
 	_, ok := assets[path]
 	return ok
 }
 
 func AssetHandler(w http.ResponseWriter, r *http.Request) {
+	log.Sugar().Info("AssetHandler : ")
+
 	urlPath := r.URL.Path
 
-	a, ok := assets[urlPath]
+	_, ok := assets[urlPath]
 	if !ok {
+		http.Error(w, "Image not found", http.StatusNotFound)
 		return
 	}
 
-	file, err := os.Open(a.dataPath)
-	if err != nil {
-		http.Error(w, "File not found.", 404)
-		return
+	item, found := cache.Get(urlPath)
+	if !found {
+		asset := assets[urlPath]
+		data, err := os.ReadFile(asset.dataPath)
+		if err != nil {
+			http.Error(w, "Image not found", http.StatusNotFound)
+			return
+		}
+		item := &Asset{contentType: asset.contentType, dataPath: asset.dataPath, data: data}
+		cache.Set(urlPath, item)
 	}
-	defer file.Close()
 
-	w.Header().Set("Content-Type", a.contentType)
-
-	_, err = io.Copy(w, file)
-	if err != nil {
-		http.Error(w, "Error serving the favicon.ico", http.StatusInternalServerError)
-	}
+	w.Header().Set("Content-Type", item.contentType)
+	w.Write(item.data)
 }

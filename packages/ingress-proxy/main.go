@@ -159,6 +159,12 @@ func main() {
 			redirect.Redirects[l.Route] = &lCopy
 		}
 
+		// cache
+		err = assets.InitCache()
+		if err != nil {
+			log.Sugar().Errorf("%s", err)
+		}
+
 		// HTTP server
 		httpRedirectMux := http.NewServeMux()
 		httpRedirectMux.HandleFunc("/", redirectToHTTPS)
