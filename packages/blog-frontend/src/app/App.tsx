@@ -1,4 +1,5 @@
 import { type Component, type JSX } from 'solid-js';
+import { createEffect } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { Container, Row, Col } from 'solid-bootstrap';
 
@@ -7,6 +8,7 @@ import Hero from '../hero/Hero';
 
 // card
 import {
+  imageLoading,
   ProfileCard,
   LinkdeinCard,
   GithubCard,
@@ -46,53 +48,93 @@ const App: Component = (): JSX.Element => {
     navigate('/chat');
   };
 
+  createEffect(() => {
+    console.log(imageLoading);
+  });
+
   return (
     <>
       <Hero></Hero>
       <Container fluid>
         <Row class="tw-items-center">
-          <Col md={5}></Col>
-          <Col md={7}>
+          <Col lg={5} md={5} sm={0} xs={0}></Col>
+          <Col lg={7} md={7} sm={12} xs={12}>
             <h1>Introduce</h1>
           </Col>
-          <Col md={5}></Col>
-          <Col md={7} class="tw-flex tw-justify-start tw-gap-4">
-            <button onClick={handleProfileClick} class="transparent">
-              <ProfileCard></ProfileCard>
-            </button>
-            <button onClick={handleLinkedinClick} class="transparent">
-              <LinkdeinCard></LinkdeinCard>
-            </button>
-            <button onClick={handleGithubClick} class="transparent">
-              <GithubCard></GithubCard>
-            </button>
+          <Col lg={5} md={5} sm={0} xs={0}></Col>
+          <Col
+            lg={7}
+            md={7}
+            sm={12}
+            xs={12}
+            class="tw-flex tw-justify-start tw-gap-4"
+          >
+            <Row class="tw-items-center tw-w-full">
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleProfileClick} class="transparent">
+                  <ProfileCard></ProfileCard>
+                </button>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleLinkedinClick} class="transparent">
+                  <LinkdeinCard></LinkdeinCard>
+                </button>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleGithubClick} class="transparent">
+                  <GithubCard></GithubCard>
+                </button>
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row class="tw-items-center">
-          <Col md={7}>
+          <Col lg={7} md={7} sm={12} xs={12}>
             <h1>Project</h1>
           </Col>
-          <Col md={5}></Col>
-          <Col md={7} class="tw-flex tw-justify-start tw-gap-4">
-            <button onClick={handleDexClick} class="transparent">
-              <DexCard></DexCard>
-            </button>
+          <Col lg={5} md={5} sm={0} xs={0}></Col>
+          <Col
+            lg={7}
+            md={7}
+            sm={12}
+            xs={12}
+            class="tw-flex tw-justify-start tw-gap-4"
+          >
+            <Row class="tw-items-center tw-w-full">
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleDexClick} class="transparent">
+                  <DexCard></DexCard>
+                </button>
+              </Col>
+            </Row>
           </Col>
-          <Col md={5}></Col>
+          <Col lg={5} md={5} sm={0} xs={0}></Col>
         </Row>
         <Row class="tw-items-center">
-          <Col md={5}></Col>
-          <Col md={7}>
+          <Col lg={5} md={5} sm={0} xs={0}></Col>
+          <Col lg={7} md={7} sm={12} xs={12}>
             <h1>Extra</h1>
           </Col>
-          <Col md={5}></Col>
-          <Col md={7} class="tw-flex tw-justify-start tw-gap-4">
-            <button onClick={handleBlogClick} class="transparent">
-              <BlogCard></BlogCard>
-            </button>
-            <button onClick={handleChatClick} class="transparent">
-              <ChatCard></ChatCard>
-            </button>
+          <Col lg={5} md={5} sm={0} xs={0}></Col>
+          <Col
+            lg={7}
+            md={7}
+            sm={12}
+            xs={12}
+            class="tw-flex tw-justify-start tw-gap-4"
+          >
+            <Row class="tw-items-center tw-w-full">
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleBlogClick} class="transparent">
+                  <BlogCard></BlogCard>
+                </button>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleChatClick} class="transparent">
+                  <ChatCard></ChatCard>
+                </button>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>

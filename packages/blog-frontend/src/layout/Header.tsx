@@ -37,17 +37,17 @@ const Header: Component = (): JSX.Element => {
         <header class="offscreen">golang is forever !</header>
         <Container fluid>
           <Row class="tw-items-center">
-            <Col md={3} class="tw-flex tw-justify-start">
+            <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-start">
               <button onClick={handleImageClick} class="transparent tw-h-10">
                 <img src={HomeLogo} alt="Home" class="tw-h-full"></img>
               </button>
             </Col>
-            <Col md={6} class="tw-flex tw-justify-center">
+            <Col lg={6} md={6} sm={4} xs={4} class="tw-flex tw-justify-center">
               <button onClick={handleTitleClick} class="transparent">
                 <span>KYLE PARK</span>
               </button>
             </Col>
-            <Col md={3} class="tw-flex tw-justify-end">
+            <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-end">
               <Nav defaultActiveKey="#" as="ul">
                 <Nav.Item as="li">
                   <Nav.Link eventKey="about" onClick={handleAboutClick}>

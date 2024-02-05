@@ -4,6 +4,7 @@
 ### extra ###
 .vscode
 .DS_Store
+*.zip
 
 ### ini ###
 *.ini
