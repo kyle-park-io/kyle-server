@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "kyle-server",
   "version": "1.0.0",
   "private": true,
   "repository": "git@kyle-park-io:kyle-park-io/kyle-server.git",
@@ -39,6 +39,7 @@
     "lerna": "^7.4.2",
     "pinst": "^3.0.0",
     "prettier": "^3.1.0",
+    "sort-package-json": "^2.10.0",
     "ts-node": "^10.9.1",
     "typescript": "*"
   }
