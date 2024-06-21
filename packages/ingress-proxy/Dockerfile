@@ -42,12 +42,12 @@ WORKDIR /build
 # # godaddy
 # COPY --from=builder /build/scripts/install_certbot_dns_godaddy.sh /app/install_certbot_dns_godaddy.sh
 # RUN chmod +x /app/install_certbot_dns_godaddy.sh
-# COPY --from=builder /build/scripts/create_ssl_cert(godaddy).sh /app/create_ssl_cert(godaddy).sh
-# RUN chmod +x /app/create_ssl_cert(godaddy).sh
+# COPY --from=builder /build/scripts/create_ssl_cert_godaddy.sh /app/create_ssl_cert_godaddy.sh
+# RUN chmod +x /app/create_ssl_cert_godaddy.sh
 
 # cloudflare
-COPY --from=builder /build/scripts/create_ssl_cert(cloudflare).sh /app/create_ssl_cert(cloudflare).sh
-RUN chmod +x /app/create_ssl_cert(cloudflare).sh
+COPY --from=builder /build/scripts/create_ssl_cert_cloudflare.sh /app/create_ssl_cert_cloudflare.sh
+RUN chmod +x /app/create_ssl_cert_cloudflare.sh
 
 # # try to renew letsencrypt ssl cert in every 12 hours
 # RUN SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); \

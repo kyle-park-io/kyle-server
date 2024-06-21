@@ -21,8 +21,8 @@ func CheckTLS() error {
 			return errors.Wrap(err, fmt.Sprintf("check ssl fail: %s", string(out)))
 		}
 
-		// out, err = exec.Command("/app/create_ssl_cert.sh(godaddy)").CombinedOutput()
-		out, err = exec.Command("/app/create_ssl_cert.sh(cloudflare)").CombinedOutput()
+		// out, err = exec.Command("/app/create_ssl_cert.sh_godaddy").CombinedOutput()
+		out, err = exec.Command("/app/create_ssl_cert.sh_cloudflare").CombinedOutput()
 		logger.Log.Info(string(out))
 		if err != nil {
 			return errors.Wrap(err, fmt.Sprintf("check ssl fail: %s", string(out)))
