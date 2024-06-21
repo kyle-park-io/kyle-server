@@ -42,8 +42,8 @@ WORKDIR /build
 # # godaddy
 # COPY --from=builder /build/scripts/install_certbot_dns_godaddy.sh /app/install_certbot_dns_godaddy.sh
 # RUN chmod +x /app/install_certbot_dns_godaddy.sh
-# COPY --from=builder /build/scripts/create_ssl_cert.sh /app/create_ssl_cert.sh
-# RUN chmod +x /app/create_ssl_cert.sh
+# COPY --from=builder /build/scripts/create_ssl_cert(godaddy).sh /app/create_ssl_cert(godaddy).sh
+# RUN chmod +x /app/create_ssl_cert(godaddy).sh
 
 # cloudflare
 COPY --from=builder /build/scripts/create_ssl_cert(cloudflare).sh /app/create_ssl_cert(cloudflare).sh
