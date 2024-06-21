@@ -3,11 +3,16 @@ import path from 'path';
 import yaml from 'js-yaml';
 
 const root = process.cwd();
-const YAML_CONFIG_PROD = 'prod.yaml';
 const YAML_CONFIG_DEV = 'dev.yaml';
+const YAML_CONFIG_PROD = 'prod.yaml';
 
 export const serverConfig = (): Record<string, any> => {
   const env = process.env.NODE_ENV === undefined ? 'dev' : process.env.NODE_ENV;
+
+  console.log('check node_env: ', env);
+  console.log('cwd: ', root);
+  console.log('dirname: ', __dirname);
+  console.log('filename: ', __filename);
 
   let configs: string[] = [];
   if (env === 'dev') {

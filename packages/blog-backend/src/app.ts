@@ -24,14 +24,24 @@ async function startServer(): Promise<void> {
 
     app.use(helmet());
 
-    const buildPath = path.join(__dirname, '../build');
-    app.use(express.static(buildPath));
+    // front-build(static) path
+    const staticPath = path.join(__dirname, '../static');
+    // static
+    app.use('/blog-static', (req, res, next) => {
+      // if (req.path.startsWith('/static')) {
+      // }
+      console.log('Static file requested:', req.path);
+      next();
+    });
+    app.use('/blog-static', express.static(staticPath));
 
+    // api
     app.use('/api', apiRouter);
 
+    // extra
     app.get('*', (req, res) => {
-      console.log('check : ', req.url);
-      res.sendFile(path.join(buildPath, 'index.html'));
+      console.log('req url: ', req.url);
+      res.sendFile(path.join(staticPath, 'index.html'));
     });
 
     app.listen(PORT, () => {

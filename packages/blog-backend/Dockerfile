@@ -15,7 +15,7 @@ COPY production/tsconfig.json ./
 RUN npm install
 
 # copy code
-COPY src ./
+COPY src ./src
 
 # build
 RUN npm run build
@@ -33,7 +33,6 @@ RUN apt-get update && apt-get install -y cron \
 COPY scripts ./scripts
 RUN chmod +x scripts/init-script.sh && ./scripts/init-script.sh
 
-
 # set dir
 WORKDIR /usr/src/app
 
@@ -45,7 +44,7 @@ RUN npm install --only=production
 
 # copy build stage files
 COPY --from=builder /usr/src/app/dist ./dist
-COPY build ./build
+COPY static ./static
 COPY config ./config
 COPY scripts ./scripts
 

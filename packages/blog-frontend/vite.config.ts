@@ -3,8 +3,10 @@ import solid from 'vite-plugin-solid';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
+  base: '/blog-static',
   plugins: [solid(), svgr()],
   build: {
+    outDir: 'static',
     rollupOptions: {
       // input: {
       //   main: '/src/main.tsx',
