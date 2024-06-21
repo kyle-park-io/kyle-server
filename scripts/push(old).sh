@@ -3,7 +3,7 @@
 currentDir=$(pwd)
 
 cd ${currentDir}/packages/blog-backend
-"./push2gke(artifact).sh"
+./push2gke.sh
 
 cd ${currentDir}/packages/ingress-proxy
-"./push2gke(artifact).sh"
+./push2gke.sh
