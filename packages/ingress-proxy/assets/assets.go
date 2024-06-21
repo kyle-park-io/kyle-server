@@ -4,12 +4,9 @@ import (
 	"ingress-proxy/logger"
 	"net/http"
 	"os"
-	"sync"
 )
 
 var (
-	log    = logger.InitLogger()
-	cache  = NewCache()
 	assets = map[string]*Asset{
 		"/favicon.ico": {contentType: "image/x-icon", dataPath: "/app/public/favicon.ico"},
 		"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/ads.txt"},
@@ -46,51 +43,13 @@ type Asset struct {
 	data        []byte
 }
 
-type Cache struct {
-	items map[string]*Asset
-	mutex sync.RWMutex
-}
-
-func NewCache() *Cache {
-	return &Cache{
-		items: make(map[string]*Asset),
-	}
-}
-
-func (c *Cache) Set(key string, value *Asset) {
-	c.mutex.Lock()
-	defer c.mutex.Unlock()
-	c.items[key] = value
-}
-
-func (c *Cache) Get(key string) (*Asset, bool) {
-	c.mutex.RLock()
-	defer c.mutex.RUnlock()
-	item, exists := c.items[key]
-	return item, exists
-}
-
-func InitCache() error {
-	for key, value := range assets {
-		log.Sugar().Infof("Key: %s, Value: %d\n", key, value)
-		data, err := os.ReadFile(value.dataPath)
-		if err != nil {
-			log.Sugar().Error("Image not found")
-			return err
-		}
-		item := &Asset{contentType: value.contentType, dataPath: value.dataPath, data: data}
-		cache.Set(key, item)
-	}
-	return nil
-}
-
 func IsPathForAsset(path string) bool {
 	_, ok := assets[path]
 	return ok
 }
 
 func AssetHandler(w http.ResponseWriter, r *http.Request) {
-	log.Sugar().Info("AssetHandler : ")
+	logger.Log.Info("AssetHandler : ")
 
 	urlPath := r.URL.Path
 
