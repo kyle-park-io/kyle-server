@@ -1,19 +1,22 @@
 links:
+  # basic
   - name: default
     route: /
-    url: http://blogserv.default.svc.cluster.local:8080
-  - name: assets
-    route: /assets
-    url:
-  - name: api-blog
-    route: /api-blog
     url: http://blogserv.default.svc.cluster.local:8080
   - name: blog
     route: /blog
     url: http://blogserv.default.svc.cluster.local:8080
-  - name: api-dex
-    route: /api-dex
-    url: http://dexserv.default.svc.cluster.local:8080
   - name: dex
     route: /dex
+    url: http://dexserv.default.svc.cluster.local:8080
+  # static
+  - name: blog-static
+    route: /blog-static
+    url: http://blogserv.default.svc.cluster.local:8080
+  # api
+  - name: api-blog
+    route: /api-blog
+    url: http://blogserv.default.svc.cluster.local:8080
+  - name: api-dex
+    route: /api-dex
     url: http://dexserv.default.svc.cluster.local:8080
