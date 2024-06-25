@@ -1,7 +1,9 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount, For } from 'solid-js';
-import { Link } from '@solidjs/router';
+import { A } from '@solidjs/router';
+import { Button } from 'solid-bootstrap';
 import axios from 'axios';
+import { saveAs } from 'file-saver';
 import {
   Spinner,
   Container,
@@ -21,6 +23,30 @@ const BlogList: Component = (): JSX.Element => {
       try {
         await axios.get('https://jungho.dev/api-blog/api/blog/update');
         window.location.reload();
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err);
+        } else {
+          setError(new Error(String(err)));
+        }
+      }
+    }
+    void handleAsyncClick();
+  };
+
+  const handleButtonClick = (id: string): void => {
+    async function handleAsyncClick(): Promise<void> {
+      try {
+        const res = await axios.get(
+          `https://jungho.dev/api-blog/api/blog/download/${id}`,
+          {
+            responseType: 'blob',
+          },
+        );
+        const blob = new Blob([res.data], {
+          type: res.headers['content-type'],
+        });
+        saveAs(blob, `${id}.md`);
       } catch (err) {
         if (err instanceof Error) {
           setError(err);
@@ -93,7 +119,15 @@ const BlogList: Component = (): JSX.Element => {
                             <tr>
                               <td>{index() + 1}</td>
                               <td>
-                                <Link href={'/blog' + '/' + item}>{item}</Link>
+                                <A href={'/blog' + '/' + item}>{item}</A>
+                              </td>
+                              <td>
+                                <Button
+                                  onClick={() => handleButtonClick(item)}
+                                  variant="info"
+                                >
+                                  Download
+                                </Button>
                               </td>
                             </tr>
                           )}

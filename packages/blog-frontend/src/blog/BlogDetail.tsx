@@ -1,11 +1,12 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
-import { useParams } from '@solidjs/router';
+import { useParams, useNavigate } from '@solidjs/router';
 import axios from 'axios';
 import { Spinner, Container, Row, Col } from 'solid-bootstrap';
 
 const BlogDetail: Component = (): JSX.Element => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [error, setError] = createSignal<Error | null>(null);
   const [loading, setLoading] = createSignal(false);
@@ -18,6 +19,10 @@ const BlogDetail: Component = (): JSX.Element => {
         const res = await axios.get(
           `https://jungho.dev/api-blog/api/blog/${params.id}`,
         );
+        if (!res.data.exist) {
+          navigate(`/blog/not-found?id=${params.id}`);
+        }
+
         setTitle(res.data.title);
         setHtmlContent(res.data.detail);
         setLoading(true);

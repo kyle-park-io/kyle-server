@@ -1,22 +1,25 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal, createEffect } from 'solid-js';
-import { useNavigate } from '@solidjs/router';
 import { Container, Row, Col, Nav } from 'solid-bootstrap';
 import HomeLogo from '/home.svg?url';
 // component
 import { Move } from '../components/offcanvas/Offcanvas';
 
 const Header: Component = (): JSX.Element => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleTitleClick = (): void => {
-    navigate('/');
+    // navigate('/');
+    window.location.href = `https://jungho.dev`;
   };
   const handleImageClick = (): void => {
-    navigate('/');
+    // navigate('/');
+    window.location.href = `https://jungho.dev`;
   };
   const handleAboutClick = (): void => {
-    navigate('/about');
+    // navigate('/about');
+    window.location.href = `https://jungho.dev/about`;
   };
+
   const [show, setShow] = createSignal(false);
   const handleOpen = (): void => {
     setShow(true);
