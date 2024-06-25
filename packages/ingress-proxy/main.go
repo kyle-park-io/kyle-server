@@ -6,6 +6,7 @@ import (
 	"ingress-proxy/constants"
 	"ingress-proxy/handlers"
 	"ingress-proxy/logger"
+	"ingress-proxy/middleware"
 	"ingress-proxy/redirect"
 	"ingress-proxy/tls"
 	"ingress-proxy/utils"
@@ -79,10 +80,10 @@ func main() {
 		httpsMux := http.NewServeMux()
 		httpsMux.HandleFunc("/", handlers.MainHandler)
 		// set middleware
-		// enhancedMux := middleware.Middleware(httpsMux)
+		enhancedMux := middleware.Middleware(httpsMux)
 		logger.Log.Info("Starting HTTPS server on port:", constants.HTTPSPort)
 		// enhancedMux
-		err = http.ListenAndServeTLS(fmt.Sprintf(":%d", constants.HTTPSPort), constants.SSL_CERT_FILE, constants.SSL_KEY_FILE, httpsMux)
+		err = http.ListenAndServeTLS(fmt.Sprintf(":%d", constants.HTTPSPort), constants.SSL_CERT_FILE, constants.SSL_KEY_FILE, enhancedMux)
 		if err != nil {
 			logger.Log.Fatal("Failed to start server: ", err)
 		}
