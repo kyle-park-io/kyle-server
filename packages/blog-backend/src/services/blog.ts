@@ -24,14 +24,46 @@ export const blogList = async (req: Request, res: Response): Promise<any> => {
 
 export const blogDetail = async (req: Request, res: Response): Promise<any> => {
   try {
+    const exist = fs.existsSync(`/usr/src/app/html/${req.params.id}.html`);
+    if (!exist) {
+      const obj = { exist: false };
+      return res.json(obj);
+    }
+
     const detail = fs.readFileSync(
       `/usr/src/app/html/${req.params.id}.html`,
       'utf8',
     );
-    const obj = { test: 'test', detail };
-    res.json(obj);
+    const obj = { exist: true, test: 'test', detail };
+    return res.json(obj);
     // res.send(test);
-    return '';
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err.message);
+      res.status(500).send(err.message);
+    } else {
+      console.error('An unexpected error occurred:', err);
+      res.status(500).send(new Error('An unexpected error occurred'));
+    }
+  }
+};
+
+export const blogDownload = async (
+  req: Request,
+  res: Response,
+): Promise<any> => {
+  try {
+    const exist = fs.existsSync(`/usr/src/app/html/${req.params.id}.html`);
+    if (!exist) {
+      const obj = { exist: false };
+      return res.json(obj);
+    }
+
+    res.download(`/usr/src/app/md/${req.params.id}.md`, (err) => {
+      if (err) {
+        res.status(404).send(`${req.params.id} not found`);
+      }
+    });
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
