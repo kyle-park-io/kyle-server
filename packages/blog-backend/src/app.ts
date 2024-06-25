@@ -8,6 +8,7 @@ import { update } from './utils/md';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { setTimeout } from 'timers/promises';
+import { setInterval } from 'timers';
 
 const config = serverConfig();
 const PORT = config.server.port;
@@ -15,14 +16,31 @@ const PORT = config.server.port;
 const app = express();
 
 async function initialize(): Promise<void> {
+  console.log('blog update!');
   await update();
+}
+
+function executeAsyncFunction() {
+  initialize().catch((err) => {
+    console.error('Error executing scheduled function:', err);
+  });
 }
 
 async function startServer(): Promise<void> {
   try {
+    // schedule
     await initialize();
+    const intervalId = setInterval(executeAsyncFunction, 1000 * 60 * 10);
 
-    app.use(helmet());
+    // helmet, csp
+    app.use(
+      helmet.contentSecurityPolicy({
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", 'https://cdn.jsdelivr.net'],
+        },
+      }),
+    );
 
     // front-build(static) path
     const staticPath = path.join(__dirname, '../static');
