@@ -49,6 +49,10 @@ WORKDIR /build
 COPY --from=builder /build/scripts/create_ssl_cert_cloudflare.sh /app/create_ssl_cert_cloudflare.sh
 RUN chmod +x /app/create_ssl_cert_cloudflare.sh
 
+# cron
+COPY --from=builder /build/cron /app/cron
+RUN chmod +x /app/cron/cron.sh && /app/cron/cron.sh
+
 # # try to renew letsencrypt ssl cert in every 12 hours
 # RUN SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); \
 #     echo "0 0,12 * * * root sleep $SLEEPTIME && certbot renew -q" | \
