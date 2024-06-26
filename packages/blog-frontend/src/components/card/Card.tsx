@@ -8,7 +8,7 @@ import Github from '/github-bg.jpg?url';
 import Dex from '/defi-bg.jpg?url';
 import Blog from '/blog-bg.jpg?url';
 import Chat from '/chat-bg.jpg?url';
-
+// css
 import './Card.css';
 
 export const [imageLoading, setImageLoading] = createStore({ num: 0 });
