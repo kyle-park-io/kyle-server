@@ -1,38 +1,42 @@
 import { type Component, type JSX } from 'solid-js';
-import { createSignal, createEffect } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { Container, Row, Col, Nav } from 'solid-bootstrap';
 import HomeLogo from '/home.svg?url';
 // component
 import { Move } from '../components/offcanvas/Offcanvas';
 
 const Header: Component = (): JSX.Element => {
+  const env = import.meta.env.VITE_ENV;
+  let url;
+  if (env === 'DEV') {
+    url = import.meta.env.VITE_DEV_URL;
+  } else if (env === 'PROD') {
+    url = import.meta.env.VITE_PROD_URL;
+  } else {
+    throw new Error('url env error');
+  }
+
   // const navigate = useNavigate();
   const handleTitleClick = (): void => {
     // navigate('/');
-    window.location.href = `https://jungho.dev`;
+    window.location.href = `${url}`;
   };
   const handleImageClick = (): void => {
     // navigate('/');
-    window.location.href = `https://jungho.dev`;
+    window.location.href = `${url}`;
   };
   const handleAboutClick = (): void => {
     // navigate('/about');
-    window.location.href = `https://jungho.dev/about`;
+    window.location.href = `${url}/about`;
   };
 
   const [show, setShow] = createSignal(false);
   const handleOpen = (): void => {
     setShow(true);
   };
-
   const handleClose = (): void => {
     setShow(false);
   };
-
-  createEffect(() => {
-    // console.log(show());
-    // setShow(props.open);
-  });
 
   return (
     <>

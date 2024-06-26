@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Spinner, Container, Row, Col } from 'solid-bootstrap';
 
 const BlogDetail: Component = (): JSX.Element => {
+  const api_url = import.meta.env.VITE_API_URL;
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -16,9 +18,7 @@ const BlogDetail: Component = (): JSX.Element => {
   onMount(() => {
     async function fetchData(): Promise<void> {
       try {
-        const res = await axios.get(
-          `https://jungho.dev/api-blog/api/blog/${params.id}`,
-        );
+        const res = await axios.get(`${api_url}/api/blog/${params.id}`);
         if (!res.data.exist) {
           navigate(`/blog/not-found?id=${params.id}`);
         }

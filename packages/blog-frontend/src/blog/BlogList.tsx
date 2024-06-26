@@ -14,6 +14,8 @@ import {
 } from 'solid-bootstrap';
 
 const BlogList: Component = (): JSX.Element => {
+  const api_url = import.meta.env.VITE_API_URL;
+
   const [error, setError] = createSignal<Error | null>(null);
   const [loading, setLoading] = createSignal(false);
   const [list, setList] = createSignal(['']);
@@ -21,7 +23,7 @@ const BlogList: Component = (): JSX.Element => {
   const handleClick = (): void => {
     async function handleAsyncClick(): Promise<void> {
       try {
-        await axios.get('https://jungho.dev/api-blog/api/blog/update');
+        await axios.get(`${api_url}/api/blog/update`);
         window.location.reload();
       } catch (err) {
         if (err instanceof Error) {
@@ -37,12 +39,9 @@ const BlogList: Component = (): JSX.Element => {
   const handleButtonClick = (id: string): void => {
     async function handleAsyncClick(): Promise<void> {
       try {
-        const res = await axios.get(
-          `https://jungho.dev/api-blog/api/blog/download/${id}`,
-          {
-            responseType: 'blob',
-          },
-        );
+        const res = await axios.get(`${api_url}/api/blog/download/${id}`, {
+          responseType: 'blob',
+        });
         const blob = new Blob([res.data], {
           type: res.headers['content-type'],
         });
@@ -61,7 +60,7 @@ const BlogList: Component = (): JSX.Element => {
   onMount(() => {
     async function fetchData(): Promise<void> {
       try {
-        const res = await axios.get('https://jungho.dev/api-blog/api/blog');
+        const res = await axios.get(`${api_url}/api/blog`);
         setList(res.data);
         setLoading(true);
       } catch (err) {
