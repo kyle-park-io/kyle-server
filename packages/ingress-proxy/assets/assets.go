@@ -24,10 +24,12 @@ var (
 		// jpg
 		"/404-bg.jpg":      {contentType: "image/jpeg", dataPath: "/app/public/404-bg.jpg"},
 		"/blog-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/blog-bg.jpg"},
+		"/cat-bg.jpg":      {contentType: "image/jpeg", dataPath: "/app/public/cat-bg.jpg"},
 		"/chat-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/chat-bg.jpg"},
 		"/defi-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/defi-bg.jpg"},
 		"/github-bg.jpg":   {contentType: "image/jpeg", dataPath: "/app/public/github-bg.jpg"},
 		"/gopher2-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/gopher2-bg.jpg"},
+		"/kyle-bg.webp":    {contentType: "image/webp", dataPath: "/app/public/kyle-bg.webp"},
 		"/linkedin-bg.jpg": {contentType: "image/jpeg", dataPath: "/app/public/linkedin-bg.jpg"},
 		"/profile-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/profile-bg.jpg"},
 		"/chart-bg.jpg":    {contentType: "image/jpeg", dataPath: "/app/public/chart-bg.jpg"},
