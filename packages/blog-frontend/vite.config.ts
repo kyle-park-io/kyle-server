@@ -5,6 +5,7 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   base: '/blog-static',
   plugins: [solid(), svgr()],
+  css: { postcss: './postcss.config.js' },
   build: {
     outDir: 'static',
     rollupOptions: {
