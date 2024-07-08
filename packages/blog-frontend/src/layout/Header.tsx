@@ -1,20 +1,15 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal } from 'solid-js';
 import { Container, Row, Col, Nav } from 'solid-bootstrap';
-import HomeLogo from '/home.svg?url';
+// image
+// import HomeLogo from '/home.svg?url';
+import HomeLogo from '@public/home.svg';
 // component
 import { Move } from '../components/offcanvas/Offcanvas';
+import { globalState } from '../constants/constants';
 
 const Header: Component = (): JSX.Element => {
-  const env = import.meta.env.VITE_ENV;
-  let url;
-  if (env === 'DEV') {
-    url = import.meta.env.VITE_DEV_URL;
-  } else if (env === 'PROD') {
-    url = import.meta.env.VITE_PROD_URL;
-  } else {
-    throw new Error('url env error');
-  }
+  const url = globalState.url;
 
   // const navigate = useNavigate();
   const handleTitleClick = (): void => {

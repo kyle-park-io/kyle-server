@@ -2,10 +2,8 @@ import { type Component, type JSX } from 'solid-js';
 import { createEffect } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { Container, Row, Col } from 'solid-bootstrap';
-
 // component
 import Hero from '../hero/Hero';
-
 // card
 import {
   imageLoading,
@@ -16,17 +14,10 @@ import {
   BlogCard,
   ChatCard,
 } from '../components/card/Card';
+import { globalState } from '../constants/constants';
 
 const App: Component = (): JSX.Element => {
-  const env = import.meta.env.VITE_ENV;
-  let url;
-  if (env === 'DEV') {
-    url = import.meta.env.VITE_DEV_URL;
-  } else if (env === 'PROD') {
-    url = import.meta.env.VITE_PROD_URL;
-  } else {
-    throw new Error('url env error');
-  }
+  const url = globalState.url;
 
   const navigate = useNavigate();
   const handleProfileClick = (): void => {

@@ -1,9 +1,12 @@
 import { type Component, type JSX } from 'solid-js';
 import { Carousel } from 'solid-bootstrap';
-
-import Gopher1 from '/gopher1-bg.webp?url';
-import Gopher2 from '/gopher2-bg.jpg?url';
-import Dex from '/dex-bg.webp?url';
+// image
+// import Gopher1 from '/gopher1-bg.webp?url';
+// import Gopher2 from '/gopher2-bg.jpg?url';
+// import Dex from '/dex-bg.webp?url';
+import Gopher1 from '@public/gopher1-bg.webp';
+import Gopher2 from '@public/gopher2-bg.jpg';
+import Dex from '@public/dex-bg.webp';
 
 const Hero: Component = (): JSX.Element => {
   return (

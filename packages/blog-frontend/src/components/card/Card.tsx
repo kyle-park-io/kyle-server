@@ -2,12 +2,18 @@ import { type Component, type JSX } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { Card } from 'solid-bootstrap';
 // image
-import Profile from '/profile-bg.jpg?url';
-import Linkedin from '/linkedin-bg.jpg?url';
-import Github from '/github-bg.jpg?url';
-import Dex from '/defi-bg.jpg?url';
-import Blog from '/blog-bg.jpg?url';
-import Chat from '/chat-bg.jpg?url';
+// import Profile from '/profile-bg.jpg?url';
+// import Linkedin from '/linkedin-bg.jpg?url';
+// import Github from '/github-bg.jpg?url';
+// import Dex from '/defi-bg.jpg?url';
+// import Blog from '/blog-bg.jpg?url';
+// import Chat from '/chat-bg.jpg?url';
+import Profile from '@public/profile-bg.jpg';
+import Linkedin from '@public/linkedin-bg.jpg';
+import Github from '@public/github-bg.jpg';
+import Dex from '@public/defi-bg.jpg';
+import Blog from '@public/blog-bg.jpg';
+import Chat from '@public/chat-bg.jpg';
 // css
 import './Card.css';
 

@@ -1,7 +1,8 @@
 import { type Component, type JSX } from 'solid-js';
 import { Container, Row, Col, Image } from 'solid-bootstrap';
 // image
-import Kyle from '/kyle-bg.webp?url';
+// import Kyle from '/kyle-bg.webp?url';
+import Kyle from '@public/kyle-bg.webp';
 
 const Profile: Component = (): JSX.Element => {
   return (

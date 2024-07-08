@@ -1,9 +1,12 @@
 import { type Component, type JSX } from 'solid-js';
 import { Container, Row, Col } from 'solid-bootstrap';
-
-import Notion from '/notion-icon.svg?url';
-import Linkedin from '/linkedin-icon.png?url';
-import Github from '/github-icon.png?url';
+// image
+// import Notion from '/notion-icon.svg?url';
+// import Linkedin from '/linkedin-icon.png?url';
+// import Github from '/github-icon.png?url';
+import Notion from '@public/notion-icon.svg';
+import Linkedin from '@public/linkedin-icon.png';
+import Github from '@public/github-icon.png';
 
 const Footer: Component = (): JSX.Element => {
   const handleNotionClick = (): void => {

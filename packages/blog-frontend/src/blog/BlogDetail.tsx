@@ -3,9 +3,10 @@ import { createSignal, onMount } from 'solid-js';
 import { useParams, useNavigate } from '@solidjs/router';
 import axios from 'axios';
 import { Spinner, Container, Row, Col } from 'solid-bootstrap';
+import { globalState } from '../constants/constants';
 
 const BlogDetail: Component = (): JSX.Element => {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = globalState.api_url;
 
   const params = useParams();
   const navigate = useNavigate();

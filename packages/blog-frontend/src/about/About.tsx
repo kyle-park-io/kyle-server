@@ -1,7 +1,8 @@
 import { type Component, type JSX } from 'solid-js';
 import { Container, Row, Col, Image } from 'solid-bootstrap';
 // image
-import Cat from '/cat-bg.jpg?url';
+// import Cat from '/cat-bg.jpg?url';
+import Cat from '@public/cat-bg.jpg';
 
 const About: Component = (): JSX.Element => {
   return (

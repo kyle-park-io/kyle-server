@@ -12,9 +12,10 @@ import {
   Pagination,
   Table,
 } from 'solid-bootstrap';
+import { globalState } from '../constants/constants';
 
 const BlogList: Component = (): JSX.Element => {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = globalState.api_url;
 
   const [error, setError] = createSignal<Error | null>(null);
   const [loading, setLoading] = createSignal(false);
@@ -63,6 +64,9 @@ const BlogList: Component = (): JSX.Element => {
         const res = await axios.get(`${api_url}/api/blog`);
         setList(res.data);
         setLoading(true);
+
+        const res2 = await axios.get(`${api_url}/api/blog/number`);
+        console.log(res2);
       } catch (err) {
         if (err instanceof Error) {
           setError(err);

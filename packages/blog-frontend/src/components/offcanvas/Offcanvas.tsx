@@ -2,17 +2,10 @@ import { type Component, type JSX } from 'solid-js';
 import { Offcanvas, ListGroup } from 'solid-bootstrap';
 // interface
 import { type MoveProps } from './interfaces/offcanvas.interfaces';
+import { globalState } from '../../constants/constants';
 
 export const Move: Component<MoveProps> = (props): JSX.Element => {
-  const env = import.meta.env.VITE_ENV;
-  let url;
-  if (env === 'DEV') {
-    url = import.meta.env.VITE_DEV_URL;
-  } else if (env === 'PROD') {
-    url = import.meta.env.VITE_PROD_URL;
-  } else {
-    throw new Error('url env error');
-  }
+  const url = globalState.url;
 
   const handleDexClick = (): void => {
     window.location.href = `${url}/dex`;
