@@ -34,12 +34,23 @@ async function startServer(): Promise<void> {
 
     // helmet, csp
     app.use(
-      helmet.contentSecurityPolicy({
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", 'https://cdn.jsdelivr.net'],
-        },
-      }),
+      helmet({ contentSecurityPolicy: false }),
+      // helmet.contentSecurityPolicy({
+      //   useDefaults: true,
+      //   directives: {
+      //     'default-src': ["'self'"],
+      //     'script-src': [
+      //       "'self'",
+      //       'https://cdn.jsdelivr.net',
+      //       'https://cdnjs.cloudflare.com',
+      //     ],
+      //     'style-src': [
+      //       "'self'",
+      //       'https://cdn.jsdelivr.net',
+      //       'https://cdnjs.cloudflare.com',
+      //     ],
+      //   },
+      // }),
     );
 
     // front-build(static) path
