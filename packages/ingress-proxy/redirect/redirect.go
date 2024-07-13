@@ -38,6 +38,7 @@ func Redirect404(w http.ResponseWriter, r *http.Request) {
 
 	logger.Log.Warnf("404: %s from %s", urlPath, r.RemoteAddr)
 
+	// redirect to default(blog) cluster
 	targetURL := Redirects["/"].Url
 	u, err := url.Parse(targetURL)
 	if err != nil {
@@ -46,24 +47,25 @@ func Redirect404(w http.ResponseWriter, r *http.Request) {
 	}
 	rp := httputil.NewSingleHostReverseProxy(u)
 
-	originalDirector := rp.Director
-	// Director 함수를 오버라이드
-	rp.Director = func(req *http.Request) {
-		// 원래 Director 함수 호출
-		originalDirector(req)
-		// 요청의 경로를 404로 변경
-		req.Host = u.Host
-		req.URL.Path = "/404"
-		req.URL.Host = u.Host
-		req.URL.Scheme = u.Scheme
-		req.Header.Set("X-Forwarded-Host", req.Header.Get("Host"))
-	}
+	// originalDirector := rp.Director
+	// // Director 함수를 오버라이드
+	// rp.Director = func(req *http.Request) {
+	// 	// 원래 Director 함수 호출
+	// 	originalDirector(req)
+	// 	// 요청의 경로를 404로 변경
+	// 	req.Host = u.Host
+	// 	req.URL.Path = "/404"
+	// 	req.URL.Host = u.Host
+	// 	req.URL.Scheme = u.Scheme
+	// 	req.Header.Set("X-Forwarded-Host", req.Header.Get("Host"))
+	// }
 	rp.ServeHTTP(w, r)
 }
 
 // api
 func RedirectAPIHandler(w http.ResponseWriter, r *http.Request, link *types.Config) {
 	logger.Log.Info("RedirectAPIHandler : ")
+	logger.Log.Infof("Request:\n%v", r)
 
 	urlPath := r.URL.Path
 	_, pathSurfix := utils.SplitPath(urlPath)
