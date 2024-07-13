@@ -2,11 +2,26 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
+// optimize
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   target: 'web',
   devtool: 'source-map',
   entry: './src/index.tsx',
+  output: {
+    clean: true,
+    path: path.resolve(__dirname, 'static'),
+    // ingress(proxy) server prefix-
+    publicPath: '/blog-static/',
+    // assets
+    filename: 'assets/[name].blog.[contenthash].js',
+    chunkFilename: 'assets/[name].blog.[contenthash].js',
+    assetModuleFilename: 'assets/[name].blog[ext]',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs'],
     alias: {
@@ -21,7 +36,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-typescript', '@babel/preset-env', 'solid'],
+            presets: ['@babel/preset-env', '@babel/preset-typescript', 'solid'],
           },
         },
         exclude: /node_modules/,
@@ -41,7 +56,7 @@ module.exports = {
       // {
       //   test: /\.m?js$/,
       //   use: {
-      //     loader: "babel-loader",
+      //     loader: "babel-loader", // Babel 로더 사용
       //     options: {
       //       presets: ["@babel/preset-env"],
       //     },
@@ -67,24 +82,12 @@ module.exports = {
       scriptLoading: 'defer',
       // scriptLoading: 'module',
     }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'public', to: 'public' }],
+    }),
+    // // optimize
+    // new CleanWebpackPlugin(),
+    // new BundleAnalyzerPlugin(),
+    // new CompressionPlugin(),
   ],
-  // dev-server
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
-    compress: true,
-    port: 3000,
-    historyApiFallback: true,
-    // proxy(cors)
-    proxy: [
-      {
-        context: ['/api', '/api-chat'],
-        target: 'https://jungho.dev',
-        // pathRewrite: { '^/api/': '' },
-        changeOrigin: true,
-        // secure: false,
-      },
-    ],
-  },
 };
