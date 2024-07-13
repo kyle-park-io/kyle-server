@@ -20,3 +20,6 @@ links:
   - name: api-dex
     route: /api-dex
     url: http://dexserv.default.svc.cluster.local:8080
+  - name: api-chat
+    route: /api-chat
+    url: http://chat-node-envoy.default.svc.cluster.local:8080

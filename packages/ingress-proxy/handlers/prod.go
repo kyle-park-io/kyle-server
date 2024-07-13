@@ -38,6 +38,8 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectAPIHandler(w, r, link)
 			case "api-dex":
 				redirect.RedirectAPIHandler(w, r, link)
+			case "api-chat":
+				redirect.RedirectAPIHandler(w, r, link)
 			// basic
 			case "blog":
 				redirect.RedirectHandler(w, r, link)
@@ -49,7 +51,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectHandler(w, r, link)
 			case "dex-static":
 				redirect.RedirectHandler(w, r, link)
-			// 404, extra
+			// extra
 			default:
 				redirect.RedirectHandler(w, r, link)
 			}
