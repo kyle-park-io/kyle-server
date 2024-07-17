@@ -20,6 +20,9 @@ const BlogList: Component = (): JSX.Element => {
   const [error, setError] = createSignal<Error | null>(null);
   const [loading, setLoading] = createSignal(false);
   const [list, setList] = createSignal(['']);
+  const [page, setPage] = createSignal(0);
+  const [pages, setPages] = createSignal(Array(0).fill(''));
+  const [currentPage, setCurrentPage] = createSignal(1);
 
   const handleClick = (): void => {
     async function handleAsyncClick(): Promise<void> {
@@ -58,15 +61,62 @@ const BlogList: Component = (): JSX.Element => {
     void handleAsyncClick();
   };
 
+  const handlePageClick = (index: number): void => {
+    async function handleAsyncClick(): Promise<void> {
+      try {
+        if (index === 0 || index === page() + 1 || index === currentPage()) {
+          return;
+        }
+        setLoading(false);
+
+        const params = {
+          number: index,
+        };
+        const blogList = await axios.get(
+          `${api_url}/api/blog/sorted-by-date/pagination`,
+          { params },
+        );
+
+        let result: string[] = [];
+        for (let i = 0; i < blogList.data.length; i++) {
+          result.push(blogList.data[i].split('.')[0]);
+        }
+        setList(result);
+        setCurrentPage(index);
+
+        setLoading(true);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err);
+        } else {
+          setError(new Error(String(err)));
+        }
+        setLoading(true);
+      }
+    }
+    void handleAsyncClick();
+  };
+
   onMount(() => {
     async function fetchData(): Promise<void> {
       try {
-        const res = await axios.get(`${api_url}/api/blog`);
-        setList(res.data);
-        setLoading(true);
+        // const res = await axios.get(`${api_url}/api/blog`);
+        // setList(res.data);
 
-        const res2 = await axios.get(`${api_url}/api/blog/number`);
-        console.log(res2);
+        const blogNumber = await axios.get(`${api_url}/api/blog/number`);
+        setPage(Math.ceil((blogNumber.data as unknown as number) / 10));
+        setPages(Array(page()).fill(''));
+
+        const blogList = await axios.get(
+          `${api_url}/api/blog/sorted-by-date/top-10`,
+        );
+        let result: string[] = [];
+        for (let i = 0; i < blogList.data.length; i++) {
+          result.push(blogList.data[i].split('.')[0]);
+        }
+        setList(result);
+
+        setLoading(true);
       } catch (err) {
         if (err instanceof Error) {
           setError(err);
@@ -81,87 +131,89 @@ const BlogList: Component = (): JSX.Element => {
 
   return (
     <>
-      <Container fluid>
-        <Row>
+      <Container fluid class="tw-p-4">
+        <Row class="tw-h-full tw-flex tw-flex-col">
           <Col md={12}>
             <h1>BlogList</h1>
+            <br></br>
           </Col>
-        </Row>
-        <Row>
-          <Col md={2}></Col>
-          <Col md={8} class="tw-flex tw-justify-center">
-            {!loading() ? (
-              <div>
-                <span>Loading...</span>
-                <Spinner animation="border" variant="primary" />
-              </div>
-            ) : (
-              <div>
-                {error() !== null ? (
-                  <span>{error()?.message}</span>
-                ) : (
-                  <div>
-                    <div>
+          <div class="tw-flex-1 tw-flex tw-flex-col">
+            <div class="tw-flex-1 tw-flex tw-justify-center tw-items-center tw-flex-col">
+              {!loading() ? (
+                <>
+                  <span>Loading...</span>
+                  <Spinner animation="border" variant="primary" />
+                </>
+              ) : (
+                <>
+                  {error() !== null ? (
+                    <span>{error()?.message}</span>
+                  ) : (
+                    <>
                       <button
                         onClick={handleClick}
                         class="tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded"
                       >
                         Update
                       </button>
-                    </div>
-                    <div>
-                      <Table striped bordered hover>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Head</th>
-                          </tr>
-                        </thead>
-                        <For each={list()}>
-                          {(item, index) => (
+                      <div>
+                        <Table striped bordered hover>
+                          <thead>
                             <tr>
-                              <td>{index() + 1}</td>
-                              <td>
-                                <A href={'/blog' + '/' + item}>{item}</A>
-                              </td>
-                              <td>
-                                <Button
-                                  onClick={() => handleButtonClick(item)}
-                                  variant="info"
-                                >
-                                  Download
-                                </Button>
-                              </td>
+                              <th>#</th>
+                              <th>Head</th>
+                              <th>Download</th>
                             </tr>
-                          )}
-                        </For>
-                      </Table>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </Col>
-          <Col md={2}></Col>
-          <Col md={12} class="tw-flex tw-items-center tw-justify-center">
-            <Pagination size="sm">
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Item>{1}</Pagination.Item>
-              <Pagination.Ellipsis />
-
-              <Pagination.Item>{10}</Pagination.Item>
-              <Pagination.Item>{11}</Pagination.Item>
-              <Pagination.Item active>{12}</Pagination.Item>
-              <Pagination.Item>{13}</Pagination.Item>
-              <Pagination.Item disabled>{14}</Pagination.Item>
-
-              <Pagination.Ellipsis />
-              <Pagination.Item>{20}</Pagination.Item>
-              <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
-          </Col>
+                          </thead>
+                          <For each={list()}>
+                            {(item, index) => (
+                              <tr>
+                                <td>
+                                  {(currentPage() - 1) * 10 + index() + 1}
+                                </td>
+                                <td>
+                                  <A href={'/blog' + '/' + item}>{item}</A>
+                                </td>
+                                <td>
+                                  <Button
+                                    onClick={() => handleButtonClick(item)}
+                                    variant="info"
+                                  >
+                                    Download
+                                  </Button>
+                                </td>
+                              </tr>
+                            )}
+                          </For>
+                        </Table>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+            <div class="tw-flex tw-items-center tw-justify-center">
+              <Pagination size="sm">
+                <Pagination.First onClick={() => handlePageClick(1)} />
+                <Pagination.Prev
+                  onClick={() => handlePageClick(currentPage() - 1)}
+                />
+                {pages().map((value, index) => (
+                  <Pagination.Item
+                    active={currentPage() === index + 1}
+                    onClick={() => handlePageClick(index + 1)}
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                ))}
+                {/* <Pagination.Ellipsis /> */}
+                <Pagination.Next
+                  onClick={() => handlePageClick(currentPage() + 1)}
+                />
+                <Pagination.Last onClick={() => handlePageClick(page())} />
+              </Pagination>
+            </div>
+          </div>
         </Row>
       </Container>
     </>
