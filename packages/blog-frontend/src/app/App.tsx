@@ -46,7 +46,7 @@ const App: Component = (): JSX.Element => {
   return (
     <>
       <Hero></Hero>
-      <Container fluid>
+      <Container fluid class="tw-p-4">
         <Row class="tw-items-center">
           <Col lg={5} md={5} sm={0} xs={0}></Col>
           <Col lg={7} md={7} sm={12} xs={12}>

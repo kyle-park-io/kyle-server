@@ -50,7 +50,7 @@ const Header: Component = (): JSX.Element => {
               </button>
             </Col>
             <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-end">
-              <Nav defaultActiveKey="#" as="ul">
+              <Nav defaultActiveKey="#" as="ul" class="tw-flex-nowrap">
                 <Nav.Item as="li">
                   <Nav.Link eventKey="about" onClick={handleAboutClick}>
                     <span class="tw-text-black">About</span>

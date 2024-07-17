@@ -7,14 +7,15 @@ import Cat from '@public/cat-bg.jpg';
 const About: Component = (): JSX.Element => {
   return (
     <>
-      <Container fluid>
+      <Container fluid class="tw-p-4">
         <Row>
           <Col md={12}>
             <h1>About</h1>
+            <br></br>
           </Col>
         </Row>
         <Row>
-          <Col md={7} xs={6}>
+          <Col md={7} xs={12}>
             <ol>
               <li>
                 <p>
@@ -91,17 +92,17 @@ const About: Component = (): JSX.Element => {
                     </a>
                   </li>
                   <li>
-                    OpenChat :{' '}
-                    <a href="https://open.kakao.com/o/s11ostzg">
-                      https://open.kakao.com/o/s11ostzg
+                    Telegram :{' '}
+                    <a href="https://t.me/kyleparkio">
+                      https://t.me/kyleparkio
                     </a>
                   </li>
                 </ul>
               </li>
             </ol>
           </Col>
-          <Col md={5} xs={6}>
-            <Image src={Cat} fluid></Image>
+          <Col md={5} xs={12}>
+            <Image src={Cat} fluid class="d-none d-md-block"></Image>
           </Col>
         </Row>
       </Container>

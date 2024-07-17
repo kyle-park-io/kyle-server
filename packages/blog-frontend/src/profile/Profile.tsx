@@ -7,16 +7,18 @@ import Kyle from '@public/kyle-bg.webp';
 const Profile: Component = (): JSX.Element => {
   return (
     <>
-      <Container fluid>
+      <Container fluid class="tw-p-4">
         <Row>
           <Col md={12}>
             <h1>Profile</h1>
+            <br></br>
           </Col>
         </Row>
         <Row>
-          <Col md={7} xs={6}>
+          <Col md={7} xs={12}>
             <h3 id="-">학력</h3>
             <p>경희대학교 공과대학 기계공학과 졸업 (2014.03 ~ 2022.08)</p>
+            <br></br>
             <h3 id="-">경력</h3>
             <ol>
               <li>
@@ -27,6 +29,7 @@ const Profile: Component = (): JSX.Element => {
                   <li>업무 : 블록체인</li>
                 </ol>
               </li>
+              <br></br>
               <li>
                 ㈜ 비에프랩스
                 <ol>
@@ -36,16 +39,14 @@ const Profile: Component = (): JSX.Element => {
                 </ol>
               </li>
             </ol>
-            <h3 id="-">경력 기술서</h3>
-            <ol>
-              <li>000</li>
-            </ol>
-            <h3 id="-">자기소개서</h3>
+            <br></br>
+            <h3 id="-">자기소개서 (경력 기술서)</h3>
             <p>
               <a href="https://www.notion.so/f3ea582e4db84ad3b256b4f153349d02?pvs=21">
                 https://kyle-park.notion.site/f3ea582e4db84ad3b256b4f153349d02?pvs=25
               </a>
             </p>
+            <br></br>
             <h3 id="-">포트폴리오</h3>
             <ol>
               <li>
@@ -63,6 +64,7 @@ const Profile: Component = (): JSX.Element => {
                 </a>
               </li>
             </ol>
+            <br></br>
             <h3 id="-">자격/어학/수상</h3>
             <p>2021 공조냉동기계기사</p>
             <p>2020 일반기계기사</p>
@@ -70,11 +72,12 @@ const Profile: Component = (): JSX.Element => {
             <p>2019 컴퓨터활용능력 1급</p>
             <p>2005 워드프로세서 1급</p>
             <p>2015 1종 보통운전면허</p>
+            <br></br>
             <h3 id="mbti">MBTI</h3>
             <p>ENTJ</p>
           </Col>
-          <Col md={5} xs={6}>
-            <Image src={Kyle} fluid></Image>
+          <Col md={5} xs={12}>
+            <Image src={Kyle} fluid class="d-none d-md-block"></Image>
           </Col>
         </Row>
       </Container>
