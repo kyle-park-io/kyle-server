@@ -2,6 +2,8 @@ import { type Request, type Response } from 'express';
 import express from 'express';
 import {
   blogListNumber,
+  blogGetTop10SortedByDate,
+  blogGet10ByPagination,
   blogList,
   blogDetail,
   blogDownload,
@@ -15,8 +17,14 @@ apiRouter.get('/blog/number', (req: Request, res: Response) => {
   void blogListNumber(req, res);
 });
 apiRouter.get('/blog/sorted-by-date/top-10', (req: Request, res: Response) => {
-  void blogListNumber(req, res);
+  void blogGetTop10SortedByDate(req, res);
 });
+apiRouter.get(
+  '/blog/sorted-by-date/pagination',
+  (req: Request, res: Response) => {
+    void blogGet10ByPagination(req, res);
+  },
+);
 apiRouter.get('/blog', (req: Request, res: Response) => {
   void blogList(req, res);
 });

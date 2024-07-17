@@ -26,13 +26,41 @@ export const blogGetTop10SortedByDate = async (
   res: Response,
 ): Promise<any> => {
   try {
-    const htmlOutputPath = path.join('/usr/src/app/html');
-    const list = fs.readdirSync(htmlOutputPath, 'utf8');
-    const result: string[] = [];
-    for (let i = 0; i < list.length; i++) {
-      result.push(list[i].split('.')[0]);
+    const sortOutputPath = path.join(
+      '/usr/src/app/sort/sorted_md_10_files.txt',
+    );
+    const list = fs.readFileSync(sortOutputPath, 'utf8');
+    res.json(JSON.parse(list));
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err.message);
+      res.status(500).send(err.message);
+    } else {
+      console.error('An unexpected error occurred:', err);
+      res.status(500).send(new Error('An unexpected error occurred'));
     }
-    res.json(result);
+  }
+};
+
+export const blogGet10ByPagination = async (
+  req: Request,
+  res: Response,
+): Promise<any> => {
+  try {
+    const sortOutputPath = path.join('/usr/src/app/sort/sorted_md_files.txt');
+    const list = fs.readFileSync(sortOutputPath, 'utf8');
+    const fileList = JSON.parse(list);
+    console.log('query:', req.query);
+
+    const number: number = req.query.number as unknown as number;
+    console.log(number);
+    if (number * 10 > fileList.length) {
+      const result = fileList.slice((number - 1) * 10, fileList.length);
+      return res.json(result);
+    } else {
+      const result = fileList.slice((number - 1) * 10, number * 10);
+      return res.json(result);
+    }
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
