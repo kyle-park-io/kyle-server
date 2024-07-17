@@ -17,6 +17,8 @@ import BlogDetail from './blog/BlogDetail';
 import BlogNotFound from './blog/BlogNotFound';
 import Chat from './chat/Chat';
 import NotFoundPage from './components/404/NotFoundPage';
+// test component
+import Test from './blog/Test';
 
 const root = document.getElementById('root');
 if (root != null) {
@@ -29,6 +31,7 @@ if (root != null) {
         <div class="tw-flex-grow tw-flex tw-flex-wrap">
           <Router>
             <Route path="/" component={App} />
+            <Route path="/test" component={Test} />
             <Route path="/about" component={About} />
             <Route path="/profile" component={Profile} />
             <Route path="/blog" component={BlogList} />
