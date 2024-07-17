@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.responsive-height {
+  height: 300px; /* 기본값 */
+}
+
+/* sm: 576px 이상 */
+@media (min-width: 576px) {
+  .responsive-height {
+    height: 600px;
+  }
+}
+
+/* md: 768px 이상 */
+@media (min-width: 768px) {
+}
+
+/* lg: 992px 이상 */
+@media (min-width: 992px) {
+}
+
+/* xl: 1200px 이상 */
+@media (min-width: 1200px) {
+}
+
+/* xxl: 1400px 이상 (Bootstrap 5) */
+@media (min-width: 1400px) {
+}

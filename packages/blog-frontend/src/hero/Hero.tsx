@@ -6,47 +6,56 @@ import { Carousel } from 'solid-bootstrap';
 // import Dex from '/dex-bg.webp?url';
 import Gopher1 from '@public/gopher1-bg.webp';
 import Gopher2 from '@public/gopher2-bg.jpg';
-import Dex from '@public/dex-bg.webp';
+import Bitcoin from '@public/bitcoin-bg.jpg';
+// import Dex from '@public/dex-bg.webp';
+// css
+import './Hero.css';
+import { globalState } from '../constants/constants';
 
 const Hero: Component = (): JSX.Element => {
   return (
     <>
       <div class="tw-w-full">
-        <Carousel fade interval={30000}>
+        <Carousel fade interval={30000} variant="dark">
           <Carousel.Item>
-            <div
-              class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center"
-              style={{ height: '500px' }}
-            >
-              <img src={Gopher1} alt="Gopher1" class="tw-h-full"></img>
+            <a href={`${globalState.url}/dex`}>
+              <div class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center responsive-height">
+                <img
+                  src={Bitcoin}
+                  alt="Bitcoin"
+                  class="tw-h-full tw-max-w-full"
+                ></img>
+              </div>
+              <Carousel.Caption>
+                <h2>Dex</h2>
+                <p>Go to Project</p>
+              </Carousel.Caption>
+            </a>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center responsive-height">
+              <img
+                src={Gopher1}
+                alt="Gopher1"
+                class="tw-h-full tw-max-w-full"
+              ></img>
             </div>
             <Carousel.Caption>
               <h2>Golang</h2>
-              <p>Blah Blah Blah</p>
+              <p>kyle-park-io</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <div
-              class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center"
-              style={{ height: '500px' }}
-            >
-              <img src={Gopher2} alt="Gopher1" class="tw-h-full"></img>
+            <div class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center responsive-height">
+              <img
+                src={Gopher2}
+                alt="Gopher1"
+                class="tw-h-full tw-max-w-full"
+              ></img>
             </div>
             <Carousel.Caption>
               <h2>Golang</h2>
-              <p>Blah Blah Blah</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div
-              class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center"
-              style={{ height: '500px' }}
-            >
-              <img src={Dex} alt="Gopher1" class="tw-h-full"></img>
-            </div>
-            <Carousel.Caption>
-              <h2>Dex</h2>
-              <p>Blah Blah Blah</p>
+              <p>kyle-park-io</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
