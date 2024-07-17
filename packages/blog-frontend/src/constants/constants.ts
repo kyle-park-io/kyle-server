@@ -1,6 +1,6 @@
 import { createStore } from 'solid-js/store';
 
-const isProd = true;
+const isProd = process.env.NODE_ENV === 'development' ? false : true;
 
 const [globalState, setGlobalState] = createStore({
   url: isProd ? 'https://jungho.dev' : 'http://localhost:3000',
