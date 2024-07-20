@@ -11,4 +11,4 @@ yarn run clean-build-prod
 cp -r -p static ${currentDir}/packages/blog-backend/static
 
 # public files
-cp -p public/* ${currentDir}/packages/ingress-proxy/public
+cp -r -p public/* ${currentDir}/packages/ingress-proxy/public

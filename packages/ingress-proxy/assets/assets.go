@@ -8,10 +8,11 @@ import (
 
 var (
 	assets = map[string]*Asset{
-		"/favicon.ico": {contentType: "image/x-icon", dataPath: "/app/public/favicon.ico"},
-		"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/ads.txt"},
-		"/robots.txt":  {contentType: "text/plain", dataPath: "/app/public/robots.txt"},
-		"/sitemap.xml": {contentType: "text/xml", dataPath: "/app/public/sitemap.xml"},
+		// root
+		"/favicon.ico": {contentType: "image/x-icon", dataPath: "/app/public/root/favicon.ico"},
+		"/robots.txt":  {contentType: "text/plain", dataPath: "/app/public/root/robots.txt"},
+		"/sitemap.xml": {contentType: "text/xml", dataPath: "/app/public/root/sitemap.xml"},
+		"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/root/ads.txt"},
 		// svg
 		"/home.svg":        {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
 		"/notion-icon.svg": {contentType: "image/svg+xml", dataPath: "/app/public/notion-icon.svg"},
@@ -30,7 +31,7 @@ var (
 		"/defi-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/defi-bg.jpg"},
 		"/github-bg.jpg":   {contentType: "image/jpeg", dataPath: "/app/public/github-bg.jpg"},
 		"/gopher2-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/gopher2-bg.jpg"},
-		"/kyle-bg.webp":    {contentType: "image/webp", dataPath: "/app/public/kyle-bg.webp"},
+		"/kyle-bg.webp":    {contentType: "image/webp", dataPath: "/app/public/kyle/kyle-bg.webp"},
 		"/linkedin-bg.jpg": {contentType: "image/jpeg", dataPath: "/app/public/linkedin-bg.jpg"},
 		"/profile-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/profile-bg.jpg"},
 		"/chart-bg.jpg":    {contentType: "image/jpeg", dataPath: "/app/public/chart-bg.jpg"},
