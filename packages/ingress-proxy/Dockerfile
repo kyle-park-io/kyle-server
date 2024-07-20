@@ -48,6 +48,8 @@ WORKDIR /build
 # cloudflare
 COPY --from=builder /build/scripts/create_ssl_cert_cloudflare.sh /app/create_ssl_cert_cloudflare.sh
 RUN chmod +x /app/create_ssl_cert_cloudflare.sh
+COPY --from=builder /build/scripts/renew_ssl_cert.sh /app/renew_ssl_cert.sh
+RUN chmod +x /app/renew_ssl_cert.sh
 
 # cron
 COPY --from=builder /build/cron /app/cron
