@@ -13,6 +13,9 @@ links:
   - name: blog-static
     route: /blog-static
     url: http://blogserv.default.svc.cluster.local:8080
+  - name: dex-static
+    route: /dex-static
+    url: http://dexserv.default.svc.cluster.local:8080
   # api
   - name: api-blog
     route: /api-blog
