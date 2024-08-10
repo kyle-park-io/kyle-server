@@ -37,7 +37,8 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			case "api-blog":
 				redirect.RedirectAPIHandler(w, r, link)
 			case "api-dex":
-				redirect.RedirectAPIHandler(w, r, link)
+				// redirect.RedirectAPIHandler(w, r, link)
+				redirect.RedirectHandler(w, r, link)
 			case "api-chat":
 				redirect.RedirectAPIHandler(w, r, link)
 			// basic
