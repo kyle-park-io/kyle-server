@@ -6,7 +6,6 @@
 .DS_Store
 *.zip
 static
-dev.sh
 
 ### ini ###
 *.ini
