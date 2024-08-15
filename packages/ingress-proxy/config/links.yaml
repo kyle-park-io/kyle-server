@@ -2,27 +2,27 @@ links:
   # basic
   - name: default
     route: /
-    url: http://blogserv.default.svc.cluster.local:8080
+    url: http://site-app-server-service.default.svc.cluster.local:8080
   - name: blog
     route: /blog
-    url: http://blogserv.default.svc.cluster.local:8080
+    url: http://site-app-server-service.default.svc.cluster.local:8080
   - name: dex
     route: /dex
-    url: http://dexserv.default.svc.cluster.local:8080
+    url: http://dex-app-server-service.default.svc.cluster.local:8080
   # static
   - name: blog-static
     route: /blog-static
-    url: http://blogserv.default.svc.cluster.local:8080
+    url: http://site-app-server-service.default.svc.cluster.local:8080
   - name: dex-static
     route: /dex-static
-    url: http://dexserv.default.svc.cluster.local:8080
+    url: http://dex-app-server-service.default.svc.cluster.local:8080
   # api
   - name: api-blog
     route: /api-blog
-    url: http://blogserv.default.svc.cluster.local:8080
+    url: http://site-app-server-service.default.svc.cluster.local:8080
   - name: api-dex
     route: /api-dex
-    url: http://dexserv.default.svc.cluster.local:8080
+    url: http://dex-app-server-service.default.svc.cluster.local:8080
   - name: api-chat
     route: /api-chat
-    url: http://chat-node-envoy.default.svc.cluster.local:8080
+    url: http://chat-app-envoy-service.default.svc.cluster.local:8080
