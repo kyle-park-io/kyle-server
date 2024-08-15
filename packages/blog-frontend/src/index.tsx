@@ -25,7 +25,8 @@ if (root != null) {
   render(
     () => (
       <div class="tw-flex tw-flex-col tw-min-h-screen">
-        <div class="tw-bg-white tw-h-12 tw-overflow-auto">
+        {/* tw-overflow-auto */}
+        <div class="tw-bg-white tw-h-12">
           <Header></Header>
         </div>
         <div class="tw-flex-grow tw-flex tw-flex-wrap">

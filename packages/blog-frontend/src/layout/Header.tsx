@@ -35,10 +35,10 @@ const Header: Component = (): JSX.Element => {
 
   return (
     <>
-      <div>
+      <div class="tw-h-full">
         <header class="offscreen">golang is forever !</header>
-        <Container fluid>
-          <Row class="tw-items-center">
+        <Container fluid class="tw-h-full">
+          <Row class="tw-h-full tw-items-center">
             <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-start">
               <button onClick={handleImageClick} class="transparent tw-h-10">
                 <img src={HomeLogo} alt="Home" class="tw-h-full"></img>
