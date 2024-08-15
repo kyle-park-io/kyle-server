@@ -1,14 +1,15 @@
-currentDir=$(pwd)
+# dir
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
-cd ${currentDir}/packages/blog-backend
+cd ${SCRIPT_DIR}/../packages/blog-backend
 rm -rf static
 rm -rf dist
 
-cd ${currentDir}/packages/blog-frontend
+cd ${SCRIPT_DIR}/../packages/blog-frontend
 # rm -rf static
 # yarn run build
 yarn run clean-build-prod
-cp -r -p static ${currentDir}/packages/blog-backend/static
+cp -r -p static ${SCRIPT_DIR}/../packages/blog-backend/static
 
 # public files
-cp -r -p public/* ${currentDir}/packages/ingress-proxy/public
+cp -r -p public/* ${SCRIPT_DIR}/../packages/ingress-proxy/public

@@ -1,9 +1,10 @@
 # docker builder prune -f
 
-currentDir=$(pwd)
+# dir
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
-cd ${currentDir}/packages/blog-backend
+cd ${SCRIPT_DIR}/../packages/blog-backend
 ./push2gke_artifact.sh
 
-cd ${currentDir}/packages/ingress-proxy
+cd ${SCRIPT_DIR}/../packages/ingress-proxy
 ./push2gke_artifact.sh
