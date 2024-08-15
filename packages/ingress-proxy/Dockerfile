@@ -1,5 +1,5 @@
 # build stage
-FROM golang:alpine as builder
+FROM golang:alpine AS builder
 
 ARG PROGRAM_VER=dev-docker
 
