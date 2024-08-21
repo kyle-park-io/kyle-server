@@ -1,7 +1,6 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
-import { Container, Row, Col } from 'solid-bootstrap';
-import { Form, Button, Image } from 'solid-bootstrap';
+import { Container, Row, Col, Form, Button, Image } from 'solid-bootstrap';
 import { globalState } from '../constants/constants';
 import { ChatClient } from './commonjs+dts/chat_grpc_web_pb';
 import { ChatMsg } from './commonjs+dts/chat_pb';
@@ -9,11 +8,14 @@ import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 import { v4 as uuidv4 } from 'uuid';
 import ChatImg from '@public/chat2-bg.svg';
 
-const Chat: Component = (): JSX.Element => {
-  const [userId, setUserId] = createSignal('');
-  const [text, setText] = createSignal('');
+const client = new ChatClient(globalState.grpc_url, null, null);
 
-  const handleSendClick = (): void => {
+const [sendOk, setSendOk] = createSignal(false);
+const [userId, setUserId] = createSignal('');
+const [text, setText] = createSignal('');
+
+async function sendMessage(): Promise<any> {
+  return await new Promise((resolve, reject) => {
     const msg = new ChatMsg();
     msg.setUserId(userId());
     msg.setText(text());
@@ -21,14 +23,31 @@ const Chat: Component = (): JSX.Element => {
     const timestamp = Timestamp.fromDate(now);
     msg.setEventTime(timestamp);
 
-    const client = new ChatClient(globalState.grpc_url, null, null);
     client.sendMsg(msg, {}, (err, res) => {
-      if (err) {
+      if (err != null) {
         console.error('Error:', err);
+        setSendOk(false);
+        reject(err);
       } else {
         console.log('Response:', res);
+        setSendOk(true);
+        resolve(res);
       }
     });
+  });
+}
+
+const Chat: Component = (): JSX.Element => {
+  const handleSendClick = async (): Promise<void> => {
+    try {
+      const response = await sendMessage();
+      console.log('Response:', response);
+      // setTimeout(() => {}, 10000);
+      // return response;
+    } catch (error) {
+      console.error('Error:', error);
+      // throw error;
+    }
   };
 
   onMount(() => {
@@ -53,7 +72,7 @@ const Chat: Component = (): JSX.Element => {
         </Row>
         <Row>
           <Col md={8} xs={12}>
-            <Form onSubmit={handleSendClick}>
+            <Form>
               <Form.Group class="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>User Id</Form.Label>
                 <Form.Control
@@ -75,9 +94,15 @@ const Chat: Component = (): JSX.Element => {
                 />
               </Form.Group>
               <br></br>
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                onClick={() => {
+                  void handleSendClick();
+                }}
+              >
                 Send
               </Button>
+              {sendOk() && <span>successfully reached Telegram</span>}
             </Form>
           </Col>
           <Col
