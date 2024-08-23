@@ -13,24 +13,26 @@ import './Hero.css';
 import { globalState } from '../constants/constants';
 
 const Hero: Component = (): JSX.Element => {
+  const handleDexClick = (): void => {
+    window.location.href = `${globalState.url}/dex`;
+  };
+
   return (
     <>
       <div class="tw-w-full">
         <Carousel fade interval={30000} variant="dark">
-          <Carousel.Item>
-            <a href={`${globalState.url}/dex`}>
-              <div class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center responsive-height">
-                <img
-                  src={Bitcoin}
-                  alt="Bitcoin"
-                  class="tw-h-full tw-max-w-full"
-                ></img>
-              </div>
-              <Carousel.Caption>
-                <h2>Dex</h2>
-                <p>Go to Project</p>
-              </Carousel.Caption>
-            </a>
+          <Carousel.Item onClick={handleDexClick} class="tw-cursor-pointer">
+            <div class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center responsive-height">
+              <img
+                src={Bitcoin}
+                alt="Bitcoin"
+                class="tw-h-full tw-max-w-full"
+              ></img>
+            </div>
+            <Carousel.Caption>
+              <h2>Dex</h2>
+              <p>Go to Project</p>
+            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <div class="d-block w-100 bg-secondary d-flex justify-content-center align-items-center responsive-height">
