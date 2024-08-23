@@ -17,6 +17,7 @@ var (
 		"/home.svg":        {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
 		"/notion-icon.svg": {contentType: "image/svg+xml", dataPath: "/app/public/notion-icon.svg"},
 		"/chat2-bg.svg":    {contentType: "image/svg+xml", dataPath: "/app/public/chat2-bg.svg"},
+		"/duck-bg.svg":     {contentType: "image/svg+xml", dataPath: "/app/public/duck-bg.svg"},
 		// webp
 		"/gopher1-bg.webp": {contentType: "image/webp", dataPath: "/app/public/gopher1-bg.webp"},
 		"/dex-bg.webp":     {contentType: "image/webp", dataPath: "/app/public/dex-bg.webp"},
