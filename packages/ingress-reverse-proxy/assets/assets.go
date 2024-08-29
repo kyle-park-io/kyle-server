@@ -40,6 +40,8 @@ var (
 		"/swap-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/swap-bg.jpg"},
 		"/bridge-bg.jpg":   {contentType: "image/jpeg", dataPath: "/app/public/bridge-bg.jpg"},
 		"/bitcoin-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/bitcoin-bg.jpg"},
+		"/chain-bg.jpg":    {contentType: "image/jpeg", dataPath: "/app/public/chain-bg.jpg"},
+		"/wedding-bg.jpg":  {contentType: "image/jpeg", dataPath: "/app/public/wedding-bg.jpg"},
 	}
 )
 

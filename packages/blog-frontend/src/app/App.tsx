@@ -13,6 +13,8 @@ import {
   DexCard,
   BlogCard,
   ChatCard,
+  ChainCard,
+  WeddingCard,
 } from '../components/card/Card';
 import { globalState } from '../constants/constants';
 
@@ -32,6 +34,11 @@ const App: Component = (): JSX.Element => {
   const handleDexClick = (): void => {
     window.location.href = `${url}/dex`;
   };
+  const handleChainClick = (): void => {
+    window.location.href =
+      'https://kyle-park.notion.site/Chain-Communicator-08fe9b295ed34662b4a72e70a608f937';
+  };
+  const handleWeddingClick = (): void => {};
   const handleBlogClick = (): void => {
     navigate('/blog');
   };
@@ -95,6 +102,16 @@ const App: Component = (): JSX.Element => {
               <Col lg={4} md={4} sm={4} xs={4}>
                 <button onClick={handleDexClick} class="transparent">
                   <DexCard></DexCard>
+                </button>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleChainClick} class="transparent">
+                  <ChainCard></ChainCard>
+                </button>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={4}>
+                <button onClick={handleWeddingClick} class="transparent">
+                  <WeddingCard></WeddingCard>
                 </button>
               </Col>
             </Row>

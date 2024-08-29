@@ -12,6 +12,8 @@ import Profile from '@public/profile-bg.jpg';
 import Linkedin from '@public/linkedin-bg.jpg';
 import Github from '@public/github-bg.jpg';
 import Dex from '@public/defi-bg.jpg';
+import Chain from '@public/chain-bg.jpg';
+import Wedding from '@public/wedding-bg.jpg';
 import Blog from '@public/blog-bg.jpg';
 import Chat from '@public/chat-bg.jpg';
 // css
@@ -90,6 +92,42 @@ export const DexCard: Component = (): JSX.Element => {
         />
         <Card.Body class="tw-text-black">
           <Card.Title>DEX</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
+
+export const ChainCard: Component = (): JSX.Element => {
+  return (
+    <>
+      <Card style={{ width: '100%', height: '25rem' }}>
+        <Card.Img
+          variant="top"
+          src={Chain}
+          style={{ height: '20rem' }}
+          onLoad={handleImageLoading}
+        />
+        <Card.Body class="tw-text-black">
+          <Card.Title>CHAIN COMMUNICATOR</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
+
+export const WeddingCard: Component = (): JSX.Element => {
+  return (
+    <>
+      <Card style={{ width: '100%', height: '25rem' }}>
+        <Card.Img
+          variant="top"
+          src={Wedding}
+          style={{ height: '20rem' }}
+          onLoad={handleImageLoading}
+        />
+        <Card.Body class="tw-text-black">
+          <Card.Title>Coming Soon</Card.Title>
         </Card.Body>
       </Card>
     </>
