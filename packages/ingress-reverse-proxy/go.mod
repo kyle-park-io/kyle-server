@@ -1,4 +1,4 @@
-module ingress-proxy
+module ingress-reverse-proxy
 
 go 1.21.3
 

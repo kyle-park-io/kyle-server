@@ -5,4 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 0.1.0 (2023-11-28)
 
-**Note:** Version bump only for package ingress-proxy
+**Note:** Version bump only for package ingress-reverse-proxy

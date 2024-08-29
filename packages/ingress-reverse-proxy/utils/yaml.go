@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"ingress-proxy/logger"
-	"ingress-proxy/types"
+	"ingress-reverse-proxy/logger"
+	"ingress-reverse-proxy/types"
 	"os"
 
 	"github.com/pkg/errors"

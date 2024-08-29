@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"ingress-proxy/logger"
+	"ingress-reverse-proxy/logger"
 	"net/http"
 )
 

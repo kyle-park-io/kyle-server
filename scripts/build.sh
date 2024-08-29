@@ -12,4 +12,4 @@ yarn run clean-build-prod
 cp -r -p static ${SCRIPT_DIR}/../packages/blog-backend/static
 
 # public files
-cp -r -p public/* ${SCRIPT_DIR}/../packages/ingress-proxy/public
+cp -r -p public/* ${SCRIPT_DIR}/../packages/ingress-reverse-proxy/public

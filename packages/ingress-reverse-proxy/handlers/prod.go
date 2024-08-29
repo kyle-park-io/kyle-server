@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"ingress-proxy/assets"
-	"ingress-proxy/logger"
-	"ingress-proxy/redirect"
-	"ingress-proxy/utils"
+	"ingress-reverse-proxy/assets"
+	"ingress-reverse-proxy/logger"
+	"ingress-reverse-proxy/redirect"
+	"ingress-reverse-proxy/utils"
 	"net/http"
 )
 

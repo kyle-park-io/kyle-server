@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"ingress-proxy/cors"
+	"ingress-reverse-proxy/cors"
 	"net/http"
 )
 

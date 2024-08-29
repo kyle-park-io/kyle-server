@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"ingress-proxy/assets"
-	"ingress-proxy/constants"
-	"ingress-proxy/handlers"
-	"ingress-proxy/logger"
-	"ingress-proxy/middleware"
-	"ingress-proxy/redirect"
-	"ingress-proxy/tls"
-	"ingress-proxy/utils"
+	"ingress-reverse-proxy/assets"
+	"ingress-reverse-proxy/constants"
+	"ingress-reverse-proxy/handlers"
+	"ingress-reverse-proxy/logger"
+	"ingress-reverse-proxy/middleware"
+	"ingress-reverse-proxy/redirect"
+	"ingress-reverse-proxy/tls"
+	"ingress-reverse-proxy/utils"
 	"net/http"
 )
 

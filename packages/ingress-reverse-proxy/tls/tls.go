@@ -2,9 +2,9 @@ package tls
 
 import (
 	"fmt"
-	"ingress-proxy/constants"
-	"ingress-proxy/logger"
-	"ingress-proxy/utils"
+	"ingress-reverse-proxy/constants"
+	"ingress-reverse-proxy/logger"
+	"ingress-reverse-proxy/utils"
 	"os/exec"
 
 	"github.com/pkg/errors"

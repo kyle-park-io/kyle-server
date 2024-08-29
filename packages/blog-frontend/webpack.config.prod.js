@@ -15,7 +15,7 @@ module.exports = {
   output: {
     clean: true,
     path: path.resolve(__dirname, 'static'),
-    // ingress(proxy) server prefix-
+    // ingress(reverse-proxy) server prefix-
     publicPath: '/blog-static/',
     // assets
     filename: 'assets/[name].blog.[contenthash].js',

@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"fmt"
-	"ingress-proxy/constants"
-	"ingress-proxy/logger"
+	"ingress-reverse-proxy/constants"
+	"ingress-reverse-proxy/logger"
 	"net/http"
 )
 

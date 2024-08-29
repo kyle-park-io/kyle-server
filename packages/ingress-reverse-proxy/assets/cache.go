@@ -1,7 +1,7 @@
 package assets
 
 import (
-	"ingress-proxy/logger"
+	"ingress-reverse-proxy/logger"
 	"os"
 	"sync"
 )

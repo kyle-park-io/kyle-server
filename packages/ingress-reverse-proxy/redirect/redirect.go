@@ -1,9 +1,9 @@
 package redirect
 
 import (
-	"ingress-proxy/logger"
-	"ingress-proxy/types"
-	"ingress-proxy/utils"
+	"ingress-reverse-proxy/logger"
+	"ingress-reverse-proxy/types"
+	"ingress-reverse-proxy/utils"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
