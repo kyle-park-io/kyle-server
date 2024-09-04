@@ -2,7 +2,7 @@
 
 certbot certonly \
   --dns-cloudflare \
-  --dns-cloudflare-credentials /app/cloudflare.ini \
+  --dns-cloudflare-credentials /app/ini/cloudflare.ini \
   --email andy3638@naver.com \
   --domains jungho.dev \
   --agree-tos \

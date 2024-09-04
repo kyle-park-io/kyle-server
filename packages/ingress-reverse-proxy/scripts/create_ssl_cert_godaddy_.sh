@@ -7,7 +7,7 @@
   --preferred-challenges dns-01 \
   -d jungho.dev \
   --authenticator dns-godaddy \
-  --dns-godaddy-credentials /app/godaddy.ini \
+  --dns-godaddy-credentials /app/ini/godaddy.ini \
   --dns-godaddy-propagation-seconds 60 \
   --non-interactive \
   --agree-tos \
