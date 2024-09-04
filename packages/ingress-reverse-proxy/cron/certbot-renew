@@ -1,1 +1,6 @@
-0 0 * * * certbot renew --quiet
+0 0 * * * /app/scripts/renew_ssl_cert.sh
+
+10 0 * * * /app/scripts/sync_etc_to_data.sh
+
+* * * * * echo "Hello World" > /app/hello.txt
+

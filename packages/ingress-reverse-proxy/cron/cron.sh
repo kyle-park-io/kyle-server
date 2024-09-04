@@ -1,5 +1,8 @@
 #!/bin/sh
 
-cp /app/cron/certbot-renew /etc/cron.d/certbot-renew
-chmod 0644 /etc/cron.d/certbot-renew
-crontab /etc/cron.d/certbot-renew
+mkdir -p /etc/crontabs
+# cp /app/cron/certbot-renew /etc/crontabs/root
+cat /app/cron/certbot-renew >>/etc/crontabs/root
+chmod 0644 /etc/crontabs/root
+# crond -b -l 2
+crond -f &

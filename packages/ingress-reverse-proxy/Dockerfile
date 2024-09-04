@@ -28,32 +28,36 @@ RUN apk add --update --no-cache \
   python3 py3-pip \
   dcron \
   busybox-initscripts \
+  openssl \
+  ca-certificates \
   && pip install --no-cache-dir certbot-dns-cloudflare
 
 COPY . /build
-COPY --from=builder /build/godaddy.ini /app/godaddy.ini
-RUN chmod 600 /app/godaddy.ini
-
-COPY --from=builder /build/cloudflare.ini /app/cloudflare.ini
-RUN chmod 600 /app/cloudflare.ini
+COPY --from=builder /build/ini/godaddy.ini /app/ini/godaddy.ini
+RUN chmod 600 /app/ini/godaddy.ini
+COPY --from=builder /build/ini/cloudflare.ini /app/ini/cloudflare.ini
+RUN chmod 600 /app/ini/cloudflare.ini
 
 WORKDIR /build
 
 # # godaddy
-# COPY --from=builder /build/scripts/install_certbot_dns_godaddy.sh /app/install_certbot_dns_godaddy.sh
-# RUN chmod +x /app/install_certbot_dns_godaddy.sh
-# COPY --from=builder /build/scripts/create_ssl_cert_godaddy.sh /app/create_ssl_cert_godaddy.sh
-# RUN chmod +x /app/create_ssl_cert_godaddy.sh
+# COPY --from=builder /build/scripts/install_certbot_dns_godaddy.sh /app/scripts/install_certbot_dns_godaddy.sh
+# RUN chmod +x /app/scripts/install_certbot_dns_godaddy.sh
+# COPY --from=builder /build/scripts/create_ssl_cert_godaddy.sh /app/scripts/create_ssl_cert_godaddy.sh
+# RUN chmod +x /app/scripts/create_ssl_cert_godaddy.sh
 
 # cloudflare
-COPY --from=builder /build/scripts/create_ssl_cert_cloudflare.sh /app/create_ssl_cert_cloudflare.sh
-RUN chmod +x /app/create_ssl_cert_cloudflare.sh
-COPY --from=builder /build/scripts/renew_ssl_cert.sh /app/renew_ssl_cert.sh
-RUN chmod +x /app/renew_ssl_cert.sh
+COPY --from=builder /build/scripts/create_ssl_cert_cloudflare.sh /app/scripts/create_ssl_cert_cloudflare.sh
+RUN chmod +x /app/scripts/create_ssl_cert_cloudflare.sh
 
 # cron
+COPY --from=builder /build/scripts/renew_ssl_cert.sh /app/scripts/renew_ssl_cert.sh
+RUN chmod +x /app/scripts/renew_ssl_cert.sh
+COPY --from=builder /build/scripts/sync_etc_to_data.sh /app/scripts/sync_etc_to_data.sh
+RUN chmod +x /app/scripts/sync_etc_to_data.sh
 COPY --from=builder /build/cron /app/cron
-RUN chmod +x /app/cron/cron.sh && /app/cron/cron.sh
+RUN chmod +x /app/cron/cron.sh
+# RUN chmod +x /app/cron/cron.sh && /app/cron/cron.sh
 
 # # try to renew letsencrypt ssl cert in every 12 hours
 # RUN SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); \
@@ -77,6 +81,10 @@ EXPOSE 80
 # # RUN mkdir /bucket
 # # RUN ln -s /bucket/cert /etc/letsencrypt
 
-WORKDIR /app
+COPY --from=builder /build/scripts/start.sh /app/scripts/start.sh
+RUN chmod +x /app/scripts/start.sh
 
-ENTRYPOINT ["./app"]
+WORKDIR /app
+# ENTRYPOINT ["./app"]
+ENTRYPOINT ["/app/scripts/start.sh"]
+

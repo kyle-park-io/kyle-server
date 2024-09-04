@@ -11,18 +11,18 @@ import (
 )
 
 func CheckTLS() error {
-	if !utils.FileExists(constants.SSL_CERT_FILE) || !utils.FileExists(constants.SSL_KEY_FILE) {
+	if !utils.FileExists(constants.PV_SSL_CERT_FILE) || !utils.FileExists(constants.PV_SSL_KEY_FILE) {
 		logger.Log.Warn("Not exist pem files")
 		logger.Log.Info("Try to get new tls")
 
-		out, err := exec.Command("/app/install_certbot_dns_godaddy.sh").CombinedOutput()
-		logger.Log.Info(string(out))
-		if err != nil {
-			return errors.Wrap(err, fmt.Sprintf("check ssl fail: %s", string(out)))
-		}
+		// out, err := exec.Command("/app/scripts/install_certbot_dns_godaddy.sh").CombinedOutput()
+		// logger.Log.Info(string(out))
+		// if err != nil {
+		// 	return errors.Wrap(err, fmt.Sprintf("check ssl fail: %s", string(out)))
+		// }
+		// out, err = exec.Command("/app/scripts/create_ssl_cert_godaddy.sh").CombinedOutput()
 
-		// out, err = exec.Command("/app/create_ssl_cert.sh_godaddy").CombinedOutput()
-		out, err = exec.Command("/app/create_ssl_cert.sh_cloudflare").CombinedOutput()
+		out, err := exec.Command("/app/scripts/create_ssl_cert_cloudflare.sh").CombinedOutput()
 		logger.Log.Info(string(out))
 		if err != nil {
 			return errors.Wrap(err, fmt.Sprintf("check ssl fail: %s", string(out)))
@@ -33,6 +33,12 @@ func CheckTLS() error {
 		if err != nil {
 			return err
 		}
+	} else {
+		err := utils.CopyDir("/data/letsencrypt", "/etc/letsencrypt")
+		if err != nil {
+			return err
+		}
 	}
+
 	return nil
 }
