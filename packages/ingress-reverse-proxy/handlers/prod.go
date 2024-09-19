@@ -21,10 +21,11 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		assets.AssetHandler(w, r)
 	} else {
 		pathPrefix, pathSurfix := utils.SplitPath(urlPath)
-		logger.Log.Info(pathPrefix)
-		logger.Log.Info(pathSurfix)
+		logger.Log.Info("pathPrefix: ", pathPrefix)
+		logger.Log.Info("pathSurfix: ", pathSurfix)
 
 		// check 404
+		// TODO: elaborate on the expression of a 404 error
 		link, ok := redirect.Redirects[pathPrefix]
 		if !ok {
 			redirect.Redirect404(w, r)
@@ -41,7 +42,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectHandler(w, r, link)
 			case "api-chat":
 				redirect.RedirectAPIHandler(w, r, link)
-			// basic
+			// basic(URL directly)
 			case "blog":
 				redirect.RedirectHandler(w, r, link)
 			case "dex":
