@@ -27,7 +27,16 @@ FROM node:16-slim
 # install cron
 RUN apt-get update && apt-get install -y cron \
   git \
-  vim
+  vim \
+  locales fonts-nanum  && \
+  echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen && \
+  locale-gen ko_KR.UTF-8 && \
+  update-locale LANG=ko_KR.UTF-8
+
+# kor
+ENV LANG=ko_KR.UTF-8
+ENV LC_ALL=ko_KR.UTF-8
+
 
 # run initial script
 COPY scripts ./scripts

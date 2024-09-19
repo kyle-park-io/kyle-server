@@ -1,10 +1,8 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount, For } from 'solid-js';
 import { A } from '@solidjs/router';
-import { Button } from 'solid-bootstrap';
-import axios from 'axios';
-import { saveAs } from 'file-saver';
 import {
+  Button,
   Spinner,
   Container,
   Row,
@@ -12,6 +10,8 @@ import {
   Pagination,
   Table,
 } from 'solid-bootstrap';
+import axios from 'axios';
+import { saveAs } from 'file-saver';
 import { globalState } from '../constants/constants';
 
 const BlogList: Component = (): JSX.Element => {
@@ -77,11 +77,12 @@ const BlogList: Component = (): JSX.Element => {
           { params },
         );
 
-        let result: string[] = [];
-        for (let i = 0; i < blogList.data.length; i++) {
-          result.push(blogList.data[i].split('.')[0]);
-        }
-        setList(result);
+        // let result: string[] = [];
+        // for (let i = 0; i < blogList.data.length; i++) {
+        //   // result.push(blogList.data[i].split('.')[0]);
+        // }
+        // setList(result);
+        setList(blogList.data);
         setCurrentPage(index);
 
         setLoading(true);
@@ -110,11 +111,12 @@ const BlogList: Component = (): JSX.Element => {
         const blogList = await axios.get(
           `${api_url}/api/blog/sorted-by-date/top-10`,
         );
-        let result: string[] = [];
-        for (let i = 0; i < blogList.data.length; i++) {
-          result.push(blogList.data[i].split('.')[0]);
-        }
-        setList(result);
+        // let result: string[] = [];
+        // for (let i = 0; i < blogList.data.length; i++) {
+        //   result.push(blogList.data[i].split('.')[0]);
+        // }
+        // setList(result);
+        setList(blogList.data);
 
         setLoading(true);
       } catch (err) {
@@ -172,11 +174,23 @@ const BlogList: Component = (): JSX.Element => {
                                   {(currentPage() - 1) * 10 + index() + 1}
                                 </td>
                                 <td>
-                                  <A href={'/blog' + '/' + item}>{item}</A>
+                                  <A
+                                    href={
+                                      '/blog' +
+                                      '/' +
+                                      item.filename.split('.')[0]
+                                    }
+                                  >
+                                    {item.title}
+                                  </A>
                                 </td>
                                 <td>
                                   <Button
-                                    onClick={() => handleButtonClick(item)}
+                                    onClick={() => {
+                                      handleButtonClick(
+                                        item.filename.split('.')[0],
+                                      );
+                                    }}
                                     variant="info"
                                   >
                                     Download
@@ -194,23 +208,37 @@ const BlogList: Component = (): JSX.Element => {
             </div>
             <div class="tw-flex tw-items-center tw-justify-center">
               <Pagination size="sm">
-                <Pagination.First onClick={() => handlePageClick(1)} />
+                <Pagination.First
+                  onClick={() => {
+                    handlePageClick(1);
+                  }}
+                />
                 <Pagination.Prev
-                  onClick={() => handlePageClick(currentPage() - 1)}
+                  onClick={() => {
+                    handlePageClick(currentPage() - 1);
+                  }}
                 />
                 {pages().map((value, index) => (
                   <Pagination.Item
                     active={currentPage() === index + 1}
-                    onClick={() => handlePageClick(index + 1)}
+                    onClick={() => {
+                      handlePageClick(index + 1);
+                    }}
                   >
                     {index + 1}
                   </Pagination.Item>
                 ))}
                 {/* <Pagination.Ellipsis /> */}
                 <Pagination.Next
-                  onClick={() => handlePageClick(currentPage() + 1)}
+                  onClick={() => {
+                    handlePageClick(currentPage() + 1);
+                  }}
                 />
-                <Pagination.Last onClick={() => handlePageClick(page())} />
+                <Pagination.Last
+                  onClick={() => {
+                    handlePageClick(page());
+                  }}
+                />
               </Pagination>
             </div>
           </div>
