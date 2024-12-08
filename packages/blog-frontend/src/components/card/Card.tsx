@@ -12,7 +12,9 @@ import Profile from '@public/profile-bg.jpg';
 import Linkedin from '@public/linkedin-bg.jpg';
 import Github from '@public/github-bg.jpg';
 import Dex from '@public/defi-bg.jpg';
+import Distributed from '@public/distributed-bg.jpg';
 import Chain from '@public/chain-bg.jpg';
+import Jungho from '@public/kyle-b-bg.webp';
 import Wedding from '@public/wedding-bg.jpg';
 import Blog from '@public/blog-bg.jpg';
 import Chat from '@public/chat-bg.jpg';
@@ -98,6 +100,24 @@ export const DexCard: Component = (): JSX.Element => {
   );
 };
 
+export const DistributedCard: Component = (): JSX.Element => {
+  return (
+    <>
+      <Card style={{ width: '100%', height: '25rem' }}>
+        <Card.Img
+          variant="top"
+          src={Distributed}
+          style={{ height: '20rem' }}
+          onLoad={handleImageLoading}
+        />
+        <Card.Body class="tw-text-black">
+          <Card.Title>DISTRIBUTED COMPUTING</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
+
 export const ChainCard: Component = (): JSX.Element => {
   return (
     <>
@@ -116,6 +136,24 @@ export const ChainCard: Component = (): JSX.Element => {
   );
 };
 
+export const JunghoCard: Component = (): JSX.Element => {
+  return (
+    <>
+      <Card style={{ width: '100%', height: '25rem' }}>
+        <Card.Img
+          variant="top"
+          src={Jungho}
+          style={{ height: '20rem' }}
+          onLoad={handleImageLoading}
+        />
+        <Card.Body class="tw-text-black">
+          <Card.Title>JUNGHO.DEV</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
+
 export const WeddingCard: Component = (): JSX.Element => {
   return (
     <>
@@ -127,7 +165,7 @@ export const WeddingCard: Component = (): JSX.Element => {
           onLoad={handleImageLoading}
         />
         <Card.Body class="tw-text-black">
-          <Card.Title>Coming Soon</Card.Title>
+          <Card.Title>Cardly</Card.Title>
         </Card.Body>
       </Card>
     </>

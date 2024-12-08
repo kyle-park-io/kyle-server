@@ -40,27 +40,45 @@ const Profile: Component = (): JSX.Element => {
               </li>
             </ol>
             <br></br>
-            <h3 id="-">자기소개서 (경력 기술서)</h3>
-            <p>
-              <a href="https://kyle-park.notion.site/f3ea582e4db84ad3b256b4f153349d02">
-                Link
-              </a>
-            </p>
+            <h3 id="-">경력기술서 & 자기소개서</h3>
+            <ol>
+              <li>
+                경력기술서
+                <br />
+                <a href="https://kyle-park.notion.site/CV-10c5e2b1051680319fe4f8e1713993b4">
+                  Notion
+                </a>
+              </li>
+              <li>
+                자기소개서
+                <br />
+                <a href="https://kyle-park.notion.site/Cover-Letter-f3ea582e4db84ad3b256b4f153349d02">
+                  Notion
+                </a>
+              </li>
+            </ol>
             <br></br>
             <h3 id="-">포트폴리오</h3>
             <ol>
               <li>
-                개인프로젝트
+                대시보드
+                <br />
+                <a href="https://kyle-park.notion.site/HI-I-m-KYLE-c52ac7c7e75c41dd92792f9db8cee895">
+                  Notion
+                </a>
+              </li>
+              <li>
+                개인 프로젝트
                 <br />
                 <a href="https://kyle-park.notion.site/Portfolio-a69711e7a8484ec08821c84199900e37">
-                  Link
+                  Notion
                 </a>
               </li>
               <li>
                 기술 문서
                 <br />
-                <a href="https://kyle-park.notion.site/c92ee6d25f1f48fe8fa54ef5fa79790c">
-                  Link
+                <a href="https://kyle-park.notion.site/Technical-Document-c92ee6d25f1f48fe8fa54ef5fa79790c">
+                  Notion
                 </a>
               </li>
             </ol>
