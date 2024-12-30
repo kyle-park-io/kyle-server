@@ -34,6 +34,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			// asset js, css(current no used, assets -> static branch)
 			case "assets":
 				redirect.RedirectAssetHandler(w, r, pathSurfix)
+
 			// api
 			case "api-blog":
 				redirect.RedirectAPIHandler(w, r, link)
@@ -42,10 +43,20 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectHandler(w, r, link)
 			case "api-chat":
 				redirect.RedirectAPIHandler(w, r, link)
+			case "api-tracker":
+				// redirect.RedirectAPIHandler(w, r, link)
+				redirect.RedirectHandler(w, r, link)
+
 			// basic(URL directly)
 			case "blog":
 				redirect.RedirectHandler(w, r, link)
 			case "dex":
+				// redirect.RedirectChangeHandler(w, r, link)
+				redirect.RedirectHandler(w, r, link)
+			case "recoder":
+				// redirect.RedirectChangeHandler(w, r, link)
+				redirect.RedirectHandler(w, r, link)
+			case "tracker":
 				// redirect.RedirectChangeHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
 			// static
@@ -53,6 +64,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectHandler(w, r, link)
 			case "dex-static":
 				redirect.RedirectHandler(w, r, link)
+
 			// extra
 			default:
 				redirect.RedirectHandler(w, r, link)
