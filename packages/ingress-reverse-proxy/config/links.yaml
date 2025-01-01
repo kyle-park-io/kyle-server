@@ -9,8 +9,8 @@ links:
   - name: dex
     route: /dex
     url: http://dex-app-server-service.default.svc.cluster.local:8080
-  - name: recoder
-    route: /recoder
+  - name: recorder
+    route: /recorder
     url: http://blockchain-tools-app-server-service.default.svc.cluster.local:8080
   - name: tracker
     route: /tracker

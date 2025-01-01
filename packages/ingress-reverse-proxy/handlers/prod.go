@@ -53,7 +53,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			case "dex":
 				// redirect.RedirectChangeHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
-			case "recoder":
+			case "recorder":
 				// redirect.RedirectChangeHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
 			case "tracker":
