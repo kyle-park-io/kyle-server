@@ -17,6 +17,8 @@ import {
   WeddingCard,
   DistributedCard,
   JunghoCard,
+  TrackerCard,
+  TimestampCard,
 } from '../components/card/Card';
 import { globalState } from '../constants/constants';
 
@@ -39,6 +41,12 @@ const App: Component = (): JSX.Element => {
   const handleDistributedClick = (): void => {
     window.location.href =
       'https://kyle-park.notion.site/Distributed-Computing-1315e2b1051680f3bc8ee9f38bbd18a3';
+  };
+  const handleTrackerClick = (): void => {
+    window.open(`${url}/tracker/logs/tracker`);
+  };
+  const handleTimestampClick = (): void => {
+    window.open(`${url}/recorder/logs/timestamp`);
   };
   const handleChainClick = (): void => {
     window.location.href =
@@ -135,6 +143,26 @@ const App: Component = (): JSX.Element => {
               <Col lg={2} md={2} sm={2} xs={2}>
                 <button onClick={handleWeddingClick} class="transparent">
                   <WeddingCard></WeddingCard>
+                </button>
+              </Col>
+            </Row>
+          </Col>
+          <Col
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            class="tw-flex tw-justify-start tw-gap-4"
+          >
+            <Row class="tw-items-center tw-w-full">
+              <Col lg={2} md={2} sm={2} xs={2}>
+                <button onClick={handleTrackerClick} class="transparent">
+                  <TrackerCard></TrackerCard>
+                </button>
+              </Col>
+              <Col lg={2} md={2} sm={2} xs={2}>
+                <button onClick={handleTimestampClick} class="transparent">
+                  <TimestampCard></TimestampCard>
                 </button>
               </Col>
             </Row>

@@ -13,6 +13,8 @@ import Linkedin from '@public/linkedin-bg.jpg';
 import Github from '@public/github-bg.jpg';
 import Dex from '@public/defi-bg.jpg';
 import Distributed from '@public/distributed-bg.jpg';
+import Tracker from '@public/tracker-bg.jpeg';
+import Timestamp from '@public/timestamp-bg.jpg';
 import Chain from '@public/chain-bg.jpg';
 import Jungho from '@public/kyle-b-bg.webp';
 import Wedding from '@public/wedding-bg.jpg';
@@ -112,6 +114,42 @@ export const DistributedCard: Component = (): JSX.Element => {
         />
         <Card.Body class="tw-text-black">
           <Card.Title>DISTRIBUTED COMPUTING</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
+
+export const TrackerCard: Component = (): JSX.Element => {
+  return (
+    <>
+      <Card style={{ width: '100%', height: '25rem' }}>
+        <Card.Img
+          variant="top"
+          src={Tracker}
+          style={{ height: '20rem' }}
+          onLoad={handleImageLoading}
+        />
+        <Card.Body class="tw-text-black">
+          <Card.Title>Token Tracker</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
+
+export const TimestampCard: Component = (): JSX.Element => {
+  return (
+    <>
+      <Card style={{ width: '100%', height: '25rem' }}>
+        <Card.Img
+          variant="top"
+          src={Timestamp}
+          style={{ height: '20rem' }}
+          onLoad={handleImageLoading}
+        />
+        <Card.Body class="tw-text-black">
+          <Card.Title>Block Recorder</Card.Title>
         </Card.Body>
       </Card>
     </>

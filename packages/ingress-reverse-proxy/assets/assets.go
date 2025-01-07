@@ -44,6 +44,9 @@ var (
 		"/chain-bg.jpg":       {contentType: "image/jpeg", dataPath: "/app/public/chain-bg.jpg"},
 		"/wedding-bg.jpg":     {contentType: "image/jpeg", dataPath: "/app/public/wedding-bg.jpg"},
 		"/distributed-bg.jpg": {contentType: "image/jpeg", dataPath: "/app/public/distributed-bg.jpg"},
+		"/timestamp-bg.jpg":   {contentType: "image/jpeg", dataPath: "/app/public/timestamp-bg.jpg"},
+		// jpeg
+		"/tracker-bg.jpeg": {contentType: "image/jpeg", dataPath: "/app/public/tracker-bg.jpeg"},
 		// kyle-dex swagger
 		"/dex/api-docs/favicon-32x32.png": {contentType: "image/png", dataPath: "/app/public/swagger-favicon-32x32.png"},
 	}
