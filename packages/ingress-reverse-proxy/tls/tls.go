@@ -29,12 +29,14 @@ func CheckTLS() error {
 		}
 
 		// copy to pv
-		err = utils.CopyDir("/etc/letsencrypt", "/data/letsencrypt")
+		// err = utils.CopyDir("/etc/letsencrypt", "/data/letsencrypt")
+		err = utils.CopyFolder("/etc/letsencrypt", "/data/letsencrypt")
 		if err != nil {
 			return err
 		}
 	} else {
-		err := utils.CopyDir("/data/letsencrypt", "/etc/letsencrypt")
+		// err := utils.CopyDir("/data/letsencrypt", "/etc/letsencrypt")
+		err := utils.CopyFolder("/data/letsencrypt", "/etc/letsencrypt")
 		if err != nil {
 			return err
 		}

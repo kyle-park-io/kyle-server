@@ -24,6 +24,7 @@ FROM alpine:3.16
 RUN apk add --update --no-cache \
   git \
   fuse \
+  rsync \
   certbot \
   python3 py3-pip \
   dcron \
