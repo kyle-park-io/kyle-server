@@ -1,13 +1,14 @@
 package redirect
 
 import (
-	"ingress-reverse-proxy/logger"
-	"ingress-reverse-proxy/types"
-	"ingress-reverse-proxy/utils"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"strings"
+
+	"ingress-reverse-proxy/logger"
+	"ingress-reverse-proxy/types"
+	"ingress-reverse-proxy/utils"
 )
 
 var (

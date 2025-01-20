@@ -1,9 +1,10 @@
 package utils
 
 import (
+	"os"
+
 	"ingress-reverse-proxy/logger"
 	"ingress-reverse-proxy/types"
-	"os"
 
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"

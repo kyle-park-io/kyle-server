@@ -1,8 +1,9 @@
 package middleware
 
 import (
-	"ingress-reverse-proxy/cors"
 	"net/http"
+
+	"ingress-reverse-proxy/cors"
 )
 
 func Middleware(next http.Handler) http.Handler {

@@ -2,9 +2,10 @@ package handlers
 
 import (
 	"fmt"
+	"net/http"
+
 	"ingress-reverse-proxy/constants"
 	"ingress-reverse-proxy/logger"
-	"net/http"
 )
 
 func RedirectToHTTPS(w http.ResponseWriter, r *http.Request) {

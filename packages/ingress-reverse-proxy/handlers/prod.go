@@ -1,11 +1,12 @@
 package handlers
 
 import (
+	"net/http"
+
 	"ingress-reverse-proxy/assets"
 	"ingress-reverse-proxy/logger"
 	"ingress-reverse-proxy/redirect"
 	"ingress-reverse-proxy/utils"
-	"net/http"
 )
 
 func MainHandler(w http.ResponseWriter, r *http.Request) {

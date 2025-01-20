@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"ingress-reverse-proxy/logger"
 	"net/http"
+
+	"ingress-reverse-proxy/logger"
 )
 
 func BasicHandler(w http.ResponseWriter, r *http.Request) {

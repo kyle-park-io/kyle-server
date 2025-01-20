@@ -1,9 +1,10 @@
 package assets
 
 import (
-	"ingress-reverse-proxy/logger"
 	"net/http"
 	"os"
+
+	"ingress-reverse-proxy/logger"
 )
 
 var assets map[string]*Asset

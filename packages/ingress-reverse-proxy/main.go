@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
 	"ingress-reverse-proxy/assets"
 	"ingress-reverse-proxy/constants"
 	"ingress-reverse-proxy/handlers"
@@ -10,7 +12,6 @@ import (
 	"ingress-reverse-proxy/redirect"
 	"ingress-reverse-proxy/tls"
 	"ingress-reverse-proxy/utils"
-	"net/http"
 )
 
 // TODO: optimize HTTP/HTTPS branching in main function
