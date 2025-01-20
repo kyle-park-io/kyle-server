@@ -75,6 +75,9 @@ COPY --from=builder /build/public /app/public
 # ENV TELEGRAM_APITOKEN="secret"
 # ENV TELEGRAM_ROOM_ID="secret"
 
+# set env
+ENV GO_ENV="production"
+
 EXPOSE 8080
 EXPOSE 443
 EXPOSE 80

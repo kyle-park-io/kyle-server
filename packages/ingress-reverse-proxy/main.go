@@ -13,33 +13,96 @@ import (
 	"net/http"
 )
 
+// TODO: optimize HTTP/HTTPS branching in main function
 func main() {
 	// logger
 	logger.InitLogger()
 	logger.Log.Info("hi! i'm kyle!")
 
 	env := "prod"
+	isServiceConnected := true
+
 	switch env {
 	case "dev":
 		// HTTP server
 		httpRedirectMux := http.NewServeMux()
-		httpRedirectMux.HandleFunc("/", handlers.ProxyHandler)
 
-		logger.Log.Info("Starting HTTP server on port:", constants.DevHTTPPort)
-		err := http.ListenAndServe(fmt.Sprintf(":%d", constants.DevHTTPPort), httpRedirectMux)
-		if err != nil {
-			logger.Log.Fatal("Failed to start server: ", err)
+		switch isServiceConnected {
+		case false:
+			httpRedirectMux.HandleFunc("/", handlers.ProxyHandler)
+
+			logger.Log.Info("Starting HTTP server on port:", constants.DevHTTPPort)
+			err := http.ListenAndServe(fmt.Sprintf(":%d", constants.DevHTTPPort), httpRedirectMux)
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
+		case true:
+			// link
+			link, err := utils.LoadLinksConf(constants.DevLinks)
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
+			for _, l := range link.List {
+				lCopy := l
+				redirect.Redirects[l.Route] = &lCopy
+			}
+
+			// cache
+			err = assets.InitCache()
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
+
+			httpRedirectMux.HandleFunc("/", handlers.MainHandler)
+			// set middleware
+			enhancedMux := middleware.Middleware(httpRedirectMux)
+
+			logger.Log.Info("Starting HTTP server on port:", constants.DevHTTPPort)
+			err = http.ListenAndServe(fmt.Sprintf(":%d", constants.DevHTTPPort), enhancedMux)
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
 		}
 
 	case "prod-dev":
 		// HTTP server
 		httpRedirectMux := http.NewServeMux()
-		httpRedirectMux.HandleFunc("/", handlers.BasicHandler)
 
-		logger.Log.Info("Starting HTTP server on port:", constants.HTTPPort)
-		err := http.ListenAndServe(fmt.Sprintf(":%d", constants.HTTPPort), httpRedirectMux)
-		if err != nil {
-			logger.Log.Fatal("Failed to start server: ", err)
+		switch isServiceConnected {
+		case false:
+			httpRedirectMux.HandleFunc("/", handlers.BasicHandler)
+
+			logger.Log.Info("Starting HTTP server on port:", constants.HTTPPort)
+			err := http.ListenAndServe(fmt.Sprintf(":%d", constants.HTTPPort), httpRedirectMux)
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
+		case true:
+			// link
+			link, err := utils.LoadLinksConf(constants.DevLinks)
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
+			for _, l := range link.List {
+				lCopy := l
+				redirect.Redirects[l.Route] = &lCopy
+			}
+
+			// cache
+			err = assets.InitCache()
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
+
+			httpRedirectMux.HandleFunc("/", handlers.MainHandler)
+			// set middleware
+			enhancedMux := middleware.Middleware(httpRedirectMux)
+
+			logger.Log.Info("Starting HTTP server on port:", constants.HTTPPort)
+			err = http.ListenAndServe(fmt.Sprintf(":%d", constants.HTTPPort), enhancedMux)
+			if err != nil {
+				logger.Log.Fatal("Failed to start server: ", err)
+			}
 		}
 
 	case "prod":
@@ -50,7 +113,7 @@ func main() {
 		}
 
 		// link
-		link, err := utils.LoadLinksConf(constants.Links)
+		link, err := utils.LoadLinksConf(constants.ProdLinks)
 		if err != nil {
 			logger.Log.Fatal("Failed to start server: ", err)
 		}

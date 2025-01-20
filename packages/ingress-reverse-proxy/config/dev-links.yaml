@@ -1,0 +1,37 @@
+links:
+  # basic
+  - name: default
+    route: /
+    url: http://localhost:3000
+  - name: blog
+    route: /blog
+    url: http://site-app-server-service.default.svc.cluster.local:8080
+  - name: dex
+    route: /dex
+    url: http://dex-app-server-service.default.svc.cluster.local:8080
+  - name: recorder
+    route: /recorder
+    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:8080
+  - name: tracker
+    route: /tracker
+    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:9090
+  # static
+  - name: blog-static
+    route: /blog-static
+    url: http://localhost:3000
+  - name: dex-static
+    route: /dex-static
+    url: http://dex-app-server-service.default.svc.cluster.local:8080
+  # api
+  - name: api-blog
+    route: /api-blog
+    url: http://site-app-server-service.default.svc.cluster.local:8080
+  - name: api-dex
+    route: /api-dex
+    url: http://dex-app-server-service.default.svc.cluster.local:8080
+  - name: api-chat
+    route: /api-chat
+    url: http://chat-app-envoy-service.default.svc.cluster.local:8080
+  - name: api-tracker
+    route: /api-tracker
+    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:9090

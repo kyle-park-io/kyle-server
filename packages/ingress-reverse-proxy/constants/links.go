@@ -1,5 +1,6 @@
 package constants
 
 const (
-	Links = "/app/config/links.yaml"
+	DevLinks  = "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/config/dev-links.yaml"
+	ProdLinks = "/app/config/prod-links.yaml"
 )
