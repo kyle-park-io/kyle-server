@@ -6,6 +6,7 @@ import (
 	"ingress-reverse-proxy/assets"
 	"ingress-reverse-proxy/logger"
 	"ingress-reverse-proxy/redirect"
+	"ingress-reverse-proxy/redis"
 	"ingress-reverse-proxy/utils"
 )
 
@@ -15,6 +16,9 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 	logger.Log.Info("url: ", r.URL.String())
 	logger.Log.Info("path: ", r.URL.Path)
 	logger.Log.Info("query: ", r.URL.Query())
+
+	// redis real-time
+	redis.UpdateRealTimeUser(r)
 
 	urlPath := r.URL.Path
 	// asset files
@@ -32,6 +36,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			redirect.Redirect404(w, r)
 		} else {
 			switch link.Name {
+
 			// asset js, css(current no used, assets -> static branch)
 			case "assets":
 				redirect.RedirectAssetHandler(w, r, pathSurfix)
@@ -60,6 +65,9 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			case "tracker":
 				// redirect.RedirectChangeHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
+			case "redis-tcp":
+				redis.HTTPToTCPHandler(w, r, link)
+
 			// static
 			case "blog-static":
 				redirect.RedirectHandler(w, r, link)

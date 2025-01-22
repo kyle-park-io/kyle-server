@@ -9,7 +9,6 @@ import (
 
 // CopyFolder recursively copies a source folder to a destination folder.
 func CopyFolder(src string, dst string) error {
-	fmt.Println(src, dst)
 	// Ensure the source folder exists
 	srcInfo, err := os.Stat(src)
 	if err != nil {

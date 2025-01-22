@@ -1,6 +1,7 @@
 import { type Component, type JSX } from 'solid-js';
-import { createSignal } from 'solid-js';
+import { createSignal, onMount } from 'solid-js';
 import { Container, Row, Col, Nav } from 'solid-bootstrap';
+import axios from 'axios';
 // image
 // import HomeLogo from '/home.svg?url';
 import HomeLogo from '@public/home.svg';
@@ -10,6 +11,7 @@ import { globalState } from '../constants/constants';
 
 const Header: Component = (): JSX.Element => {
   const url = globalState.url;
+  const ingressURL = globalState.ingress_reverse_proxy_url;
 
   // const navigate = useNavigate();
   const handleTitleClick = (): void => {
@@ -33,6 +35,16 @@ const Header: Component = (): JSX.Element => {
     setShow(false);
   };
 
+  const [count, setCount] = createSignal(0);
+
+  onMount(() => {
+    async function realTimeUser(): Promise<void> {
+      const res = await axios.get(`${ingressURL}/redis-tcp/real`);
+      setCount(res.data);
+    }
+    void realTimeUser();
+  });
+
   return (
     <>
       <div class="tw-h-full">
@@ -51,6 +63,13 @@ const Header: Component = (): JSX.Element => {
             </Col>
             <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-end">
               <Nav defaultActiveKey="#" as="ul" class="tw-flex-nowrap">
+                <Nav.Item as="li">
+                  <Nav.Link eventKey="count">
+                    <span class="tw-text-black">
+                      실시간 접속자 수: {count()}
+                    </span>
+                  </Nav.Link>
+                </Nav.Item>
                 <Nav.Item as="li">
                   <Nav.Link eventKey="about" onClick={handleAboutClick}>
                     <span class="tw-text-black">About</span>

@@ -7,6 +7,7 @@ import (
 	"ingress-reverse-proxy/assets"
 	"ingress-reverse-proxy/constants"
 	"ingress-reverse-proxy/handlers"
+	"ingress-reverse-proxy/internal/config"
 	"ingress-reverse-proxy/logger"
 	"ingress-reverse-proxy/middleware"
 	"ingress-reverse-proxy/redirect"
@@ -16,12 +17,11 @@ import (
 
 // TODO: optimize HTTP/HTTPS branching in main function
 func main() {
-	// logger
-	logger.InitLogger()
-	logger.Log.Info("hi! i'm kyle!")
 
+	// config
 	env := "prod"
 	isServiceConnected := true
+	config.SetEnv(env)
 
 	switch env {
 	case "dev":

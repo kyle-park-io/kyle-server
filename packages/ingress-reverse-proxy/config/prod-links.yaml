@@ -15,6 +15,9 @@ links:
   - name: tracker
     route: /tracker
     url: http://blockchain-tools-app-server-service.default.svc.cluster.local:9090
+  - name: redis-tcp
+    route: /redis-tcp
+    url: http://redis-tcp-app-server-service.default.svc.cluster.local:8080
   # static
   - name: blog-static
     route: /blog-static
