@@ -64,7 +64,7 @@ const Header: Component = (): JSX.Element => {
             <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-end">
               <Nav defaultActiveKey="#" as="ul" class="tw-flex-nowrap">
                 <Nav.Item as="li">
-                  <Nav.Link eventKey="count">
+                  <Nav.Link eventKey="count" class="tw-cursor-default">
                     <span class="tw-text-black">
                       실시간 접속자 수: {count()}
                     </span>
