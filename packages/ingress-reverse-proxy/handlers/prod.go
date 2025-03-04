@@ -74,6 +74,10 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			case "dex-static":
 				redirect.RedirectHandler(w, r, link)
 
+			// websocket (main server, redis)
+			case "ws":
+				redis.WSToTCPHandler(w, r, link)
+
 			// extra
 			default:
 				redirect.RedirectHandler(w, r, link)

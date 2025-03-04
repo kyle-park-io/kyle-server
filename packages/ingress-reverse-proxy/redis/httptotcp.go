@@ -15,7 +15,7 @@ import (
 
 func UpdateRealTimeUser(r *http.Request) {
 	logger.Log.Infoln("UpdateRealTimeUser: ")
-	// RemoteAddr
+	// RemoteAddr (Client Address)
 	logger.Log.Infoln("RemoteAddr: ", r.RemoteAddr)
 
 	link := redirect.Redirects["/redis-tcp"]
@@ -33,9 +33,43 @@ func UpdateRealTimeUser(r *http.Request) {
 	}
 	defer conn.Close()
 	logger.Log.Infoln("Connected to the server. Type commands (e.g. ADDUSER, REAL-TIME, PING, HELLO, TIME, EXIT)")
+	// LocalAddr: redis client address, RemoteAddr: redis server address
 	logger.Log.Infof("TCP LocalAddr: %s, RemoteAddr: %s", conn.LocalAddr().String(), conn.RemoteAddr().String())
 
 	message := fmt.Sprintf("ADDUSER %s\n", r.RemoteAddr)
+	conn.Write([]byte(message))
+
+	// 3. Receive the response from the server.
+	response, err := bufio.NewReader(conn).ReadString('\n')
+	if err != nil {
+		logger.Log.Errorf("Error reading response: %+v", err)
+		return
+	}
+	logger.Log.Infof("TCP Response: %s", response)
+}
+
+func UpdateRealTimeUser2(clientAddr string) {
+	logger.Log.Infoln("UpdateRealTimeUser: ")
+
+	link := redirect.Redirects["/redis-tcp"]
+	targetURL := link.Url
+	u, err := url.Parse(targetURL)
+	if err != nil {
+		logger.Log.Errorf("%s", err)
+		return
+	}
+
+	// 1. Connect to the server.
+	conn, err := net.Dial("tcp", u.Host)
+	if err != nil {
+		logger.Log.Fatalf("Error connecting to server: %+v", err)
+	}
+	defer conn.Close()
+	// logger.Log.Infoln("Connected to the server. Type commands (e.g. ADDUSER, REAL-TIME, PING, HELLO, TIME, EXIT)")
+	// // LocalAddr: redis client address, RemoteAddr: redis server address
+	// logger.Log.Infof("TCP LocalAddr: %s, RemoteAddr: %s", conn.LocalAddr().String(), conn.RemoteAddr().String())
+
+	message := fmt.Sprintf("ADDUSER %s\n", clientAddr)
 	conn.Write([]byte(message))
 
 	// 3. Receive the response from the server.
@@ -56,7 +90,7 @@ func HTTPToTCPHandler(w http.ResponseWriter, r *http.Request, link *types.Config
 		logger.Log.Errorf("%s", err)
 		return
 	}
-	// RemoteAddr
+	// RemoteAddr (Client Address)
 	logger.Log.Infoln("RemoteAddr: ", r.RemoteAddr)
 
 	// 1. Connect to the server.
@@ -66,6 +100,7 @@ func HTTPToTCPHandler(w http.ResponseWriter, r *http.Request, link *types.Config
 	}
 	defer conn.Close()
 	logger.Log.Infoln("Connected to the server. Type commands (e.g. ADDUSER, REAL-TIME, PING, HELLO, TIME, EXIT)")
+	// LocalAddr: redis client address, RemoteAddr: redis server address
 	logger.Log.Infof("TCP LocalAddr: %s, RemoteAddr: %s", conn.LocalAddr().String(), conn.RemoteAddr().String())
 
 	// brach request

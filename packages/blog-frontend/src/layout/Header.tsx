@@ -12,6 +12,7 @@ import { globalState } from '../constants/constants';
 const Header: Component = (): JSX.Element => {
   const url = globalState.url;
   const ingressURL = globalState.ingress_reverse_proxy_url;
+  const ingressWebsocketURL = globalState.ingress_reverse_proxy_websocket_url;
 
   // const navigate = useNavigate();
   const handleTitleClick = (): void => {
@@ -38,11 +39,22 @@ const Header: Component = (): JSX.Element => {
   const [count, setCount] = createSignal(0);
 
   onMount(() => {
-    async function realTimeUser(): Promise<void> {
-      const res = await axios.get(`${ingressURL}/redis-tcp/real`);
-      setCount(res.data);
-    }
-    void realTimeUser();
+    // wss://jungho.dev/ws
+    const ws = new WebSocket(`${ingressWebsocketURL}/ws`);
+
+    ws.onopen = () => console.log('WebSocket 연결됨');
+    ws.onmessage = (event) => {
+      const data = event.data.trim();
+      const number = parseInt(data, 10);
+      setCount(number);
+    };
+    ws.onclose = () => console.log('WebSocket 연결 종료됨');
+
+    // async function realTimeUser(): Promise<void> {
+    //   const res = await axios.get(`${ingressURL}/redis-tcp/real`);
+    //   setCount(res.data);
+    // }
+    // void realTimeUser();
   });
 
   return (

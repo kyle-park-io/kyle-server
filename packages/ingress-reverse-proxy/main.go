@@ -11,6 +11,7 @@ import (
 	"ingress-reverse-proxy/logger"
 	"ingress-reverse-proxy/middleware"
 	"ingress-reverse-proxy/redirect"
+	"ingress-reverse-proxy/scheduler"
 	"ingress-reverse-proxy/tls"
 	"ingress-reverse-proxy/utils"
 )
@@ -54,6 +55,9 @@ func main() {
 				logger.Log.Fatal("Failed to start server: ", err)
 			}
 
+			// scheduler
+			scheduler.RunScheduler()
+
 			httpRedirectMux.HandleFunc("/", handlers.MainHandler)
 			// set middleware
 			enhancedMux := middleware.Middleware(httpRedirectMux)
@@ -95,6 +99,9 @@ func main() {
 				logger.Log.Fatal("Failed to start server: ", err)
 			}
 
+			// scheduler
+			scheduler.RunScheduler()
+
 			httpRedirectMux.HandleFunc("/", handlers.MainHandler)
 			// set middleware
 			enhancedMux := middleware.Middleware(httpRedirectMux)
@@ -128,6 +135,9 @@ func main() {
 		if err != nil {
 			logger.Log.Fatal("Failed to start server: ", err)
 		}
+
+		// scheduler
+		scheduler.RunScheduler()
 
 		// HTTP server
 		httpRedirectMux := http.NewServeMux()

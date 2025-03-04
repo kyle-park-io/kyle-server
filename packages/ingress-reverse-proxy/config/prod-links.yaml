@@ -14,7 +14,7 @@ links:
     url: http://blockchain-tools-app-server-service.default.svc.cluster.local:8080
   - name: tracker
     route: /tracker
-    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:9090
+    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:8081
   - name: redis-tcp
     route: /redis-tcp
     url: http://redis-tcp-app-server-service.default.svc.cluster.local:8080
@@ -37,4 +37,8 @@ links:
     url: http://chat-app-envoy-service.default.svc.cluster.local:8080
   - name: api-tracker
     route: /api-tracker
-    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:9090
+    url: http://blockchain-tools-app-server-service.default.svc.cluster.local:8081
+  # websocket (branch 전략 미정)
+  - name: ws
+    route: /ws
+    url:
