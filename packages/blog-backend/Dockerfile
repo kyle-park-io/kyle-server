@@ -1,6 +1,6 @@
 ## build stage
 # node version
-FROM node:16 AS builder
+FROM node:18 AS builder
 
 # set dir
 WORKDIR /usr/src/app
@@ -22,7 +22,7 @@ RUN npm run build
 
 ## prod stage
 # node version
-FROM node:16-slim
+FROM node:18-slim
 
 # install cron
 RUN apt-get update && apt-get install -y cron \

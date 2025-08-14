@@ -26,7 +26,7 @@ gcloud artifacts docker images delete $LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO
 # IMAGE_TAG=me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/site-app-server:0.0.1
 IMAGE_TAG=$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$TAG
 # --no-cache
-docker buildx build --no-cache --build-arg=PROGRAM_VER=0.0.1 --load -t $IMAGE_TAG -f $DOCKERFILE_PATH $CONTEXT_PATH
+docker buildx build --no-cache --platform linux/amd64 --build-arg=PROGRAM_VER=0.0.1 --load -t $IMAGE_TAG -f $DOCKERFILE_PATH $CONTEXT_PATH
 # docker buildx build --no-cache --platform linux/amd64 --build-arg=PROGRAM_VER=0.0.1 --push -t $IMAGE_TAG -f $DOCKERFILE_PATH $CONTEXT_PATH
 docker push $IMAGE_TAG
 

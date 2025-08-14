@@ -18,6 +18,9 @@ links:
   - name: redis-tcp
     route: /redis-tcp
     url: http://localhost:3005
+  - name: btcfi
+    route: /btcfi
+    url: http://localhost:8080
   # static
   - name: blog-static
     route: /blog-static
@@ -38,6 +41,9 @@ links:
   - name: api-tracker
     route: /api-tracker
     url: http://localhost:3007
+  - name: api-btcfi
+    route: /api-btcfi
+    url: http://localhost:8080
   # websocket (branch 전략 미정)
   - name: ws
     route: /ws
