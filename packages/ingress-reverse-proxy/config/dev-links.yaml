@@ -28,6 +28,9 @@ links:
   - name: dex-static
     route: /dex-static
     url: http://dex-app-server-service.default.svc.cluster.local:8080
+  - name: btcfi-static
+    route: /btcfi-static
+    url: http://orakle-btcfi-backend-app-server-service.default.svc.cluster.local:8080
   # api
   - name: api-blog
     route: /api-blog
@@ -43,6 +46,9 @@ links:
     url: http://localhost:3007
   - name: api-btcfi
     route: /api-btcfi
+    url: http://localhost:8080
+  - name: api-quant
+    route: /api-quant
     url: http://localhost:8080
   # websocket (branch 전략 미정)
   - name: ws
