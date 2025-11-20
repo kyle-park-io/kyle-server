@@ -61,6 +61,9 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			case "api-quant2":
 				// redirect.RedirectAPIHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
+			case "api-quant3":
+				// redirect.RedirectAPIHandler(w, r, link)
+				redirect.RedirectHandler(w, r, link)
 
 			// basic(URL directly)
 			case "blog":

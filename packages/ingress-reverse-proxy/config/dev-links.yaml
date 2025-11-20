@@ -53,6 +53,9 @@ links:
   - name: api-quant2
     route: /api-quant2
     url: http://localhost:8081
+  - name: api-quant3
+    route: /api-quant3
+    url: http://localhost:8082
   # websocket (branch 전략 미정)
   - name: ws
     route: /ws
