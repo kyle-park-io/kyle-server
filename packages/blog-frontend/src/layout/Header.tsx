@@ -1,33 +1,40 @@
 import { type Component, type JSX } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
-import { Container, Row, Col, Nav } from 'solid-bootstrap';
-import axios from 'axios';
 // image
-// import HomeLogo from '/home.svg?url';
 import HomeLogo from '@public/home.svg';
 // component
 import { Move } from '../components/offcanvas/Offcanvas';
 import { globalState } from '../constants/constants';
+// styles
+import './Header.css';
 
+/**
+ * Header Component
+ * New York Times inspired classic newspaper header design
+ * Features serif typography and minimalist black/white aesthetic
+ */
 const Header: Component = (): JSX.Element => {
   const url = globalState.url;
-  const ingressURL = globalState.ingress_reverse_proxy_url;
   const ingressWebsocketURL = globalState.ingress_reverse_proxy_websocket_url;
 
-  // const navigate = useNavigate();
+  // Navigation handlers
   const handleTitleClick = (): void => {
-    // navigate('/');
     window.location.href = `${url}`;
   };
+
   const handleImageClick = (): void => {
-    // navigate('/');
     window.location.href = `${url}`;
   };
+
   const handleAboutClick = (): void => {
-    // navigate('/about');
     window.location.href = `${url}/about`;
   };
 
+  const handleProfileClick = (): void => {
+    window.location.href = `${url}/profile`;
+  };
+
+  // Offcanvas state management
   const [show, setShow] = createSignal(false);
   const handleOpen = (): void => {
     setShow(true);
@@ -36,68 +43,113 @@ const Header: Component = (): JSX.Element => {
     setShow(false);
   };
 
+  // Real-time visitor count
   const [count, setCount] = createSignal(0);
 
   onMount(() => {
-    // wss://jungho.dev/ws
-    const ws = new WebSocket(`${ingressWebsocketURL}/ws`);
+    // WebSocket connection for real-time visitor count
+    // Skip if WebSocket URL points to localhost (development environment)
+    const isDevWebSocket =
+      ingressWebsocketURL.includes('localhost') ||
+      ingressWebsocketURL.includes('127.0.0.1');
 
-    ws.onopen = () => console.log('WebSocket 연결됨');
-    ws.onmessage = (event) => {
-      const data = event.data.trim();
-      const number = parseInt(data, 10);
-      setCount(number);
-    };
-    ws.onclose = () => console.log('WebSocket 연결 종료됨');
+    if (isDevWebSocket) {
+      // Skip WebSocket connection in development
+      return;
+    }
 
-    // async function realTimeUser(): Promise<void> {
-    //   const res = await axios.get(`${ingressURL}/redis-tcp/real`);
-    //   setCount(res.data);
-    // }
-    // void realTimeUser();
+    try {
+      const ws = new WebSocket(`${ingressWebsocketURL}/ws`);
+
+      ws.onopen = () => console.log('WebSocket connected');
+      ws.onmessage = (event) => {
+        const data = event.data.trim();
+        const number = parseInt(data, 10);
+        if (!isNaN(number)) {
+          setCount(number);
+        }
+      };
+      ws.onerror = () => {
+        // Silently handle WebSocket errors
+        console.warn('WebSocket connection failed - visitor count unavailable');
+      };
+      ws.onclose = () => console.log('WebSocket disconnected');
+    } catch (error) {
+      // Handle WebSocket initialization errors
+      console.warn('WebSocket initialization failed:', error);
+    }
   });
+
+  // Get current date formatted
+  const getCurrentDate = (): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    return new Date().toLocaleDateString('en-US', options);
+  };
 
   return (
     <>
-      <div class="tw-h-full">
-        <header class="offscreen">golang is forever !</header>
-        <Container fluid class="tw-h-full">
-          <Row class="tw-h-full tw-items-center">
-            <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-start">
-              <button onClick={handleImageClick} class="transparent tw-h-10">
-                <img src={HomeLogo} alt="Home" class="tw-h-full"></img>
+      <header class="nyt-header">
+        {/* Screen reader only text */}
+        <h1 class="offscreen">Kyle Park - Personal Blog</h1>
+
+        {/* Top utility bar */}
+        <div class="nyt-header__utility-bar">
+          <div class="nyt-header__utility-left">
+            <button onClick={handleImageClick} class="nyt-header__home-btn">
+              <img src={HomeLogo} alt="Home" class="nyt-header__home-icon" />
+            </button>
+            <span class="nyt-header__date">{getCurrentDate()}</span>
+          </div>
+          <div class="nyt-header__utility-right">
+            <span class="nyt-header__visitor-count">
+              <span class="nyt-header__visitor-icon">●</span>
+              {count()} online
+            </span>
+          </div>
+        </div>
+
+        {/* Main header with logo */}
+        <div class="nyt-header__main">
+          <button onClick={handleTitleClick} class="nyt-header__logo-btn">
+            <span class="nyt-header__logo">
+              <span class="nyt-header__logo-accent">KYLE PARK</span>
+              <span class="nyt-header__logo-tagline">Personal Website</span>
+            </span>
+          </button>
+        </div>
+
+        {/* Navigation bar */}
+        <nav class="nyt-header__nav">
+          <ul class="nyt-header__nav-list">
+            <li class="nyt-header__nav-item">
+              <button onClick={handleTitleClick} class="nyt-header__nav-link">
+                Home
               </button>
-            </Col>
-            <Col lg={6} md={6} sm={4} xs={4} class="tw-flex tw-justify-center">
-              <button onClick={handleTitleClick} class="transparent">
-                <span>KYLE PARK</span>
+            </li>
+            <li class="nyt-header__nav-item">
+              <button onClick={handleAboutClick} class="nyt-header__nav-link">
+                About
               </button>
-            </Col>
-            <Col lg={3} md={3} sm={4} xs={4} class="tw-flex tw-justify-end">
-              <Nav defaultActiveKey="#" as="ul" class="tw-flex-nowrap">
-                <Nav.Item as="li">
-                  <Nav.Link eventKey="count" class="tw-cursor-default">
-                    <span class="tw-text-black">
-                      실시간 접속자 수: {count()}
-                    </span>
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item as="li">
-                  <Nav.Link eventKey="about" onClick={handleAboutClick}>
-                    <span class="tw-text-black">About</span>
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item as="li">
-                  <Nav.Link eventKey="move" onClick={handleOpen}>
-                    <span class="tw-text-black">Move</span>
-                  </Nav.Link>
-                  <Move show={show()} onHide={handleClose}></Move>
-                </Nav.Item>
-              </Nav>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+            </li>
+            <li class="nyt-header__nav-item">
+              <button onClick={handleProfileClick} class="nyt-header__nav-link">
+                Profile
+              </button>
+            </li>
+            <li class="nyt-header__nav-item">
+              <button onClick={handleOpen} class="nyt-header__nav-link">
+                Navigate
+              </button>
+              <Move show={show()} onHide={handleClose}></Move>
+            </li>
+          </ul>
+        </nav>
+      </header>
     </>
   );
 };

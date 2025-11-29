@@ -7,10 +7,11 @@ var assetsForDev = map[string]*Asset{
 	"/sitemap.xml": {contentType: "text/xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/root/sitemap.xml"},
 	"/ads.txt":     {contentType: "text/plain", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/root/ads.txt"},
 	// svg
-	"/home.svg":        {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/home.svg"},
-	"/notion-icon.svg": {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/notion-icon.svg"},
-	"/chat2-bg.svg":    {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/chat2-bg.svg"},
-	"/duck-bg.svg":     {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/duck-bg.svg"},
+	"/home.svg":          {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/home.svg"},
+	"/notion-icon.svg":   {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/notion-icon.svg"},
+	"/chat2-bg.svg":      {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/chat2-bg.svg"},
+	"/duck-bg.svg":       {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/duck-bg.svg"},
+	"/telegram-icon.svg": {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/telegram-icon.svg"},
 	// webp
 	"/gopher1-bg.webp": {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/gopher1-bg.webp"},
 	"/dex-bg.webp":     {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/dex-bg.webp"},
@@ -18,6 +19,7 @@ var assetsForDev = map[string]*Asset{
 	// png
 	"/linkedin-icon.png": {contentType: "image/png", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/linkedin-icon.png"},
 	"/github-icon.png":   {contentType: "image/png", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/github-icon.png"},
+	"/khu-icon.png":      {contentType: "image/png", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/khu-icon.png"},
 	// jpg
 	"/404-bg.jpg":         {contentType: "image/jpeg", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/404-bg.jpg"},
 	"/blog-bg.jpg":        {contentType: "image/jpeg", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/blog-bg.jpg"},

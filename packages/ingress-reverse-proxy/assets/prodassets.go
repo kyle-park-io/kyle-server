@@ -7,10 +7,11 @@ var assetsForProd = map[string]*Asset{
 	"/sitemap.xml": {contentType: "text/xml", dataPath: "/app/public/root/sitemap.xml"},
 	"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/root/ads.txt"},
 	// svg
-	"/home.svg":        {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
-	"/notion-icon.svg": {contentType: "image/svg+xml", dataPath: "/app/public/notion-icon.svg"},
-	"/chat2-bg.svg":    {contentType: "image/svg+xml", dataPath: "/app/public/chat2-bg.svg"},
-	"/duck-bg.svg":     {contentType: "image/svg+xml", dataPath: "/app/public/duck-bg.svg"},
+	"/home.svg":          {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
+	"/notion-icon.svg":   {contentType: "image/svg+xml", dataPath: "/app/public/notion-icon.svg"},
+	"/chat2-bg.svg":      {contentType: "image/svg+xml", dataPath: "/app/public/chat2-bg.svg"},
+	"/duck-bg.svg":       {contentType: "image/svg+xml", dataPath: "/app/public/duck-bg.svg"},
+	"/telegram-icon.svg": {contentType: "image/svg+xml", dataPath: "/app/public/telegram-icon.svg"},
 	// webp
 	"/gopher1-bg.webp": {contentType: "image/webp", dataPath: "/app/public/gopher1-bg.webp"},
 	"/dex-bg.webp":     {contentType: "image/webp", dataPath: "/app/public/dex-bg.webp"},
@@ -18,6 +19,7 @@ var assetsForProd = map[string]*Asset{
 	// png
 	"/linkedin-icon.png": {contentType: "image/png", dataPath: "/app/public/linkedin-icon.png"},
 	"/github-icon.png":   {contentType: "image/png", dataPath: "/app/public/github-icon.png"},
+	"/khu-icon.png":      {contentType: "image/png", dataPath: "/app/public/khu-icon.png"},
 	// jpg
 	"/404-bg.jpg":         {contentType: "image/jpeg", dataPath: "/app/public/404-bg.jpg"},
 	"/blog-bg.jpg":        {contentType: "image/jpeg", dataPath: "/app/public/blog-bg.jpg"},

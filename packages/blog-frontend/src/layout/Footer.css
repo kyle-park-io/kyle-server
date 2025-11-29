@@ -1,0 +1,173 @@
+/**
+ * Footer Styles
+ * New York Times inspired classic newspaper design
+ * Clean, minimal aesthetic with elegant typography
+ */
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+.nyt-footer {
+  --nyt-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --nyt-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --nyt-color-black: #121212;
+  --nyt-color-gray-dark: #333333;
+  --nyt-color-gray-medium: #666666;
+  --nyt-color-gray-light: #f7f7f7;
+  --nyt-color-border: #e2e2e2;
+  --nyt-color-white: #ffffff;
+  --nyt-transition: 0.2s ease-in-out;
+}
+
+/* ============================================
+   Main Footer Container
+   ============================================ */
+.nyt-footer {
+  width: 100%;
+  background-color: var(--nyt-color-gray-light);
+}
+
+/* ============================================
+   Top Border Decoration
+   ============================================ */
+.nyt-footer__border-top {
+  height: 2px;
+  background-color: var(--nyt-color-black);
+}
+
+/* ============================================
+   Footer Content
+   ============================================ */
+.nyt-footer__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  padding-right: 4px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   Copyright Section (Left)
+   ============================================ */
+.nyt-footer__copyright {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nyt-footer__copyright-text {
+  font-family: var(--nyt-font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--nyt-color-gray-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Tagline Section (Center)
+   ============================================ */
+.nyt-footer__tagline {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nyt-footer__tagline-text {
+  font-family: var(--nyt-font-serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--nyt-color-gray-dark);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Social Links Section (Right)
+   ============================================ */
+.nyt-footer__social {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.nyt-footer__social-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--nyt-transition);
+}
+
+.nyt-footer__social-btn:hover {
+  background-color: var(--nyt-color-border);
+  transform: translateY(-2px);
+}
+
+.nyt-footer__social-icon {
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all var(--nyt-transition);
+}
+
+.nyt-footer__social-btn:hover .nyt-footer__social-icon {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+  .nyt-footer__content {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 16px;
+  }
+
+  .nyt-footer__copyright,
+  .nyt-footer__tagline,
+  .nyt-footer__social {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nyt-footer__copyright-text {
+    font-size: 10px;
+  }
+
+  .nyt-footer__tagline-text {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nyt-footer__content {
+    padding: 6px 12px;
+    gap: 6px;
+  }
+
+  .nyt-footer__copyright-text {
+    font-size: 9px;
+  }
+
+  .nyt-footer__tagline {
+    display: none;
+  }
+
+  .nyt-footer__social-icon {
+    height: 18px;
+    width: 18px;
+  }
+}

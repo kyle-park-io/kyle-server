@@ -1,0 +1,294 @@
+/**
+ * Header Styles
+ * New York Times inspired classic newspaper design
+ * Elegant serif typography with minimalist black/white aesthetic
+ */
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+.nyt-header {
+  --nyt-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --nyt-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --nyt-font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --nyt-color-black: #121212;
+  --nyt-color-gray-dark: #333333;
+  --nyt-color-gray-medium: #666666;
+  --nyt-color-gray-light: #999999;
+  --nyt-color-border: #e2e2e2;
+  --nyt-color-white: #ffffff;
+  --nyt-color-accent: #567b95;
+  --nyt-transition: 0.2s ease-in-out;
+}
+
+/* ============================================
+   Main Header Container
+   ============================================ */
+.nyt-header {
+  width: 100%;
+  background-color: var(--nyt-color-white);
+  border-bottom: 1px solid var(--nyt-color-border);
+}
+
+/* ============================================
+   Utility Bar (Top Section)
+   ============================================ */
+.nyt-header__utility-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 24px;
+  border-bottom: 1px solid var(--nyt-color-border);
+  font-family: var(--nyt-font-sans);
+  font-size: 11px;
+  color: var(--nyt-color-gray-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nyt-header__utility-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nyt-header__utility-right {
+  display: flex;
+  align-items: center;
+}
+
+.nyt-header__home-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--nyt-transition);
+}
+
+.nyt-header__home-btn:hover {
+  opacity: 0.7;
+}
+
+.nyt-header__home-icon {
+  height: 20px;
+  width: auto;
+}
+
+.nyt-header__date {
+  font-weight: 500;
+}
+
+.nyt-header__visitor-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.nyt-header__visitor-icon {
+  color: #22c55e;
+  font-size: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   Main Header (Logo Section)
+   ============================================ */
+.nyt-header__main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 2px solid var(--nyt-color-black);
+  background: linear-gradient(
+    to bottom,
+    var(--nyt-color-white) 0%,
+    #fafafa 100%
+  );
+}
+
+.nyt-header__logo-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity var(--nyt-transition);
+}
+
+.nyt-header__logo-btn:hover {
+  opacity: 0.85;
+}
+
+.nyt-header__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.nyt-header__logo-accent {
+  font-family: var(--nyt-font-display);
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--nyt-color-black);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.nyt-header__logo-tagline {
+  font-family: var(--nyt-font-serif);
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--nyt-color-gray-medium);
+  letter-spacing: 0.15em;
+  text-transform: none;
+}
+
+/* ============================================
+   Navigation Bar
+   ============================================ */
+.nyt-header__nav {
+  display: flex;
+  justify-content: center;
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--nyt-color-border);
+}
+
+.nyt-header__nav-list {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nyt-header__nav-item {
+  position: relative;
+}
+
+.nyt-header__nav-link {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--nyt-font-serif);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--nyt-color-gray-dark);
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  padding: 4px 0;
+  position: relative;
+  transition: color var(--nyt-transition);
+}
+
+.nyt-header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--nyt-color-black);
+  transition: width var(--nyt-transition);
+}
+
+.nyt-header__nav-link:hover {
+  color: var(--nyt-color-black);
+}
+
+.nyt-header__nav-link:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   Screen Reader Only (Accessibility)
+   ============================================ */
+.offscreen {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+  .nyt-header__utility-bar {
+    padding: 6px 16px;
+    font-size: 10px;
+  }
+
+  .nyt-header__date {
+    display: none;
+  }
+
+  .nyt-header__main {
+    padding: 10px 16px;
+  }
+
+  .nyt-header__logo-accent {
+    font-size: 28px;
+  }
+
+  .nyt-header__logo-tagline {
+    font-size: 11px;
+  }
+
+  .nyt-header__nav {
+    padding: 8px 16px;
+  }
+
+  .nyt-header__nav-list {
+    gap: 20px;
+  }
+
+  .nyt-header__nav-link {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nyt-header__utility-bar {
+    padding: 4px 12px;
+  }
+
+  .nyt-header__home-icon {
+    height: 16px;
+  }
+
+  .nyt-header__logo-accent {
+    font-size: 22px;
+    letter-spacing: 0.08em;
+  }
+
+  .nyt-header__logo-tagline {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .nyt-header__nav-list {
+    gap: 16px;
+  }
+
+  .nyt-header__nav-link {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+}

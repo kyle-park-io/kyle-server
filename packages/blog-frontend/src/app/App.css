@@ -1,0 +1,336 @@
+/**
+ * Home Page Styles
+ * New York Times inspired homepage design
+ * Clean grid layout with elegant typography
+ */
+
+/* ============================================
+   CSS Custom Properties
+   ============================================ */
+.home-page {
+  --home-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --home-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --home-color-black: #121212;
+  --home-color-gray-dark: #333333;
+  --home-color-gray-medium: #666666;
+  --home-color-gray-light: #f7f7f7;
+  --home-color-border: #e2e2e2;
+  --home-color-white: #ffffff;
+  --home-transition: 0.3s ease-in-out;
+  --home-max-width: 1100px;
+}
+
+/* ============================================
+   Page Container
+   ============================================ */
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--home-color-white);
+}
+
+.home-container {
+  max-width: var(--home-max-width);
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ============================================
+   Section Styles
+   ============================================ */
+.home-section {
+  margin-bottom: 48px;
+}
+
+.home-section:last-child {
+  margin-bottom: 0;
+}
+
+.home-section__title {
+  font-family: var(--home-font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--home-color-gray-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--home-color-black);
+}
+
+/* ============================================
+   Featured Card
+   ============================================ */
+.home-section--featured {
+  margin-bottom: 40px;
+}
+
+.featured-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, var(--home-color-black) 0%, #2a2a2a 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--home-transition);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.featured-card__content {
+  flex: 1;
+}
+
+.featured-card__label {
+  display: inline-block;
+  font-family: var(--home-font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+.featured-card__title {
+  font-family: var(--home-font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--home-color-white);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.featured-card__desc {
+  font-family: var(--home-font-sans);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.featured-card__link {
+  font-family: var(--home-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--home-color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.featured-card__icon {
+  font-size: 64px;
+  margin-left: 32px;
+  opacity: 0.9;
+}
+
+/* ============================================
+   Grid Layout
+   ============================================ */
+.home-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.home-grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.home-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.home-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ============================================
+   Project Card
+   ============================================ */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  background-color: var(--home-color-gray-light);
+  border: 1px solid var(--home-color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--home-transition);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--home-color-black);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.project-card__icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.project-card__title {
+  font-family: var(--home-font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--home-color-black);
+  margin: 0 0 6px 0;
+}
+
+.project-card__desc {
+  font-family: var(--home-font-sans);
+  font-size: 13px;
+  color: var(--home-color-gray-medium);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.project-card--large {
+  padding: 32px;
+}
+
+.project-card--large .project-card__icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.project-card--large .project-card__title {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.project-card--large .project-card__desc {
+  font-size: 14px;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 992px) {
+  .home-grid--4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 24px 20px 48px;
+  }
+
+  .featured-card {
+    padding: 24px 28px;
+  }
+
+  .featured-card__title {
+    font-size: 24px;
+  }
+
+  .featured-card__desc {
+    font-size: 14px;
+  }
+
+  .featured-card__icon {
+    font-size: 48px;
+    margin-left: 20px;
+  }
+
+  .home-grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-card {
+    padding: 20px;
+  }
+
+  .project-card__icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .project-card__title {
+    font-size: 15px;
+  }
+
+  .project-card__desc {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 20px 16px 40px;
+  }
+
+  .home-section {
+    margin-bottom: 36px;
+  }
+
+  .featured-card {
+    flex-direction: column;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .featured-card__content {
+    order: 2;
+  }
+
+  .featured-card__icon {
+    order: 1;
+    margin: 0 0 16px 0;
+    font-size: 48px;
+  }
+
+  .featured-card__title {
+    font-size: 22px;
+  }
+
+  .home-grid--2,
+  .home-grid--3,
+  .home-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-card {
+    padding: 16px;
+  }
+
+  .project-card__icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .project-card__title {
+    font-size: 14px;
+  }
+
+  .project-card__desc {
+    font-size: 11px;
+  }
+
+  .project-card--large {
+    padding: 20px;
+  }
+
+  .project-card--large .project-card__icon {
+    font-size: 32px;
+  }
+
+  .project-card--large .project-card__title {
+    font-size: 16px;
+  }
+}

@@ -14,7 +14,7 @@ import { globalState } from '../constants/constants';
 
 const Hero: Component = (): JSX.Element => {
   const handleDexClick = (): void => {
-    window.location.href = `${globalState.url}/dex`;
+    window.open(`${globalState.url}/dex`);
   };
 
   return (

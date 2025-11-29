@@ -1,19 +1,23 @@
 import { type Component, type JSX } from 'solid-js';
-import { createSignal, onMount } from 'solid-js';
+import { createSignal, onMount, Show } from 'solid-js';
 import { useParams, useNavigate } from '@solidjs/router';
 import axios from 'axios';
-import { Spinner, Container, Row, Col, Form } from 'solid-bootstrap';
 import { globalState } from '../constants/constants';
+// styles
+import './Blog.css';
 
+/**
+ * Blog Detail Component
+ * New York Times inspired article view
+ * Clean reading experience with optional notes
+ */
 const BlogDetail: Component = (): JSX.Element => {
   const api_url = globalState.api_url;
-
   const params = useParams();
   const navigate = useNavigate();
 
   const [error, setError] = createSignal<Error | null>(null);
   const [loading, setLoading] = createSignal(false);
-  // const [title, setTitle] = createSignal('');
   const [htmlContent, setHtmlContent] = createSignal('');
 
   onMount(() => {
@@ -24,7 +28,6 @@ const BlogDetail: Component = (): JSX.Element => {
           navigate(`/blog/not-found?id=${params.id}`);
         }
 
-        // setTitle(res.data.title);
         setHtmlContent(res.data.detail);
         setLoading(true);
       } catch (err) {
@@ -39,68 +42,54 @@ const BlogDetail: Component = (): JSX.Element => {
     void fetchData();
   });
 
+  const handleBackClick = (): void => {
+    navigate('/blog');
+  };
+
   return (
-    <>
-      <Container fluid class="tw-p-4">
-        <Row class="tw-h-full tw-flex tw-flex-col">
-          <Col md={12}>
-            <h1>BlogDetail</h1>
-            <br></br>
-          </Col>
-          <div class="tw-flex-1 tw-flex">
-            <Col md={2} xs={0}></Col>
-            <Col
-              md={8}
-              xs={12}
-              class="tw-h-full tw-flex tw-justify-center tw-items-center"
-            >
-              {!loading() ? (
-                <>
-                  <span>Loading...</span>
-                  <Spinner animation="border" variant="primary" />
-                </>
-              ) : (
-                <>
-                  {error() !== null ? (
-                    <span>{error()?.message}</span>
-                  ) : (
-                    <>
-                      <Row class="tw-w-full tw-h-full">
-                        <Col md={8} xs={12}>
-                          {/* {title() !== '' && (
-                            <div
-                              style="white-space: pre-wrap;"
-                              innerHTML={title()}
-                            />
-                          )} */}
-                          {htmlContent() !== '' && (
-                            <div
-                              style="white-space: pre-wrap;"
-                              innerHTML={htmlContent()}
-                            />
-                          )}
-                        </Col>
-                        <Col
-                          md={4}
-                          xs={0}
-                          class="tw-hidden tw-h-full md:tw-flex"
-                        >
-                          <textarea
-                            class="tw-h-full tw-w-full tw-border tw-rounded"
-                            placeholder="자유롭게 메모하세요"
-                          ></textarea>
-                        </Col>
-                      </Row>
-                    </>
-                  )}
-                </>
-              )}
-            </Col>
-            <Col md={2} xs={0}></Col>
+    <div class="blog-page blog-page--detail">
+      <div class="blog-detail-container">
+        {/* Back Button */}
+        <button class="blog-back-btn" onClick={handleBackClick}>
+          ← Back to Blog
+        </button>
+
+        {/* Content */}
+        <Show when={!loading()}>
+          <div class="blog-loading">
+            <div class="blog-loading__spinner"></div>
+            <span class="blog-loading__text">Loading article...</span>
           </div>
-        </Row>
-      </Container>
-    </>
+        </Show>
+
+        <Show when={loading() && error() !== null}>
+          <div class="blog-error">
+            <span class="blog-error__icon">⚠️</span>
+            <span class="blog-error__text">{error()?.message}</span>
+          </div>
+        </Show>
+
+        <Show when={loading() && error() === null}>
+          <div class="blog-detail-layout">
+            {/* Article Content */}
+            <article class="blog-article">
+              <Show when={htmlContent() !== ''}>
+                <div class="blog-article__content" innerHTML={htmlContent()} />
+              </Show>
+            </article>
+
+            {/* Notes Sidebar */}
+            <aside class="blog-notes">
+              <label class="blog-notes__label">Notes</label>
+              <textarea
+                class="blog-notes__textarea"
+                placeholder="Take notes while reading..."
+              />
+            </aside>
+          </div>
+        </Show>
+      </div>
+    </div>
   );
 };
 

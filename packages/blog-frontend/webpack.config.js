@@ -14,7 +14,7 @@ module.exports = {
       '@public': path.resolve(__dirname, 'public'),
     },
   },
-  // build
+  // Build configuration
   module: {
     rules: [
       {
@@ -56,7 +56,7 @@ module.exports = {
       },
     ],
   },
-  // plugin
+  // Plugins
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
@@ -69,10 +69,9 @@ module.exports = {
       template: 'index(webpack).html',
       inject: 'body',
       scriptLoading: 'defer',
-      // scriptLoading: 'module',
     }),
   ],
-  // dev-server
+  // Development server
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),
@@ -80,7 +79,7 @@ module.exports = {
     compress: true,
     port: 3002,
     historyApiFallback: true,
-    // proxy(cors)
+    // Proxy for CORS
     proxy: [
       {
         context: ['/api', '/api-chat'],

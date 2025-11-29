@@ -1,0 +1,271 @@
+/**
+ * About Page Styles
+ * New York Times inspired elegant design
+ * Clean typography with professional layout
+ */
+
+/* ============================================
+   CSS Custom Properties
+   ============================================ */
+.about-page {
+  --about-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --about-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --about-font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --about-color-black: #121212;
+  --about-color-gray-dark: #333333;
+  --about-color-gray-medium: #666666;
+  --about-color-gray-light: #f7f7f7;
+  --about-color-border: #e2e2e2;
+  --about-color-white: #ffffff;
+  --about-color-accent: #1a1a2e;
+  --about-transition: 0.3s ease-in-out;
+  --about-max-width: 900px;
+}
+
+/* ============================================
+   Page Container
+   ============================================ */
+.about-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--about-color-white);
+}
+
+/* ============================================
+   Main Container
+   ============================================ */
+.about-container {
+  max-width: var(--about-max-width);
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+/* ============================================
+   Section Styles
+   ============================================ */
+.about-section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--about-color-border);
+}
+
+.about-section:last-of-type {
+  border-bottom: none;
+}
+
+.about-section__title {
+  font-family: var(--about-font-serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--about-color-black);
+  margin: 0 0 24px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--about-color-black);
+  display: inline-block;
+}
+
+.about-section__content {
+  font-family: var(--about-font-sans);
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--about-color-gray-dark);
+}
+
+.about-section__content p {
+  margin: 0 0 16px 0;
+}
+
+.about-section__content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   Tech Stack Grid
+   ============================================ */
+.about-tech__intro {
+  margin-bottom: 32px !important;
+}
+
+.about-tech__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.about-tech__card {
+  background-color: var(--about-color-gray-light);
+  border: 1px solid var(--about-color-border);
+  border-radius: 8px;
+  padding: 24px;
+  transition: all var(--about-transition);
+}
+
+.about-tech__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.about-tech__card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.about-tech__card-title {
+  font-family: var(--about-font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--about-color-black);
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about-tech__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-tech__list li {
+  font-family: var(--about-font-sans);
+  font-size: 14px;
+  color: var(--about-color-gray-dark);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--about-color-border);
+}
+
+.about-tech__list li:last-child {
+  border-bottom: none;
+}
+
+/* ============================================
+   Contact Section
+   ============================================ */
+.about-section--contact {
+  background-color: var(--about-color-gray-light);
+  margin: 48px -24px 0;
+  padding: 48px 24px;
+  border-bottom: none;
+}
+
+.about-contact__intro {
+  margin-bottom: 32px !important;
+}
+
+.about-contact__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.about-contact__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  background-color: var(--about-color-white);
+  border: 1px solid var(--about-color-border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all var(--about-transition);
+}
+
+.about-contact__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--about-color-black);
+}
+
+.about-contact__icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.about-contact__label {
+  font-family: var(--about-font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--about-color-gray-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.about-contact__value {
+  font-family: var(--about-font-sans);
+  font-size: 14px;
+  color: var(--about-color-black);
+  font-weight: 500;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 36px 20px;
+  }
+
+  .about-section {
+    padding: 36px 0;
+  }
+
+  .about-section__title {
+    font-size: 24px;
+  }
+
+  .about-section__content {
+    font-size: 16px;
+  }
+
+  .about-tech__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-section--contact {
+    margin: 36px -20px 0;
+    padding: 36px 20px;
+  }
+
+  .about-quote__text {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    padding: 28px 16px;
+  }
+
+  .about-section {
+    padding: 28px 0;
+  }
+
+  .about-section__title {
+    font-size: 20px;
+  }
+
+  .about-section__content {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .about-tech__card {
+    padding: 20px;
+  }
+
+  .about-contact__item {
+    padding: 20px;
+  }
+
+  .about-section--contact {
+    margin: 28px -16px 0;
+    padding: 28px 16px;
+  }
+}
