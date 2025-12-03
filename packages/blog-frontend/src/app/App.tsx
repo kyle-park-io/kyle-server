@@ -122,7 +122,10 @@ const App: Component = (): JSX.Element => {
         <section class="home-section">
           <h2 class="home-section__title">Projects</h2>
           <div class="home-grid home-grid--4">
-            <button class="project-card" onClick={handleDexClick}>
+            <button
+              class="project-card project-card--dex"
+              onClick={handleDexClick}
+            >
               <span class="project-card__icon">💱</span>
               <h3 class="project-card__title">DEX (Uniswap V2)</h3>
               <p class="project-card__desc">Decentralized exchange</p>
