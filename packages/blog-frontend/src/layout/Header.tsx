@@ -34,6 +34,10 @@ const Header: Component = (): JSX.Element => {
     window.location.href = `${url}/profile`;
   };
 
+  const handleQuantClick = (): void => {
+    window.location.href = `${url}/quant`;
+  };
+
   // Offcanvas state management
   const [show, setShow] = createSignal(false);
   const handleOpen = (): void => {
@@ -126,6 +130,14 @@ const Header: Component = (): JSX.Element => {
         {/* Navigation bar */}
         <nav class="nyt-header__nav">
           <ul class="nyt-header__nav-list">
+            <li class="nyt-header__nav-item">
+              <button
+                onClick={handleQuantClick}
+                class="nyt-header__nav-link nyt-header__nav-link--quant"
+              >
+                Quant
+              </button>
+            </li>
             <li class="nyt-header__nav-item">
               <button onClick={handleTitleClick} class="nyt-header__nav-link">
                 Home

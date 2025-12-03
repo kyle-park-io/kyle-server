@@ -14,8 +14,12 @@ const App: Component = (): JSX.Element => {
   const navigate = useNavigate();
 
   // Navigation handlers
-  const handleQuantClick = (): void => {
+  const handleQuantPortfolioClick = (): void => {
     window.open('https://kyle-quant.xyz/');
+  };
+
+  const handleQuantCareerClick = (): void => {
+    navigate('/quant');
   };
 
   const handleProfileClick = (): void => {
@@ -81,7 +85,7 @@ const App: Component = (): JSX.Element => {
       <div class="home-container">
         {/* Featured Section */}
         <section class="home-section home-section--featured">
-          <button class="featured-card" onClick={handleQuantClick}>
+          <button class="featured-card" onClick={handleQuantPortfolioClick}>
             <div class="featured-card__content">
               <span class="featured-card__label">Featured</span>
               <h2 class="featured-card__title">Quant Portfolio</h2>
@@ -97,7 +101,16 @@ const App: Component = (): JSX.Element => {
         {/* Introduce Section */}
         <section class="home-section">
           <h2 class="home-section__title">Introduce</h2>
-          <div class="home-grid home-grid--3">
+          <div class="home-grid home-grid--4">
+            <button
+              class="project-card project-card--quant"
+              onClick={handleQuantCareerClick}
+            >
+              <span class="project-card__icon">🏦</span>
+              <h3 class="project-card__title">Quant</h3>
+              <p class="project-card__desc">Career</p>
+            </button>
+
             <button class="project-card" onClick={handleProfileClick}>
               <span class="project-card__icon">👤</span>
               <h3 class="project-card__title">Profile</h3>

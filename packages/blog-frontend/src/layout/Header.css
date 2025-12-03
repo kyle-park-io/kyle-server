@@ -214,6 +214,20 @@
   width: 100%;
 }
 
+/* Quant Navigation Link - Special Styling */
+.nyt-header__nav-link--quant {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.nyt-header__nav-link--quant::after {
+  background-color: #dc2626;
+}
+
+.nyt-header__nav-link--quant:hover {
+  color: #b91c1c;
+}
+
 /* ============================================
    Screen Reader Only (Accessibility)
    ============================================ */
