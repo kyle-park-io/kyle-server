@@ -58,92 +58,6 @@
 }
 
 /* ============================================
-   Personal Quant Banner
-   ============================================ */
-.quant-banner {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin-bottom: 48px;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border: 2px solid #475569;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all var(--quant-transition);
-  overflow: hidden;
-  position: relative;
-}
-
-.quant-banner::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.08) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-.quant-banner:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-  border-color: #64748b;
-}
-
-.quant-banner__content {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  padding: 24px 32px;
-  position: relative;
-  z-index: 1;
-}
-
-.quant-banner__icon {
-  font-size: 48px;
-  flex-shrink: 0;
-}
-
-.quant-banner__text {
-  flex: 1;
-  text-align: left;
-}
-
-.quant-banner__title {
-  font-family: var(--quant-font-sans);
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 8px 0;
-}
-
-.quant-banner__desc {
-  font-family: var(--quant-font-sans);
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-  line-height: 1.5;
-}
-
-.quant-banner__arrow {
-  font-size: 32px;
-  color: #ffffff;
-  flex-shrink: 0;
-  transition: transform var(--quant-transition);
-}
-
-.quant-banner:hover .quant-banner__arrow {
-  transform: translateX(8px);
-}
-
-/* ============================================
    Section Styles
    ============================================ */
 .quant-section {
@@ -474,6 +388,141 @@
 }
 
 /* ============================================
+   Personal Strategies - Simplified Cards
+   ============================================ */
+.personal-strategies {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.strategy-card {
+  background: var(--quant-color-card-bg);
+  border: 1px solid var(--quant-color-card-border);
+  border-radius: 8px;
+  padding: 32px;
+  transition: all var(--quant-transition);
+}
+
+.strategy-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+.strategy-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.strategy-card__title {
+  font-family: var(--quant-font-sans);
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.strategy-card__category {
+  font-family: var(--quant-font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.15);
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.strategy-card__section {
+  margin-bottom: 24px;
+}
+
+.strategy-card__section:last-child {
+  margin-bottom: 0;
+}
+
+.strategy-card__subtitle {
+  font-family: var(--quant-font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.strategy-card__description {
+  font-family: var(--quant-font-sans);
+  font-size: 15px;
+  color: #e2e8f0;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.strategy-card__specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.strategy-card__spec-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--quant-font-mono);
+  font-size: 14px;
+  background: rgba(59, 130, 246, 0.08);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border-left: 3px solid #3b82f6;
+}
+
+.strategy-card__spec-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.strategy-card__spec-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.strategy-card__spec-value {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.strategy-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.strategy-card__features li {
+  font-family: var(--quant-font-sans);
+  font-size: 14px;
+  color: #cbd5e1;
+  padding: 8px 0 8px 20px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.strategy-card__features li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+/* ============================================
    CTA Section - Dark Background
    ============================================ */
 .quant-section--cta {
@@ -502,7 +551,7 @@
 .quant-cta__link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   font-family: var(--quant-font-sans);
   font-size: 15px;
   font-weight: 600;
@@ -513,6 +562,11 @@
   border: 1px solid var(--quant-color-card-border);
   border-radius: 6px;
   transition: all var(--quant-transition);
+}
+
+.quant-cta__icon-img {
+  width: 22px;
+  height: 22px;
 }
 
 .quant-cta__link:hover {
@@ -556,31 +610,6 @@
     padding: 36px 20px;
   }
 
-  .quant-banner {
-    margin-bottom: 36px;
-  }
-
-  .quant-banner__content {
-    padding: 20px 24px;
-    gap: 16px;
-  }
-
-  .quant-banner__icon {
-    font-size: 36px;
-  }
-
-  .quant-banner__title {
-    font-size: 18px;
-  }
-
-  .quant-banner__desc {
-    font-size: 13px;
-  }
-
-  .quant-banner__arrow {
-    font-size: 24px;
-  }
-
   .quant-section {
     padding: 36px 0;
   }
@@ -616,42 +645,41 @@
     align-items: flex-start;
     gap: 8px;
   }
+
+  .strategy-card {
+    padding: 28px;
+  }
+
+  .strategy-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .strategy-card__title {
+    font-size: 20px;
+  }
+
+  .strategy-card__subtitle {
+    font-size: 15px;
+  }
+
+  .strategy-card__description {
+    font-size: 14px;
+  }
+
+  .strategy-card__specs {
+    grid-template-columns: 1fr;
+  }
+
+  .strategy-card__spec-item {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 480px) {
   .quant-container {
     padding: 28px 16px;
-  }
-
-  .quant-banner {
-    margin-bottom: 28px;
-  }
-
-  .quant-banner__content {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    gap: 12px;
-  }
-
-  .quant-banner__text {
-    text-align: center;
-  }
-
-  .quant-banner__icon {
-    font-size: 32px;
-  }
-
-  .quant-banner__title {
-    font-size: 16px;
-  }
-
-  .quant-banner__desc {
-    font-size: 12px;
-  }
-
-  .quant-banner__arrow {
-    font-size: 20px;
   }
 
   .quant-section {
@@ -680,5 +708,50 @@
     margin: 28px 0 0;
     padding: 28px 16px;
     border-radius: 8px;
+  }
+
+  .personal-strategies {
+    gap: 20px;
+  }
+
+  .strategy-card {
+    padding: 24px;
+  }
+
+  .strategy-card__header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .strategy-card__title {
+    font-size: 18px;
+  }
+
+  .strategy-card__category {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .strategy-card__section {
+    margin-bottom: 20px;
+  }
+
+  .strategy-card__subtitle {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .strategy-card__description {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .strategy-card__spec-item {
+    font-size: 12px;
+  }
+
+  .strategy-card__features li {
+    font-size: 13px;
+    padding: 6px 0 6px 18px;
   }
 }

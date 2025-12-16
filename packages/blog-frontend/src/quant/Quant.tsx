@@ -1,4 +1,5 @@
 import { type Component, type JSX } from 'solid-js';
+import { useNavigate } from '@solidjs/router';
 // styles
 import './Quant.css';
 
@@ -8,10 +9,30 @@ import './Quant.css';
  * Dark theme with accent colors for a professional finance aesthetic
  */
 const Quant: Component = (): JSX.Element => {
+  const navigate = useNavigate();
+
+  const handlePersonalQuantClick = (): void => {
+    navigate('/personal-quant');
+  };
+
   return (
     <div class="quant-page">
       {/* Main Content */}
       <div class="quant-container">
+        {/* Personal Quant Banner */}
+        <button onClick={handlePersonalQuantClick} class="quant-banner">
+          <div class="quant-banner__content">
+            <span class="quant-banner__icon">🔥</span>
+            <div class="quant-banner__text">
+              <h3 class="quant-banner__title">Personal Quant Projects</h3>
+              <p class="quant-banner__desc">
+                View individual trading strategies and quantitative analysis
+              </p>
+            </div>
+            <span class="quant-banner__arrow">→</span>
+          </div>
+        </button>
+
         {/* Overview Section */}
         <section class="quant-section">
           <h2 class="quant-section__title">Overview</h2>

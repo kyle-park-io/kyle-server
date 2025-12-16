@@ -13,6 +13,7 @@ import App from './app/App';
 import About from './about/About';
 import Profile from './profile/Profile';
 import Quant from './quant/Quant';
+import PersonalQuant from './personal-quant/PersonalQuant';
 import BlogList from './blog/BlogList';
 import BlogDetail from './blog/BlogDetail';
 import BlogNotFound from './blog/BlogNotFound';
@@ -47,6 +48,7 @@ if (root != null) {
             <Route path="/about" component={About} />
             <Route path="/profile" component={Profile} />
             <Route path="/quant" component={Quant} />
+            <Route path="/personal-quant" component={PersonalQuant} />
             <Route path="/blog" component={BlogList} />
             <Route path="/blog/not-found" component={BlogNotFound} />
             <Route path="/blog/:id" component={BlogDetail} />

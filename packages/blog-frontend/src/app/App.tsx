@@ -22,6 +22,10 @@ const App: Component = (): JSX.Element => {
     navigate('/quant');
   };
 
+  const handlePersonalQuantClick = (): void => {
+    navigate('/personal-quant');
+  };
+
   const handleProfileClick = (): void => {
     navigate('/profile');
   };
@@ -107,7 +111,7 @@ const App: Component = (): JSX.Element => {
         {/* Introduce Section */}
         <section class="home-section">
           <h2 class="home-section__title">Introduce</h2>
-          <div class="home-grid home-grid--4">
+          <div class="home-grid home-grid--2 introduce-grid-top">
             <button
               class="project-card project-card--quant"
               onClick={handleQuantCareerClick}
@@ -117,6 +121,17 @@ const App: Component = (): JSX.Element => {
               <p class="project-card__desc">Career</p>
             </button>
 
+            <button
+              class="project-card project-card--personal-quant"
+              onClick={handlePersonalQuantClick}
+            >
+              <span class="project-card__icon">💰</span>
+              <h3 class="project-card__title">Personal Quant</h3>
+              <p class="project-card__desc">Individual trading strategies</p>
+            </button>
+          </div>
+
+          <div class="home-grid home-grid--3 introduce-grid-bottom">
             <button class="project-card" onClick={handleProfileClick}>
               <span class="project-card__icon">👤</span>
               <h3 class="project-card__title">Profile</h3>

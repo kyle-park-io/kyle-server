@@ -217,6 +217,43 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
+/* Personal Quant Card - Teal/Cyan Gradient Style */
+.project-card--personal-quant {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+  border: 2px solid #2dd4bf;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card--personal-quant::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.project-card--personal-quant .project-card__title {
+  color: #ffffff;
+}
+
+.project-card--personal-quant .project-card__desc {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.project-card--personal-quant:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(13, 148, 136, 0.5);
+  border-color: #5eead4;
+}
+
 /* DEX Card - Highlighted Style */
 .project-card--dex {
   background: linear-gradient(135deg, #78909c 0%, #607d8b 100%);
@@ -310,6 +347,17 @@
 }
 
 /* ============================================
+   Introduce Section Grid Layout
+   ============================================ */
+.introduce-grid-top {
+  margin-bottom: 16px;
+}
+
+.introduce-grid-bottom {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ============================================
    Responsive Design
    ============================================ */
 @media (max-width: 992px) {
@@ -345,6 +393,10 @@
   }
 
   .home-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .introduce-grid-bottom {
     grid-template-columns: repeat(2, 1fr);
   }
 
