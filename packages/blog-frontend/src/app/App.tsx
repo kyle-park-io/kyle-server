@@ -38,6 +38,12 @@ const App: Component = (): JSX.Element => {
     window.open(`${url}/dex`);
   };
 
+  const handleDexNotionClick = (): void => {
+    window.open(
+      'https://kyle-park.notion.site/Orakle-7th-Dex-Aggregating-Team-2865e2b1051680208e27ebc3364586d9',
+    );
+  };
+
   const handleDistributedClick = (): void => {
     window.location.href =
       'https://kyle-park.notion.site/Distributed-Computing-1315e2b1051680f3bc8ee9f38bbd18a3';
@@ -142,6 +148,15 @@ const App: Component = (): JSX.Element => {
               <span class="project-card__icon">💱</span>
               <h3 class="project-card__title">DEX (Uniswap V2)</h3>
               <p class="project-card__desc">Decentralized exchange</p>
+            </button>
+
+            <button
+              class="project-card project-card--aggregator"
+              onClick={handleDexNotionClick}
+            >
+              <span class="project-card__icon">🔀</span>
+              <h3 class="project-card__title">DEX Aggregator</h3>
+              <p class="project-card__desc">Orakle 7th Team project</p>
             </button>
 
             <button class="project-card" onClick={handleDistributedClick}>
