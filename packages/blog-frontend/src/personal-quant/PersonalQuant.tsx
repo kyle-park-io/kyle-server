@@ -1,6 +1,7 @@
 import { type Component, type JSX } from 'solid-js';
 // images
 import TelegramIcon from '@public/telegram-icon.svg';
+import NotionIcon from '@public/notion-icon.svg';
 // styles
 import './PersonalQuant.css';
 
@@ -108,6 +109,26 @@ const PersonalQuant: Component = (): JSX.Element => {
                     fees and slippage
                   </li>
                 </ul>
+              </div>
+
+              <div class="strategy-card__section">
+                <h4 class="strategy-card__subtitle">Documentation</h4>
+                <div class="strategy-card__links">
+                  <a
+                    href="https://kyle-park.notion.site/Triangular-Arbitrage-Strategy-Binance-2cb5e2b1051680108813dde7f828dcd9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="strategy-card__link"
+                  >
+                    <img
+                      src={NotionIcon}
+                      alt="Notion"
+                      class="strategy-card__link-icon"
+                    />
+                    <span>View detailed documentation on Notion</span>
+                    <span class="strategy-card__link-arrow">→</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

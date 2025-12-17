@@ -522,6 +522,58 @@
   font-weight: bold;
 }
 
+/* Strategy Card Links */
+.strategy-card__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.strategy-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--quant-font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-decoration: none;
+  padding: 12px 16px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  transition: all var(--quant-transition);
+}
+
+.strategy-card__link:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+.strategy-card__link-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.strategy-card__link:hover .strategy-card__link-icon {
+  opacity: 1;
+}
+
+.strategy-card__link-arrow {
+  margin-left: auto;
+  transition: transform var(--quant-transition);
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+.strategy-card__link:hover .strategy-card__link-arrow {
+  transform: translateX(4px);
+}
+
 /* ============================================
    CTA Section - Dark Background
    ============================================ */
@@ -753,5 +805,15 @@
   .strategy-card__features li {
     font-size: 13px;
     padding: 6px 0 6px 18px;
+  }
+
+  .strategy-card__link {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .strategy-card__link-icon {
+    width: 18px;
+    height: 18px;
   }
 }
