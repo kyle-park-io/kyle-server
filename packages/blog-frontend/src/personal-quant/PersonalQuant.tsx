@@ -38,7 +38,104 @@ const PersonalQuant: Component = (): JSX.Element => {
         <section class="quant-section">
           <h2 class="quant-section__title">Personal Strategies</h2>
           <div class="personal-strategies">
-            {/* Strategy 1: Binance Triangular Arbitrage */}
+            {/* Strategy 1: Polymarket 15M Arbitrage */}
+            <div class="strategy-card">
+              <div class="strategy-card__header">
+                <h3 class="strategy-card__title">
+                  Polymarket 15M Chart Arbitrage
+                </h3>
+                <span class="strategy-card__category">
+                  Prediction Market Arbitrage
+                </span>
+              </div>
+
+              <div class="strategy-card__section">
+                <h4 class="strategy-card__subtitle">Strategy Overview</h4>
+                <p class="strategy-card__description">
+                  Arbitrage strategy targeting Polymarket's 15-minute chart data
+                  that exploits market inefficiencies in binary outcome markets.
+                  The system monitors prediction markets where the sum of Yes
+                  and No outcome prices falls below $1.00, capturing risk-free
+                  profit opportunities. This strategy takes advantage of
+                  temporary mispricing in decentralized prediction markets where
+                  the total probability should theoretically equal 100% ($1.00).
+                </p>
+              </div>
+
+              <div class="strategy-card__section">
+                <h4 class="strategy-card__subtitle">
+                  Technical Specifications
+                </h4>
+                <div class="strategy-card__specs">
+                  <div class="strategy-card__spec-item">
+                    <span class="strategy-card__spec-icon">🦀</span>
+                    <span class="strategy-card__spec-label">Language:</span>
+                    <span class="strategy-card__spec-value">Rust</span>
+                  </div>
+                  <div class="strategy-card__spec-item">
+                    <span class="strategy-card__spec-icon">🐹</span>
+                    <span class="strategy-card__spec-label">Language:</span>
+                    <span class="strategy-card__spec-value">Go</span>
+                  </div>
+                  <div class="strategy-card__spec-item">
+                    <span class="strategy-card__spec-icon">📊</span>
+                    <span class="strategy-card__spec-label">Market:</span>
+                    <span class="strategy-card__spec-value">
+                      Polymarket Crypto 15M
+                    </span>
+                  </div>
+                  <div class="strategy-card__spec-item">
+                    <span class="strategy-card__spec-icon">⏱️</span>
+                    <span class="strategy-card__spec-label">Timeframe:</span>
+                    <span class="strategy-card__spec-value">15 Minutes</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="strategy-card__section">
+                <h4 class="strategy-card__subtitle">Key Features</h4>
+                <ul class="strategy-card__features">
+                  <li>
+                    Monitors binary outcome markets (Yes/No) where price sum
+                    &lt; $1.00
+                  </li>
+                  <li>
+                    Captures arbitrage opportunities by simultaneously buying
+                    both outcomes when underpriced
+                  </li>
+                  <li>
+                    Real-time 15-minute chart analysis for crypto prediction
+                    markets
+                  </li>
+                  <li>
+                    Risk-free profit strategy exploiting prediction market
+                    inefficiencies
+                  </li>
+                  <li>
+                    High-performance implementation in Rust and Go for
+                    low-latency execution
+                  </li>
+                </ul>
+              </div>
+
+              <div class="strategy-card__section">
+                <h4 class="strategy-card__subtitle">Market Reference</h4>
+                <div class="strategy-card__links">
+                  <a
+                    href="https://polymarket.com/crypto/15M"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="strategy-card__link"
+                  >
+                    <span class="strategy-card__spec-icon">🔗</span>
+                    <span>View Polymarket Crypto 15M Markets</span>
+                    <span class="strategy-card__link-arrow">→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Strategy 2: Binance Triangular Arbitrage */}
             <div class="strategy-card">
               <div class="strategy-card__header">
                 <h3 class="strategy-card__title">
