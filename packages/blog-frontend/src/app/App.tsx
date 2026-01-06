@@ -48,6 +48,10 @@ const App: Component = (): JSX.Element => {
     );
   };
 
+  const handleDoorProtocolClick = (): void => {
+    window.open('https://door-protocol-frontend.vercel.app/');
+  };
+
   const handleDistributedClick = (): void => {
     window.location.href =
       'https://kyle-park.notion.site/Distributed-Computing-1315e2b1051680f3bc8ee9f38bbd18a3';
@@ -172,6 +176,23 @@ const App: Component = (): JSX.Element => {
               <span class="project-card__icon">🔀</span>
               <h3 class="project-card__title">DEX Aggregator</h3>
               <p class="project-card__desc">Orakle 7th Team project</p>
+            </button>
+
+            <button
+              class="project-card project-card--door"
+              onClick={handleDoorProtocolClick}
+            >
+              <img
+                src="https://avatars.githubusercontent.com/u/108515324?s=200&v=4"
+                alt="Mantle"
+                class="project-card__icon-img"
+              />
+              <h3 class="project-card__title">DOOR Protocol</h3>
+              <p class="project-card__desc">
+                Decentralized Offered Rate protocol
+                <br />
+                Fixed Income
+              </p>
             </button>
 
             <button class="project-card" onClick={handleDistributedClick}>
