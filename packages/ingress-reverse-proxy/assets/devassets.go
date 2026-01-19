@@ -42,6 +42,8 @@ var assetsForDev = map[string]*Asset{
 	"/timestamp-bg.jpg":   {contentType: "image/jpeg", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/timestamp-bg.jpg"},
 	// jpeg
 	"/tracker-bg.jpeg": {contentType: "image/jpeg", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/tracker-bg.jpeg"},
+	// pdf
+	"/pdf/jungho_park_cv.pdf": {contentType: "application/pdf", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/pdf/jungho_park_cv.pdf"},
 	// kyle-dex swagger
 	"/dex/api-docs/favicon-32x32.png": {contentType: "image/png", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/swagger-favicon-32x32.png"},
 }

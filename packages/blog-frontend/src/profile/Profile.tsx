@@ -100,7 +100,9 @@ const Profile: Component = (): JSX.Element => {
                   <h3 class="profile-item__title">Medium Inc.</h3>
                   <span class="profile-item__period">Sep 2022 — Feb 2024</span>
                 </div>
-                <p class="profile-item__role">Core Team · Manager (2nd Year)</p>
+                <p class="profile-item__role">
+                  Core Team · Backend Developer (2nd Year)
+                </p>
                 <p class="profile-item__desc">Blockchain Development</p>
                 <span class="profile-item__duration">18 months</span>
               </div>
@@ -111,7 +113,7 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-item__period">Aug 2022 — Sep 2022</span>
                 </div>
                 <p class="profile-item__role">
-                  Development Team · Staff (1st Year)
+                  Development Team · Backend Developer (1st Year)
                 </p>
                 <p class="profile-item__desc">Blockchain Development</p>
                 <span class="profile-item__duration">2 months</span>
@@ -124,12 +126,11 @@ const Profile: Component = (): JSX.Element => {
             <h2 class="profile-section__title">Documents</h2>
             <div class="profile-section__content">
               <p class="profile-section__note">
-                📌 For the most up-to-date resume, please check my Wanted
-                profile.
+                📌 You can also check my resume on Wanted profile.
               </p>
               <div class="profile-links">
                 <a
-                  href="https://kyle-park.notion.site/CV-10c5e2b1051680319fe4f8e1713993b4"
+                  href="/pdf/jungho_park_cv.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="profile-link"
@@ -137,6 +138,24 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-link__icon">📋</span>
                   <span class="profile-link__text">
                     <span class="profile-link__label">CV / Resume</span>
+                    <span class="profile-link__desc">
+                      Professional resume and career history
+                    </span>
+                  </span>
+                  <span class="profile-link__arrow">→</span>
+                </a>
+
+                <a
+                  href="https://kyle-park.notion.site/CV-10c5e2b1051680319fe4f8e1713993b4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-link"
+                >
+                  <span class="profile-link__icon">📄</span>
+                  <span class="profile-link__text">
+                    <span class="profile-link__label">
+                      CV / Resume (Archived)
+                    </span>
                     <span class="profile-link__desc">
                       Career history and skills
                     </span>
@@ -152,7 +171,9 @@ const Profile: Component = (): JSX.Element => {
                 >
                   <span class="profile-link__icon">✉️</span>
                   <span class="profile-link__text">
-                    <span class="profile-link__label">Cover Letter</span>
+                    <span class="profile-link__label">
+                      Cover Letter (Archived)
+                    </span>
                     <span class="profile-link__desc">
                       Personal introduction
                     </span>
