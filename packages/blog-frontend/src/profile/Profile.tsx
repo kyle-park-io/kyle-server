@@ -268,7 +268,7 @@ const Profile: Component = (): JSX.Element => {
                 <div class="profile-cert">
                   <span class="profile-cert__year">2021</span>
                   <span class="profile-cert__name">
-                    Air Conditioning & Refrigeration Engineer
+                    Engineer Air-Conditioning Refrigerating Machinery
                   </span>
                 </div>
                 <div class="profile-cert">
@@ -280,7 +280,7 @@ const Profile: Component = (): JSX.Element => {
                 <div class="profile-cert">
                   <span class="profile-cert__year">2020</span>
                   <span class="profile-cert__name">
-                    General Machinery Engineer
+                    Engineer General Machinery
                   </span>
                 </div>
                 <div class="profile-cert">
