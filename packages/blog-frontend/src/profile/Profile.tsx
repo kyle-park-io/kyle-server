@@ -97,6 +97,18 @@ const Profile: Component = (): JSX.Element => {
 
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
+                  <h3 class="profile-item__title">Orakle</h3>
+                  <span class="profile-item__period">Mar 2025 — Present</span>
+                </div>
+                <p class="profile-item__role">Blockchain Researcher</p>
+                <p class="profile-item__desc">
+                  KAIST Blockchain Research Society
+                </p>
+                <span class="profile-item__duration">Current</span>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
                   <h3 class="profile-item__title">Medium Inc.</h3>
                   <span class="profile-item__period">Sep 2022 — Feb 2024</span>
                 </div>

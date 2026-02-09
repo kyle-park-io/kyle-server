@@ -42,7 +42,7 @@ const Footer: Component = (): JSX.Element => {
           {/* Left section - Copyright */}
           <div class="nyt-footer__copyright">
             <span class="nyt-footer__copyright-text">
-              © 2025 kyle-park-io. All rights reserved.
+              © 2026 kyle-park-io. All rights reserved.
             </span>
           </div>
 

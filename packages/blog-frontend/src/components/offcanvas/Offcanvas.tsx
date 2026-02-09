@@ -129,7 +129,7 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
 
         {/* Footer */}
         <div class="nav-panel__footer">
-          <span class="nav-panel__copyright">© 2025 Kyle Park</span>
+          <span class="nav-panel__copyright">© 2026 Kyle Park</span>
         </div>
       </div>
     </>
