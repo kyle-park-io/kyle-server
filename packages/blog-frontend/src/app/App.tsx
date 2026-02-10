@@ -192,6 +192,10 @@ const App: Component = (): JSX.Element => {
                 Decentralized Offered Rate protocol
                 <br />
                 Fixed Income
+                <br />
+                🏆 1st Place
+                <br />
+                Mantle Global Hackathon 2025
               </p>
             </button>
 
