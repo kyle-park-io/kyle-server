@@ -53,8 +53,9 @@ const App: Component = (): JSX.Element => {
   };
 
   const handleDistributedClick = (): void => {
-    window.location.href =
-      'https://kyle-park.notion.site/Distributed-Computing-1315e2b1051680f3bc8ee9f38bbd18a3';
+    window.open(
+      'https://kyle-park.notion.site/Distributed-Computing-1315e2b1051680f3bc8ee9f38bbd18a3',
+    );
   };
 
   const handleTrackerNotionClick = (): void => {
@@ -72,18 +73,21 @@ const App: Component = (): JSX.Element => {
   };
 
   const handleChainClick = (): void => {
-    window.location.href =
-      'https://kyle-park.notion.site/Chain-Communicator-08fe9b295ed34662b4a72e70a608f937';
+    window.open(
+      'https://kyle-park.notion.site/Chain-Communicator-08fe9b295ed34662b4a72e70a608f937',
+    );
   };
 
   const handleJunghoClick = (): void => {
-    window.location.href =
-      'https://kyle-park.notion.site/jungho-dev-03cc176ddcdb496a969cacaeec0c253f';
+    window.open(
+      'https://kyle-park.notion.site/jungho-dev-03cc176ddcdb496a969cacaeec0c253f',
+    );
   };
 
   const handleWeddingClick = (): void => {
-    window.location.href =
-      'https://kyle-park.notion.site/Cardly-Mobile-Wedding-Invitation-519b87bb3c534155ae7d1da51bc89478';
+    window.open(
+      'https://kyle-park.notion.site/Cardly-Mobile-Wedding-Invitation-519b87bb3c534155ae7d1da51bc89478',
+    );
   };
 
   const handleBlogClick = (): void => {
