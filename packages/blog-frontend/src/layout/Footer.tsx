@@ -1,6 +1,7 @@
 import { type Component, type JSX } from 'solid-js';
 // images
 import Notion from '@public/notion-icon.svg';
+import Medium from '@public/medium-icon.svg';
 import Linkedin from '@public/linkedin-icon.png';
 import Github from '@public/github-icon.png';
 import Telegram from '@public/telegram-icon.svg';
@@ -18,6 +19,10 @@ const Footer: Component = (): JSX.Element => {
     window.open(
       'https://kyle-park.notion.site/HI-I-m-KYLE-c52ac7c7e75c41dd92792f9db8cee895#0cbc2dce44ad44cba1e679d7ca4519c6',
     );
+  };
+
+  const handleMediumClick = (): void => {
+    window.open('https://kyle-park-io.medium.com');
   };
 
   const handleLinkedinClick = (): void => {
@@ -61,6 +66,13 @@ const Footer: Component = (): JSX.Element => {
               aria-label="Visit Notion page"
             >
               <img src={Notion} alt="Notion" class="nyt-footer__social-icon" />
+            </button>
+            <button
+              onClick={handleMediumClick}
+              class="nyt-footer__social-btn"
+              aria-label="Visit Medium blog"
+            >
+              <img src={Medium} alt="Medium" class="nyt-footer__social-icon" />
             </button>
             <button
               onClick={handleLinkedinClick}

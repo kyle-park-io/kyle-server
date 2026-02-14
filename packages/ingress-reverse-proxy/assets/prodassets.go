@@ -9,6 +9,7 @@ var assetsForProd = map[string]*Asset{
 	// svg
 	"/home.svg":          {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
 	"/notion-icon.svg":   {contentType: "image/svg+xml", dataPath: "/app/public/notion-icon.svg"},
+	"/medium-icon.svg":   {contentType: "image/svg+xml", dataPath: "/app/public/medium-icon.svg"},
 	"/chat2-bg.svg":      {contentType: "image/svg+xml", dataPath: "/app/public/chat2-bg.svg"},
 	"/duck-bg.svg":       {contentType: "image/svg+xml", dataPath: "/app/public/duck-bg.svg"},
 	"/telegram-icon.svg": {contentType: "image/svg+xml", dataPath: "/app/public/telegram-icon.svg"},

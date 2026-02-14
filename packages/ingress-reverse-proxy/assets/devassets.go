@@ -9,6 +9,7 @@ var assetsForDev = map[string]*Asset{
 	// svg
 	"/home.svg":          {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/home.svg"},
 	"/notion-icon.svg":   {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/notion-icon.svg"},
+	"/medium-icon.svg":   {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/medium-icon.svg"},
 	"/chat2-bg.svg":      {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/chat2-bg.svg"},
 	"/duck-bg.svg":       {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/duck-bg.svg"},
 	"/telegram-icon.svg": {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/telegram-icon.svg"},
