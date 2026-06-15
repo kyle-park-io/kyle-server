@@ -44,7 +44,7 @@ var assetsForProd = map[string]*Asset{
 	// jpeg
 	"/tracker-bg.jpeg": {contentType: "image/jpeg", dataPath: "/app/public/tracker-bg.jpeg"},
 	// pdf
-	"/pdf/jungho_park_cv.pdf": {contentType: "application/pdf", dataPath: "/app/public/pdf/jungho_park_cv.pdf"},
+	"/cv/jungho_park_cv_latest.pdf": {contentType: "application/pdf", dataPath: "/app/public/cv/jungho_park_cv_latest.pdf"},
 	// kyle-dex swagger
 	"/dex/api-docs/favicon-32x32.png": {contentType: "image/png", dataPath: "/app/public/swagger-favicon-32x32.png"},
 }

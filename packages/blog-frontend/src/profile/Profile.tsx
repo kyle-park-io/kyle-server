@@ -85,10 +85,24 @@ const Profile: Component = (): JSX.Element => {
             <div class="profile-section__content">
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
+                  <h3 class="profile-item__title">Mantle Network</h3>
+                  <span class="profile-item__period">Apr 2026 — Present</span>
+                </div>
+                <p class="profile-item__role">Developer Relations Engineer</p>
+                <p class="profile-item__desc">
+                  Korean Market Developer Outreach
+                </p>
+                <span class="profile-item__duration">Current</span>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
                   <h3 class="profile-item__title">Kronon Labs Inc.</h3>
                   <span class="profile-item__period">Apr 2025 — Present</span>
                 </div>
-                <p class="profile-item__role">Quant Developer</p>
+                <p class="profile-item__role">
+                  Trading System Backend Engineer
+                </p>
                 <p class="profile-item__desc">
                   Trading Strategy Implementation
                 </p>
@@ -100,7 +114,10 @@ const Profile: Component = (): JSX.Element => {
                   <h3 class="profile-item__title">Orakle</h3>
                   <span class="profile-item__period">Mar 2025 — Present</span>
                 </div>
-                <p class="profile-item__role">Blockchain Researcher</p>
+                <p class="profile-item__role">
+                  Vice President (8th Gen) · Team Leader (7th Gen) · Blockchain
+                  Researcher
+                </p>
                 <p class="profile-item__desc">
                   KAIST Blockchain Research Society
                 </p>
@@ -142,7 +159,7 @@ const Profile: Component = (): JSX.Element => {
               </p>
               <div class="profile-links">
                 <a
-                  href="/pdf/jungho_park_cv.pdf"
+                  href="/cv/jungho_park_cv_latest.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="profile-link"
