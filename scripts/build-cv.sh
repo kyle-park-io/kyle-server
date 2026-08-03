@@ -4,6 +4,7 @@ set -euo pipefail
 # dir
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 CV_DIR="${SCRIPT_DIR}/../packages/blog-frontend/public/cv"
+MIN_PAGES=1
 MAX_PAGES=4
 
 page_count() {
@@ -31,9 +32,18 @@ for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest
   npx --yes md-to-pdf "$md"
 
   pdf="${md%.md}.pdf"
+  if [ ! -s "$pdf" ]; then
+    echo "  FAIL  $(basename "$pdf"): md-to-pdf produced no output (file missing or empty)" >&2
+    status=1
+    continue
+  fi
+
   pages=$(page_count "$pdf")
-  if [ "$pages" -gt "$MAX_PAGES" ]; then
-    echo "  FAIL  $(basename "$pdf"): ${pages} pages (max ${MAX_PAGES})" >&2
+  if [ "$pages" -lt "$MIN_PAGES" ]; then
+    echo "  FAIL  $(basename "$pdf"): ${pages} pages — build is broken, produced no page content" >&2
+    status=1
+  elif [ "$pages" -gt "$MAX_PAGES" ]; then
+    echo "  FAIL  $(basename "$pdf"): ${pages} pages (max ${MAX_PAGES}) — too long, trim content" >&2
     status=1
   else
     echo "  ok    $(basename "$pdf"): ${pages} pages"
@@ -42,7 +52,7 @@ done
 
 if [ "$status" -ne 0 ]; then
   echo "" >&2
-  echo "PDF exceeds ${MAX_PAGES} pages. Trim Kronon Labs bullets first (see spec §2)." >&2
+  echo "One or more CV PDFs failed validation (see FAIL messages above)." >&2
   exit 1
 fi
 
