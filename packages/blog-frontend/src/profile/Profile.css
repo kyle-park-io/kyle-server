@@ -226,6 +226,22 @@
   margin: 0 0 8px 0;
 }
 
+.profile-item__link {
+  display: block;
+  width: fit-content;
+  font-family: var(--profile-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  margin: 0 0 8px 0;
+  transition: color var(--profile-transition);
+}
+
+.profile-item__link:hover {
+  color: #1d4ed8;
+}
+
 .profile-item__duration {
   display: inline-block;
   font-family: var(--profile-font-sans);

@@ -12,6 +12,7 @@ import Footer from './layout/Footer';
 import App from './app/App';
 import About from './about/About';
 import Profile from './profile/Profile';
+import DevRel from './devrel/DevRel';
 import Quant from './quant/Quant';
 import PersonalQuant from './personal-quant/PersonalQuant';
 import BlogList from './blog/BlogList';
@@ -47,6 +48,7 @@ if (root != null) {
             <Route path="/test" component={Test} />
             <Route path="/about" component={About} />
             <Route path="/profile" component={Profile} />
+            <Route path="/devrel" component={DevRel} />
             <Route path="/quant" component={Quant} />
             <Route path="/personal-quant" component={PersonalQuant} />
             <Route path="/blog" component={BlogList} />

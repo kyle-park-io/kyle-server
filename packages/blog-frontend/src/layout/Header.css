@@ -214,6 +214,20 @@
   width: 100%;
 }
 
+/* DevRel Navigation Link - Special Styling */
+.nyt-header__nav-link--devrel {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.nyt-header__nav-link--devrel::after {
+  background-color: #2563eb;
+}
+
+.nyt-header__nav-link--devrel:hover {
+  color: #1d4ed8;
+}
+
 /* Quant Navigation Link - Special Styling */
 .nyt-header__nav-link--quant {
   color: #dc2626;

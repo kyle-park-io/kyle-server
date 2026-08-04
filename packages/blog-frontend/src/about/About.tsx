@@ -26,6 +26,17 @@ const About: Component = (): JSX.Element => {
               available for reference and sharing. I hope this inspires
               continuous development and collaboration within the community.
             </p>
+            <p>
+              I currently work as a Developer Relations Engineer at Mantle
+              Network, running developer outreach for the Korean market — the
+              content operations pipeline, the Korean technical documentation
+              set, onboarding curriculum, and the builder funnel for the
+              hackathon program. That work is written up on the{' '}
+              <a href="/devrel" class="about-section__link">
+                DevRel page
+              </a>
+              .
+            </p>
           </div>
         </section>
 
@@ -154,6 +165,17 @@ const About: Component = (): JSX.Element => {
                 <span class="about-contact__icon">💬</span>
                 <span class="about-contact__label">Telegram</span>
                 <span class="about-contact__value">@kyleparkio</span>
+              </a>
+
+              <a
+                href="https://x.com/bcd_kyle"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="about-contact__item"
+              >
+                <span class="about-contact__icon">𝕏</span>
+                <span class="about-contact__label">X</span>
+                <span class="about-contact__value">@bcd_kyle</span>
               </a>
             </div>
           </div>

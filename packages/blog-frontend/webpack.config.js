@@ -8,6 +8,12 @@ module.exports = {
   target: 'web',
   devtool: 'source-map',
   entry: './src/index.tsx',
+  // Serve bundles and assets from the site root. Without this the injected
+  // script tag is relative, so entering a nested route directly
+  // (/devrel, /quant, ...) resolves it against that path and 404s.
+  output: {
+    publicPath: '/',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs'],
     alias: {
@@ -75,6 +81,12 @@ module.exports = {
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),
+      // public/ holds directories that share a name with a route
+      // (public/devrel vs. the /devrel page). Without these, the static
+      // middleware claims /devrel and redirects it to /devrel/ instead of
+      // letting historyApiFallback hand it to the router.
+      serveIndex: false,
+      staticOptions: { redirect: false },
     },
     compress: true,
     port: 3002,

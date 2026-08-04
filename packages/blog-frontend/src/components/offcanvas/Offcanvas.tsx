@@ -2,6 +2,8 @@ import { type Component, type JSX } from 'solid-js';
 // interface
 import { type MoveProps } from './interfaces/offcanvas.interfaces';
 import { globalState } from '../../constants/constants';
+// image
+import MantleIcon from '@public/mantle-icon.png';
 // styles
 import './Offcanvas.css';
 
@@ -14,6 +16,10 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
   const url = globalState.url;
 
   // Navigation handlers
+  const handleDevRelClick = (): void => {
+    window.location.href = `${url}/devrel`;
+  };
+
   const handleQuantClick = (): void => {
     window.open('https://kyle-quant.xyz/');
   };
@@ -38,6 +44,10 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
 
   const handleTelegramClick = (): void => {
     window.open('https://t.me/kyleparkio');
+  };
+
+  const handleXClick = (): void => {
+    window.open('https://x.com/bcd_kyle');
   };
 
   return (
@@ -71,6 +81,14 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
               <span class="nav-link__text">
                 <span class="nav-link__title">Quant Portfolio</span>
                 <span class="nav-link__desc">Trading strategies</span>
+              </span>
+              <span class="nav-link__arrow">→</span>
+            </button>
+            <button class="nav-link" onClick={handleDevRelClick}>
+              <img src={MantleIcon} alt="Mantle" class="nav-link__icon-img" />
+              <span class="nav-link__text">
+                <span class="nav-link__title">DevRel</span>
+                <span class="nav-link__desc">Mantle Network · Korea</span>
               </span>
               <span class="nav-link__arrow">→</span>
             </button>
@@ -121,6 +139,14 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
               <span class="nav-link__text">
                 <span class="nav-link__title">Telegram</span>
                 <span class="nav-link__desc">Direct message</span>
+              </span>
+              <span class="nav-link__arrow">→</span>
+            </button>
+            <button class="nav-link" onClick={handleXClick}>
+              <span class="nav-link__icon">𝕏</span>
+              <span class="nav-link__text">
+                <span class="nav-link__title">X</span>
+                <span class="nav-link__desc">@bcd_kyle</span>
               </span>
               <span class="nav-link__arrow">→</span>
             </button>
