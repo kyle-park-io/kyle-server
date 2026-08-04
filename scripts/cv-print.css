@@ -1,0 +1,171 @@
+/*
+ * Print styling for the CV PDFs.
+ *
+ * Renderer-agnostic on purpose: this is plain CSS layered on top of whatever
+ * base markdown stylesheet is in use, so it works from scripts/build-cv.sh
+ * (md-to-pdf, see cv-pdf.config.js) and equally from a VS Code markdown-to-PDF
+ * extension — point the extension's custom-CSS setting at this file.
+ *
+ * ---------------------------------------------------------------------------
+ * Fonts
+ *
+ * Chrome cannot subset-embed the CJK fonts available on this machine, so any
+ * Korean-capable family renders as Type3 bitmap glyphs rather than embedded
+ * outlines. Noto is pinned anyway to match the archived PDFs; swap the family
+ * to 'Liberation Sans' on a Latin-only document if selectable, ATS-parseable
+ * text matters more than matching that look.
+ *
+ * ---------------------------------------------------------------------------
+ * Vertical rhythm
+ *
+ * Blank lines between top-level bullets in the source make Markdown emit
+ * "loose" lists — each item becomes <li><p>…</p></li> and inherits the
+ * paragraph bottom margin (1em in md-to-pdf's default sheet). Nested bullets
+ * have no blank lines between them, stay "tight", and get no such margin, so
+ * the two levels drift apart visually.
+ *
+ * Rather than strip the blank lines (which hurts the source's readability),
+ * the paragraph margins inside list items are zeroed and the gap between
+ * bullets is set explicitly below. That keeps one knob per concern:
+ *   line-height       -> spacing *within* a wrapped line
+ *   ul > li margin    -> spacing *between* bullets
+ */
+
+body,
+.markdown-body {
+  font-family: 'Noto Sans CJK KR', sans-serif;
+  line-height: 1.55;
+}
+
+code,
+pre,
+kbd,
+samp,
+tt {
+  font-family: 'DejaVu Sans Mono', monospace;
+}
+
+/*
+ * Vertical hierarchy.
+ *
+ * The base sheet zeroes every heading margin while leaving <p> a 1em bottom
+ * margin, so a section heading sits flush against its list (0px) while two
+ * paragraphs are pushed 11px apart — the gaps carry no hierarchy and read as
+ * random. These rules put them back in order:
+ *
+ *   bullet 0.35em  <  paragraph 0.5em  <  company h3 1.1em  <  section h2 1.4em
+ */
+h1 {
+  margin: 0 0 0.45em;
+}
+
+h2 {
+  margin: 1.4em 0 0.25em;
+}
+
+h3 {
+  margin: 1.1em 0 0.3em;
+}
+
+/*
+ * A heading immediately followed by another heading ("경력 사항" -> "Mantle
+ * Network") needs no gap of its own: the outer heading already opened the
+ * section, so the inner one should hug it. Without this the inner heading's
+ * full top margin wins the margin collapse and opens a hole between the two.
+ */
+h2 + h3,
+h3 + h4,
+h4 + h5 {
+  margin-top: 0;
+}
+
+h4,
+h5,
+h6 {
+  margin: 0.8em 0 0.25em;
+}
+
+p {
+  margin: 0 0 0.5em;
+}
+
+/*
+ * Asymmetric on purpose: a section rule wants air above it, separating it from
+ * the block it closes, but should sit close to the heading it introduces.
+ */
+hr {
+  margin: 1.1em 0 0.5em;
+}
+
+/*
+ * Same idea as the adjacent-heading rule: an <hr> immediately before a section
+ * heading has already drawn the break, so the heading's own top margin would
+ * only stack a second one on top of it. Zeroing it leaves the rule's margin as
+ * the single knob for section spacing.
+ */
+hr + h2 {
+  margin-top: 0;
+}
+
+/*
+ * Pagination.
+ *
+ * `break-after: avoid` stops a heading from being left stranded at the foot of
+ * a page with its content on the next one. A <br> cannot do this job: between
+ * block elements there is no inline formatting context, so it generates no
+ * line box and adds essentially no height (measured: two of them moved the
+ * following heading by 2px).
+ *
+ * `.page-break` is the explicit escape hatch for "start this section on a new
+ * page" — drop <div class="page-break"></div> above the heading.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  break-after: avoid;
+}
+
+/*
+ * Keep a bullet and its nested detail together. Without this a page boundary
+ * lands mid-group and strands the bold headline at the foot of one page with
+ * its explanation at the top of the next. Unlike `break-after: avoid`, which
+ * Chromium honours inconsistently, `break-inside: avoid` is reliable here.
+ */
+ul > li,
+ol > li {
+  break-inside: avoid;
+}
+
+.page-break {
+  break-before: page;
+}
+
+/* Loose-list <p> wrappers must not add their own vertical margins. */
+li > p {
+  margin: 0;
+}
+
+li > p + p {
+  margin-top: 0.25em;
+}
+
+/* Explicit, level-aware spacing between bullets. */
+ul > li,
+ol > li {
+  margin-bottom: 0.25em;
+}
+
+ul ul > li,
+ul ol > li,
+ol ul > li,
+ol ol > li {
+  margin-bottom: 0;
+}
+
+ul > li:last-child,
+ol > li:last-child {
+  margin-bottom: 0;
+}
