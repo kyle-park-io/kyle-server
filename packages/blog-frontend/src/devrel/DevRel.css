@@ -1,0 +1,545 @@
+/**
+ * DevRel Page Styles
+ * Light background with dark cards, matching the Quant/About/Profile pages
+ * Blue accent, matching the DevRel header nav link
+ */
+
+/* ============================================
+   CSS Custom Properties
+   ============================================ */
+.devrel-page {
+  --devrel-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --devrel-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --devrel-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Light Theme Colors (matching About page) */
+  --devrel-color-bg: #ffffff;
+  --devrel-color-text: #121212;
+  --devrel-color-text-muted: #333333;
+  --devrel-color-text-dim: #666666;
+  --devrel-color-border: #e2e2e2;
+
+  /* Dark Card Colors */
+  --devrel-color-card-bg: #1e293b;
+  --devrel-color-card-text: #e5e7eb;
+  --devrel-color-card-text-muted: #9ca3af;
+  --devrel-color-card-border: #475569;
+
+  /* Accent Colors - Blue (matching header nav link) */
+  --devrel-color-accent: #2563eb;
+  --devrel-color-accent-light: #60a5fa;
+  --devrel-color-accent-dark: #1d4ed8;
+
+  --devrel-transition: 0.3s ease-in-out;
+  --devrel-max-width: 900px;
+}
+
+/* ============================================
+   Page Container
+   ============================================ */
+.devrel-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--devrel-color-bg);
+  color: var(--devrel-color-text);
+}
+
+.devrel-container {
+  max-width: var(--devrel-max-width);
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.devrel-hero {
+  margin-bottom: 16px;
+}
+
+.devrel-hero__photo-link {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--devrel-color-border);
+}
+
+.devrel-hero__photo {
+  display: block;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: center 40%;
+  transition: transform var(--devrel-transition);
+}
+
+.devrel-hero__photo-link:hover .devrel-hero__photo {
+  transform: scale(1.03);
+}
+
+.devrel-hero__text {
+  padding-top: 24px;
+}
+
+.devrel-hero__label {
+  display: inline-block;
+  font-family: var(--devrel-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--devrel-color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.devrel-hero__title {
+  font-family: var(--devrel-font-serif);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--devrel-color-text);
+  margin: 0 0 12px 0;
+  line-height: 1.15;
+}
+
+.devrel-hero__desc {
+  font-family: var(--devrel-font-sans);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--devrel-color-text-muted);
+  margin: 0 0 12px 0;
+}
+
+.devrel-hero__period {
+  font-family: var(--devrel-font-mono);
+  font-size: 13px;
+  color: var(--devrel-color-text-dim);
+}
+
+/* ============================================
+   Section Styles
+   ============================================ */
+.devrel-section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--devrel-color-border);
+}
+
+.devrel-section:last-of-type {
+  border-bottom: none;
+}
+
+.devrel-section__title {
+  font-family: var(--devrel-font-serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--devrel-color-text);
+  margin: 0 0 24px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--devrel-color-text);
+  display: inline-block;
+}
+
+.devrel-section__content {
+  font-family: var(--devrel-font-sans);
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--devrel-color-text-muted);
+}
+
+.devrel-section__content p {
+  margin: 0 0 16px 0;
+}
+
+.devrel-section__content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   Impact Metrics
+   ============================================ */
+.devrel-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.devrel-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--devrel-color-card-bg);
+  border: 1px solid var(--devrel-color-card-border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: all var(--devrel-transition);
+}
+
+.devrel-metric:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.devrel-metric__value {
+  font-family: var(--devrel-font-mono);
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.devrel-metric__label {
+  font-family: var(--devrel-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--devrel-color-accent-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.devrel-metric__note {
+  font-family: var(--devrel-font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--devrel-color-card-text-muted);
+}
+
+/* ============================================
+   Work Items - Dark Cards
+   ============================================ */
+.devrel-work {
+  background: var(--devrel-color-card-bg);
+  border: 1px solid var(--devrel-color-card-border);
+  border-radius: 8px;
+  padding: 28px;
+  margin-bottom: 20px;
+  transition: all var(--devrel-transition);
+}
+
+.devrel-work:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.devrel-work:last-child {
+  margin-bottom: 0;
+}
+
+.devrel-work__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.devrel-work__title {
+  font-family: var(--devrel-font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--devrel-color-accent-light);
+}
+
+.devrel-work__tag {
+  font-family: var(--devrel-font-mono);
+  font-size: 12px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.devrel-work__desc {
+  font-family: var(--devrel-font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #e2e8f0;
+  margin: 0 0 16px 0;
+}
+
+.devrel-work__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.devrel-work__list li {
+  font-family: var(--devrel-font-sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--devrel-color-card-text-muted);
+  padding: 10px 0 10px 20px;
+  position: relative;
+  border-bottom: 1px solid var(--devrel-color-card-border);
+}
+
+.devrel-work__list li:last-child {
+  border-bottom: none;
+}
+
+.devrel-work__list li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--devrel-color-accent-light);
+}
+
+.devrel-work__list strong {
+  color: var(--devrel-color-card-text);
+  font-weight: 600;
+}
+
+.devrel-work__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.devrel-work__meta-label {
+  font-family: var(--devrel-font-mono);
+  font-weight: 600;
+  color: #fcd34d;
+  min-width: 50px;
+}
+
+.devrel-work__meta-value {
+  font-family: var(--devrel-font-mono);
+  color: #86efac;
+}
+
+.devrel-work__link {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--devrel-font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--devrel-color-accent-light);
+  text-decoration: none;
+  transition: color var(--devrel-transition);
+}
+
+.devrel-work__link:hover {
+  color: #ffffff;
+}
+
+/* ============================================
+   Photo Galleries
+   ============================================ */
+.devrel-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.devrel-gallery--wide {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.devrel-gallery--campus {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.devrel-figure {
+  margin: 0;
+}
+
+.devrel-figure__img {
+  display: block;
+  width: 100%;
+  /* The photos are 4:3. A fixed pixel height crops the top and bottom off
+     the scene, which is the whole point of the shot. */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--devrel-color-card-border);
+  transition: all var(--devrel-transition);
+}
+
+.devrel-figure__img:hover {
+  border-color: var(--devrel-color-accent-light);
+  transform: scale(1.02);
+}
+
+
+.devrel-figure__caption {
+  font-family: var(--devrel-font-sans);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--devrel-color-card-text-muted);
+  margin-top: 8px;
+}
+
+/* ============================================
+   Photo Credit
+   ============================================ */
+.devrel-credit {
+  font-family: var(--devrel-font-sans);
+  font-size: 13px;
+  color: var(--devrel-color-text-dim);
+  margin: 0;
+  padding-bottom: 8px;
+}
+
+.devrel-credit a {
+  color: var(--devrel-color-accent);
+  text-decoration: none;
+}
+
+.devrel-credit a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   CTA Section - Dark Background
+   ============================================ */
+.devrel-section--cta {
+  background: var(--devrel-color-card-bg);
+  margin: 24px 0 0;
+  padding: 48px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--devrel-color-card-border);
+}
+
+.devrel-section--cta .devrel-section__title {
+  color: var(--devrel-color-card-text);
+  border-bottom-color: var(--devrel-color-card-text);
+}
+
+.devrel-section--cta .devrel-section__content {
+  color: var(--devrel-color-card-text-muted);
+}
+
+.devrel-cta__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.devrel-cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--devrel-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--devrel-color-card-text);
+  text-decoration: none;
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid var(--devrel-color-card-border);
+  border-radius: 6px;
+  transition: all var(--devrel-transition);
+}
+
+.devrel-cta__link:hover {
+  border-color: var(--devrel-color-card-text);
+}
+
+.devrel-cta__link--primary {
+  background: var(--devrel-color-card-text);
+  border-color: var(--devrel-color-card-text);
+  color: var(--devrel-color-card-bg);
+}
+
+.devrel-cta__link--primary:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--devrel-color-card-bg);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
+}
+
+.devrel-cta__arrow {
+  transition: transform var(--devrel-transition);
+}
+
+.devrel-cta__link:hover .devrel-cta__arrow {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 900px) {
+  .devrel-gallery--campus {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .devrel-container {
+    padding: 36px 20px;
+  }
+
+  .devrel-hero__photo {
+    height: 220px;
+  }
+
+  .devrel-hero__title {
+    font-size: 32px;
+  }
+
+  .devrel-hero__desc {
+    font-size: 16px;
+  }
+
+  .devrel-section {
+    padding: 36px 0;
+  }
+
+  .devrel-section__title {
+    font-size: 24px;
+  }
+
+  .devrel-section__content {
+    font-size: 16px;
+  }
+
+  .devrel-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .devrel-work {
+    padding: 20px;
+  }
+
+  .devrel-work__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .devrel-work__title {
+    font-size: 18px;
+  }
+
+  .devrel-gallery,
+  .devrel-gallery--wide,
+  .devrel-gallery--campus {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .devrel-cta__links {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .devrel-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .devrel-gallery,
+  .devrel-gallery--wide,
+  .devrel-gallery--campus {
+    grid-template-columns: 1fr;
+  }
+
+}

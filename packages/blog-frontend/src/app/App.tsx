@@ -1,6 +1,8 @@
 import { type Component, type JSX } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { globalState } from '../constants/constants';
+// image
+import MantleIcon from '@public/mantle-icon.png';
 // styles
 import './App.css';
 
@@ -16,6 +18,10 @@ const App: Component = (): JSX.Element => {
   // Navigation handlers
   const handleQuantPortfolioClick = (): void => {
     window.open('https://kyle-quant.xyz/');
+  };
+
+  const handleDevRelClick = (): void => {
+    navigate('/devrel');
   };
 
   const handleQuantCareerClick = (): void => {
@@ -40,12 +46,6 @@ const App: Component = (): JSX.Element => {
 
   const handleDexClick = (): void => {
     window.open(`${url}/dex`);
-  };
-
-  const handleDexNotionClick = (): void => {
-    window.open(
-      'https://kyle-park.notion.site/Orakle-7th-Dex-Aggregating-Team-2865e2b1051680208e27ebc3364586d9',
-    );
   };
 
   const handleDoorProtocolClick = (): void => {
@@ -84,12 +84,6 @@ const App: Component = (): JSX.Element => {
     );
   };
 
-  const handleWeddingClick = (): void => {
-    window.open(
-      'https://kyle-park.notion.site/Cardly-Mobile-Wedding-Invitation-519b87bb3c534155ae7d1da51bc89478',
-    );
-  };
-
   const handleBlogClick = (): void => {
     navigate('/blog');
   };
@@ -119,7 +113,20 @@ const App: Component = (): JSX.Element => {
         {/* Introduce Section */}
         <section class="home-section">
           <h2 class="home-section__title">Introduce</h2>
-          <div class="home-grid home-grid--2 introduce-grid-top">
+          <div class="home-grid home-grid--3 introduce-grid-top">
+            <button
+              class="project-card project-card--devrel"
+              onClick={handleDevRelClick}
+            >
+              <img
+                src={MantleIcon}
+                alt="Mantle"
+                class="project-card__icon-img"
+              />
+              <h3 class="project-card__title">DevRel</h3>
+              <p class="project-card__desc">Mantle Network · Korea</p>
+            </button>
+
             <button
               class="project-card project-card--quant"
               onClick={handleQuantCareerClick}
@@ -174,20 +181,11 @@ const App: Component = (): JSX.Element => {
             </button>
 
             <button
-              class="project-card project-card--aggregator"
-              onClick={handleDexNotionClick}
-            >
-              <span class="project-card__icon">🔀</span>
-              <h3 class="project-card__title">DEX Aggregator</h3>
-              <p class="project-card__desc">Orakle 7th Team project</p>
-            </button>
-
-            <button
               class="project-card project-card--door"
               onClick={handleDoorProtocolClick}
             >
               <img
-                src="https://avatars.githubusercontent.com/u/108515324?s=200&v=4"
+                src={MantleIcon}
                 alt="Mantle"
                 class="project-card__icon-img"
               />

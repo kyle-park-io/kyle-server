@@ -2,6 +2,8 @@ import { type Component, type JSX } from 'solid-js';
 // image
 import Kyle from '@public/kyle/kyle-bg.webp';
 import Linkedin from '@public/linkedin-icon.png';
+import XIcon from '@public/x-icon.svg';
+import MantleIcon from '@public/mantle-icon.png';
 import KhuIcon from '@public/khu-icon.png';
 import QuantIcon from '@public/quant-icon.svg';
 // styles
@@ -41,6 +43,15 @@ const Profile: Component = (): JSX.Element => {
                 />
               </a>
               <a
+                href="https://x.com/bcd_kyle"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="profile-header__social-link"
+                title="X — @bcd_kyle"
+              >
+                <img src={XIcon} alt="X" class="profile-header__social-icon" />
+              </a>
+              <a
                 href="https://kyle-quant.xyz/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -74,6 +85,7 @@ const Profile: Component = (): JSX.Element => {
                   <p class="profile-item__subtitle">
                     Bachelor of Engineering in Mechanical Engineering
                   </p>
+                  <p class="profile-item__subtitle">Mar 2014 — Aug 2022</p>
                 </div>
               </div>
             </div>
@@ -90,15 +102,21 @@ const Profile: Component = (): JSX.Element => {
                 </div>
                 <p class="profile-item__role">Developer Relations Engineer</p>
                 <p class="profile-item__desc">
-                  Korean Market Developer Outreach
+                  Korean market developer outreach. Built the Korea team's
+                  content operations pipeline, authored the Korean technical
+                  documentation set, and ran the builder funnel for The Turing
+                  Test Hackathon 2026 and a seven-university campus tour.
                 </p>
+                <a href="/devrel" class="profile-item__link">
+                  See the DevRel work →
+                </a>
                 <span class="profile-item__duration">Current</span>
               </div>
 
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">Kronon Labs Inc.</h3>
-                  <span class="profile-item__period">Apr 2025 — Present</span>
+                  <span class="profile-item__period">Apr 2025 — Nov 2025</span>
                 </div>
                 <p class="profile-item__role">
                   Trading System Backend Engineer
@@ -106,7 +124,7 @@ const Profile: Component = (): JSX.Element => {
                 <p class="profile-item__desc">
                   Trading Strategy Implementation
                 </p>
-                <span class="profile-item__duration">Current</span>
+                <span class="profile-item__duration">8 months</span>
               </div>
 
               <div class="profile-item profile-item--experience">
@@ -115,12 +133,24 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-item__period">Mar 2025 — Present</span>
                 </div>
                 <p class="profile-item__role">
-                  Vice President (8th Gen) · Team Leader (7th Gen) · Blockchain
-                  Researcher
+                  Vice President (8th Cohort, Mar 2026 — Present) · Team Leader,
+                  ODA Team (7th Cohort, Sep 2025 — Feb 2026)
                 </p>
                 <p class="profile-item__desc">
-                  KAIST Blockchain Research Society
+                  KAIST-based blockchain research society. Sole author of the
+                  7th cohort's five published DeFi research papers (CC BY 4.0),
+                  covering a stablecoin depeg survey across CEX and on-chain
+                  venues, Solana searcher/solver strategy design, and a
+                  17-category DeFi ecosystem taxonomy.
                 </p>
+                <a
+                  href="https://github.com/orakle-7th-sda/conference-pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-item__link"
+                >
+                  Read the papers →
+                </a>
                 <span class="profile-item__duration">Current</span>
               </div>
 
@@ -146,6 +176,40 @@ const Profile: Component = (): JSX.Element => {
                 </p>
                 <p class="profile-item__desc">Blockchain Development</p>
                 <span class="profile-item__duration">2 months</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Awards Section */}
+          <section class="profile-section">
+            <h2 class="profile-section__title">Awards</h2>
+            <div class="profile-section__content">
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">
+                    🏆 1st Place — Mantle Global Hackathon 2025
+                  </h3>
+                  <span class="profile-item__period">Feb 2026</span>
+                </div>
+                <p class="profile-item__role">
+                  DeFi &amp; Composabilities Track Winner
+                </p>
+                <p class="profile-item__desc">
+                  DOOR Protocol — a Decentralized Offered Rate protocol for
+                  fixed income
+                </p>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">
+                    🥉 3rd Place — Seoulana Hackathon 2025
+                  </h3>
+                  <span class="profile-item__period">Apr 2025</span>
+                </div>
+                <p class="profile-item__role">
+                  Solana blockchain development competition
+                </p>
               </div>
             </div>
           </section>
@@ -233,6 +297,21 @@ const Profile: Component = (): JSX.Element => {
                     <span class="profile-link__label">Quant Portfolio</span>
                     <span class="profile-link__desc">
                       Trading strategies and quantitative analysis
+                    </span>
+                  </span>
+                  <span class="profile-link__arrow">→</span>
+                </a>
+
+                <a href="/devrel" class="profile-link">
+                  <img
+                    src={MantleIcon}
+                    alt="Mantle"
+                    class="profile-link__icon-img"
+                  />
+                  <span class="profile-link__text">
+                    <span class="profile-link__label">DevRel</span>
+                    <span class="profile-link__desc">
+                      Developer relations work at Mantle Network
                     </span>
                   </span>
                   <span class="profile-link__arrow">→</span>

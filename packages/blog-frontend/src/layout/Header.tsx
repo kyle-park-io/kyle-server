@@ -34,6 +34,10 @@ const Header: Component = (): JSX.Element => {
     window.location.href = `${url}/profile`;
   };
 
+  const handleDevRelClick = (): void => {
+    window.location.href = `${url}/devrel`;
+  };
+
   const handleQuantClick = (): void => {
     window.location.href = `${url}/quant`;
   };
@@ -134,6 +138,14 @@ const Header: Component = (): JSX.Element => {
         {/* Navigation bar */}
         <nav class="nyt-header__nav">
           <ul class="nyt-header__nav-list">
+            <li class="nyt-header__nav-item">
+              <button
+                onClick={handleDevRelClick}
+                class="nyt-header__nav-link nyt-header__nav-link--devrel"
+              >
+                DevRel
+              </button>
+            </li>
             <li class="nyt-header__nav-item">
               <button
                 onClick={handleQuantClick}

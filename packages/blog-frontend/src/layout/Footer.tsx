@@ -5,6 +5,7 @@ import Medium from '@public/medium-icon.svg';
 import Linkedin from '@public/linkedin-icon.png';
 import Github from '@public/github-icon.png';
 import Telegram from '@public/telegram-icon.svg';
+import X from '@public/x-icon.svg';
 // styles
 import './Footer.css';
 
@@ -35,6 +36,10 @@ const Footer: Component = (): JSX.Element => {
 
   const handleTelegramClick = (): void => {
     window.open('https://t.me/kyleparkio');
+  };
+
+  const handleXClick = (): void => {
+    window.open('https://x.com/bcd_kyle');
   };
 
   return (
@@ -102,6 +107,13 @@ const Footer: Component = (): JSX.Element => {
                 alt="Telegram"
                 class="nyt-footer__social-icon"
               />
+            </button>
+            <button
+              onClick={handleXClick}
+              class="nyt-footer__social-btn"
+              aria-label="Visit X profile"
+            >
+              <img src={X} alt="X" class="nyt-footer__social-icon" />
             </button>
           </div>
         </div>
