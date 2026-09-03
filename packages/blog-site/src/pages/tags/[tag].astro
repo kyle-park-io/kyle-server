@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Shell from '../../layouts/Shell.astro';
+import PostIndexRow from '../../components/PostIndexRow.astro';
+import TagBar from '../../components/TagBar.astro';
+import { excludeDrafts, tagCounts, postsWithTag } from '../../lib/posts';
+import { BASE } from '../../config/site';
+import '../../styles/list.css';
+
+export async function getStaticPaths() {
+  const posts = excludeDrafts(
+    await getCollection('posts'),
+    import.meta.env.DEV,
+  );
+  const tags = new Set(posts.flatMap((post) => post.data.tags));
+  return [...tags].map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+const all = excludeDrafts(await getCollection('posts'), import.meta.env.DEV);
+const posts = postsWithTag(all, tag!);
+const tags = tagCounts(all);
+---
+
+<Shell
+  title={`#${tag} — Kyle Park 블로그`}
+  description={`${tag} 태그가 붙은 글 ${posts.length}편.`}
+  canonicalPath={`${BASE}/tags/${tag}`}
+  current={BASE}
+>
+  <div class="list-page">
+    <header class="list-header">
+      <h1 class="list-header__title">#{tag}</h1>
+      <p class="list-header__subtitle">{posts.length}편</p>
+    </header>
+
+    <TagBar tags={tags} active={tag} />
+
+    <div class="post-list">
+      {posts.map((post, i) => <PostIndexRow post={post} index={i} />)}
+    </div>
+  </div>
+</Shell>
