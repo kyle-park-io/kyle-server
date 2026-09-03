@@ -274,7 +274,8 @@ const DevRel: Component = (): JSX.Element => {
                 <li>
                   Migrated the record of truth from files to{' '}
                   <strong>PostgreSQL</strong> and shipped it serverless on
-                  Vercel, so reviewers approve and publish from a browser.
+                  Vercel. A reviewer who never opens a terminal now approves the
+                  copy and sends it to Telegram and X from the same screen.
                   Persistence sits behind a port in a hexagonal structure, so
                   swapping the store stayed at the adapter level
                 </li>
@@ -288,11 +289,20 @@ const DevRel: Component = (): JSX.Element => {
                   accounts and feeds only human-approved EN↔KO pairs into the
                   few-shot set
                 </li>
+                <li>
+                  A glossary miner proposes Korean renderings and a tuned{' '}
+                  <strong>rejection threshold</strong> decides which survive.
+                  On a real run it threw out two renderings the corpus argued
+                  against, and kept the best find of the run precisely because
+                  the corpus was silent on it — the difference between a
+                  discriminator and a rubber stamp
+                </li>
               </ul>
               <div class="devrel-work__meta">
-                <span class="devrel-work__meta-label">Scale:</span>
+                <span class="devrel-work__meta-label">Tests:</span>
                 <span class="devrel-work__meta-value">
-                  14 modules · 276 source files · 209 test files
+                  Storage adapters run against real Postgres, not a mock —
+                  PGlite boots one in-process
                 </span>
               </div>
               <div class="devrel-work__meta">
