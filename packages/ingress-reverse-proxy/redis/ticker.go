@@ -25,13 +25,20 @@ func GetRealTimeUser() {
 		targetURL := link.Url
 		u, err := url.Parse(targetURL)
 		if err != nil {
+			// continue, not return: returning ended the ticker for the rest of
+			// the process's life, so real-time counts stopped for good after a
+			// single bad parse.
 			logger.Log.Errorf("%s", err)
-			return
+			continue
 		}
 
 		conn, err := net.Dial("tcp", u.Host)
 		if err != nil {
-			logger.Log.Fatalf("Error connecting to server: %+v", err)
+			// This ran every second while a websocket was open, so a redis
+			// that went away took the proxy down with it — no request needed.
+			// A tick that cannot reach redis is a tick to skip.
+			logger.Log.Errorf("Error connecting to server: %+v", err)
+			continue
 		}
 
 		// logger.Log.Infoln("Try to get real-time user count from redis.")
@@ -43,7 +50,11 @@ func GetRealTimeUser() {
 
 		response, err := bufio.NewReader(conn).ReadString('\n')
 		if err != nil {
+			// Closed here as well: the only Close was at the bottom of the
+			// loop, which this path skips, so a flaky redis leaked one
+			// connection per second.
 			logger.Log.Errorf("Error reading response: %+v", err)
+			conn.Close()
 			continue
 		}
 		// logger.Log.Infof("TCP Response: %s", response)

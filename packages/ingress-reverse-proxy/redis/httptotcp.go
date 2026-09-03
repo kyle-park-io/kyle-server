@@ -29,7 +29,12 @@ func UpdateRealTimeUser(r *http.Request) {
 	// 1. Connect to the server.
 	conn, err := net.Dial("tcp", u.Host)
 	if err != nil {
-		logger.Log.Fatalf("Error connecting to server: %+v", err)
+		// This tracks a visitor; it is not what the caller was asked for. A
+		// Fatal here took the whole proxy down with it, so one unreachable
+		// redis turned every incoming request into a process exit and the
+		// site went with it.
+		logger.Log.Errorf("Error connecting to server: %+v", err)
+		return
 	}
 	defer conn.Close()
 	logger.Log.Infoln("Connected to the server. Type commands (e.g. ADDUSER, REAL-TIME, PING, HELLO, TIME, EXIT)")
@@ -62,7 +67,8 @@ func UpdateRealTimeUser2(clientAddr string) {
 	// 1. Connect to the server.
 	conn, err := net.Dial("tcp", u.Host)
 	if err != nil {
-		logger.Log.Fatalf("Error connecting to server: %+v", err)
+		logger.Log.Errorf("Error connecting to server: %+v", err)
+		return
 	}
 	defer conn.Close()
 	// logger.Log.Infoln("Connected to the server. Type commands (e.g. ADDUSER, REAL-TIME, PING, HELLO, TIME, EXIT)")
@@ -96,7 +102,11 @@ func HTTPToTCPHandler(w http.ResponseWriter, r *http.Request, link *types.Config
 	// 1. Connect to the server.
 	conn, err := net.Dial("tcp", u.Host)
 	if err != nil {
-		logger.Log.Fatalf("Error connecting to server: %+v", err)
+		// An unreachable upstream is the client's answer, not the server's
+		// end. This used to be Fatal, which exited the process mid-request.
+		logger.Log.Errorf("Error connecting to server: %+v", err)
+		http.Error(w, "upstream unavailable", http.StatusBadGateway)
+		return
 	}
 	defer conn.Close()
 	logger.Log.Infoln("Connected to the server. Type commands (e.g. ADDUSER, REAL-TIME, PING, HELLO, TIME, EXIT)")
