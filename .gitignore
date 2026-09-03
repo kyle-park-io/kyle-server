@@ -253,3 +253,6 @@ build
 
 # brainstorming mockups
 .superpowers/
+
+# claude code worktrees
+.claude/worktrees/
