@@ -155,7 +155,11 @@ interface Metric {
 
 const metrics: Metric[] = [
   { value: '14', label: 'Modules', note: 'Content ops pipeline, shipped' },
-  { value: '5', label: 'Documents', note: 'Korean technical docs, sole author' },
+  {
+    value: '5',
+    label: 'Documents',
+    note: 'Korean technical docs, sole author',
+  },
   { value: '7', label: 'Universities', note: 'Campus tour, sole speaker' },
   {
     value: '488',
@@ -163,7 +167,11 @@ const metrics: Metric[] = [
     note: 'Q402 workshop, three hours on-chain',
   },
   { value: '42', label: 'Builders', note: 'Each running their own agent' },
-  { value: '17.4K', label: 'Peak Reach', note: 'August Korean livestream post' },
+  {
+    value: '17.4K',
+    label: 'Peak Reach',
+    note: 'August Korean livestream post',
+  },
   {
     value: '221',
     label: 'Posts',
@@ -291,8 +299,8 @@ const DevRel: Component = (): JSX.Element => {
                 </li>
                 <li>
                   A glossary miner proposes Korean renderings and a tuned{' '}
-                  <strong>rejection threshold</strong> decides which survive.
-                  On a real run it threw out two renderings the corpus argued
+                  <strong>rejection threshold</strong> decides which survive. On
+                  a real run it threw out two renderings the corpus argued
                   against, and kept the best find of the run precisely because
                   the corpus was silent on it — the difference between a
                   discriminator and a rubber stamp
@@ -432,7 +440,9 @@ const DevRel: Component = (): JSX.Element => {
             <div class="devrel-work">
               <div class="devrel-work__header">
                 <h3 class="devrel-work__title">Q402 Builder Workshop</h3>
-                <span class="devrel-work__tag">Mantle × Quack AI · Aug 2026</span>
+                <span class="devrel-work__tag">
+                  Mantle × Quack AI · Aug 2026
+                </span>
               </div>
               <p class="devrel-work__desc">
                 Ran the Seoul builder workshop on agent payments at Hashed
@@ -443,15 +453,17 @@ const DevRel: Component = (): JSX.Element => {
               <ul class="devrel-work__list">
                 <li>
                   <strong>488 on-chain payments in three hours</strong> — 69 at
-                  the opening, 488 by close — across 257 payer-payee pairs and 60
-                  one-to-three batch settlements
+                  the opening, 488 by close — across 257 payer-payee pairs and
+                  60 one-to-three batch settlements
                 </li>
                 <li>
                   Built the night's operations site myself: wallet registration,
                   the live leaderboard, quest verification, a QR payment bridge
                   for phone-only attendees, and the staff console.{' '}
-                  <strong>Every badge and quest was judged by reading the
-                  chain</strong>, not by a form someone ticked
+                  <strong>
+                    Every badge and quest was judged by reading the chain
+                  </strong>
+                  , not by a form someone ticked
                 </li>
                 <li>
                   Three lanes so the room could self-sort — Mobile for phones,
@@ -522,8 +534,8 @@ const DevRel: Component = (): JSX.Element => {
                   behind only the World Cup campaign
                 </li>
                 <li>
-                  Wrote the July RFQ session up as a standalone Korean article on
-                  how institutional request-for-quote execution carries over
+                  Wrote the July RFQ session up as a standalone Korean article
+                  on how institutional request-for-quote execution carries over
                   on-chain
                 </li>
               </ul>
@@ -635,8 +647,8 @@ const DevRel: Component = (): JSX.Element => {
           <h2 class="devrel-section__title">More Details</h2>
           <div class="devrel-section__content">
             <p>
-              The documentation set is public. For day-to-day work, the
-              accounts below are the closest thing to a running log.
+              The documentation set is public. For day-to-day work, the accounts
+              below are the closest thing to a running log.
             </p>
             <div class="devrel-cta__links">
               <a

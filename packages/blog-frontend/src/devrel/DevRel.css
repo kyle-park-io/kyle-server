@@ -382,7 +382,6 @@
   transform: scale(1.02);
 }
 
-
 .devrel-figure__caption {
   font-family: var(--devrel-font-sans);
   font-size: 12px;
@@ -559,5 +558,4 @@
   .devrel-gallery--q402 {
     grid-template-columns: 1fr;
   }
-
 }

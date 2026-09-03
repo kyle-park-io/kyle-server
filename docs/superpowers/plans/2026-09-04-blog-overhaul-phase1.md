@@ -30,12 +30,14 @@
 Creates the single source of truth for navigation, imported by both the Solid header (Task 2) and the Astro header (Task 4). Without it the two shells drift until Phase 2 deletes the Solid one.
 
 **Files:**
+
 - Create: `packages/site-shell/package.json`
 - Create: `packages/site-shell/src/nav.ts`
 - Create: `packages/site-shell/src/styles/tokens.css`
 - Test: `packages/site-shell/__tests__/nav.test.mjs`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: `NavItem` (`{ label: string; href: string; variant?: string }`), `navItems: NavItem[]`, `offcanvasItems: NavItem[]`, and `packages/site-shell/src/styles/tokens.css`. Task 2 and Task 4 both import these.
 
@@ -183,12 +185,14 @@ git commit -m "feat: add site-shell package with shared nav and design tokens"
 Today every header item is `<button onClick={() => window.location.href = …}>`, so no crawler can follow the header to `/blog` and no reader can open a nav item in a new tab. This is half of what "make the blog a root entry point" means.
 
 **Files:**
+
 - Modify: `packages/blog-frontend/src/layout/Header.tsx:19-46` (handlers) and `:130-190` (nav markup)
 - Modify: `packages/blog-frontend/src/components/offcanvas/Offcanvas.tsx`
 - Modify: `packages/blog-frontend/src/layout/Header.css` (add `a` styling alongside the existing `button` rules)
 - Modify: `packages/blog-frontend/package.json` (add the `site-shell` dependency)
 
 **Interfaces:**
+
 - Consumes: `navItems`, `offcanvasItems` from `site-shell/src/nav.ts` (Task 1).
 - Produces: nothing new for later tasks.
 
@@ -294,6 +298,7 @@ Expected: build succeeds, `static/index.html` and `static/assets/*.blog.*.js` ar
 
 Run: `cd packages/blog-frontend && npx http-server static -p 4300`
 Open `http://localhost:4300`, then:
+
 1. Right-click "DevRel" → the browser offers "Open Link in New Tab" (it would not for a `<button>`).
 2. Middle-click "Profile" → opens in a new tab.
 3. Click "☰" → the offcanvas lists About and Chat.
@@ -315,6 +320,7 @@ git commit -m "fix: make header navigation crawlable anchors from shared nav dat
 Ends with `astro build` producing a real file on disk, and with the serve root recorded — Astro's `base` option affects URLs, and whether it also nests the output under `dist/blog/` must be observed rather than assumed, because express mounts that directory in Task 11.
 
 **Files:**
+
 - Create: `packages/blog-site/package.json`
 - Create: `packages/blog-site/astro.config.mjs`
 - Create: `packages/blog-site/tsconfig.json`
@@ -326,6 +332,7 @@ Ends with `astro build` producing a real file on disk, and with the serve root r
 - Test: `packages/blog-site/__tests__/build-output.test.mjs`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: `SITE_URL = 'https://jungho.dev'` and `BASE = '/blog'` from `src/config/site.ts`; a built `dist/` tree; the documented serve root for Task 11 and Task 12.
 
@@ -389,7 +396,17 @@ export default defineConfig({
     shikiConfig: { theme: 'github-light', wrap: false },
     rehypePlugins: [
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'append', properties: { class: 'heading-anchor', ariaHidden: 'true', tabIndex: -1 } }],
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: {
+            class: 'heading-anchor',
+            ariaHidden: 'true',
+            tabIndex: -1,
+          },
+        },
+      ],
     ],
   },
 });
@@ -506,9 +523,9 @@ Expected: PASS.
 In `packages/ingress-reverse-proxy/config/dev-links.yaml`, change the `blog` entry:
 
 ```yaml
-  - name: blog
-    route: /blog
-    url: http://localhost:4321
+- name: blog
+  route: /blog
+  url: http://localhost:4321
 ```
 
 Leave `blog-static` pointing at `http://localhost:3002` — that is still the SPA.
@@ -550,6 +567,7 @@ git commit -m "feat: scaffold blog-site astro package"
 The shell is authored once here; Phase 2 moves the SPA's remaining pages onto it and deletes the Solid copy. Because Astro is static, the nav is assertable in the built HTML — which is exactly the regression the SPA could not test in Task 2.
 
 **Files:**
+
 - Create: `packages/blog-site/src/components/Header.astro`
 - Create: `packages/blog-site/src/components/Footer.astro`
 - Create: `packages/blog-site/src/layouts/Shell.astro`
@@ -558,6 +576,7 @@ The shell is authored once here; Phase 2 moves the SPA's remaining pages onto it
 - Test: `packages/blog-site/__tests__/shell.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `navItems`, `offcanvasItems`, `tokens.css` (Task 1); `SITE_URL`, `BASE`, `BLOG_TITLE`, `BLOG_DESCRIPTION` (Task 3).
 - Produces: `Shell.astro` with props `{ title: string; description: string; canonicalPath: string; ogType?: 'website' | 'article'; ogImage?: string; lang?: 'ko' | 'en' }`. Tasks 6, 7, 8 and 9 all render inside it.
 
@@ -571,19 +590,35 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SERVE_ROOT = existsSync(join('dist', 'blog')) ? join('dist', 'blog') : 'dist';
+const SERVE_ROOT = existsSync(join('dist', 'blog'))
+  ? join('dist', 'blog')
+  : 'dist';
 const html = () => readFileSync(join(SERVE_ROOT, 'index.html'), 'utf8');
 
 test('header renders every nav item as a real anchor', () => {
   const page = html();
-  for (const href of ['/', '/blog', '/devrel', '/quant', '/personal-quant', '/profile']) {
-    assert.match(page, new RegExp(`href="${href.replace(/\//g, '\\/')}"`), `missing link to ${href}`);
+  for (const href of [
+    '/',
+    '/blog',
+    '/devrel',
+    '/quant',
+    '/personal-quant',
+    '/profile',
+  ]) {
+    assert.match(
+      page,
+      new RegExp(`href="${href.replace(/\//g, '\\/')}"`),
+      `missing link to ${href}`,
+    );
   }
 });
 
 test('head carries canonical, description and OG tags', () => {
   const page = html();
-  assert.match(page, /<link rel="canonical" href="https:\/\/jungho\.dev\/blog"/);
+  assert.match(
+    page,
+    /<link rel="canonical" href="https:\/\/jungho\.dev\/blog"/,
+  );
   assert.match(page, /<meta name="description" content="[^"]+"/);
   assert.match(page, /<meta property="og:title" content="[^"]+"/);
   assert.match(page, /<meta property="og:type" content="website"/);
@@ -752,7 +787,12 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
     <meta name="twitter:description" content={description} />
     {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
 
-    <link rel="alternate" type="application/rss+xml" title={BLOG_TITLE} href="/blog/rss.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={BLOG_TITLE}
+      href="/blog/rss.xml"
+    />
   </head>
   <body class="shell-body">
     <Header current={current} />
@@ -905,6 +945,7 @@ git commit -m "feat: add astro shell layout with crawlable nav and OG metadata"
 Replaces `head -n 1 | cut -c 3-` for titles and `git log -1 --format=%ci` for dates with validated frontmatter. The list/tag/RSS logic is split into pure functions so it is testable without booting Astro.
 
 **Files:**
+
 - Create: `packages/blog-site/src/content.config.ts`
 - Create: `packages/blog-site/src/lib/posts.ts`
 - Create: `packages/blog-site/src/lib/reading-time.ts`
@@ -915,6 +956,7 @@ Replaces `head -n 1 | cut -c 3-` for titles and `git log -1 --format=%ci` for da
 - Test: `packages/blog-site/__tests__/schema.test.mjs`
 
 **Interfaces:**
+
 - Consumes: nothing from earlier tasks.
 - Produces:
   - `content.config.ts` exporting `collections = { posts }`; entry ids equal the post directory name.
@@ -925,7 +967,7 @@ Replaces `head -n 1 | cut -c 3-` for titles and `git log -1 --format=%ci` for da
 
 Create `packages/blog-site/__tests__/reading-time.test.mjs`:
 
-```javascript
+````javascript
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readingMinutes } from '../src/lib/reading-time.ts';
@@ -950,7 +992,7 @@ test('fenced code blocks do not count', () => {
 test('whitespace does not count', () => {
   assert.equal(readingMinutes('가 '.repeat(500)), 1);
 });
-```
+````
 
 - [ ] **Step 2: Run it to verify it fails**
 
@@ -961,7 +1003,7 @@ Expected: FAIL — module not found.
 
 Create `packages/blog-site/src/lib/reading-time.ts`:
 
-```typescript
+````typescript
 const CHARS_PER_MINUTE = 500;
 
 /**
@@ -975,7 +1017,7 @@ export function readingMinutes(markdown: string): number {
   const chars = prose.replace(/\s+/g, '').length;
   return Math.max(1, Math.ceil(chars / CHARS_PER_MINUTE));
 }
-```
+````
 
 - [ ] **Step 4: Run it to verify it passes**
 
@@ -1022,11 +1064,10 @@ test('sorting does not mutate the input', () => {
 });
 
 test('drafts are excluded unless explicitly included', () => {
-  assert.deepEqual(excludeDrafts(fixture, false).map((p) => p.id), [
-    'old',
-    'new',
-    'middle',
-  ]);
+  assert.deepEqual(
+    excludeDrafts(fixture, false).map((p) => p.id),
+    ['old', 'new', 'middle'],
+  );
   assert.equal(excludeDrafts(fixture, true).length, 4);
 });
 
@@ -1134,7 +1175,10 @@ const posts = defineCollection({
       tags: z.array(
         z
           .string()
-          .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'tags must be lowercase kebab-case'),
+          .regex(
+            /^[a-z0-9]+(-[a-z0-9]+)*$/,
+            'tags must be lowercase kebab-case',
+          ),
       ),
       cover: image().optional(),
       draft: z.boolean().default(false),
@@ -1149,7 +1193,7 @@ export const collections = { posts };
 
 Create `packages/blog-site/src/data/posts/hello-world/index.md`:
 
-```markdown
+````markdown
 ---
 title: 첫 번째 글
 date: 2024-09-05
@@ -1175,7 +1219,9 @@ lang: ko
 ```js
 const answer = 42;
 ```
-```
+````
+
+````
 
 Create `packages/blog-site/src/data/posts/second-post/index.md`:
 
@@ -1193,7 +1239,7 @@ lang: ko
 ## 하나뿐인 절
 
 내용.
-```
+````
 
 These live under the gitignored `src/data/`, so they exist only on the machine running the build. Task 12's `build-blog.sh` overwrites the directory with the real content repo. Re-create them with this exact content whenever the tests need them.
 
@@ -1274,6 +1320,7 @@ git commit -m "feat: add blog content collection schema and post helpers"
 One template, two states — a cover turns the newest post into a featured block; without one it is just the first index row. This is what removes the bet on whether cover images will keep being made.
 
 **Files:**
+
 - Modify: `packages/blog-site/src/pages/index.astro`
 - Create: `packages/blog-site/src/components/PostIndexRow.astro`
 - Create: `packages/blog-site/src/components/FeaturedPost.astro`
@@ -1282,6 +1329,7 @@ One template, two states — a cover turns the newest post into a featured block
 - Test: `packages/blog-site/__tests__/list-page.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `Shell.astro` (Task 4); `sortByDateDesc`, `excludeDrafts`, `tagCounts` (Task 5); the `posts` collection (Task 5).
 - Produces: `PostIndexRow.astro` with props `{ post: CollectionEntry<'posts'>; index: number }`; `FeaturedPost.astro` with props `{ post: CollectionEntry<'posts'> }`; `TagBar.astro` with props `{ tags: Array<{ tag: string; count: number }>; active?: string }`. Task 8's tag pages reuse `PostIndexRow` and `TagBar`.
 
@@ -1295,7 +1343,9 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SERVE_ROOT = existsSync(join('dist', 'blog')) ? join('dist', 'blog') : 'dist';
+const SERVE_ROOT = existsSync(join('dist', 'blog'))
+  ? join('dist', 'blog')
+  : 'dist';
 const html = () => readFileSync(join(SERVE_ROOT, 'index.html'), 'utf8');
 
 test('lists both fixture posts, newest first', () => {
@@ -1318,7 +1368,10 @@ test('rows carry summary, date and tags', () => {
 });
 
 test('no featured block while no post has a cover', () => {
-  assert.ok(!html().includes('data-featured'), 'featured block must not render');
+  assert.ok(
+    !html().includes('data-featured'),
+    'featured block must not render',
+  );
 });
 
 test('the RSS link is exposed on the list page', () => {
@@ -1406,7 +1459,12 @@ const iso = post.data.date.toISOString().slice(0, 10);
   {
     post.data.cover && (
       <a href={`${BASE}/${post.id}`} class="featured__image">
-        <Image src={post.data.cover} alt="" widths={[480, 960]} loading="eager" />
+        <Image
+          src={post.data.cover}
+          alt=""
+          widths={[480, 960]}
+          loading="eager"
+        />
       </a>
     )
   }
@@ -1448,7 +1506,10 @@ const { tags, active } = Astro.props;
     tags.map(({ tag, count }) => (
       <a
         href={`${BASE}/tags/${tag}`}
-        class:list={['tag-bar__item', active === tag && 'tag-bar__item--active']}
+        class:list={[
+          'tag-bar__item',
+          active === tag && 'tag-bar__item--active',
+        ]}
       >
         #{tag} <span class="tag-bar__count">{count}</span>
       </a>
@@ -1507,7 +1568,11 @@ const rows = featured ? posts.slice(1) : posts;
       }
     </div>
 
-    {posts.length === 0 && <p class="post-list__empty">아직 발행한 글이 없습니다.</p>}
+    {
+      posts.length === 0 && (
+        <p class="post-list__empty">아직 발행한 글이 없습니다.</p>
+      )
+    }
   </div>
 </Shell>
 ```
@@ -1719,6 +1784,7 @@ git commit -m "feat: add blog list page with tag bar and cover-conditional featu
 ### Task 7: Article page — table of contents, progress bar, raw markdown
 
 **Files:**
+
 - Create: `packages/blog-site/src/pages/[slug].astro`
 - Create: `packages/blog-site/src/pages/[slug].md.ts`
 - Create: `packages/blog-site/src/components/Toc.astro`
@@ -1727,6 +1793,7 @@ git commit -m "feat: add blog list page with tag bar and cover-conditional featu
 - Test: `packages/blog-site/__tests__/post-page.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `Shell.astro` (Task 4); `readingMinutes`, `excludeDrafts` and the `posts` collection (Task 5).
 - Produces: `Toc.astro` with props `{ headings: Array<{ depth: number; slug: string; text: string }> }`, which renders nothing when fewer than 3 h2/h3 headings survive filtering. Task 9 mounts giscus inside `[slug].astro`.
 
@@ -1740,7 +1807,9 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SERVE_ROOT = existsSync(join('dist', 'blog')) ? join('dist', 'blog') : 'dist';
+const SERVE_ROOT = existsSync(join('dist', 'blog'))
+  ? join('dist', 'blog')
+  : 'dist';
 const read = (file) => readFileSync(join(SERVE_ROOT, file), 'utf8');
 
 test('a post is emitted as an extension-less-servable html file', () => {
@@ -1750,7 +1819,10 @@ test('a post is emitted as an extension-less-servable html file', () => {
 
 test('the article carries its own canonical, OG type and language', () => {
   const page = read('hello-world.html');
-  assert.match(page, /<link rel="canonical" href="https:\/\/jungho\.dev\/blog\/hello-world"/);
+  assert.match(
+    page,
+    /<link rel="canonical" href="https:\/\/jungho\.dev\/blog\/hello-world"/,
+  );
   assert.match(page, /<meta property="og:type" content="article"/);
   assert.match(page, /<title>첫 번째 글/);
 });
@@ -1783,7 +1855,10 @@ test('reading time is shown', () => {
 
 test('the raw markdown is downloadable', () => {
   assert.ok(existsSync(join(SERVE_ROOT, 'hello-world.md')));
-  assert.match(readFileSync(join(SERVE_ROOT, 'hello-world.md'), 'utf8'), /첫 번째 절/);
+  assert.match(
+    readFileSync(join(SERVE_ROOT, 'hello-world.md'), 'utf8'),
+    /첫 번째 절/,
+  );
 });
 
 test('a scroll progress bar is present', () => {
@@ -1864,8 +1939,7 @@ const show = entries.length >= 3;
     for (const target of targets) observer.observe(target);
 
     const details = document.querySelector<HTMLDetailsElement>('.toc__details');
-    const collapsed = () =>
-      window.matchMedia('(max-width: 1199px)').matches;
+    const collapsed = () => window.matchMedia('(max-width: 1199px)').matches;
     for (const link of links) {
       link.addEventListener('click', () => {
         if (details && collapsed()) details.open = false;
@@ -1937,7 +2011,10 @@ import { BASE } from '../config/site';
 import '../styles/post.css';
 
 export async function getStaticPaths() {
-  const posts = excludeDrafts(await getCollection('posts'), import.meta.env.DEV);
+  const posts = excludeDrafts(
+    await getCollection('posts'),
+    import.meta.env.DEV,
+  );
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
@@ -1997,7 +2074,12 @@ const updatedShown = post.data.updated
       {
         post.data.cover && (
           <figure class="post__cover">
-            <Image src={post.data.cover} alt="" widths={[720, 1440]} loading="eager" />
+            <Image
+              src={post.data.cover}
+              alt=""
+              widths={[720, 1440]}
+              loading="eager"
+            />
           </figure>
         )
       }
@@ -2029,7 +2111,10 @@ import { getCollection } from 'astro:content';
 import { excludeDrafts } from '../lib/posts';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = excludeDrafts(await getCollection('posts'), import.meta.env.DEV);
+  const posts = excludeDrafts(
+    await getCollection('posts'),
+    import.meta.env.DEV,
+  );
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { body: post.body ?? '' },
@@ -2285,10 +2370,10 @@ Create `packages/blog-site/src/styles/post.css`:
 Note `.toc__details` is rendered with `open` and the mobile rule hides the list only when it is closed. To make the collapsed state the default below 1200px, add to the `Toc.astro` script:
 
 ```javascript
-  const initial = document.querySelector<HTMLDetailsElement>('.toc__details');
-  if (initial && window.matchMedia('(max-width: 1199px)').matches) {
-    initial.open = false;
-  }
+const initial = document.querySelector < HTMLDetailsElement > '.toc__details';
+if (initial && window.matchMedia('(max-width: 1199px)').matches) {
+  initial.open = false;
+}
 ```
 
 - [ ] **Step 8: Wrap code blocks in a scroll container**
@@ -2334,6 +2419,7 @@ git commit -m "feat: add article page with table of contents and reading progres
 ### Task 8: Tag pages, RSS, homepage JSON feed, 404, sitemap
 
 **Files:**
+
 - Create: `packages/blog-site/src/pages/tags/[tag].astro`
 - Create: `packages/blog-site/src/pages/rss.xml.ts`
 - Create: `packages/blog-site/src/pages/index.json.ts`
@@ -2341,6 +2427,7 @@ git commit -m "feat: add article page with table of contents and reading progres
 - Test: `packages/blog-site/__tests__/feeds.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `Shell.astro` (Task 4); `PostIndexRow.astro`, `TagBar.astro` (Task 6); `sortByDateDesc`, `excludeDrafts`, `tagCounts`, `postsWithTag` (Task 5).
 - Produces: `/blog/index.json` with the shape `Array<{ slug: string; title: string; summary: string; date: string; tags: string[]; url: string }>`, newest first. Task 14's homepage `Writing` section consumes exactly this.
 
@@ -2354,7 +2441,9 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SERVE_ROOT = existsSync(join('dist', 'blog')) ? join('dist', 'blog') : 'dist';
+const SERVE_ROOT = existsSync(join('dist', 'blog'))
+  ? join('dist', 'blog')
+  : 'dist';
 const read = (file) => readFileSync(join(SERVE_ROOT, file), 'utf8');
 
 test('a static page exists per tag', () => {
@@ -2377,7 +2466,10 @@ test('a tag page is canonical to itself', () => {
 
 test('rss lists every post with absolute links', () => {
   const xml = read('rss.xml');
-  assert.match(xml, /<title><!\[CDATA\[첫 번째 글\]\]><\/title>|<title>첫 번째 글<\/title>/);
+  assert.match(
+    xml,
+    /<title><!\[CDATA\[첫 번째 글\]\]><\/title>|<title>첫 번째 글<\/title>/,
+  );
   assert.match(xml, /https:\/\/jungho\.dev\/blog\/hello-world/);
   assert.equal((xml.match(/<item>/g) ?? []).length, 2);
 });
@@ -2410,7 +2502,10 @@ test('the sitemap index is emitted', () => {
 });
 
 test('the sitemap contains post URLs', () => {
-  assert.match(read('sitemap-0.xml'), /https:\/\/jungho\.dev\/blog\/hello-world/);
+  assert.match(
+    read('sitemap-0.xml'),
+    /https:\/\/jungho\.dev\/blog\/hello-world/,
+  );
 });
 ```
 
@@ -2434,7 +2529,10 @@ import { BASE } from '../../config/site';
 import '../../styles/list.css';
 
 export async function getStaticPaths() {
-  const posts = excludeDrafts(await getCollection('posts'), import.meta.env.DEV);
+  const posts = excludeDrafts(
+    await getCollection('posts'),
+    import.meta.env.DEV,
+  );
   const tags = new Set(posts.flatMap((post) => post.data.tags));
   return [...tags].map((tag) => ({ params: { tag } }));
 }
@@ -2578,6 +2676,7 @@ git commit -m "feat: add tag pages, rss, homepage json feed and blog 404"
 The giscus app is already installed on `kyle-park-io/blog`, but the repository's Discussions feature is **off** and therefore has no categories — verified via the GitHub GraphQL API. Both are fixed here.
 
 **Files:**
+
 - Create: `packages/blog-site/src/config/giscus.ts`
 - Create: `packages/blog-site/src/components/Giscus.astro`
 - Modify: `packages/blog-site/src/pages/[slug].astro` (mount it below the article footer)
@@ -2585,6 +2684,7 @@ The giscus app is already installed on `kyle-park-io/blog`, but the repository's
 - Test: `packages/blog-site/__tests__/giscus.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `[slug].astro` (Task 7).
 - Produces: `GISCUS` config object (`{ repo, repoId, category, categoryId }`).
 
@@ -2645,7 +2745,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { GISCUS } from '../src/config/giscus.ts';
 
-const SERVE_ROOT = existsSync(join('dist', 'blog')) ? join('dist', 'blog') : 'dist';
+const SERVE_ROOT = existsSync(join('dist', 'blog'))
+  ? join('dist', 'blog')
+  : 'dist';
 const page = () => readFileSync(join(SERVE_ROOT, 'hello-world.html'), 'utf8');
 
 test('the giscus ids are filled in', () => {
@@ -2714,14 +2816,9 @@ import Giscus from '../components/Giscus.astro';
 ```
 
 ```astro
-      </footer>
-    </article>
+<Toc headings={headings} />
 
-    <Toc headings={headings} />
-  </div>
-
-  <Giscus />
-</Shell>
+<Giscus />
 ```
 
 Add to `packages/blog-site/src/styles/post.css`:
@@ -2768,6 +2865,7 @@ git commit -m "feat: add giscus comments to blog articles"
 **This task's commits go to `~/code/blog` (`kyle-park-io/blog`), not to `kyle-server`.** `md/` and `sort/` stay in place; Task 15 removes them once the new image is verified in production.
 
 **Files (all under `~/code/blog`):**
+
 - Create: `content/posts/project-initial-setup/index.md`
 - Create: `content/posts/ethereum-event-object/index.md`
 - Create: `content/posts/chain-communicator/index.md`
@@ -2779,6 +2877,7 @@ git commit -m "feat: add giscus comments to blog articles"
 - Test: `__tests__/validate-frontmatter.test.mjs`
 
 **Interfaces:**
+
 - Consumes: the schema defined in Task 5's `content.config.ts` — the validator must accept exactly what zod accepts.
 - Produces: `content/posts/<slug>/index.md` files that Task 12's `build-blog.sh` rsyncs into `blog-site/src/data/posts/`.
 
@@ -2936,7 +3035,8 @@ export function validatePosts(root) {
     const path = join(root, file);
     const at = (msg) => errors.push(`${file}: ${msg}`);
 
-    if (!KEBAB.test(slug)) at(`directory name "${slug}" must be lowercase kebab-case`);
+    if (!KEBAB.test(slug))
+      at(`directory name "${slug}" must be lowercase kebab-case`);
     if (seen.has(slug)) at(`duplicate slug "${slug}"`);
     seen.add(slug);
 
@@ -2952,7 +3052,8 @@ export function validatePosts(root) {
     }
 
     for (const key of REQUIRED) {
-      if (fields[key] === undefined || fields[key] === '') at(`missing required key: ${key}`);
+      if (fields[key] === undefined || fields[key] === '')
+        at(`missing required key: ${key}`);
     }
     for (const key of Object.keys(fields)) {
       if (!KNOWN.has(key)) at(`unknown frontmatter key: ${key}`);
@@ -2980,13 +3081,17 @@ export function validatePosts(root) {
       at(`lang must be ko or en, got "${fields.lang}"`);
     }
 
-    if (fields.draft !== undefined && !['true', 'false'].includes(fields.draft)) {
+    if (
+      fields.draft !== undefined &&
+      !['true', 'false'].includes(fields.draft)
+    ) {
       at(`draft must be true or false, got "${fields.draft}"`);
     }
 
     if (fields.cover !== undefined) {
       const rel = String(fields.cover).replace(/^\.\//, '');
-      if (!existsSync(join(root, slug, rel))) at(`cover file not found: ${fields.cover}`);
+      if (!existsSync(join(root, slug, rel)))
+        at(`cover file not found: ${fields.cover}`);
     }
 
     if (/^# /m.test(body)) {
@@ -3128,16 +3233,16 @@ Images live next to the post and are referenced relatively:
 
 ## Frontmatter
 
-| Key | Required | Rule |
-| --- | --- | --- |
-| `title` | yes | Do **not** repeat it as `# ` in the body |
-| `date` | yes | `YYYY-MM-DD`, written by hand. Editing a post never reorders the list |
-| `updated` | no | `YYYY-MM-DD`. Shown as "수정: …"; does not affect ordering |
-| `summary` | yes | One sentence. Used on the list page, in `<meta description>`, and in link previews |
-| `tags` | yes | Lowercase kebab-case array. `[]` is allowed |
-| `cover` | no | `./cover.webp`. The file must exist |
-| `draft` | no | `true` hides it from the published site |
-| `lang` | no | `ko` (default) or `en` |
+| Key       | Required | Rule                                                                               |
+| --------- | -------- | ---------------------------------------------------------------------------------- |
+| `title`   | yes      | Do **not** repeat it as `# ` in the body                                           |
+| `date`    | yes      | `YYYY-MM-DD`, written by hand. Editing a post never reorders the list              |
+| `updated` | no       | `YYYY-MM-DD`. Shown as "수정: …"; does not affect ordering                         |
+| `summary` | yes      | One sentence. Used on the list page, in `<meta description>`, and in link previews |
+| `tags`    | yes      | Lowercase kebab-case array. `[]` is allowed                                        |
+| `cover`   | no       | `./cover.webp`. The file must exist                                                |
+| `draft`   | no       | `true` hides it from the published site                                            |
+| `lang`    | no       | `ko` (default) or `en`                                                             |
 
 Example:
 
@@ -3176,6 +3281,7 @@ git push
 ### Task 11: express serves the static blog, redirects legacy slugs, and drops the markdown pipeline
 
 **Files:**
+
 - Modify: `packages/blog-backend/src/app.ts` (whole file restructured)
 - Create: `packages/blog-backend/src/blog/legacy-slugs.ts`
 - Create: `packages/blog-backend/src/blog/serve.ts`
@@ -3188,6 +3294,7 @@ git push
 - Test: `packages/blog-backend/__tests__/blog-routes.test.mjs`
 
 **Interfaces:**
+
 - Consumes: the built blog output from Task 3–9; `SERVE_ROOT` resolution recorded in Task 3 Step 7.
 - Produces: `createApp(options: { blogDist: string; spaStatic: string }): express.Express` exported from `src/app.ts`; `LEGACY_SLUGS: Record<string, string>` and `resolveLegacySlug(pathname: string): string | undefined` from `src/blog/legacy-slugs.ts`. Task 12's `build-blog.sh` writes into the directory `blogDist` points at.
 
@@ -3198,10 +3305,7 @@ Create `packages/blog-backend/__tests__/legacy-slugs.test.mjs`:
 ```javascript
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  LEGACY_SLUGS,
-  resolveLegacySlug,
-} from '../dist/blog/legacy-slugs.js';
+import { LEGACY_SLUGS, resolveLegacySlug } from '../dist/blog/legacy-slugs.js';
 
 test('every old filename-based URL maps somewhere', () => {
   assert.deepEqual(Object.keys(LEGACY_SLUGS).sort(), [
@@ -3389,7 +3493,11 @@ Expected: FAIL — `createApp` is not exported.
 Create `packages/blog-backend/src/blog/serve.ts`:
 
 ```typescript
-import express, { type Request, type Response, type NextFunction } from 'express';
+import express, {
+  type Request,
+  type Response,
+  type NextFunction,
+} from 'express';
 import * as path from 'path';
 import { resolveLegacySlug } from './legacy-slugs';
 
@@ -3548,6 +3656,7 @@ git commit -m "feat: serve the static blog from express and drop the markdown pi
 Preserves the current publishing experience — push markdown, live within ten minutes, no deploy — while producing static output. A failed build must never take the site down.
 
 **Files:**
+
 - Create: `packages/blog-backend/scripts/build-blog.sh`
 - Modify: `packages/blog-backend/scripts/init-script.sh`
 - Modify: `packages/blog-backend/scripts/start-server.sh`
@@ -3556,6 +3665,7 @@ Preserves the current publishing experience — push markdown, live within ten m
 - Test: `packages/blog-backend/__tests__/build-blog.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `content/posts/` from Task 10; `packages/blog-site` from Tasks 3–9; `BLOG_DIST` read by `createApp` in Task 11.
 - Produces: `build-blog.sh`, invoked with `CONTENT_SRC`, `SITE_DIR`, `BLOG_DIST` and `LOCK_FILE` environment variables so the tests can drive it against fixtures.
 
@@ -3628,7 +3738,11 @@ const run = (env) => {
   try {
     return {
       ok: true,
-      output: execFileSync('sh', [SCRIPT], { env, encoding: 'utf8', stdio: 'pipe' }),
+      output: execFileSync('sh', [SCRIPT], {
+        env,
+        encoding: 'utf8',
+        stdio: 'pipe',
+      }),
     };
   } catch (err) {
     return { ok: false, output: `${err.stdout ?? ''}${err.stderr ?? ''}` };
@@ -3640,7 +3754,10 @@ test('a successful build publishes the output', () => {
   try {
     assert.equal(run(box.env).ok, true);
     assert.ok(existsSync(join(box.blogDist, 'index.html')));
-    assert.match(readFileSync(join(box.blogDist, 'index.html'), 'utf8'), /built/);
+    assert.match(
+      readFileSync(join(box.blogDist, 'index.html'), 'utf8'),
+      /built/,
+    );
   } finally {
     rmSync(box.root, { recursive: true, force: true });
   }
@@ -3651,7 +3768,9 @@ test('content is synced into the site directory before building', () => {
   try {
     run(box.env);
     assert.ok(
-      existsSync(join(box.env.SITE_DIR, 'src', 'data', 'posts', 'a-post', 'index.md')),
+      existsSync(
+        join(box.env.SITE_DIR, 'src', 'data', 'posts', 'a-post', 'index.md'),
+      ),
     );
   } finally {
     rmSync(box.root, { recursive: true, force: true });
@@ -3891,6 +4010,7 @@ git commit -m "feat: add content sync and atomic swap build script"
 ### Task 13: Docker image — Node 22, Astro toolchain, repo-root build context
 
 **Files:**
+
 - Modify: `packages/blog-backend/Dockerfile`
 - Modify: `packages/blog-backend/scripts/init-script.sh`
 - Modify: `packages/blog-backend/scripts/start-server.sh`
@@ -3898,6 +4018,7 @@ git commit -m "feat: add content sync and atomic swap build script"
 - Create: `.dockerignore` (repo root)
 
 **Interfaces:**
+
 - Consumes: everything from Tasks 1–12.
 - Produces: an image that serves `/blog` from `/usr/src/app/blog-dist` and rebuilds it on cron.
 
@@ -4095,6 +4216,7 @@ git commit -m "chore: build the blog inside the image on node 22"
 ### Task 14: SPA cleanup and the homepage Writing section
 
 **Files:**
+
 - Delete: `packages/blog-frontend/src/blog/` (all six files)
 - Modify: `packages/blog-frontend/src/index.tsx` (remove four routes and their imports)
 - Modify: `packages/blog-frontend/src/app/App.tsx` (Writing section; remove `Extra`)
@@ -4103,6 +4225,7 @@ git commit -m "chore: build the blog inside the image on node 22"
 - Test: `packages/blog-frontend/__tests__/spa-cleanup.test.mjs`
 
 **Interfaces:**
+
 - Consumes: `/blog/index.json` produced in Task 8 — `Array<{ slug, title, summary, date, tags, url }>`, newest first.
 - Produces: nothing for later tasks.
 
@@ -4234,7 +4357,9 @@ onMount(() => {
 Insert this section immediately after the `Featured` section and before `Introduce`:
 
 ```tsx
-{/* Writing Section — recent posts, fed by the static blog build */}
+{
+  /* Writing Section — recent posts, fed by the static blog build */
+}
 <section class="home-section">
   <div class="home-section__head">
     <h2 class="home-section__title">Writing</h2>
@@ -4269,7 +4394,7 @@ Insert this section immediately after the `Featured` section and before `Introdu
       </For>
     </div>
   </Show>
-</section>
+</section>;
 ```
 
 Then delete the whole `Extra` section and `handleBlogClick`, and move the Chat card into the `Projects` grid:
@@ -4387,12 +4512,14 @@ git commit -m "feat: replace SPA blog with a homepage writing section"
 ### Task 15: Search-engine wiring, dead package removal, and final verification
 
 **Files:**
+
 - Modify: `packages/ingress-reverse-proxy/public/root/robots.txt`
 - Delete: `packages/md-to-html/`
 - Modify: `docs/superpowers/specs/2026-09-04-blog-overhaul-design.md` (two corrections)
 - Modify (in `~/code/blog`): delete `md/` and `sort/`
 
 **Interfaces:**
+
 - Consumes: a deployed image from Tasks 11–14.
 - Produces: nothing.
 
@@ -4512,6 +4639,7 @@ git commit -m "chore: expose the blog sitemap and remove the dead markdown conve
 
 **Four defects found and fixed during review, kept here so they are not
 reintroduced.**
+
 1. Task 10 originally showed a `git mv` block before saying to use `cp` — an
    executor reading top-to-bottom would have emptied `md/` and blanked the
    live blog. The `git mv` block is gone.
@@ -4528,6 +4656,7 @@ reintroduced.**
    "do not use". Removed.
 
 **Known soft spots, called out rather than hidden.**
+
 - Whether `base: '/blog'` nests the build output is observed in Task 3 Step 7 rather than assumed; the test helper and `build-blog.sh` handle both shapes.
 - `rehype-slug`'s exact slug for Korean headings is not asserted; Task 7 Step 9 says to relax that one assertion to "headings have ids" if the transliteration differs.
-- Markup-only changes in the Solid SPA (Task 2) get a build plus a scripted browser check instead of a unit test, because the package has no DOM test harness. The nav *data* those changes render is unit-tested in Task 1.
+- Markup-only changes in the Solid SPA (Task 2) get a build plus a scripted browser check instead of a unit test, because the package has no DOM test harness. The nav _data_ those changes render is unit-tested in Task 1.

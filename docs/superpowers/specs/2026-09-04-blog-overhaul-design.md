@@ -13,12 +13,12 @@ spec) absorbs the remaining static pages into the same shell.
 
 ## Current state
 
-| Layer | Today |
-| --- | --- |
-| Routing | Go `ingress-reverse-proxy`, prefix table in `config/prod-links.yaml`. `utils/url.go:14` keys on the **first path segment only**, so `/blog`, `/blog-static`, `/api-blog` all resolve to `site-app-server:8080` |
-| Serving | `packages/blog-backend` (express) — SPA build at `/blog-static`, `app.get('*')` → `index.html` |
-| Frontend | `packages/blog-frontend` — SolidJS SPA, vite (`base: /blog-static`), tailwind (`tw-` prefix), NYT-inspired |
-| Content | Separate repo `kyle-park-io/blog`, `md/*.md`, 4 tracked files |
+| Layer    | Today                                                                                                                                                                                                                                                                                                                                                                 |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Routing  | Go `ingress-reverse-proxy`, prefix table in `config/prod-links.yaml`. `utils/url.go:14` keys on the **first path segment only**, so `/blog`, `/blog-static`, `/api-blog` all resolve to `site-app-server:8080`                                                                                                                                                        |
+| Serving  | `packages/blog-backend` (express) — SPA build at `/blog-static`, `app.get('*')` → `index.html`                                                                                                                                                                                                                                                                        |
+| Frontend | `packages/blog-frontend` — SolidJS SPA, vite (`base: /blog-static`), tailwind (`tw-` prefix), NYT-inspired                                                                                                                                                                                                                                                            |
+| Content  | Separate repo `kyle-park-io/blog`, `md/*.md`, 4 tracked files                                                                                                                                                                                                                                                                                                         |
 | Pipeline | Pod-side cron every 10 min: `git pull` → `cp -r md /usr/src/app` → `cron-sort-blog.sh` derives title from `head -n 1 \| cut -c 3-` and date from `git log -1 --format=%ci` into `sort/sorted_md_files.txt` → backend converts **every** md with `marked` on boot and on a 10-minute `setInterval` → API returns an HTML string → frontend injects it with `innerHTML` |
 
 What this produces, concretely:
@@ -137,16 +137,16 @@ blog/
 
 Frontmatter schema, enforced by zod at build time:
 
-| Field | Required | Rule |
-| --- | --- | --- |
-| `title` | yes | The body must **not** repeat it as `# `; the layout renders the title |
-| `date` | yes | `YYYY-MM-DD`, written by hand — editing a post no longer reorders the list |
-| `updated` | no | Shown as "수정: …"; does not affect ordering |
-| `summary` | yes | List card text, `<meta name="description">`, and OG description |
-| `tags` | yes | Lowercase kebab array; may be empty |
-| `cover` | no | `./cover.webp`, validated with `image()` so a missing file fails the build |
-| `draft` | no | `true` excludes it from production builds, visible in dev |
-| `lang` | no | `ko` (default) or `en` — list badge and `<article lang>` |
+| Field     | Required | Rule                                                                       |
+| --------- | -------- | -------------------------------------------------------------------------- |
+| `title`   | yes      | The body must **not** repeat it as `# `; the layout renders the title      |
+| `date`    | yes      | `YYYY-MM-DD`, written by hand — editing a post no longer reorders the list |
+| `updated` | no       | Shown as "수정: …"; does not affect ordering                               |
+| `summary` | yes      | List card text, `<meta name="description">`, and OG description            |
+| `tags`    | yes      | Lowercase kebab array; may be empty                                        |
+| `cover`   | no       | `./cover.webp`, validated with `image()` so a missing file fails the build |
+| `draft`   | no       | `true` excludes it from production builds, visible in dev                  |
+| `lang`    | no       | `ko` (default) or `en` — list badge and `<article lang>`                   |
 
 Rendering, all at build time:
 
@@ -170,12 +170,12 @@ with no dependencies. Astro's zod schema remains the final gate.
 **Migration and URL preservation.** Existing slugs come from filenames, so they
 change; express holds the 301 map.
 
-| Today | New |
-| --- | --- |
-| `/blog/portfolio1` | `/blog/project-initial-setup` |
-| `/blog/eth` | `/blog/ethereum-event-object` |
-| `/blog/portfolio4` | `/blog/chain-communicator` |
-| `/blog/test` | `/blog` (`md/test.md` is deleted) |
+| Today              | New                               |
+| ------------------ | --------------------------------- |
+| `/blog/portfolio1` | `/blog/project-initial-setup`     |
+| `/blog/eth`        | `/blog/ethereum-event-object`     |
+| `/blog/portfolio4` | `/blog/chain-communicator`        |
+| `/blog/test`       | `/blog` (`md/test.md` is deleted) |
 
 `portfolio1.md` also has a hand-written `# # 목차` section in its body; it is
 removed in favour of the generated table of contents.
@@ -266,14 +266,14 @@ stays.)
 
 ## 8. Verification
 
-| Target | Method |
-| --- | --- |
-| frontmatter | husky `pre-commit` validator (immediate) + Astro zod (build gate; a failure leaves the previous `dist` serving) |
+| Target          | Method                                                                                                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| frontmatter     | husky `pre-commit` validator (immediate) + Astro zod (build gate; a failure leaves the previous `dist` serving)                                                                            |
 | express routing | Smoke script in `__tests__`: `/blog` 200, `/blog/<slug>` 200, `/blog/eth` 301, `/blog/<missing>` 404 with the Astro 404 page, `/blog/rss.xml` 200, `/blog-static/assets/*.js` 200, `/` 200 |
-| swap script | Unit tests in a temp directory: successful build swaps; **failed build keeps the previous dist**; concurrent runs are excluded by `flock` |
-| responsive | Playwright at 1280 / 834 / 390 — table of contents sticky vs collapsed, no horizontal overflow on code blocks and tables. Used during implementation, not frozen as a regression suite |
-| performance | Budget: article first load ships under 10 KB of JavaScript. Today reading one post downloads the whole solid + router + axios + solid-bootstrap bundle |
-| Go proxy | No code change; confirm the existing tests still pass |
+| swap script     | Unit tests in a temp directory: successful build swaps; **failed build keeps the previous dist**; concurrent runs are excluded by `flock`                                                  |
+| responsive      | Playwright at 1280 / 834 / 390 — table of contents sticky vs collapsed, no horizontal overflow on code blocks and tables. Used during implementation, not frozen as a regression suite     |
+| performance     | Budget: article first load ships under 10 KB of JavaScript. Today reading one post downloads the whole solid + router + axios + solid-bootstrap bundle                                     |
+| Go proxy        | No code change; confirm the existing tests still pass                                                                                                                                      |
 
 ## 9. Rollout order
 
