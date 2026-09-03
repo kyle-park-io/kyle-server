@@ -1,7 +1,8 @@
-import { type Component, type JSX } from 'solid-js';
+import { For, type Component, type JSX } from 'solid-js';
 // interface
 import { type MoveProps } from './interfaces/offcanvas.interfaces';
 import { globalState } from '../../constants/constants';
+import { offcanvasItems } from 'site-shell/src/nav';
 // image
 import MantleIcon from '@public/mantle-icon.png';
 // styles
@@ -70,6 +71,21 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
 
         {/* Body */}
         <div class="nav-panel__body">
+          {/* Site */}
+          <div class="nav-section">
+            <span class="nav-section__label">Site</span>
+            <For each={offcanvasItems}>
+              {(item) => (
+                <a class="nav-link" href={item.href}>
+                  <span class="nav-link__text">
+                    <span class="nav-link__title">{item.label}</span>
+                  </span>
+                  <span class="nav-link__arrow">→</span>
+                </a>
+              )}
+            </For>
+          </div>
+
           {/* Featured Link */}
           <div class="nav-section">
             <span class="nav-section__label">Featured</span>
