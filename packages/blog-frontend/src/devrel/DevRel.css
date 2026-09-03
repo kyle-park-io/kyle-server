@@ -323,6 +323,12 @@
   transition: color var(--devrel-transition);
 }
 
+.devrel-work__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .devrel-work__link:hover {
   color: #ffffff;
 }
@@ -343,6 +349,16 @@
 
 .devrel-gallery--campus {
   grid-template-columns: repeat(4, 1fr);
+}
+
+/* The Q402 shots are 16:9 room photos and one dense screenshot, so they get
+   two wide columns instead of the 4:3 crop the other galleries use. */
+.devrel-gallery--q402 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.devrel-gallery--q402 .devrel-figure__img {
+  aspect-ratio: 16 / 9;
 }
 
 .devrel-figure {
@@ -522,7 +538,8 @@
 
   .devrel-gallery,
   .devrel-gallery--wide,
-  .devrel-gallery--campus {
+  .devrel-gallery--campus,
+  .devrel-gallery--q402 {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -538,7 +555,8 @@
 
   .devrel-gallery,
   .devrel-gallery--wide,
-  .devrel-gallery--campus {
+  .devrel-gallery--campus,
+  .devrel-gallery--q402 {
     grid-template-columns: 1fr;
   }
 

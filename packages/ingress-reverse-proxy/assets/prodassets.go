@@ -63,6 +63,10 @@ var assetsForProd = map[string]*Asset{
 	"/devrel/mogakko.webp":                 {contentType: "image/webp", dataPath: "/app/public/devrel/mogakko.webp"},
 	"/devrel/onboarding-livebuild.webp":    {contentType: "image/webp", dataPath: "/app/public/devrel/onboarding-livebuild.webp"},
 	"/devrel/onboarding-session.webp":      {contentType: "image/webp", dataPath: "/app/public/devrel/onboarding-session.webp"},
+	"/devrel/q402-graph.webp":              {contentType: "image/webp", dataPath: "/app/public/devrel/q402-graph.webp"},
+	"/devrel/q402-group.webp":              {contentType: "image/webp", dataPath: "/app/public/devrel/q402-group.webp"},
+	"/devrel/q402-keynote.webp":            {contentType: "image/webp", dataPath: "/app/public/devrel/q402-keynote.webp"},
+	"/devrel/q402-session.webp":            {contentType: "image/webp", dataPath: "/app/public/devrel/q402-session.webp"},
 	// pdf
 	"/cv/jungho_park_cv_latest.pdf": {contentType: "application/pdf", dataPath: "/app/public/cv/jungho_park_cv_latest.pdf"},
 	// kyle-dex swagger

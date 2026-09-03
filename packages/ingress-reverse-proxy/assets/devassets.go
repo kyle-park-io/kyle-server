@@ -63,6 +63,10 @@ var assetsForDev = map[string]*Asset{
 	"/devrel/mogakko.webp":                 {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/mogakko.webp"},
 	"/devrel/onboarding-livebuild.webp":    {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/onboarding-livebuild.webp"},
 	"/devrel/onboarding-session.webp":      {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/onboarding-session.webp"},
+	"/devrel/q402-graph.webp":              {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/q402-graph.webp"},
+	"/devrel/q402-group.webp":              {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/q402-group.webp"},
+	"/devrel/q402-keynote.webp":            {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/q402-keynote.webp"},
+	"/devrel/q402-session.webp":            {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/q402-session.webp"},
 	// pdf
 	"/cv/jungho_park_cv_latest.pdf": {contentType: "application/pdf", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/cv/jungho_park_cv_latest.pdf"},
 	// kyle-dex swagger

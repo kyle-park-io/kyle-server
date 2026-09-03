@@ -7,6 +7,10 @@ import OnboardingSession from '@public/devrel/onboarding-session.webp';
 import HackerhouseWorkshop from '@public/devrel/hackerhouse-workshop.webp';
 import HackerhouseSession from '@public/devrel/hackerhouse-session.webp';
 import Mogakko from '@public/devrel/mogakko.webp';
+import Q402Group from '@public/devrel/q402-group.webp';
+import Q402Keynote from '@public/devrel/q402-keynote.webp';
+import Q402Session from '@public/devrel/q402-session.webp';
+import Q402Graph from '@public/devrel/q402-graph.webp';
 import CampusKoreaUniversity from '@public/devrel/campus-korea-university.webp';
 import CampusInha from '@public/devrel/campus-inha.webp';
 import CampusKwangwoon from '@public/devrel/campus-kwangwoon.webp';
@@ -22,11 +26,10 @@ import './DevRel.css';
  * Developer relations work for the Korean market at Mantle Network
  * Light background with dark cards, blue accent matching the header nav link
  *
- * Photos are from the @0xMantleKR official account; every figure links back to
- * its source post.
+ * Photos come from the @0xMantleKR official account and from @bcd_kyle; every
+ * figure links back to its source post.
  */
 
-const HERALD_REPO = 'https://github.com/kyle-park-io/mantle-kr-herald';
 const DOCS_HUB =
   'https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8';
 const ACCOUNT_KR = 'https://x.com/0xMantleKR';
@@ -36,6 +39,14 @@ const POST_SEOUL_WORKSHOP =
   'https://x.com/0xMantleKR/status/2067909890698617223';
 const POST_HACKER_HOUSE = 'https://x.com/0xMantleKR/status/2060567487981519320';
 const POST_MOGAKKO = 'https://x.com/0xMantleKR/status/2055620699696582677';
+
+const POST_Q402_RECAP = 'https://x.com/bcd_kyle/status/2095089810738401789';
+const POST_Q402_NUMBERS = 'https://x.com/bcd_kyle/status/2095089815951942054';
+const POST_LIVESTREAM_JULY =
+  'https://x.com/0xMantleKR/status/2082436272082321740';
+const POST_LIVESTREAM_AUG =
+  'https://x.com/0xMantleKR/status/2088218155865026872';
+const POST_RFQ_ARTICLE = 'https://x.com/bcd_kyle/status/2086720804331667583';
 
 interface Figure {
   src: string;
@@ -71,6 +82,30 @@ const hackathonPhotos: Figure[] = [
     src: Mogakko,
     caption: 'AI Awakening offline co-working — hackathon onboarding',
     source: POST_MOGAKKO,
+  },
+];
+
+const q402Photos: Figure[] = [
+  {
+    src: Q402Keynote,
+    caption: 'Opening keynote — why agent payments run on Mantle',
+    source: POST_Q402_RECAP,
+  },
+  {
+    src: Q402Session,
+    caption: 'Sending USDC from a wallet holding zero MNT for gas',
+    source: POST_Q402_RECAP,
+  },
+  {
+    src: Q402Group,
+    caption: 'Q402 builder workshop at Hashed Lounge, Seoul',
+    source: POST_Q402_RECAP,
+  },
+  {
+    src: Q402Graph,
+    caption:
+      'The room’s payment graph, read live off Mantle mainnet on the site built for the night',
+    source: POST_Q402_NUMBERS,
   },
 ];
 
@@ -122,7 +157,18 @@ const metrics: Metric[] = [
   { value: '14', label: 'Modules', note: 'Content ops pipeline, shipped' },
   { value: '5', label: 'Documents', note: 'Korean technical docs, sole author' },
   { value: '7', label: 'Universities', note: 'Campus tour, sole speaker' },
-  { value: '221', label: 'Posts', note: 'Korean official account' },
+  {
+    value: '488',
+    label: 'Payments',
+    note: 'Q402 workshop, three hours on-chain',
+  },
+  { value: '42', label: 'Builders', note: 'Each running their own agent' },
+  { value: '17.4K', label: 'Peak Reach', note: 'August Korean livestream post' },
+  {
+    value: '221',
+    label: 'Posts',
+    note: 'Korean official account, Apr–Jul 2026',
+  },
   { value: '175K', label: 'Impressions', note: 'Across the same period' },
   {
     value: '1.84%',
@@ -155,7 +201,7 @@ const DevRel: Component = (): JSX.Element => {
             <p class="devrel-hero__desc">
               Korean market developer outreach — content operations, technical
               documentation, onboarding curriculum, hackathon builder funnel,
-              and the Korean official account.
+              builder workshops, and the Korean official account.
             </p>
             <span class="devrel-hero__period">Apr 2026 — Present</span>
           </div>
@@ -174,10 +220,11 @@ const DevRel: Component = (): JSX.Element => {
             </p>
             <p>
               The work splits into what I ship and what I run. Shipped: a
-              content operations pipeline the team uses daily, and the Korean
-              technical documentation set. Run: developer onboarding, the Korea
-              builder funnel for the flagship hackathon, a campus tour, and the
-              Korean official account.
+              content operations pipeline the team uses daily, the Korean
+              technical documentation set, and the live operations site behind
+              the Q402 builder workshop. Run: developer onboarding, the Korea
+              builder funnel for the flagship hackathon, a campus tour, the
+              monthly Korean livestream, and the Korean official account.
             </p>
           </div>
         </section>
@@ -254,14 +301,12 @@ const DevRel: Component = (): JSX.Element => {
                   TypeScript, PostgreSQL, Vercel, Vitest
                 </span>
               </div>
-              <a
-                href={HERALD_REPO}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="devrel-work__link"
-              >
-                View repository →
-              </a>
+              <div class="devrel-work__meta">
+                <span class="devrel-work__meta-label">Source:</span>
+                <span class="devrel-work__meta-value">
+                  Private repository — available on request
+                </span>
+              </div>
             </div>
 
             {/* Korean Technical Documentation */}
@@ -373,6 +418,133 @@ const DevRel: Component = (): JSX.Element => {
               </div>
             </div>
 
+            {/* Q402 Builder Workshop */}
+            <div class="devrel-work">
+              <div class="devrel-work__header">
+                <h3 class="devrel-work__title">Q402 Builder Workshop</h3>
+                <span class="devrel-work__tag">Mantle × Quack AI · Aug 2026</span>
+              </div>
+              <p class="devrel-work__desc">
+                Ran the Seoul builder workshop on agent payments at Hashed
+                Lounge, where 42 builders each connected Q402 to their own AI
+                agent over MCP and paid on Mantle mainnet from the chat window —
+                no wallet app, no signing prompt, and no MNT for gas.
+              </p>
+              <ul class="devrel-work__list">
+                <li>
+                  <strong>488 on-chain payments in three hours</strong> — 69 at
+                  the opening, 488 by close — across 257 payer-payee pairs and 60
+                  one-to-three batch settlements
+                </li>
+                <li>
+                  Built the night's operations site myself: wallet registration,
+                  the live leaderboard, quest verification, a QR payment bridge
+                  for phone-only attendees, and the staff console.{' '}
+                  <strong>Every badge and quest was judged by reading the
+                  chain</strong>, not by a form someone ticked
+                </li>
+                <li>
+                  Three lanes so the room could self-sort — Mobile for phones,
+                  Agent for laptops, Finance for a worksheet aimed at
+                  institutional attendees
+                </li>
+                <li>
+                  Co-hosted with Quack AI, alongside Orakle KAIST and BlueNode
+                </li>
+              </ul>
+              <div class="devrel-work__meta">
+                <span class="devrel-work__meta-label">Stack:</span>
+                <span class="devrel-work__meta-value">
+                  Next.js 16, PostgreSQL, Vercel, Q402 MCP
+                </span>
+              </div>
+              <div class="devrel-gallery devrel-gallery--q402">
+                <For each={q402Photos}>
+                  {(photo) => (
+                    <figure class="devrel-figure">
+                      <a
+                        href={photo.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={photo.src}
+                          alt={photo.caption}
+                          loading="lazy"
+                          class="devrel-figure__img"
+                        />
+                      </a>
+                      <figcaption class="devrel-figure__caption">
+                        {photo.caption}
+                      </figcaption>
+                    </figure>
+                  )}
+                </For>
+              </div>
+              <a
+                href={POST_Q402_RECAP}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="devrel-work__link"
+              >
+                Read the recap →
+              </a>
+            </div>
+
+            {/* Korean Livestream */}
+            <div class="devrel-work">
+              <div class="devrel-work__header">
+                <h3 class="devrel-work__title">Korean Livestream</h3>
+                <span class="devrel-work__tag">Monthly · Co-host</span>
+              </div>
+              <p class="devrel-work__desc">
+                Co-host the monthly Korean livestream on the official account.
+                July carried Mantle's third anniversary — ecosystem updates, an
+                RFQ session, and community creator interviews. August ran as a
+                Mantle × Stable collaboration with Stable's CEO as guest,
+                covering the USDT0 stablecoin ecosystem and Chainlink CCIP
+                bridging.
+              </p>
+              <ul class="devrel-work__list">
+                <li>
+                  The August live post reached <strong>17.4K</strong> — the
+                  second-highest-reach post on the account across the period,
+                  behind only the World Cup campaign
+                </li>
+                <li>
+                  Wrote the July RFQ session up as a standalone Korean article on
+                  how institutional request-for-quote execution carries over
+                  on-chain
+                </li>
+              </ul>
+              <div class="devrel-work__links">
+                <a
+                  href={POST_LIVESTREAM_AUG}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="devrel-work__link"
+                >
+                  August livestream →
+                </a>
+                <a
+                  href={POST_LIVESTREAM_JULY}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="devrel-work__link"
+                >
+                  July livestream →
+                </a>
+                <a
+                  href={POST_RFQ_ARTICLE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="devrel-work__link"
+                >
+                  RFQ write-up →
+                </a>
+              </div>
+            </div>
+
             {/* Campus Tour */}
             <div class="devrel-work">
               <div class="devrel-work__header">
@@ -417,10 +589,11 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">@0xMantleKR</span>
               </div>
               <p class="devrel-work__desc">
-                Ran the Korean official account across 221 posts and 175K
-                impressions, at a 1.84% engagement rate — 1.4× the global
-                account's 1.28%. Korea-originated campaigns and event
-                announcements took all six highest-reach slots.
+                Run the Korean official account. Over the first four months,
+                Apr–Jul 2026, that came to 221 posts and 175K impressions at a
+                1.84% engagement rate — 1.4× the global account's 1.28% — with
+                Korea-originated campaigns and event announcements taking all
+                six highest-reach slots.
               </p>
               <a
                 href={ACCOUNT_KR}
@@ -440,7 +613,11 @@ const DevRel: Component = (): JSX.Element => {
           <a href={ACCOUNT_KR} target="_blank" rel="noopener noreferrer">
             @0xMantleKR
           </a>{' '}
-          official account. Every photo links to its original post.
+          official account and from{' '}
+          <a href={ACCOUNT_ME} target="_blank" rel="noopener noreferrer">
+            @bcd_kyle
+          </a>
+          . Every photo links to its original post.
         </p>
 
         {/* Links Section */}
@@ -448,9 +625,8 @@ const DevRel: Component = (): JSX.Element => {
           <h2 class="devrel-section__title">More Details</h2>
           <div class="devrel-section__content">
             <p>
-              The pipeline is open source and the documentation set is public.
-              For day-to-day work, the accounts below are the closest thing to a
-              running log.
+              The documentation set is public. For day-to-day work, the
+              accounts below are the closest thing to a running log.
             </p>
             <div class="devrel-cta__links">
               <a
@@ -460,15 +636,6 @@ const DevRel: Component = (): JSX.Element => {
                 class="devrel-cta__link devrel-cta__link--primary"
               >
                 <span>Docs Hub</span>
-                <span class="devrel-cta__arrow">→</span>
-              </a>
-              <a
-                href={HERALD_REPO}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="devrel-cta__link"
-              >
-                <span>mantle-kr-herald</span>
                 <span class="devrel-cta__arrow">→</span>
               </a>
               <a
