@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { BASE } from '../config/site';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  index: number;
+}
+
+const { post, index } = Astro.props;
+const iso = post.data.date.toISOString().slice(0, 10);
+const shown = post.data.date.toLocaleDateString('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Seoul',
+});
+---
+
+<article class="post-row">
+  <span class="post-row__number">{String(index + 1).padStart(2, '0')}</span>
+  <div class="post-row__body">
+    <h2 class="post-row__title">
+      <a href={`${BASE}/${post.id}`}>{post.data.title}</a>
+    </h2>
+    <p class="post-row__summary">{post.data.summary}</p>
+    <div class="post-row__meta">
+      <time datetime={iso}>{shown}</time>
+      {post.data.lang === 'en' && <span class="post-row__lang">EN</span>}
+      <ul class="post-row__tags">
+        {
+          post.data.tags.map((tag) => (
+            <li>
+              <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</article>

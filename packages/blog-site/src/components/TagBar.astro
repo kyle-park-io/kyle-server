@@ -1,0 +1,32 @@
+---
+import { BASE } from '../config/site';
+
+interface Props {
+  tags: Array<{ tag: string; count: number }>;
+  active?: string;
+}
+
+const { tags, active } = Astro.props;
+---
+
+<nav class="tag-bar" aria-label="Tags">
+  <a
+    href={BASE}
+    class:list={['tag-bar__item', !active && 'tag-bar__item--active']}
+  >
+    All
+  </a>
+  {
+    tags.map(({ tag, count }) => (
+      <a
+        href={`${BASE}/tags/${tag}`}
+        class:list={[
+          'tag-bar__item',
+          active === tag && 'tag-bar__item--active',
+        ]}
+      >
+        #{tag} <span class="tag-bar__count">{count}</span>
+      </a>
+    ))
+  }
+</nav>
