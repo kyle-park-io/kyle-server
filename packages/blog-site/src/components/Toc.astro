@@ -16,6 +16,19 @@ const entries = headings.filter((h) => h.depth === 2 || h.depth === 3);
 // Below 3 entries a table of contents is noise, and on desktop it would leave
 // an empty rail beside the article.
 const show = entries.length >= 3;
+
+// The parser-blocking <script is:inline> below closes the disclosure on a
+// phone before first paint (open stays in the markup — see that module
+// script's comment below for why: Chromium won't paint a closed <details>'s
+// content no matter what CSS overrides a descendant). It renders
+// unconditionally, outside the `{show && (...)}` block, rather than nested
+// right after `</details>` inside it: prettier-plugin-astro's parser cannot
+// handle an `is:inline` script's braces once it's nested inside a `{}`
+// template expression — confirmed by testing the identical script both
+// nested (fails to parse) and top-level (parses cleanly). Astro's own
+// compiler has no such issue; this is purely a formatter limitation.
+// Querying by class rather than relying on DOM adjacency means it safely
+// no-ops when there is no table of contents.
 ---
 
 {
@@ -37,9 +50,19 @@ const show = entries.length >= 3;
   )
 }
 
+<script is:inline>
+  // Parser-blocking classic script: runs during parsing, before paint, so
+  // a phone never shows the panel open before this closes it. Unminified
+  // (is:inline) and unconditional, so keep it terse; no-ops without a toc.
+  const details = document.querySelector('.toc__details');
+  if (details && window.matchMedia('(max-width: 1199px)').matches) {
+    details.open = false;
+  }
+</script>
+
 <script>
-  // Start collapsed below 1200px so the panel does not open then immediately
-  // close under the mobile media query before the first paint is perceived.
+  // `open` stays in the markup (see the parser-blocking script above,
+  // which closes the panel on a phone before first paint).
   //
   // A CSS-only alternative was tried and reverted: dropping `open` from the
   // markup and forcing `.toc__list` visible at >=1200px with
@@ -53,10 +76,6 @@ const show = entries.length >= 3;
   // `<details>`'s non-summary content directly off the `open` IDL
   // attribute, bypassing the ordinary CSS cascade, so no author override
   // of `display`/`content-visibility` on the child can reach it.
-  const initial = document.querySelector<HTMLDetailsElement>('.toc__details');
-  if (initial && window.matchMedia('(max-width: 1199px)').matches) {
-    initial.open = false;
-  }
 
   // Scroll spy + close the collapsed panel after a jump.
   const links = Array.from(

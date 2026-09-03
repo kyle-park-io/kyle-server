@@ -184,3 +184,55 @@ test('the table of contents starts open so the desktop rail is never stuck colla
   const page = read('hello-world.html');
   assert.match(page, /<details class="toc__details" open>/);
 });
+
+test('a parser-blocking classic script closes the disclosure on narrow viewports before first paint (Finding 4, round 2)', () => {
+  // `open` stays in the markup (see the test above), so the panel must
+  // instead be closed on a phone by a plain classic <script> that runs
+  // during parsing, immediately after the toc markup — not by the
+  // deferred <script type="module"> below, which only runs after the
+  // whole document (and likely the first paint) is already parsed.
+  const page = read('hello-world.html');
+  const match = page.match(
+    /<\/aside>(<script(?![^>]*type=)[^>]*>)([\s\S]*?)<\/script>/,
+  );
+  assert.ok(
+    match,
+    'expected a <script> tag immediately after the toc </aside>',
+  );
+  assert.equal(
+    match[1],
+    '<script>',
+    'must be a bare classic script — no type="module", defer, or async — or it will not block the parser',
+  );
+  assert.match(
+    match[2],
+    /window\.matchMedia\('\(max-width: 1199px\)'\)\.matches/,
+  );
+  assert.match(
+    match[2],
+    /document\.querySelector\('\.toc__details'\)/,
+    'must reference the <details> directly rather than waiting for an event',
+  );
+  assert.match(match[2], /\.open\s*=\s*false/);
+});
+
+test('the close-on-load logic is not duplicated in the deferred module script (Finding 4, round 2)', () => {
+  const page = read('hello-world.html');
+  const moduleScripts = [
+    ...page.matchAll(/<script type="module">([\s\S]*?)<\/script>/g),
+  ].map((m) => m[1]);
+  const tocModuleScript = moduleScripts.find((s) =>
+    s.includes('getBoundingClientRect'),
+  );
+  assert.ok(tocModuleScript, 'expected the toc scroll-spy module script');
+  // Only the click-to-close handler should ever set `.open` here — a
+  // second, unconditional "close on load" assignment (the behaviour now
+  // owned solely by the parser-blocking inline script) would mean it is
+  // duplicated rather than living in exactly one place.
+  const openAssignments = tocModuleScript.match(/\.open\s*=/g) ?? [];
+  assert.equal(
+    openAssignments.length,
+    1,
+    'expected exactly one `.open =` assignment (the click-to-close handler) — a second would mean the close-on-load logic got duplicated back in',
+  );
+});
