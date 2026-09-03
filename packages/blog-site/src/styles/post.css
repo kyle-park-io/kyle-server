@@ -234,3 +234,20 @@
     display: none;
   }
 }
+
+/* --- comments (giscus) -------------------------------------------------- */
+
+.comments {
+  max-width: var(--shell-measure);
+  margin: 3rem auto 0;
+}
+
+.comments__heading {
+  font-family: var(--shell-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+  border-top: 1px solid var(--shell-rule);
+  padding-top: 1rem;
+}

@@ -1,0 +1,24 @@
+---
+import { GISCUS } from '../config/giscus';
+---
+
+<section class="comments" aria-label="댓글">
+  <h2 class="comments__heading">댓글</h2>
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo={GISCUS.repo}
+    data-repo-id={GISCUS.repoId}
+    data-category={GISCUS.category}
+    data-category-id={GISCUS.categoryId}
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async></script>
+</section>
