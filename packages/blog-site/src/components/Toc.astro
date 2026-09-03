@@ -40,6 +40,19 @@ const show = entries.length >= 3;
 <script>
   // Start collapsed below 1200px so the panel does not open then immediately
   // close under the mobile media query before the first paint is perceived.
+  //
+  // A CSS-only alternative was tried and reverted: dropping `open` from the
+  // markup and forcing `.toc__list` visible at >=1200px with
+  // `display: block !important` (and even `content-visibility: visible
+  // !important` alongside it) does not make Chromium paint the list —
+  // verified with real screenshots (not just computed-style reads), which
+  // stayed showing the closed "▶ 목차" summary with no list beneath it, both
+  // immediately after load and after a full second of waiting. Restoring
+  // the native `open` attribute painted correctly and instantly. Chromium
+  // appears to special-case layout-tree generation for a closed
+  // `<details>`'s non-summary content directly off the `open` IDL
+  // attribute, bypassing the ordinary CSS cascade, so no author override
+  // of `display`/`content-visibility` on the child can reach it.
   const initial = document.querySelector<HTMLDetailsElement>('.toc__details');
   if (initial && window.matchMedia('(max-width: 1199px)').matches) {
     initial.open = false;
@@ -50,22 +63,61 @@ const show = entries.length >= 3;
     document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'),
   );
   if (links.length > 0) {
-    const bySlug = new Map(links.map((a) => [a.dataset.tocLink, a]));
-    const targets = links
-      .map((a) => document.getElementById(a.dataset.tocLink ?? ''))
-      .filter((el): el is HTMLElement => el !== null);
+    // Pair each link with its heading, dropping any that cannot be matched
+    // so the two arrays always stay in step with each other by index.
+    const pairs = links
+      .map((link) => {
+        const target = document.getElementById(link.dataset.tocLink ?? '');
+        return target ? { link, target } : null;
+      })
+      .filter(
+        (p): p is { link: HTMLAnchorElement; target: HTMLElement } =>
+          p !== null,
+      );
 
-    const observer = new IntersectionObserver(
-      (records) => {
-        for (const record of records) {
-          if (!record.isIntersecting) continue;
-          for (const link of links) link.removeAttribute('aria-current');
-          bySlug.get(record.target.id)?.setAttribute('aria-current', 'true');
+    const setActive = (index: number): void => {
+      for (const { link } of pairs) link.removeAttribute('aria-current');
+      if (index >= 0) pairs[index].link.setAttribute('aria-current', 'true');
+    };
+
+    // Position-based rather than IntersectionObserver-band-based: a band
+    // (e.g. -20% 0px -70% 0px) only fires while a heading passes through a
+    // narrow strip, so a short final section can scroll straight past it
+    // and never become active. Instead the active heading is the LAST one
+    // that has scrolled up past a fixed point near the top of the
+    // viewport, and the last heading is forced active once the reader
+    // reaches the bottom of the document — otherwise a short final section
+    // could still never cross the threshold.
+    let queued = false;
+    const update = (): void => {
+      queued = false;
+      if (pairs.length === 0) return;
+
+      const atBottom =
+        Math.ceil(window.scrollY + window.innerHeight) >=
+        document.documentElement.scrollHeight;
+      if (atBottom) {
+        setActive(pairs.length - 1);
+        return;
+      }
+
+      const threshold = window.innerHeight * 0.3;
+      let activeIndex = -1;
+      for (let i = 0; i < pairs.length; i += 1) {
+        if (pairs[i].target.getBoundingClientRect().top <= threshold) {
+          activeIndex = i;
         }
-      },
-      { rootMargin: '-20% 0px -70% 0px' },
-    );
-    for (const target of targets) observer.observe(target);
+      }
+      setActive(activeIndex);
+    };
+    const onScroll = (): void => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
 
     const details = document.querySelector<HTMLDetailsElement>('.toc__details');
     const collapsed = () => window.matchMedia('(max-width: 1199px)').matches;

@@ -148,6 +148,9 @@
   .code-scroll,
   .post__content pre,
   .table-scroll {
+    /* max-width: 100% (set above) otherwise wins over width and the block
+       only shifts left instead of bleeding past both edges. */
+    max-width: none;
     width: calc(100% + 6rem);
     margin-left: -3rem;
   }

@@ -46,21 +46,34 @@ export default defineConfig({
         },
       ],
       () => (tree) => {
-        for (let i = 0; i < tree.children.length; i += 1) {
-          const node = tree.children[i];
-          if (node.type !== 'element') continue;
-          if (node.tagName !== 'pre' && node.tagName !== 'table') continue;
-          tree.children[i] = {
-            type: 'element',
-            tagName: 'div',
-            properties: {
-              className: [
-                node.tagName === 'pre' ? 'code-scroll' : 'table-scroll',
-              ],
-            },
-            children: [node],
-          };
-        }
+        // Walks every depth, not just the root's direct children, so a
+        // <pre> or <table> nested inside a <blockquote> or <li> is still
+        // wrapped. In-place replacement (no splice) keeps each array's
+        // length stable and every index visited exactly once.
+        const wrap = (parent) => {
+          if (!parent || !Array.isArray(parent.children)) return;
+          for (let i = 0; i < parent.children.length; i += 1) {
+            const node = parent.children[i];
+            if (node.type !== 'element') continue;
+            // Recurse first, while `node` still holds its original
+            // children, so anything nested inside it (including another
+            // table inside a table cell) is found before `node` itself is
+            // wrapped and moved under a new div.
+            wrap(node);
+            if (node.tagName !== 'pre' && node.tagName !== 'table') continue;
+            parent.children[i] = {
+              type: 'element',
+              tagName: 'div',
+              properties: {
+                className: [
+                  node.tagName === 'pre' ? 'code-scroll' : 'table-scroll',
+                ],
+              },
+              children: [node],
+            };
+          }
+        };
+        wrap(tree);
       },
     ],
   },
