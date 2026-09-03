@@ -1,0 +1,78 @@
+---
+export interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+// h2 and h3 only; deeper levels make the rail unreadable on a phone.
+const entries = headings.filter((h) => h.depth === 2 || h.depth === 3);
+// Below 3 entries a table of contents is noise, and on desktop it would leave
+// an empty rail beside the article.
+const show = entries.length >= 3;
+---
+
+{
+  show && (
+    <aside class="toc" aria-label="목차">
+      <details class="toc__details" open>
+        <summary class="toc__summary">목차</summary>
+        <ol class="toc__list">
+          {entries.map((h) => (
+            <li class:list={['toc__item', `toc__item--h${h.depth}`]}>
+              <a class="toc__link" href={`#${h.slug}`} data-toc-link={h.slug}>
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </aside>
+  )
+}
+
+<script>
+  // Start collapsed below 1200px so the panel does not open then immediately
+  // close under the mobile media query before the first paint is perceived.
+  const initial = document.querySelector<HTMLDetailsElement>('.toc__details');
+  if (initial && window.matchMedia('(max-width: 1199px)').matches) {
+    initial.open = false;
+  }
+
+  // Scroll spy + close the collapsed panel after a jump.
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'),
+  );
+  if (links.length > 0) {
+    const bySlug = new Map(links.map((a) => [a.dataset.tocLink, a]));
+    const targets = links
+      .map((a) => document.getElementById(a.dataset.tocLink ?? ''))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (records) => {
+        for (const record of records) {
+          if (!record.isIntersecting) continue;
+          for (const link of links) link.removeAttribute('aria-current');
+          bySlug.get(record.target.id)?.setAttribute('aria-current', 'true');
+        }
+      },
+      { rootMargin: '-20% 0px -70% 0px' },
+    );
+    for (const target of targets) observer.observe(target);
+
+    const details = document.querySelector<HTMLDetailsElement>('.toc__details');
+    const collapsed = () => window.matchMedia('(max-width: 1199px)').matches;
+    for (const link of links) {
+      link.addEventListener('click', () => {
+        if (details && collapsed()) details.open = false;
+      });
+    }
+  }
+</script>

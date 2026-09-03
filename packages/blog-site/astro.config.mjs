@@ -45,6 +45,23 @@ export default defineConfig({
           },
         },
       ],
+      () => (tree) => {
+        for (let i = 0; i < tree.children.length; i += 1) {
+          const node = tree.children[i];
+          if (node.type !== 'element') continue;
+          if (node.tagName !== 'pre' && node.tagName !== 'table') continue;
+          tree.children[i] = {
+            type: 'element',
+            tagName: 'div',
+            properties: {
+              className: [
+                node.tagName === 'pre' ? 'code-scroll' : 'table-scroll',
+              ],
+            },
+            children: [node],
+          };
+        }
+      },
     ],
   },
 });

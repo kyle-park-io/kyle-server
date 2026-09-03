@@ -1,0 +1,233 @@
+.progress-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 3px;
+  background: transparent;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  width: 0;
+  background: var(--shell-accent);
+}
+
+/* Article + table of contents are centred as a group, so the body does not
+   read as left-shifted on a wide screen. */
+.post-page {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  max-width: calc(var(--shell-measure) + var(--shell-toc-width) + 2rem);
+  margin: 0 auto;
+  padding: 2rem 0 0;
+}
+
+.post {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: var(--shell-measure);
+}
+
+.post__title {
+  font-family: var(--shell-serif);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+.post__meta {
+  color: var(--shell-muted);
+  font-size: 0.8125rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.post__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  list-style: none;
+  font-size: 0.75rem;
+}
+
+.post__tags a {
+  color: var(--shell-muted);
+  text-decoration: none;
+}
+
+.post__cover img,
+.post__content img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.post__content {
+  font-family: var(--shell-serif);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  margin-top: 2rem;
+}
+
+.post__content h2 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--shell-rule);
+}
+
+.post__content h3 {
+  font-size: 1.1875rem;
+  margin-top: 2rem;
+}
+
+.post__content a {
+  color: var(--shell-fg);
+  text-decoration: underline;
+}
+
+.heading-anchor {
+  margin-left: 0.4rem;
+  opacity: 0;
+  text-decoration: none;
+  color: var(--shell-muted);
+}
+
+.heading-anchor::after {
+  content: '#';
+}
+
+:is(h2, h3):hover .heading-anchor {
+  opacity: 1;
+}
+
+/* Code, tables and wide images break past the measure and scroll inside
+   themselves, so they never widen the page on a phone. */
+.code-scroll,
+.post__content pre,
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.post__content pre {
+  font-family: var(--shell-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 1rem;
+  border: 1px solid var(--shell-rule);
+}
+
+.post__content :not(pre) > code {
+  font-family: var(--shell-mono);
+  font-size: 0.9em;
+  background: #f4f4f4;
+  padding: 0.1rem 0.3rem;
+}
+
+.post__content table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--shell-sans);
+  font-size: 0.9rem;
+}
+
+.post__content th,
+.post__content td {
+  border: 1px solid var(--shell-rule);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+@media (min-width: 1200px) {
+  .code-scroll,
+  .post__content pre,
+  .table-scroll {
+    width: calc(100% + 6rem);
+    margin-left: -3rem;
+  }
+}
+
+.post__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--shell-rule);
+  font-size: 0.8125rem;
+}
+
+.post__footer a {
+  color: var(--shell-muted);
+}
+
+/* --- table of contents ------------------------------------------------- */
+
+.toc {
+  flex: none;
+  width: var(--shell-toc-width);
+  align-self: flex-start;
+  position: sticky;
+  top: 2rem;
+  font-family: var(--shell-sans);
+  font-size: 0.8125rem;
+}
+
+.toc__summary {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+  cursor: pointer;
+}
+
+.toc__list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0 0 0 0.75rem;
+  border-left: 1px solid var(--shell-rule);
+}
+
+.toc__item {
+  margin: 0.4rem 0;
+}
+
+.toc__item--h3 {
+  padding-left: 0.75rem;
+}
+
+.toc__link {
+  color: var(--shell-muted);
+  text-decoration: none;
+}
+
+.toc__link[aria-current='true'] {
+  color: var(--shell-fg);
+  font-weight: 600;
+}
+
+/* Below 1200 the rail collapses under the title. */
+@media (max-width: 1199px) {
+  .post-page {
+    display: block;
+  }
+
+  .toc {
+    position: static;
+    width: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--shell-rule);
+    padding: 0.75rem 1rem;
+  }
+
+  .toc__details:not([open]) .toc__list {
+    display: none;
+  }
+}
