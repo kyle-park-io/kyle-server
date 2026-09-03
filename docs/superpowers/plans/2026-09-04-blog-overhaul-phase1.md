@@ -1221,8 +1221,6 @@ const answer = 42;
 ```
 ````
 
-````
-
 Create `packages/blog-site/src/data/posts/second-post/index.md`:
 
 ```markdown
