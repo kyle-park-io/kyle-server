@@ -36,6 +36,41 @@ test('rss lists every post with absolute links', () => {
   assert.equal((xml.match(/<item>/g) ?? []).length, 2);
 });
 
+test('rss item links have no trailing slash and match the canonical URL', () => {
+  const xml = read('rss.xml');
+  const itemLinks = [
+    ...xml.matchAll(/<item>[\s\S]*?<link>([^<]+)<\/link>/g),
+  ].map((m) => m[1]);
+  assert.deepEqual(itemLinks, [
+    'https://jungho.dev/blog/hello-world',
+    'https://jungho.dev/blog/second-post',
+  ]);
+  for (const link of itemLinks) {
+    assert.ok(!link.endsWith('/'), `${link} must not have a trailing slash`);
+  }
+
+  const itemGuids = [
+    ...xml.matchAll(/<item>[\s\S]*?<guid[^>]*>([^<]+)<\/guid>/g),
+  ].map((m) => m[1]);
+  assert.deepEqual(itemGuids, itemLinks);
+
+  // Cross-check against the homepage JSON feed's `url` (the same post must
+  // not be addressed differently across the site).
+  const items = JSON.parse(read('index.json'));
+  const jsonLinks = items.map((item) => `https://jungho.dev${item.url}`);
+  assert.deepEqual(itemLinks, jsonLinks);
+
+  // Cross-check against the article page's own canonical <link>.
+  assert.match(
+    read('hello-world.html'),
+    /<link rel="canonical" href="https:\/\/jungho\.dev\/blog\/hello-world">/,
+  );
+  assert.match(
+    read('second-post.html'),
+    /<link rel="canonical" href="https:\/\/jungho\.dev\/blog\/second-post">/,
+  );
+});
+
 test('index.json is newest-first and carries what the homepage needs', () => {
   const items = JSON.parse(read('index.json'));
   assert.equal(items.length, 2);
