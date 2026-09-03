@@ -92,6 +92,27 @@ test('a 404 page is emitted', () => {
   assert.match(read('404.html'), /글을 찾을 수 없습니다/);
 });
 
+test('the 404 page is noindexed and not self-canonical', () => {
+  const page = read('404.html');
+  assert.match(page, /<meta name="robots" content="noindex, follow">/);
+  assert.ok(
+    !page.includes('rel="canonical"'),
+    'a noindex page must not also carry a canonical link',
+  );
+});
+
+test('a normal page still has its canonical link and no robots meta', () => {
+  const page = read('index.html');
+  assert.match(
+    page,
+    /<link rel="canonical" href="https:\/\/jungho\.dev\/blog">/,
+  );
+  assert.ok(
+    !page.includes('name="robots"'),
+    'an indexable page must not carry a robots meta tag',
+  );
+});
+
 test('the sitemap index is emitted', () => {
   assert.ok(existsSync(join(SERVE_ROOT, 'sitemap-index.xml')));
   const files = readFileSync(join(SERVE_ROOT, 'sitemap-index.xml'), 'utf8');
@@ -102,5 +123,18 @@ test('the sitemap contains post URLs', () => {
   assert.match(
     read('sitemap-0.xml'),
     /https:\/\/jungho\.dev\/blog\/hello-world/,
+  );
+});
+
+test('no sitemap URL carries a trailing slash', () => {
+  const xml = read('sitemap-0.xml');
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  assert.ok(urls.length > 0, 'expected at least one <loc> entry');
+  for (const url of urls) {
+    assert.ok(!url.endsWith('/'), `${url} must not have a trailing slash`);
+  }
+  assert.ok(
+    urls.includes('https://jungho.dev/blog'),
+    'the blog index must be addressed the same way as its own canonical link',
   );
 });

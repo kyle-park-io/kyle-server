@@ -14,6 +14,8 @@ interface Props {
   ogImage?: string;
   lang?: 'ko' | 'en';
   current?: string;
+  /** When true, emit a robots noindex directive instead of a canonical link. */
+  noindex?: boolean;
 }
 
 const {
@@ -24,6 +26,7 @@ const {
   ogImage,
   lang = 'ko',
   current,
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(canonicalPath, SITE_URL).href;
@@ -37,7 +40,8 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
 
     <meta property="og:site_name" content={BLOG_TITLE} />
     <meta property="og:title" content={title} />

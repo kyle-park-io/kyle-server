@@ -28,7 +28,19 @@ export default defineConfig({
     // directory redirect hop. `directory` would 301 /blog/x to /blog/x/.
     format: 'file',
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Every canonical URL on this site is trailing-slash-free
+      // (trailingSlash: 'never' above), including the blog index itself
+      // (`/blog`). @astrojs/sitemap otherwise derives `/blog/` for that
+      // route from the route pattern, disagreeing with its own canonical
+      // link. Strip a trailing slash from every entry so the sitemap
+      // always matches the canonical form.
+      serialize(item) {
+        return { ...item, url: item.url.replace(/\/+$/, '') };
+      },
+    }),
+  ],
   markdown: {
     // Shiki ships with Astro; `github-light` matches the site's light theme.
     shikiConfig: { theme: 'github-light', wrap: false },
