@@ -1,0 +1,66 @@
+---
+import { navItems, offcanvasItems } from 'site-shell/src/nav';
+
+interface Props {
+  /** Path of the current page, used to mark the active nav item. */
+  current?: string;
+}
+
+const { current = '/blog' } = Astro.props;
+const today = new Date().toLocaleDateString('en-US', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<header class="shell-header">
+  <div class="shell-header__utility">
+    <span class="shell-header__date">{today}</span>
+  </div>
+
+  <a href="/" class="shell-header__masthead">
+    <span class="shell-header__logo">KYLE PARK</span>
+    <span class="shell-header__tagline">Personal Website</span>
+  </a>
+
+  <nav class="shell-header__nav" aria-label="Main">
+    <ul class="shell-header__nav-list">
+      {
+        navItems.map((item) => (
+          <li class="shell-header__nav-item">
+            <a
+              href={item.href}
+              class:list={[
+                'shell-header__nav-link',
+                item.variant && `shell-header__nav-link--${item.variant}`,
+              ]}
+              aria-current={item.href === current ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="shell-header__nav-item">
+        <details class="shell-header__more">
+          <summary class="shell-header__nav-link" aria-label="More navigation"
+            >☰</summary
+          >
+          <ul class="shell-header__more-list">
+            {
+              offcanvasItems.map((item) => (
+                <li>
+                  <a href={item.href} class="shell-header__nav-link">
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+</header>

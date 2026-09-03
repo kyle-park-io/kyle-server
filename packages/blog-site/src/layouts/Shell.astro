@@ -1,0 +1,68 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL, BLOG_TITLE } from '../config/site';
+import 'site-shell/src/styles/tokens.css';
+import '../styles/shell.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path relative to the site root, e.g. `/blog/ethereum-event-object`. */
+  canonicalPath: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  lang?: 'ko' | 'en';
+  current?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  ogType = 'website',
+  ogImage,
+  lang = 'ko',
+  current,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, SITE_URL).href;
+const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:site_name" content={BLOG_TITLE} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={BLOG_TITLE}
+      href="/blog/rss.xml"
+    />
+  </head>
+  <body class="shell-body">
+    <Header current={current} />
+    <main class="shell-main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
