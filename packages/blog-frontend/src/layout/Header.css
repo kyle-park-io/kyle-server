@@ -61,6 +61,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  /* Anchor reset. These two were <button> before the header was made
+     crawlable; as <a> they pick up Bootstrap's link underline and blue,
+     which draws across the whole masthead. The nav links got this reset
+     and these did not. Kept on the element-agnostic selector, like the
+     nav rule, so it cannot outrank anything. */
+  text-decoration: none;
+  color: inherit;
+
   padding: 4px;
   display: flex;
   align-items: center;
@@ -123,6 +131,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  /* Anchor reset. These two were <button> before the header was made
+     crawlable; as <a> they pick up Bootstrap's link underline and blue,
+     which draws across the whole masthead. The nav links got this reset
+     and these did not. Kept on the element-agnostic selector, like the
+     nav rule, so it cannot outrank anything. */
+  text-decoration: none;
+  color: inherit;
+
   padding: 0;
   transition: opacity var(--nyt-transition);
 }
