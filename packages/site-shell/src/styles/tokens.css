@@ -1,12 +1,15 @@
-/* Shared design tokens — imported by the Astro blog only. The Solid SPA does
+/* Shared design tokens - imported by the Astro blog only. The Solid SPA does
    not import this file; it still carries its own duplicated literals in
-   blog-frontend/src/css/global.css. Values here are copied from that file —
+   blog-frontend/src/css/global.css. Values here are copied from that file -
    keep them in sync by hand until the SPA is migrated to import this too. */
 :root {
   /* palette */
   --shell-bg: #ffffff;
   --shell-fg: #121212;
   --shell-muted: #666666;
+  /* The SPA's --nyt-color-gray-dark. Nav links and the footer tagline sit on
+     it, one step lighter than --shell-fg. */
+  --shell-fg-soft: #333333;
   --shell-rule: #e2e2e2;
   --shell-accent: #567b95;
   /* Card fill. The SPA calls it --home-color-gray-light; every card on the
@@ -28,7 +31,7 @@
     'Source Sans 3', Pretendard, 'Helvetica Neue', Arial, sans-serif;
   --shell-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* article measure — 720px is ~40-45 Korean characters per line */
+  /* article measure - 720px is ~40-45 Korean characters per line */
   --shell-measure: 720px;
   --shell-toc-width: 240px;
 
@@ -39,4 +42,8 @@
   --shell-max: 1100px;
   --shell-radius: 8px;
   --shell-transition: 0.3s ease-in-out;
+  /* The SPA's header and footer animate at 0.2s, not the 0.3s the page body
+     uses. Keeping both means the masthead's hovers feel the same on either
+     side of the seam. */
+  --shell-chrome-transition: 0.2s ease-in-out;
 }

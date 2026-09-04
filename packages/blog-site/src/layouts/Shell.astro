@@ -45,14 +45,14 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
 
     <!--
       tokens.css declares --shell-serif (Playfair Display) and --shell-sans
-      (Source Sans 3), but declaring a font stack doesn't load the font — the
+      (Source Sans 3), but declaring a font stack doesn't load the font - the
       SPA's own global.css does that with this same @import. Load the same
       two families here, at the same weights/styles global.css requests, so
       the masthead and body copy render identically on both sides of the
       shell seam instead of falling back to Georgia/Arial on the blog.
       Cormorant Garamond is loaded too: it backs --shell-display, which the
       masthead uses. Leaving it out was what made the blog's logo render in
-      Playfair while the SPA's rendered in Cormorant — the same wordmark in
+      Playfair while the SPA's rendered in Cormorant - the same wordmark in
       two different typefaces either side of the seam.
 
       Pretendard carries every Korean glyph on the site. None of the three

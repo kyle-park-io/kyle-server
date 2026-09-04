@@ -9,7 +9,7 @@ const posts = defineCollection({
     // Astro 7.3.1's default id generation already strips the trailing
     // `/index`, so this isn't working around that. It's here to pin the id
     // to the literal post directory name, rather than routing it through
-    // Astro's slugify helper (which would lowercase/dash-transform it) —
+    // Astro's slugify helper (which would lowercase/dash-transform it) -
     // the slug is the directory, verbatim.
     generateId: ({ entry }) => entry.split('/')[0],
   }),

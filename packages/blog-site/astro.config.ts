@@ -2,7 +2,7 @@
 // dist/index.html (base is applied to URLs, not to the output tree), so
 // express mounts `dist` itself at /blog. build-blog.sh re-checks this.
 //
-// package.json also pins a direct `cookie` dependency — do not remove it as
+// package.json also pins a direct `cookie` dependency - do not remove it as
 // "redundant with astro's own cookie@^2.0.1". Astro's generated
 // dist/.prerender/*.mjs chunk does a bare `import 'cookie'` that resolves
 // upward from this package's own root, so `cookie` must sit on this
@@ -33,7 +33,7 @@ export default defineConfig({
   output: 'static',
   build: {
     // `file` emits /blog/<slug>.html, which express serves with
-    // `extensions: ['html']` — so URLs keep no trailing slash and no
+    // `extensions: ['html']` - so URLs keep no trailing slash and no
     // directory redirect hop. `directory` would 301 /blog/x to /blog/x/.
     format: 'file',
   },
@@ -51,6 +51,12 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    // Astro enables remark-smartypants by default, which rewrites runs of
+    // hyphens as dashes and straightens quotes into curly ones. In prose
+    // about software that is not a typographic nicety, it is corruption: the
+    // line `yarn prettier . --write` shipped to production with its `--`
+    // replaced by an em dash, leaving a command no reader could copy. Off.
+    smartypants: false,
     // Shiki ships with Astro; `github-light` matches the site's light theme.
     shikiConfig: { theme: 'github-light', wrap: false },
     rehypePlugins: [

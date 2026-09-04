@@ -78,8 +78,8 @@ test('a scroll progress bar is present', () => {
 // CSS-only version.
 
 test('a pre or table nested inside a blockquote or list item is still wrapped for horizontal scroll (Finding 3)', async () => {
-  // The rehype plugin only walked `tree.children` — the document root's
-  // direct children — so a <table> nested inside a <blockquote> (valid
+  // The rehype plugin only walked `tree.children` - the document root's
+  // direct children - so a <table> nested inside a <blockquote> (valid
   // GFM, e.g. a quoted table) was never wrapped in `.table-scroll` and
   // could widen the page on a phone. Exercise the actual shipped plugin
   // (not a re-implementation) directly against a synthetic hast tree.
@@ -236,7 +236,7 @@ test('the table of contents starts open so the desktop rail is never stuck colla
 test('a parser-blocking classic script closes the disclosure on narrow viewports before first paint (Finding 4, round 2)', () => {
   // `open` stays in the markup (see the test above), so the panel must
   // instead be closed on a phone by a plain classic <script> that runs
-  // during parsing, immediately after the toc markup — not by the
+  // during parsing, immediately after the toc markup - not by the
   // deferred <script type="module"> below, which only runs after the
   // whole document (and likely the first paint) is already parsed.
   const page = read('hello-world.html');
@@ -250,7 +250,7 @@ test('a parser-blocking classic script closes the disclosure on narrow viewports
   assert.equal(
     match[1],
     '<script>',
-    'must be a bare classic script — no type="module", defer, or async — or it will not block the parser',
+    'must be a bare classic script - no type="module", defer, or async - or it will not block the parser',
   );
   assert.match(
     match[2],
@@ -273,7 +273,7 @@ test('the close-on-load logic is not duplicated in the deferred module script (F
     s.includes('getBoundingClientRect'),
   );
   assert.ok(tocModuleScript, 'expected the toc scroll-spy module script');
-  // Only the click-to-close handler should ever set `.open` here — a
+  // Only the click-to-close handler should ever set `.open` here - a
   // second, unconditional "close on load" assignment (the behaviour now
   // owned solely by the parser-blocking inline script) would mean it is
   // duplicated rather than living in exactly one place.
@@ -281,6 +281,6 @@ test('the close-on-load logic is not duplicated in the deferred module script (F
   assert.equal(
     openAssignments.length,
     1,
-    'expected exactly one `.open =` assignment (the click-to-close handler) — a second would mean the close-on-load logic got duplicated back in',
+    'expected exactly one `.open =` assignment (the click-to-close handler) - a second would mean the close-on-load logic got duplicated back in',
   );
 });
