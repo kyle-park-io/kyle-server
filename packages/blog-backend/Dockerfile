@@ -35,8 +35,21 @@ ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 
 # Clone the content repo to /blog and install its cron entry.
+#
+# CONTENT_REV busts this layer. Without it Docker reuses the cached clone
+# for every later build, so an image built after new posts were published
+# still carries the old ones -- and because the baked build below is what a
+# fresh pod serves until its first cron tick, a deploy silently rolled the
+# blog back. Observed 2026-09-04: four posts vanished from the live site for
+# the minutes between a rollout and the next tick.
+#
+# Pass the content repo's HEAD:
+#   --build-arg CONTENT_REV=$(git -C ~/code/blog rev-parse HEAD)
+# Left unset the layer caches as before; the cron tick still catches up.
+ARG CONTENT_REV=unset
 COPY packages/blog-backend/scripts ./scripts
-RUN chmod +x scripts/init-script.sh && ./scripts/init-script.sh
+RUN echo "content rev: ${CONTENT_REV}" && \
+    chmod +x scripts/init-script.sh && ./scripts/init-script.sh
 
 ## the astro project, installed so cron can rebuild in place
 WORKDIR /usr/src/blog-site

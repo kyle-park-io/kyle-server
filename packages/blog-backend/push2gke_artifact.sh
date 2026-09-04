@@ -22,7 +22,14 @@ gcloud artifacts docker images delete $LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO
 # IMAGE_TAG=me-west1-docker.pkg.dev/kyle-server-402706/kyle-registry/site-app-server:0.0.1
 IMAGE_TAG=$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$TAG
 # --no-cache
-docker buildx build --no-cache --platform linux/amd64 --build-arg=PROGRAM_VER=0.0.1 --load -t $IMAGE_TAG -f $DOCKERFILE_PATH $CONTEXT_PATH
+# CONTENT_REV busts the Dockerfile's cached clone of the content repo, so the
+# baked build carries the posts that are published now. A fresh pod serves
+# that build until its first cron tick, and without this a deploy after a new
+# post rolled the blog back to whatever was published when the layer was
+# first cached.
+CONTENT_REV=$(git ls-remote https://github.com/kyle-park-io/blog.git HEAD | cut -f1)
+
+docker buildx build --no-cache --platform linux/amd64 --build-arg=PROGRAM_VER=0.0.1 --build-arg=CONTENT_REV="$CONTENT_REV" --load -t $IMAGE_TAG -f $DOCKERFILE_PATH $CONTEXT_PATH
 # docker buildx build --no-cache --platform linux/amd64 --build-arg=PROGRAM_VER=0.0.1 --push -t $IMAGE_TAG -f $DOCKERFILE_PATH $CONTEXT_PATH
 docker push $IMAGE_TAG
 
