@@ -63,12 +63,16 @@ COPY packages/blog-backend/scripts ./scripts
 
 RUN chmod +x scripts/build-blog.sh scripts/start-server.sh
 
+# Set before the bake so a single edit governs both the initial publish
+# below and every cron rebuild after the pod starts — build-blog.sh only
+# falls back to its own default when this is unset.
+ENV BLOG_DIST="/usr/src/app/blog-dist"
+
 # Bake an initial blog build so a fresh pod serves /blog before the first
 # cron tick.
 RUN ./scripts/build-blog.sh
 
 ENV NODE_ENV="production"
-ENV BLOG_DIST="/usr/src/app/blog-dist"
 
 EXPOSE 8080
 
