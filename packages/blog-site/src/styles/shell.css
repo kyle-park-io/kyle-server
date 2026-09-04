@@ -147,34 +147,9 @@
   font-weight: 500;
 }
 
-.shell-header__visitor-count {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-}
-
-.shell-header__visitor-icon {
-  color: #22c55e;
-  font-size: 8px;
-  animation: shell-pulse 2s infinite;
-}
-
-@keyframes shell-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .shell-header__visitor-icon {
-    animation: none;
-  }
-}
+/* The presence trigger and its panel live in site-shell/src/styles/
+   presence.css, imported by the shell layout, because the home page's
+   masthead shows the same thing. */
 
 .shell-header__main {
   display: flex;
