@@ -10,7 +10,9 @@ const build = () => {
     execFileSync('yarn', ['build'], { encoding: 'utf8', stdio: 'pipe' });
     return { ok: true, output: '' };
   } catch (err) {
-    return { ok: false, output: `${err.stdout ?? ''}${err.stderr ?? ''}` };
+    // execFileSync throws an Error carrying the child's captured streams.
+    const e = err as { stdout?: string; stderr?: string };
+    return { ok: false, output: `${e.stdout ?? ''}${e.stderr ?? ''}` };
   }
 };
 

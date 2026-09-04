@@ -6,7 +6,7 @@ import { join } from 'node:path';
 const SERVE_ROOT = existsSync(join('dist', 'blog'))
   ? join('dist', 'blog')
   : 'dist';
-const read = (file) => readFileSync(join(SERVE_ROOT, file), 'utf8');
+const read = (file: string) => readFileSync(join(SERVE_ROOT, file), 'utf8');
 
 test('a static page exists per tag', () => {
   assert.ok(existsSync(join(SERVE_ROOT, 'tags', 'tooling.html')));
@@ -57,7 +57,9 @@ test('rss item links have no trailing slash and match the canonical URL', () => 
   // Cross-check against the homepage JSON feed's `url` (the same post must
   // not be addressed differently across the site).
   const items = JSON.parse(read('index.json'));
-  const jsonLinks = items.map((item) => `https://jungho.dev${item.url}`);
+  const jsonLinks = items.map(
+    (item: { url: string }) => `https://jungho.dev${item.url}`,
+  );
   assert.deepEqual(itemLinks, jsonLinks);
 
   // Cross-check against the article page's own canonical <link>.
