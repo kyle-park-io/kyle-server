@@ -10,6 +10,7 @@
     "build": "astro build",
     "dev": "astro dev --port 4321",
     "preview": "astro preview --port 4321",
+    "pretest": "rm -rf src/data/posts && mkdir -p src/data && cp -R __tests__/fixtures/posts src/data/posts && astro build",
     "test": "node --test __tests__/*.test.mjs"
   },
   "dependencies": {
