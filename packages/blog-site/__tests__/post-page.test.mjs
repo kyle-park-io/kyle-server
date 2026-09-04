@@ -63,12 +63,11 @@ test('a scroll progress bar is present', () => {
 
 // --- fix round: table/code overflow, scroll spy, ToC render -------------
 //
-// Findings from a review of Task 7's shipped code (kept as regression
-// coverage — see the fix-round section of task-7-report.md for the full
-// investigation, including why Finding 4 is verified here as the restored
-// `open`-attribute behaviour rather than the CSS-only approach the review
-// first proposed, which real-browser screenshots showed Chromium does not
-// paint).
+// Findings from a review of Task 7's shipped code, kept as regression
+// coverage. Finding 4 below is verified as the restored `open`-attribute
+// behaviour rather than the CSS-only approach first proposed for it,
+// because real-browser screenshots showed Chromium does not paint the
+// CSS-only version.
 
 test('a pre or table nested inside a blockquote or list item is still wrapped for horizontal scroll (Finding 3)', async () => {
   // The rehype plugin only walked `tree.children` — the document root's

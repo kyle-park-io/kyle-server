@@ -199,7 +199,9 @@
      css-minimizer-webpack-plugin) collapses an adjacent `a.nyt-header__nav-link`
      rule into a second bare `.nyt-header__nav-link` rule, which raises this
      rule's specificity above `.nyt-header__nav-link--devrel/--quant/--personal-quant`
-     and silently drops their accent colors. See task-2-report.md for repro. */
+     and silently drops their accent colors. Confirmed by diffing an
+     unminified build (`optimization.minimize = false`) against the
+     production build. */
   text-decoration: none;
   display: inline-block;
 }
