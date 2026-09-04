@@ -6,6 +6,12 @@
    Google Fonts Import
    New York Times inspired typography
    ============================================ */
+/* Pretendard carries every Korean glyph on the site. None of the Latin
+   families below has Hangul, so before this each Korean character fell back
+   to whatever the reader's OS supplied -- Malgun Gothic, Apple SD Gothic
+   Neo, or anything at all on Linux. The dynamic-subset variable build ships
+   only the subsets a page actually uses. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 /* ============================================
@@ -13,8 +19,12 @@
    ============================================ */
 :root {
   /* Typography */
-  --nyt-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
-  --nyt-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  /* Pretendard sits after each Latin face: browsers fall back per glyph, so
+     Latin keeps its intended typeface while Korean gets Pretendard. */
+  --nyt-font-serif:
+    'Playfair Display', Pretendard, 'Georgia', 'Times New Roman', serif;
+  --nyt-font-sans:
+    'Source Sans 3', Pretendard, 'Helvetica Neue', Arial, sans-serif;
 
   /* Colors */
   --nyt-color-black: #121212;

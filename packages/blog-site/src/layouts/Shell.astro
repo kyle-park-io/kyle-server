@@ -50,15 +50,26 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
       two families here, at the same weights/styles global.css requests, so
       the masthead and body copy render identically on both sides of the
       shell seam instead of falling back to Georgia/Arial on the blog.
-      Cormorant Garamond is in that same Google Fonts request but is not one
-      of the shell tokens (it backs --nyt-font-display, used only by SPA
-      pages outside the shell), so it is intentionally left out here.
+      Cormorant Garamond is loaded too: it backs --shell-display, which the
+      masthead uses. Leaving it out was what made the blog's logo render in
+      Playfair while the SPA's rendered in Cormorant — the same wordmark in
+      two different typefaces either side of the seam.
+
+      Pretendard carries every Korean glyph on the site. None of the three
+      Latin families above has Hangul, so before this every Korean character
+      fell back to whatever the reader's OS supplied. The dynamic-subset
+      variable build ships only the subsets a page actually uses.
     -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
     />
 
     <meta property="og:site_name" content={BLOG_TITLE} />

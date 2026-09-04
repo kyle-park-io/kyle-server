@@ -11,8 +11,18 @@
   --shell-accent: #567b95;
 
   /* type */
-  --shell-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
-  --shell-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  /* Pretendard sits after the Latin faces in every stack on purpose: browsers
+     fall back per glyph, so Latin still renders in Playfair/Cormorant/Source
+     Sans while Korean renders in Pretendard instead of whatever the operating
+     system happens to supply. Before this, every Korean character on the site
+     was drawn by an OS fallback -- Malgun Gothic, Apple SD Gothic Neo, or
+     whatever a Linux box had -- because none of the three Latin families
+     carries Hangul. */
+  --shell-display: 'Cormorant Garamond', Pretendard, 'Georgia', serif;
+  --shell-serif:
+    'Playfair Display', Pretendard, 'Georgia', 'Times New Roman', serif;
+  --shell-sans:
+    'Source Sans 3', Pretendard, 'Helvetica Neue', Arial, sans-serif;
   --shell-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* article measure — 720px is ~40-45 Korean characters per line */

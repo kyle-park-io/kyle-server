@@ -40,11 +40,18 @@
   color: inherit;
 }
 
+/* Matched to the SPA masthead declaration for declaration
+   (blog-frontend/src/layout/Header.css:141). The logo uses the DISPLAY face,
+   Cormorant Garamond -- not the body serif. Reproducing it with the serif
+   token is what made the two mastheads visibly different typefaces. */
 .shell-header__logo {
   display: block;
-  font-family: var(--shell-serif);
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
-  letter-spacing: 0.14em;
+  font-family: var(--shell-display);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .shell-header__tagline {
@@ -72,21 +79,43 @@
   position: relative;
 }
 
+/* Matched to blog-frontend/src/layout/Header.css:183 so the nav does not
+   change typeface, size, weight or casing when a reader crosses between the
+   SPA and the blog. */
 .shell-header__nav-link {
+  position: relative;
+  display: inline-block;
+  padding: 4px 0;
   color: var(--shell-fg);
   text-decoration: none;
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-family: var(--shell-serif);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
   cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+/* The SPA's growing hover underline, which the first pass replaced with a
+   plain colour change. */
+.shell-header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--shell-fg);
+  transition: width 0.3s ease-in-out;
+}
+
+.shell-header__nav-link:hover::after {
+  width: 100%;
 }
 
 .shell-header__nav-link:hover {
   color: var(--shell-accent);
-}
-
-.shell-header__nav-link[aria-current='page'] {
-  border-bottom: 2px solid var(--shell-accent);
 }
 
 /* Accent colors for the DevRel / Quant / P.Quant links. These have no
@@ -182,6 +211,6 @@
   }
 
   .shell-header__nav-link {
-    font-size: 0.75rem;
+    font-size: 13px;
   }
 }

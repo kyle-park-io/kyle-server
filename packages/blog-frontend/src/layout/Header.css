@@ -10,7 +10,7 @@
 .nyt-header {
   --nyt-font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
   --nyt-font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
-  --nyt-font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --nyt-font-display: 'Cormorant Garamond', Pretendard, 'Georgia', serif;
   --nyt-color-black: #121212;
   --nyt-color-gray-dark: #333333;
   --nyt-color-gray-medium: #666666;

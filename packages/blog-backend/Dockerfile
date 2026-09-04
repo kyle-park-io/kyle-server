@@ -49,10 +49,13 @@ COPY packages/blog-site/package.json ./
 # installed node_modules, never the tarball cache — but it lands in this layer
 # and measured 284MB against 185MB of actual node_modules. Clean it in the same
 # RUN, or it is baked in permanently.
+# --omit=dev keeps `astro` (a runtime dependency here, since cron rebuilds in
+# place) while leaving out @astrojs/check and typescript, which only serve
+# `yarn check` on a developer's machine.
 RUN npm pkg set dependencies.site-shell=file:/usr/src/site-shell && \
-    npm install --no-audit --no-fund && \
+    npm install --omit=dev --no-audit --no-fund && \
     npm cache clean --force
-COPY packages/blog-site/astro.config.mjs packages/blog-site/tsconfig.json ./
+COPY packages/blog-site/astro.config.ts packages/blog-site/tsconfig.json ./
 COPY packages/blog-site/src ./src
 
 ## the express server
