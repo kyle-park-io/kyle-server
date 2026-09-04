@@ -112,6 +112,24 @@
   border-top: 1px solid var(--shell-rule);
 }
 
+/* A post that writes its own `---` before each section drew two rules: the
+   <hr>, and then the heading's own, 40px below it. Fourteen times on one
+   post. The <hr> is the author's, so it is the one that stays. */
+.post__content hr + h2 {
+  border-top: none;
+  margin-top: 1.5rem;
+  padding-top: 0;
+}
+
+/* Left unstyled an <hr> renders as the browser's inset grey rule, heavier
+   and a different colour from every other line on the site. */
+.post__content hr {
+  height: 0;
+  margin: 2.5rem 0 0;
+  border: none;
+  border-top: 1px solid var(--shell-rule);
+}
+
 .post__content h3 {
   font-size: 1.1875rem;
   margin-top: 2rem;

@@ -284,3 +284,20 @@ test('the close-on-load logic is not duplicated in the deferred module script (F
     'expected exactly one `.open =` assignment (the click-to-close handler) - a second would mean the close-on-load logic got duplicated back in',
   );
 });
+
+test('a rule before a heading draws once, not twice', () => {
+  // Every h2 on this blog carries its own border-top, and an article that
+  // writes `---` before each of its sections therefore drew two lines 40px
+  // apart -- fourteen times on the RFQ post.
+  const css = readFileSync(join('src', 'styles', 'post.css'), 'utf8');
+
+  const paired = css.match(/\.post__content hr \+ h2 \{([^}]*)\}/);
+  assert.ok(paired, 'expected a rule for an h2 that follows an hr');
+  assert.match(paired[1], /border-top:\s*none/);
+
+  // And the hr itself has to be the site's hairline: unstyled, a browser
+  // draws an inset grey rule that matches nothing else on the page.
+  const rule = css.match(/\.post__content hr \{([^}]*)\}/);
+  assert.ok(rule, 'expected the hr to be styled');
+  assert.match(rule[1], /border-top:\s*1px solid var\(--shell-rule\)/);
+});
