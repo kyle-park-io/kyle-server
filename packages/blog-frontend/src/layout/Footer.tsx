@@ -65,6 +65,33 @@ const Footer: Component = (): JSX.Element => {
 
           {/* Right section - Social links */}
           <div class="nyt-footer__social">
+            {/*
+              The blog is served by express at /blog, outside this SPA's own
+              router. `rel="external"` is the marker the router's click
+              handler (see Header.tsx, Offcanvas.tsx, App.tsx) checks before
+              deciding whether to intercept a click as an in-app navigation
+              — without it this link would be swallowed as an SPA route and
+              404 instead of reaching express.
+            */}
+            <a
+              href="/blog/rss.xml"
+              rel="external"
+              class="nyt-footer__social-btn"
+              aria-label="RSS feed"
+            >
+              <svg
+                class="nyt-footer__social-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              >
+                <circle cx="5" cy="19" r="1.75" fill="currentColor" />
+                <path d="M4 11a9 9 0 0 1 9 9" />
+                <path d="M4 4a16 16 0 0 1 16 16" />
+              </svg>
+            </a>
             <button
               onClick={handleNotionClick}
               class="nyt-footer__social-btn"

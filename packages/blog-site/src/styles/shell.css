@@ -1,7 +1,10 @@
 /* Mirrors the SolidJS SPA's masthead look (packages/blog-frontend/src/layout/
    Header.css, Footer.css) using the shared --shell-* tokens from
-   site-shell/src/styles/tokens.css. The SPA's visitor-count WebSocket is
-   deliberately not reproduced here — see Header.astro. */
+   site-shell/src/styles/tokens.css. The SPA's real-time visitor-count
+   WebSocket (packages/blog-frontend/src/layout/Header.tsx) is deliberately
+   not reproduced here: the blog is a static build with no live connection
+   to the ingress websocket to report a count against, so Header.astro
+   renders the masthead and nav only, with no visitor-count element at all. */
 
 .shell-body {
   margin: 0;
