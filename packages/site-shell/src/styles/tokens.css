@@ -1,0 +1,21 @@
+/* Shared design tokens — imported by the Astro blog only. The Solid SPA does
+   not import this file; it still carries its own duplicated literals in
+   blog-frontend/src/css/global.css. Values here are copied from that file —
+   keep them in sync by hand until the SPA is migrated to import this too. */
+:root {
+  /* palette */
+  --shell-bg: #ffffff;
+  --shell-fg: #121212;
+  --shell-muted: #666666;
+  --shell-rule: #e2e2e2;
+  --shell-accent: #567b95;
+
+  /* type */
+  --shell-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --shell-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --shell-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* article measure — 720px is ~40-45 Korean characters per line */
+  --shell-measure: 720px;
+  --shell-toc-width: 240px;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "site-shell",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Navigation data and design tokens shared by the SPA and the Astro blog",
+  "license": "ISC",
+  "author": "kyle-park-io <andy3638@naver.com>",
+  "main": "src/nav.ts",
+  "types": "src/nav.ts",
+  "scripts": {
+    "test": "node --test __tests__/*.test.mjs"
+  }
+}

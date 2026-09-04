@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Shell from '../layouts/Shell.astro';
+import PostIndexRow from '../components/PostIndexRow.astro';
+import FeaturedPost from '../components/FeaturedPost.astro';
+import TagBar from '../components/TagBar.astro';
+import { sortByDateDesc, excludeDrafts, tagCounts } from '../lib/posts';
+import { BASE, BLOG_TITLE, BLOG_DESCRIPTION } from '../config/site';
+import '../styles/list.css';
+
+const all = excludeDrafts(await getCollection('posts'), import.meta.env.DEV);
+const posts = sortByDateDesc(all);
+const tags = tagCounts(all);
+
+// A cover on the newest post promotes it to a featured block; without one the
+// page is a plain index. This is why a cover is a bonus, not a requirement.
+const featured = posts[0]?.data.cover ? posts[0] : undefined;
+const rows = featured ? posts.slice(1) : posts;
+---
+
+<Shell
+  title={BLOG_TITLE}
+  description={BLOG_DESCRIPTION}
+  canonicalPath={BASE}
+  current={BASE}
+>
+  <div class="list-page">
+    <header class="list-header">
+      <h1 class="list-header__title">Blog</h1>
+      <p class="list-header__subtitle">{BLOG_DESCRIPTION}</p>
+      <a class="list-header__rss" href={`${BASE}/rss.xml`}>RSS</a>
+    </header>
+
+    <TagBar tags={tags} />
+
+    {featured && <FeaturedPost post={featured} />}
+
+    <div class="post-list">
+      {
+        /* `i` is already the rank within `rows` (the featured post, if any,
+           was already sliced out above) — number the rendered rows, not the
+           global rank, so the list starts at 01 whether or not a post is
+           featured. */
+        rows.map((post, i) => <PostIndexRow post={post} index={i} />)
+      }
+    </div>
+
+    {
+      posts.length === 0 && (
+        <p class="post-list__empty">아직 발행한 글이 없습니다.</p>
+      )
+    }
+  </div>
+</Shell>

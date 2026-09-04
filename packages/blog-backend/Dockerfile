@@ -1,68 +1,79 @@
-## build stage
-# node version
-FROM node:18 AS builder
+## build stage — compile the express server
+# Astro 7 requires Node >= 22.12.0 and rejects odd majors; node:18 is EOL.
+FROM node:22 AS builder
 
-# set dir
 WORKDIR /usr/src/app
 
-# copy package.json
-COPY production/package*.json ./
+COPY packages/blog-backend/production/package*.json ./
+COPY packages/blog-backend/production/tsconfig.json ./
 
-# copy tsconfig.json
-COPY production/tsconfig.json ./
-
-# install dependency
 RUN npm install
 
-# copy code
-COPY src ./src
+COPY packages/blog-backend/src ./src
 
-# build
 RUN npm run build
 
 ## prod stage
-# node version
-FROM node:18-slim
+FROM node:22-slim
 
-# install cron
-RUN apt-get update && apt-get install -y cron \
+# cron for the content pull, git to clone the content repo, ca-certificates
+# so git's https transport can verify GitHub's certificate (git only
+# *recommends* it, and --no-install-recommends below skips recommends),
+# Korean locale and fonts for the markdown content.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  cron \
   git \
+  ca-certificates \
   vim \
-  locales fonts-nanum  && \
+  locales fonts-nanum && \
   echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen && \
   locale-gen ko_KR.UTF-8 && \
-  update-locale LANG=ko_KR.UTF-8
+  update-locale LANG=ko_KR.UTF-8 && \
+  rm -rf /var/lib/apt/lists/*
 
-# kor
 ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 
-
-# run initial script
-COPY scripts ./scripts
+# Clone the content repo to /blog and install its cron entry.
+COPY packages/blog-backend/scripts ./scripts
 RUN chmod +x scripts/init-script.sh && ./scripts/init-script.sh
 
-# set dir
+## the astro project, installed so cron can rebuild in place
+WORKDIR /usr/src/blog-site
+# `site-shell: "*"` resolves through the workspace on a dev machine; inside
+# the image there is no workspace root, so point the manifest at a local
+# copy before installing rather than at the (nonexistent) public package.
+COPY packages/site-shell /usr/src/site-shell
+COPY packages/blog-site/package.json ./
+RUN npm pkg set dependencies.site-shell=file:/usr/src/site-shell && \
+    npm install --no-audit --no-fund
+COPY packages/blog-site/astro.config.mjs packages/blog-site/tsconfig.json ./
+COPY packages/blog-site/src ./src
+
+## the express server
 WORKDIR /usr/src/app
 
-# copy builder package.json
 COPY --from=builder /usr/src/app/package*.json ./
+RUN npm install --omit=dev
 
-# install prod dependency
-RUN npm install --only=production
-
-# copy build stage files
 COPY --from=builder /usr/src/app/dist ./dist
-COPY static ./static
-COPY config ./config
-COPY scripts ./scripts
+COPY packages/blog-backend/static ./static
+COPY packages/blog-backend/config ./config
+COPY packages/blog-backend/scripts ./scripts
 
-# set env
+RUN chmod +x scripts/build-blog.sh scripts/start-server.sh
+
+# Set before the bake so a single edit governs both the initial publish
+# below and every cron rebuild after the pod starts — build-blog.sh only
+# falls back to its own default when this is unset.
+ENV BLOG_DIST="/usr/src/app/blog-dist"
+
+# Bake an initial blog build so a fresh pod serves /blog before the first
+# cron tick.
+RUN ./scripts/build-blog.sh
+
 ENV NODE_ENV="production"
 
-# alarm port
 EXPOSE 8080
 
-# run server
-RUN chmod +x scripts/start-server.sh
 ENTRYPOINT ["scripts/start-server.sh"]

@@ -5,7 +5,7 @@ links:
     url: http://localhost:8080
   - name: blog
     route: /blog
-    url: http://localhost:3002
+    url: http://localhost:4321
   - name: dex
     route: /dex
     url: http://dex-app-server-service.default.svc.cluster.local:8080

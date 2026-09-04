@@ -1,0 +1,18 @@
+node_modules
+**/node_modules
+**/dist
+**/.astro
+.git
+.superpowers
+docs
+packages/*/static
+!packages/blog-backend/static
+
+# Credentials: excluded by pattern, not by path, so a file added later
+# (e.g. a new package's provider secrets) is excluded by default instead
+# of by someone remembering to list it. packages/ingress-reverse-proxy's
+# ini/cloudflare.ini and ini/godaddy.ini are the ones known today, but this
+# is intentionally broader than that.
+**/*.ini
+**/.env
+**/.env.*

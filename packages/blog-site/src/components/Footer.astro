@@ -1,0 +1,14 @@
+---
+import { BASE, CONTENT_REPO } from '../config/site';
+---
+
+<footer class="shell-footer">
+  <nav class="shell-footer__links" aria-label="Footer">
+    <a href={`${BASE}/rss.xml`}>RSS</a>
+    <a href="https://github.com/kyle-park-io">GitHub</a>
+    <a href="https://www.linkedin.com/in/kyle-park-io">LinkedIn</a>
+    <a href="https://x.com/bcd_kyle">X</a>
+    <a href={`https://github.com/${CONTENT_REPO}`}>Source</a>
+  </nav>
+  <p class="shell-footer__copy">© {new Date().getFullYear()} Kyle Park</p>
+</footer>

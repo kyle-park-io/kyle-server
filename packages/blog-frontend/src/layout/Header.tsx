@@ -1,10 +1,11 @@
 import { type Component, type JSX } from 'solid-js';
-import { createSignal, onMount } from 'solid-js';
+import { createSignal, For, onMount } from 'solid-js';
 // image
 import HomeLogo from '@public/home.svg';
 // component
 import { Move } from '../components/offcanvas/Offcanvas';
 import { globalState } from '../constants/constants';
+import { navItems } from 'site-shell/src/nav';
 // styles
 import './Header.css';
 
@@ -14,37 +15,7 @@ import './Header.css';
  * Features serif typography and minimalist black/white aesthetic
  */
 const Header: Component = (): JSX.Element => {
-  const url = globalState.url;
   const ingressWebsocketURL = globalState.ingress_reverse_proxy_websocket_url;
-
-  // Navigation handlers
-  const handleTitleClick = (): void => {
-    window.location.href = `${url}`;
-  };
-
-  const handleImageClick = (): void => {
-    window.location.href = `${url}`;
-  };
-
-  const handleAboutClick = (): void => {
-    window.location.href = `${url}/about`;
-  };
-
-  const handleProfileClick = (): void => {
-    window.location.href = `${url}/profile`;
-  };
-
-  const handleDevRelClick = (): void => {
-    window.location.href = `${url}/devrel`;
-  };
-
-  const handleQuantClick = (): void => {
-    window.location.href = `${url}/quant`;
-  };
-
-  const handlePersonalQuantClick = (): void => {
-    window.location.href = `${url}/personal-quant`;
-  };
 
   // Offcanvas state management
   const [show, setShow] = createSignal(false);
@@ -112,9 +83,9 @@ const Header: Component = (): JSX.Element => {
         {/* Top utility bar */}
         <div class="nyt-header__utility-bar">
           <div class="nyt-header__utility-left">
-            <button onClick={handleImageClick} class="nyt-header__home-btn">
+            <a href="/" class="nyt-header__home-btn">
               <img src={HomeLogo} alt="Home" class="nyt-header__home-icon" />
-            </button>
+            </a>
             <span class="nyt-header__date">{getCurrentDate()}</span>
           </div>
           <div class="nyt-header__utility-right">
@@ -127,59 +98,41 @@ const Header: Component = (): JSX.Element => {
 
         {/* Main header with logo */}
         <div class="nyt-header__main">
-          <button onClick={handleTitleClick} class="nyt-header__logo-btn">
+          <a href="/" class="nyt-header__logo-btn">
             <span class="nyt-header__logo">
               <span class="nyt-header__logo-accent">KYLE PARK</span>
               <span class="nyt-header__logo-tagline">Personal Website</span>
             </span>
-          </button>
+          </a>
         </div>
 
         {/* Navigation bar */}
         <nav class="nyt-header__nav">
           <ul class="nyt-header__nav-list">
+            <For each={navItems}>
+              {(item) => (
+                <li class="nyt-header__nav-item">
+                  <a
+                    href={item.href}
+                    class={
+                      item.variant !== undefined
+                        ? `nyt-header__nav-link nyt-header__nav-link--${item.variant}`
+                        : 'nyt-header__nav-link'
+                    }
+                    rel={item.external === true ? 'external' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              )}
+            </For>
             <li class="nyt-header__nav-item">
               <button
-                onClick={handleDevRelClick}
-                class="nyt-header__nav-link nyt-header__nav-link--devrel"
+                onClick={handleOpen}
+                class="nyt-header__nav-link"
+                aria-label="Open navigation menu"
               >
-                DevRel
-              </button>
-            </li>
-            <li class="nyt-header__nav-item">
-              <button
-                onClick={handleQuantClick}
-                class="nyt-header__nav-link nyt-header__nav-link--quant"
-              >
-                Quant
-              </button>
-            </li>
-            <li class="nyt-header__nav-item">
-              <button
-                onClick={handlePersonalQuantClick}
-                class="nyt-header__nav-link nyt-header__nav-link--personal-quant"
-              >
-                P.Quant
-              </button>
-            </li>
-            <li class="nyt-header__nav-item">
-              <button onClick={handleTitleClick} class="nyt-header__nav-link">
-                Home
-              </button>
-            </li>
-            <li class="nyt-header__nav-item">
-              <button onClick={handleAboutClick} class="nyt-header__nav-link">
-                About
-              </button>
-            </li>
-            <li class="nyt-header__nav-item">
-              <button onClick={handleProfileClick} class="nyt-header__nav-link">
-                Profile
-              </button>
-            </li>
-            <li class="nyt-header__nav-item">
-              <button onClick={handleOpen} class="nyt-header__nav-link">
-                Navigate
+                ☰
               </button>
               <Move show={show()} onHide={handleClose}></Move>
             </li>

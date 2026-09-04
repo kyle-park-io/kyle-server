@@ -1,7 +1,7 @@
 #!/bin/sh
+set -eu
 
-# start cron
+# cron pulls content and rebuilds the blog every 10 minutes.
 cron -f &
 
-# start server
 exec node dist/app.js

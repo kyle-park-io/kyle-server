@@ -65,7 +65,7 @@ const NotFoundPage: Component = (): JSX.Element => {
               Profile
             </a>
             <span class="notfound-links__divider">·</span>
-            <a href="/blog" class="notfound-links__item">
+            <a href="/blog" class="notfound-links__item" rel="external">
               Blog
             </a>
             <span class="notfound-links__divider">·</span>

@@ -33,15 +33,15 @@ other speakers' sessions were dropped — the page is a personal portfolio, so a
 photo that is not his own work misrepresents it. Two candidates were removed
 under this rule after review (`hackerhouse-keynote`, `hackerhouse-fireside`).
 
-| File | Event |
-| --- | --- |
-| `hero-workshop.webp` | Mantle Seoul workshop, full room |
-| `onboarding-session.webp` | Mantle Seoul workshop session |
-| `onboarding-livebuild.webp` | Hacker house live build session |
-| `hackerhouse-workshop.webp` | Hacker house hackathon workshop |
-| `hackerhouse-session.webp` | Hacker house — From BitDAO to The Liquidity Chain |
-| `mogakko.webp` | AI Awakening offline co-working |
-| `campus-{korea-university,kaist,skku,ewha,inha,ajou,kwangwoon}.webp` | 7-university campus tour |
+| File                                                                 | Event                                             |
+| -------------------------------------------------------------------- | ------------------------------------------------- |
+| `hero-workshop.webp`                                                 | Mantle Seoul workshop, full room                  |
+| `onboarding-session.webp`                                            | Mantle Seoul workshop session                     |
+| `onboarding-livebuild.webp`                                          | Hacker house live build session                   |
+| `hackerhouse-workshop.webp`                                          | Hacker house hackathon workshop                   |
+| `hackerhouse-session.webp`                                           | Hacker house — From BitDAO to The Liquidity Chain |
+| `mogakko.webp`                                                       | AI Awakening offline co-working                   |
+| `campus-{korea-university,kaist,skku,ewha,inha,ajou,kwangwoon}.webp` | 7-university campus tour                          |
 
 Each photo credits `@0xMantleKR` and links to its source tweet.
 

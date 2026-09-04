@@ -1,0 +1,90 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL, BLOG_TITLE } from '../config/site';
+import 'site-shell/src/styles/tokens.css';
+import '../styles/shell.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path relative to the site root, e.g. `/blog/ethereum-event-object`. */
+  canonicalPath: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  lang?: 'ko' | 'en';
+  current?: string;
+  /** When true, emit a robots noindex directive instead of a canonical link. */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  ogType = 'website',
+  ogImage,
+  lang = 'ko',
+  current,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, SITE_URL).href;
+const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+
+    <!--
+      tokens.css declares --shell-serif (Playfair Display) and --shell-sans
+      (Source Sans 3), but declaring a font stack doesn't load the font — the
+      SPA's own global.css does that with this same @import. Load the same
+      two families here, at the same weights/styles global.css requests, so
+      the masthead and body copy render identically on both sides of the
+      shell seam instead of falling back to Georgia/Arial on the blog.
+      Cormorant Garamond is in that same Google Fonts request but is not one
+      of the shell tokens (it backs --nyt-font-display, used only by SPA
+      pages outside the shell), so it is intentionally left out here.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+    />
+
+    <meta property="og:site_name" content={BLOG_TITLE} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={BLOG_TITLE}
+      href="/blog/rss.xml"
+    />
+  </head>
+  <body class="shell-body">
+    <Header current={current} />
+    <main class="shell-main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

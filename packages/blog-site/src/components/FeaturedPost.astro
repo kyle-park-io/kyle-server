@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { BASE } from '../config/site';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const iso = post.data.date.toISOString().slice(0, 10);
+// Match PostIndexRow's localized long form, not a raw ISO date, so the two
+// date formats in one viewport don't disagree with each other.
+const shown = post.data.date.toLocaleDateString('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Seoul',
+});
+---
+
+<article class="featured" data-featured>
+  {
+    post.data.cover && (
+      <a href={`${BASE}/${post.id}`} class="featured__image">
+        <Image
+          src={post.data.cover}
+          alt=""
+          widths={[480, 960]}
+          loading="eager"
+        />
+      </a>
+    )
+  }
+  <div class="featured__body">
+    <span class="featured__label">LATEST</span>
+    <h2 class="featured__title">
+      <a href={`${BASE}/${post.id}`}>{post.data.title}</a>
+    </h2>
+    <p class="featured__summary">{post.data.summary}</p>
+    <time datetime={iso}>{shown}</time>
+  </div>
+</article>

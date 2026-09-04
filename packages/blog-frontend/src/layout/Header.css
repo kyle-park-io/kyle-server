@@ -193,6 +193,17 @@
   padding: 4px 0;
   position: relative;
   transition: color var(--nyt-transition);
+  /* Anchor reset: needed now that nav items are <a> rather than <button>.
+     Kept on the base (element-agnostic) selector rather than a separate
+     `a.nyt-header__nav-link` rule -- production minification (cssnano via
+     css-minimizer-webpack-plugin) collapses an adjacent `a.nyt-header__nav-link`
+     rule into a second bare `.nyt-header__nav-link` rule, which raises this
+     rule's specificity above `.nyt-header__nav-link--devrel/--quant/--personal-quant`
+     and silently drops their accent colors. Confirmed by diffing an
+     unminified build (`optimization.minimize = false`) against the
+     production build. */
+  text-decoration: none;
+  display: inline-block;
 }
 
 .nyt-header__nav-link::after {

@@ -26,13 +26,13 @@
 
 ## File Structure
 
-| 파일 | 책임 | 조치 |
-|---|---|---|
-| `packages/blog-frontend/public/cv/jungho_park_cv_latest.md` | 영문 CV 정본 | 수정 |
-| `packages/blog-frontend/public/cv/jungho_park_cv_latest_ko.md` | 한글 CV 정본 | 수정 |
-| `packages/blog-frontend/public/cv/jungho_park_cv_latest.pdf` | 배포되는 실물 | 재생성 |
-| `scripts/build-cv.sh` | md → PDF 변환 + 페이지 수 검증 | **신규** |
-| `scripts/build.sh` | 기존 전파 파이프라인 | 변경 없음 |
+| 파일                                                           | 책임                           | 조치      |
+| -------------------------------------------------------------- | ------------------------------ | --------- |
+| `packages/blog-frontend/public/cv/jungho_park_cv_latest.md`    | 영문 CV 정본                   | 수정      |
+| `packages/blog-frontend/public/cv/jungho_park_cv_latest_ko.md` | 한글 CV 정본                   | 수정      |
+| `packages/blog-frontend/public/cv/jungho_park_cv_latest.pdf`   | 배포되는 실물                  | 재생성    |
+| `scripts/build-cv.sh`                                          | md → PDF 변환 + 페이지 수 검증 | **신규**  |
+| `scripts/build.sh`                                             | 기존 전파 파이프라인           | 변경 없음 |
 
 ---
 
@@ -41,9 +41,11 @@
 내용 작업 전에 먼저 한다. WSL2에서 Puppeteer가 못 뜨면 이후 작업의 배포 경로가 막히므로 빨리 실패해야 한다.
 
 **Files:**
+
 - Modify: `package.json` (root, devDependencies)
 
 **Interfaces:**
+
 - Produces: `npx md-to-pdf <file.md>` 가 같은 디렉터리에 `<file>.pdf`를 만든다는 사실. Task 4가 이걸 전제한다.
 
 - [ ] **Step 1: md-to-pdf 설치**
@@ -104,9 +106,11 @@ git commit -m "chore: add md-to-pdf for CV generation"
 ## Task 2: 영문 CV 개정
 
 **Files:**
+
 - Modify: `packages/blog-frontend/public/cv/jungho_park_cv_latest.md`
 
 **Interfaces:**
+
 - Produces: 최종 섹션 순서 —
   `HEADER → CONTACT → PROFESSIONAL EXPERIENCE → SELECTED PROJECTS → AWARDS & CERTIFICATIONS → LEADERSHIP & RESEARCH → TECHNICAL SKILLS → EDUCATION → LANGUAGES`.
   Task 3(한글판)이 이 순서를 그대로 따른다.
@@ -114,6 +118,7 @@ git commit -m "chore: add md-to-pdf for CV generation"
 - [ ] **Step 1: 헤더 교체 (3~5행)**
 
 Old:
+
 ```markdown
 **Quantitative Trading Engineer | Blockchain Developer**
 
@@ -121,6 +126,7 @@ Old:
 ```
 
 New:
+
 ```markdown
 **Blockchain & Backend Engineer | Quantitative Trading Systems**
 
@@ -130,6 +136,7 @@ Builds trading systems (Rust/Go), blockchain infrastructure, and production tool
 - [ ] **Step 2: CONTACT 압축 (11~16행)**
 
 Old:
+
 ```markdown
 - **Email**: andy3638@naver.com
 - **Telegram**: https://t.me/kyleparkio
@@ -140,6 +147,7 @@ Old:
 ```
 
 New:
+
 ```markdown
 - **Email**: andy3638@naver.com
 - **Telegram**: https://t.me/kyleparkio
@@ -152,6 +160,7 @@ New:
 `_Tech Stack: Solidity, TypeScript, Next.js_`부터 Turing Test 불릿 끝까지 전부 교체한다.
 
 New:
+
 ```markdown
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
@@ -174,17 +183,21 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - [ ] **Step 4: Kronon 지표 불릿 2건 통합 (49~59행)**
 
 Old (두 불릿):
+
 ```markdown
 - **Trading Metrics & Analytics Platform**
   - Designed universal metrics collection framework supporting multiple strategies with real-time visualization and performance analysis
 ```
+
 …그리고…
+
 ```markdown
 - **High-Frequency Metrics Visualization**
   - Built scalable backend infrastructure handling 10k+ data points per second for real-time trading metrics charts
 ```
 
 New (하나로):
+
 ```markdown
 - **Trading Metrics & Analytics Platform**
   - Designed a universal metrics collection framework supporting multiple strategies, with real-time visualization backed by infrastructure handling 10k+ data points per second
@@ -197,6 +210,7 @@ New (하나로):
 섹션 전체를 아래로 교체한다.
 
 New:
+
 ```markdown
 ## SELECTED PROJECTS
 
@@ -231,6 +245,7 @@ _Tech Stack: Go_
 `## AWARDS & RECOGNITION` 섹션 전체를 아래 **두 섹션**으로 교체한다.
 
 New:
+
 ```markdown
 ## AWARDS & CERTIFICATIONS
 
@@ -265,12 +280,14 @@ New:
 - [ ] **Step 7: TECHNICAL SKILLS 갱신 (95~96행)**
 
 Old:
+
 ```markdown
 - **Infrastructure**: AWS, GCP, Docker, Kubernetes
 - **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, High-Frequency Trading, Medium-Frequency Trading, Cross-Chain Bridges
 ```
 
 New:
+
 ```markdown
 - **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, Vercel
 - **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, High-Frequency Trading, Medium-Frequency Trading, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Agent-in-the-Loop Pipeline Design, Technical Writing
@@ -304,6 +321,7 @@ grep -n '^## ' packages/blog-frontend/public/cv/jungho_park_cv_latest.md
 ```
 
 Expected — 정확히 이 순서로 출력될 것:
+
 ```
 ## CONTACT
 ## PROFESSIONAL EXPERIENCE
@@ -316,10 +334,12 @@ Expected — 정확히 이 순서로 출력될 것:
 ```
 
 금지 문자열이 남아있지 않은지 확인:
+
 ```bash
 grep -n 'PORTFOLIO\|PERSONAL TRADING STRATEGIES\|Quantitative Trading Engineer\|High-Frequency Metrics Visualization\|\$120K prize pool' \
   packages/blog-frontend/public/cv/jungho_park_cv_latest.md
 ```
+
 Expected: 출력 없음 (exit 1).
 
 - [ ] **Step 11: 커밋**
@@ -334,14 +354,17 @@ git commit -m "feat: reposition CV as engineer-first and add Mantle DevRel exper
 ## Task 3: 한글 CV 미러링
 
 **Files:**
+
 - Modify: `packages/blog-frontend/public/cv/jungho_park_cv_latest_ko.md`
 
 **Interfaces:**
+
 - Consumes: Task 2가 확정한 섹션 순서와 불릿 수.
 
 - [ ] **Step 1: 헤더 교체 (3~5행)**
 
 New:
+
 ```markdown
 **블록체인 & 백엔드 엔지니어 | 퀀트 트레이딩 시스템**
 
@@ -351,6 +374,7 @@ New:
 - [ ] **Step 2: 연락처 압축 (11~16행)**
 
 New:
+
 ```markdown
 - **이메일**: andy3638@naver.com
 - **텔레그램**: https://t.me/kyleparkio
@@ -361,6 +385,7 @@ New:
 - [ ] **Step 3: Mantle 섹션 교체 (26~35행)**
 
 New:
+
 ```markdown
 _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 
@@ -385,6 +410,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 `- **트레이딩 지표 및 분석 플랫폼**` 불릿을 아래로 바꾸고, `- **초고빈도 지표 시각화**` 불릿은 삭제한다.
 
 New:
+
 ```markdown
 - **트레이딩 지표 및 분석 플랫폼**
   - 다양한 전략을 지원하는 범용 지표 수집 프레임워크 설계, 초당 1만 건 이상의 데이터 포인트를 처리하는 인프라 위에서 실시간 시각화 및 성과 분석 제공
@@ -393,6 +419,7 @@ New:
 - [ ] **Step 5: `개인 트레이딩 전략` → `주요 프로젝트` 교체 (100~117행)**
 
 New:
+
 ```markdown
 ## 주요 프로젝트
 
@@ -427,6 +454,7 @@ _기술 스택: Go_
 `## 수상 및 활동` 섹션 전체를 아래 두 섹션으로 교체한다.
 
 New:
+
 ```markdown
 ## 수상 및 자격
 
@@ -461,6 +489,7 @@ New:
 - [ ] **Step 7: 기술 스택 갱신 (95~96행)**
 
 New:
+
 ```markdown
 - **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, Vercel
 - **전문 분야**: 금융 시장 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 초고빈도 트레이딩, 중빈도 트레이딩, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 에이전트 인 더 루프 파이프라인 설계, 기술 문서 집필
@@ -487,6 +516,7 @@ Expected: 불릿 수가 일치하고, 섹션명이 **같은 순서로 1:1 대응
 없다 — 어긋나면 빠진 섹션이 있는지만 눈으로 확인한다.
 
 숫자 일치 확인:
+
 ```bash
 for n in 221 175K 1.84 1.28 '\$120K' 14 276 209; do
   printf "%-8s en=%s ko=%s\n" "$n" \
@@ -494,6 +524,7 @@ for n in 221 175K 1.84 1.28 '\$120K' 14 276 209; do
     "$(grep -c "$n" jungho_park_cv_latest_ko.md)"
 done
 ```
+
 Expected: 각 숫자의 en/ko 등장 횟수가 같다.
 
 - [ ] **Step 11: 커밋**
@@ -508,9 +539,11 @@ git commit -m "feat: mirror CV restructure into Korean version"
 ## Task 4: PDF 생성 스크립트
 
 **Files:**
+
 - Create: `scripts/build-cv.sh`
 
 **Interfaces:**
+
 - Consumes: Task 1이 확인한 `npx md-to-pdf` 동작.
 - Produces: `scripts/build-cv.sh` — 인자 없이 실행하면 소스 디렉터리의 md 2개를 PDF로 굽고 페이지 수를 검증한다. 4페이지 초과 시 exit 1.
 
@@ -607,12 +640,14 @@ cd /home/kyle/code/kyle-server && ./scripts/build-cv.sh
 ```
 
 Expected:
+
 ```
 building jungho_park_cv_latest.md ...
   ok    jungho_park_cv_latest.pdf: N pages
 building jungho_park_cv_latest_ko.md ...
   ok    jungho_park_cv_latest_ko.pdf: N pages
 ```
+
 `N` ≤ 4를 기대한다.
 
 **초과하는 경우 — 마크다운을 직접 고치지 않는다.** 무엇을 덜어낼지는 본인 이력서의 내용 결정이라
@@ -642,6 +677,7 @@ git commit -m "feat: add build-cv script and regenerate CV PDFs"
 기존 `scripts/build.sh`가 나머지 3개 경로로 옮긴다. 여기서는 그게 실제로 되는지 확인만 한다.
 
 **Files:**
+
 - 없음 (검증 전용)
 
 - [ ] **Step 1: 전파 전 상태 기록**

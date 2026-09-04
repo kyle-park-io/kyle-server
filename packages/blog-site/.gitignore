@@ -1,0 +1,4 @@
+dist/
+.astro/
+# Content is rsynced in from the blog repo at build time (see build-blog.sh).
+src/data/

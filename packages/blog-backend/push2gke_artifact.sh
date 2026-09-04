@@ -10,7 +10,9 @@ TAG_LATEST=latest
 # dir
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 DOCKERFILE_PATH=$SCRIPT_DIR/Dockerfile
-CONTEXT_PATH=$SCRIPT_DIR
+# Context is the repo root: the image needs packages/blog-site and
+# packages/site-shell alongside this package.
+CONTEXT_PATH=$SCRIPT_DIR/../..
 
 set -e
 
