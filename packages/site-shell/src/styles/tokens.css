@@ -9,6 +9,9 @@
   --shell-muted: #666666;
   --shell-rule: #e2e2e2;
   --shell-accent: #567b95;
+  /* Card fill. The SPA calls it --home-color-gray-light; every card on the
+     home page sits on it, so the blog's cards must too. */
+  --shell-surface: #f7f7f7;
 
   /* type */
   /* Pretendard sits after the Latin faces in every stack on purpose: browsers
@@ -28,4 +31,12 @@
   /* article measure — 720px is ~40-45 Korean characters per line */
   --shell-measure: 720px;
   --shell-toc-width: 240px;
+
+  /* Page container. Copied from the SPA's --home-max-width: the blog and the
+     home page are one site, so their content columns start and end at the
+     same x. Before this the blog's column was 992px against the home page's
+     1100px, which is why the two pages' left edges did not line up. */
+  --shell-max: 1100px;
+  --shell-radius: 8px;
+  --shell-transition: 0.3s ease-in-out;
 }

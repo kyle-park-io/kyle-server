@@ -27,7 +27,6 @@ const rows = featured ? posts.slice(1) : posts;
   <div class="list-page">
     <header class="list-header">
       <h1 class="list-header__title">Blog</h1>
-      <p class="list-header__subtitle">{BLOG_DESCRIPTION}</p>
       <a class="list-header__rss" href={`${BASE}/rss.xml`}>RSS</a>
     </header>
 
@@ -36,13 +35,7 @@ const rows = featured ? posts.slice(1) : posts;
     {featured && <FeaturedPost post={featured} />}
 
     <div class="post-list">
-      {
-        /* `i` is already the rank within `rows` (the featured post, if any,
-           was already sliced out above) — number the rendered rows, not the
-           global rank, so the list starts at 01 whether or not a post is
-           featured. */
-        rows.map((post, i) => <PostIndexRow post={post} index={i} />)
-      }
+      {rows.map((post) => <PostIndexRow post={post} />)}
     </div>
 
     {

@@ -4,10 +4,9 @@ import { BASE } from '../config/site';
 
 interface Props {
   post: CollectionEntry<'posts'>;
-  index: number;
 }
 
-const { post, index } = Astro.props;
+const { post } = Astro.props;
 const iso = post.data.date.toISOString().slice(0, 10);
 const shown = post.data.date.toLocaleDateString('ko-KR', {
   year: 'numeric',
@@ -17,25 +16,32 @@ const shown = post.data.date.toLocaleDateString('ko-KR', {
 });
 ---
 
+<!--
+  The card's children are direct children of .post-row: the card is a flex
+  column and `.post-row__meta { margin-top: auto }` pins the meta line to the
+  bottom edge, which only works without an intervening wrapper.
+
+  This used to open with an `01` / `02` counter. The index is not a sequence
+  -- it is a reverse-chronological list that renumbers itself every time a
+  post is published -- so the counter labelled nothing, and the home page has
+  no numbering to match.
+-->
 <article class="post-row">
-  <span class="post-row__number">{String(index + 1).padStart(2, '0')}</span>
-  <div class="post-row__body">
-    <h2 class="post-row__title">
-      <a href={`${BASE}/${post.id}`}>{post.data.title}</a>
-    </h2>
-    <p class="post-row__summary">{post.data.summary}</p>
-    <div class="post-row__meta">
-      <time datetime={iso}>{shown}</time>
-      {post.data.lang === 'en' && <span class="post-row__lang">EN</span>}
-      <ul class="post-row__tags">
-        {
-          post.data.tags.map((tag) => (
-            <li>
-              <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+  <h2 class="post-row__title">
+    <a href={`${BASE}/${post.id}`}>{post.data.title}</a>
+  </h2>
+  <p class="post-row__summary">{post.data.summary}</p>
+  <div class="post-row__meta">
+    <time datetime={iso}>{shown}</time>
+    {post.data.lang === 'en' && <span class="post-row__lang">EN</span>}
+    <ul class="post-row__tags">
+      {
+        post.data.tags.map((tag) => (
+          <li>
+            <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </article>

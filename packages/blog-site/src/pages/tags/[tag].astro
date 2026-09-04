@@ -37,7 +37,7 @@ const tags = tagCounts(all);
     <TagBar tags={tags} active={tag} />
 
     <div class="post-list">
-      {posts.map((post, i) => <PostIndexRow post={post} index={i} />)}
+      {posts.map((post) => <PostIndexRow post={post} />)}
     </div>
   </div>
 </Shell>

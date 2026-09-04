@@ -12,15 +12,18 @@
   background: var(--shell-accent);
 }
 
-/* Article + table of contents are centred as a group, so the body does not
-   read as left-shifted on a wide screen. */
+/* Article left, table of contents right, both inside .shell-main's column.
+   The group used to be centred inside that column, which started the body
+   text 30px right of where the index's cards, the masthead's utility bar and
+   the footer's copyright all start. One left edge for the whole site is
+   worth more than a centred block. */
 .post-page {
   display: flex;
   gap: 2rem;
-  justify-content: center;
-  max-width: calc(var(--shell-measure) + var(--shell-toc-width) + 2rem);
-  margin: 0 auto;
-  padding: 2rem 0 0;
+  justify-content: space-between;
+  /* .shell-main supplies the page's padding, the same box the home page's
+     .home-container uses. */
+  padding: 0;
 }
 
 .post {
@@ -29,10 +32,18 @@
   max-width: var(--shell-measure);
 }
 
+/* Closed with the site's 2px rule, the same device that ends a section
+   heading on the home page. Without it the title, meta and tags ran straight
+   into the cover image with nothing marking where the header ended. */
+.post__header {
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--shell-fg);
+}
+
 .post__title {
   font-family: var(--shell-serif);
-  font-size: clamp(1.75rem, 5vw, 2.75rem);
-  line-height: 1.2;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.25;
   margin: 0 0 0.75rem;
 }
 
@@ -60,12 +71,17 @@
   text-decoration: none;
 }
 
+.post__cover {
+  margin: 2rem 0 0;
+}
+
 .post__cover img {
   /* The cover legitimately fills the column: it's chosen/cropped to span
      the full measure, so stretching it to 100% is the intended look. */
   width: 100%;
   height: auto;
   display: block;
+  border-radius: var(--shell-radius);
 }
 
 .post__content img {
@@ -82,6 +98,11 @@
   font-size: 1.0625rem;
   line-height: 1.85;
   margin-top: 2rem;
+  /* Bare URLs are ordinary in these posts and a GitHub blob link is longer
+     than a phone is wide. Without this the longest one set the page's
+     scroll width -- a 390px viewport scrolled to 468px, and every section
+     of the article could be swiped sideways. */
+  overflow-wrap: break-word;
 }
 
 .post__content h2 {
@@ -154,30 +175,11 @@
   text-align: left;
 }
 
-@media (min-width: 1200px) {
-  /* `<pre>` is always wrapped in `.code-scroll` (astro.config.mjs's rehype
-     transform wraps every `pre`/`table` unconditionally), so bleeding both
-     the wrapper and the `<pre>` it contains compounds: the second bleed is
-     computed against the first one's already-bled width. That pushed the
-     block another ~2px into the .toc rail even after switching to a
-     left-only bleed below. `<pre>` has no explicit width, so once its
-     wrapper bleeds it fills that width by normal block flow -- it does not
-     need (and must not get) its own bleed rule. `.table-scroll` has no such
-     nested double-target (`.post__content table` isn't bled), so it is
-     unaffected by this.
-     max-width: 100% (set above) otherwise wins over width and the block
-     only shifts left instead of bleeding past the edge.
-     Bleed left only: .post-page's gap to the .toc rail is 2rem, so a
-     symmetric 3rem-each-way bleed put the block's right edge 1rem inside
-     the TOC column. There is no rail on the left, so the full 3rem bleed
-     stays there and the right edge holds at the measure. */
-  .code-scroll,
-  .table-scroll {
-    max-width: none;
-    width: calc(100% + 3rem);
-    margin-left: -3rem;
-  }
-}
+/* No desktop bleed for wide code and tables. While the article was centred
+   inside the column there were 30px of slack on its left to bleed into; now
+   that it sits on the column's left edge, a bleed would put code left of
+   every other element on the site. Wide blocks scroll inside themselves
+   instead (overflow-x above). */
 
 .post__footer {
   display: flex;
@@ -191,7 +193,13 @@
 }
 
 .post__footer a {
+  font-family: var(--shell-sans);
   color: var(--shell-muted);
+  text-decoration: none;
+}
+
+.post__footer a:hover {
+  color: var(--shell-fg);
 }
 
 /* --- table of contents ------------------------------------------------- */
@@ -266,15 +274,11 @@
 
 /* --- comments (giscus) -------------------------------------------------- */
 
-/* The article stack shares one left edge. `.post-page` centres the
-   article+rail group as a unit, so the body text sits left of the page
-   centre; centring the comments on the page instead put them 89px to the
-   right of the paragraph above them. Give the comments the group's geometry
-   and left-align the content inside it, and the two edges line up at every
-   width. */
+/* The article stack shares one left edge, so the comments simply start where
+   the article starts. Centring them on the page put them 89px right of the
+   paragraph above. */
 .comments {
-  max-width: calc(var(--shell-measure) + var(--shell-toc-width) + 2rem);
-  margin: 3rem auto 0;
+  margin: 3rem 0 0;
 }
 
 .comments > * {
