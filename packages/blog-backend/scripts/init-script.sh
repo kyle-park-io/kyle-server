@@ -1,12 +1,7 @@
 #!/bin/sh
+set -eu
 
-git clone https://github.com/kyle-park-io/blog.git
+git clone --depth 1 https://github.com/kyle-park-io/blog.git /blog
 
-mkdir -p /usr/src/app
-
-cp -r /blog/md /usr/src/app/md
-cp -r /blog/sort /usr/src/app/sort
-
-# init cron
-chmod +x /blog/scripts/*
-./blog/scripts/cron-init.sh
+chmod +x /blog/scripts/*.sh
+/blog/scripts/cron-init.sh
