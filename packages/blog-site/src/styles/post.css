@@ -248,8 +248,11 @@
   .toc {
     position: static;
     /* Match the body measure rather than the wider group, so the collapsed
-       panel's edges sit under the paragraph text. */
+       panel's edges sit under the paragraph text. border-box so the padding
+       and rule count inside the 720px rather than pushing the right edge
+       34px past the text. */
     width: auto;
+    box-sizing: border-box;
     max-width: var(--shell-measure);
     margin: 1.5rem 0;
     border: 1px solid var(--shell-rule);
