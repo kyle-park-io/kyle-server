@@ -44,13 +44,6 @@
     </url>
 
     <url>
-        <loc>https://jungho.dev/blog</loc>
-        <lastmod>2026-08-04</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
         <loc>https://jungho.dev/chat</loc>
         <lastmod>2026-08-04</lastmod>
         <changefreq>monthly</changefreq>
