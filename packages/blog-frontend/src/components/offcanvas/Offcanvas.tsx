@@ -76,7 +76,11 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
             <span class="nav-section__label">Site</span>
             <For each={offcanvasItems}>
               {(item) => (
-                <a class="nav-link" href={item.href}>
+                <a
+                  class="nav-link"
+                  href={item.href}
+                  rel={item.external === true ? 'external' : undefined}
+                >
                   <span class="nav-link__text">
                     <span class="nav-link__title">{item.label}</span>
                   </span>
