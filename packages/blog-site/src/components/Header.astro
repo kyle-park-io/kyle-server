@@ -51,10 +51,17 @@ const today = new Date().toLocaleDateString('en-US', {
       <span class="shell-header__date">{today}</span>
     </div>
     <div class="shell-header__utility-right">
-      <span class="shell-header__visitor-count">
-        <span class="shell-header__visitor-icon" aria-hidden="true">●</span>
-        <span data-visitor-count>0</span> online
-      </span>
+      <div class="presence">
+        <button
+          type="button"
+          class="presence__trigger"
+          aria-label="Who is online"
+        >
+          <span class="presence__dot" aria-hidden="true">●</span>
+          <span data-presence-count>0</span> online
+        </button>
+        <div class="presence__card" data-presence-card role="status"></div>
+      </div>
     </div>
   </div>
 
@@ -109,28 +116,35 @@ const today = new Date().toLocaleDateString('en-US', {
 
 {
   /*
-  The same live count the SPA's masthead shows (Header.tsx:32-63), against
-  the same ingress socket. Without it the utility bar's right half was empty
-  on the blog and filled on the home page -- the one asymmetry left between
-  the two mastheads. Failure is silent and leaves the initial 0, exactly as
-  it does on the SPA.
+  The same live presence the home page's masthead shows, from the same
+  module: the count, and the panel behind it. Without this the utility bar's
+  right half was empty on the blog and filled on the home page, which was the
+  one asymmetry left between the two mastheads.
+
+  A bundled script rather than is:inline, so the shared module is imported
+  once rather than reimplemented here - every piece of this site that was
+  written twice has drifted at least once.
 */
 }
-<script is:inline>
-  (function () {
-    var el = document.querySelector('[data-visitor-count]');
-    if (!el || location.protocol === 'file:') return;
-    var host = location.host;
-    if (host.indexOf('localhost') === 0 || host.indexOf('127.0.0.1') === 0)
-      return;
-    try {
-      var ws = new WebSocket('wss://' + host + '/ws');
-      ws.onmessage = function (event) {
-        var n = parseInt(String(event.data).trim(), 10);
-        if (!isNaN(n)) el.textContent = String(n);
-      };
-    } catch (e) {
-      /* count stays at 0, as on the SPA */
-    }
-  })();
+<script>
+  import { connectPresence } from 'site-shell/src/presence';
+  import { renderPresenceCard } from 'site-shell/src/presence-card';
+
+  const countEl = document.querySelector('[data-presence-count]');
+  const cardEl = document.querySelector<HTMLElement>('[data-presence-card]');
+
+  // The socket is served by the ingress proxy, which nothing in front of a
+  // local `astro dev` is running.
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+
+  if (countEl && cardEl && !local) {
+    connectPresence({
+      origin: `${location.protocol === 'http:' ? 'ws' : 'wss'}://${location.host}`,
+      path: location.pathname,
+      onUpdate: (presence) => {
+        countEl.textContent = String(presence.count);
+        renderPresenceCard(cardEl, presence);
+      },
+    });
+  }
 </script>

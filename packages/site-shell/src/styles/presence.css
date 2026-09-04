@@ -1,0 +1,210 @@
+/*
+  The masthead's live presence panel: the trigger in the utility bar and the
+  card that opens under it.
+
+  Shared by the SolidJS home page and the Astro blog, so the literals here
+  are the site's own -- 11px tracked labels, hairline rules, the grey card
+  surface -- rather than a second set that would drift from them.
+
+  Colours are written as literals, not var(--shell-*): the home page does not
+  import the shared token file, and a var() it has never heard of resolves to
+  nothing rather than to the value this panel needs.
+*/
+
+.presence {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.presence__trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  font-weight: 500;
+}
+
+.presence__dot {
+  color: #22c55e;
+  font-size: 8px;
+  animation: presence-pulse 2s infinite;
+}
+
+@keyframes presence-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence__dot {
+    animation: none;
+  }
+}
+
+/* --- the card ----------------------------------------------------------- */
+
+.presence__card {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  width: 264px;
+  background-color: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  /* A busy site fills three sections and runs to ~440px, which does not fit
+     under the masthead on a laptop in a short window. Cap it and let the
+     panel scroll rather than let it run off the bottom of the screen. */
+  max-height: min(70vh, 460px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #121212;
+
+  /* Hidden by default, and inert while hidden so a pointer crossing the
+     masthead cannot catch an invisible panel. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease-in-out,
+    transform 0.15s ease-in-out,
+    visibility 0.15s;
+}
+
+/* Opens on hover, and on keyboard focus reaching the trigger inside. */
+.presence:hover .presence__card,
+.presence:focus-within .presence__card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence__card {
+    transition: none;
+    transform: none;
+  }
+}
+
+.presence__section {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.presence__section:last-child {
+  border-bottom: none;
+}
+
+/* The site's one heading device, at the size this panel can carry it. */
+.presence__label {
+  margin: 0 0 8px;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+.presence__flag {
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* --- you ---------------------------------------------------------------- */
+
+.presence__you-where {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #121212;
+}
+
+.presence__you-client {
+  margin: 3px 0 0;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: #333333;
+}
+
+.presence__you-meta {
+  margin: 5px 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: #999999;
+}
+
+/* --- breakdown rows ------------------------------------------------------ */
+
+/*
+  The tinted fill behind a row is its bar. Sizing the row's own background
+  rather than adding a bar element means the numbers cannot drift out of
+  line with the bars they belong to, at any width.
+*/
+.presence__row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 -6px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: #333333;
+  background-image: linear-gradient(
+    to right,
+    #f0f0f0 0 var(--presence-share, 0%),
+    transparent var(--presence-share, 0%)
+  );
+}
+
+.presence__row-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.presence__row-count {
+  flex: none;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #121212;
+}
+
+.presence__more {
+  margin: 6px 0 0;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11px;
+  color: #999999;
+}
+
+/* On a phone the utility bar is cramped and there is no hover to speak of;
+   the card would cover the masthead it hangs from. */
+@media (max-width: 576px) {
+  .presence__card {
+    display: none;
+  }
+}

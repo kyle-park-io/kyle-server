@@ -1,13 +1,16 @@
 import { type Component, type JSX } from 'solid-js';
-import { createSignal, For, onMount } from 'solid-js';
+import { createSignal, For, onCleanup, onMount } from 'solid-js';
 // image
 import HomeLogo from '@public/home.svg';
 // component
 import { Move } from '../components/offcanvas/Offcanvas';
 import { globalState } from '../constants/constants';
 import { navItems } from 'site-shell/src/nav';
+import { connectPresence, type Presence } from 'site-shell/src/presence';
+import { renderPresenceCard } from 'site-shell/src/presence-card';
 // styles
 import './Header.css';
+import 'site-shell/src/styles/presence.css';
 
 /**
  * Header Component
@@ -26,41 +29,31 @@ const Header: Component = (): JSX.Element => {
     setShow(false);
   };
 
-  // Real-time visitor count
+  // Live presence: the count in the masthead, and the panel behind it.
   const [count, setCount] = createSignal(0);
+  let cardRef: HTMLDivElement | undefined;
 
   onMount(() => {
-    // WebSocket connection for real-time visitor count
-    // Skip if WebSocket URL points to localhost (development environment)
+    // The socket lives on the ingress proxy, which is not running in front
+    // of a dev server.
     const isDevWebSocket =
       ingressWebsocketURL.includes('localhost') ||
       ingressWebsocketURL.includes('127.0.0.1');
+    if (isDevWebSocket) return;
 
-    if (isDevWebSocket) {
-      // Skip WebSocket connection in development
-      return;
-    }
+    const disconnect = connectPresence({
+      origin: ingressWebsocketURL,
+      path: window.location.pathname,
+      onUpdate: (presence: Presence) => {
+        setCount(presence.count);
+        if (cardRef) renderPresenceCard(cardRef, presence);
+      },
+    });
 
-    try {
-      const ws = new WebSocket(`${ingressWebsocketURL}/ws`);
-
-      ws.onopen = () => console.log('WebSocket connected');
-      ws.onmessage = (event) => {
-        const data = event.data.trim();
-        const number = parseInt(data, 10);
-        if (!isNaN(number)) {
-          setCount(number);
-        }
-      };
-      ws.onerror = () => {
-        // Silently handle WebSocket errors
-        console.warn('WebSocket connection failed - visitor count unavailable');
-      };
-      ws.onclose = () => console.log('WebSocket disconnected');
-    } catch (error) {
-      // Handle WebSocket initialization errors
-      console.warn('WebSocket initialization failed:', error);
-    }
+    // The socket used to be opened and never closed. Solid tears this
+    // component down on navigation, so without this a session that moved
+    // between pages left a socket behind on every hop.
+    onCleanup(disconnect);
   });
 
   // Get current date formatted
@@ -89,10 +82,19 @@ const Header: Component = (): JSX.Element => {
             <span class="nyt-header__date">{getCurrentDate()}</span>
           </div>
           <div class="nyt-header__utility-right">
-            <span class="nyt-header__visitor-count">
-              <span class="nyt-header__visitor-icon">●</span>
-              {count()} online
-            </span>
+            <div class="presence">
+              <button
+                type="button"
+                class="presence__trigger"
+                aria-label="Who is online"
+              >
+                <span class="presence__dot" aria-hidden="true">
+                  ●
+                </span>
+                {count()} online
+              </button>
+              <div class="presence__card" ref={cardRef} role="status" />
+            </div>
           </div>
         </div>
 

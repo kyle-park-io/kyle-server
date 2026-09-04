@@ -17,9 +17,10 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 	logger.Log.Info("path: ", r.URL.Path)
 	logger.Log.Info("query: ", r.URL.Query())
 
-	// redis real-time
-	redis.UpdateRealTimeUser(r)
-
+	// Presence is reported by the websocket (redis.WSToTCPHandler), not from
+	// here. This used to call redis.UpdateRealTimeUser(r) on every request:
+	// each of a page's twenty-odd asset requests became its own "user",
+	// which is what made the online count leap to twenty and then decay.
 	urlPath := r.URL.Path
 	// asset files
 	if assets.IsPathForAsset(urlPath) {
