@@ -45,8 +45,13 @@ WORKDIR /usr/src/blog-site
 # copy before installing rather than at the (nonexistent) public package.
 COPY packages/site-shell /usr/src/site-shell
 COPY packages/blog-site/package.json ./
+# The npm download cache is useless at runtime — cron rebuilds reuse the
+# installed node_modules, never the tarball cache — but it lands in this layer
+# and measured 284MB against 185MB of actual node_modules. Clean it in the same
+# RUN, or it is baked in permanently.
 RUN npm pkg set dependencies.site-shell=file:/usr/src/site-shell && \
-    npm install --no-audit --no-fund
+    npm install --no-audit --no-fund && \
+    npm cache clean --force
 COPY packages/blog-site/astro.config.mjs packages/blog-site/tsconfig.json ./
 COPY packages/blog-site/src ./src
 
