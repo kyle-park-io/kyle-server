@@ -7,7 +7,7 @@ import Giscus from '../components/Giscus.astro';
 import ProgressBar from '../components/ProgressBar.astro';
 import { excludeDrafts } from '../lib/posts';
 import { readingMinutes } from '../lib/reading-time';
-import { BASE } from '../config/site';
+import { BASE, SITE_NAME } from '../config/site';
 import '../styles/post.css';
 
 export async function getStaticPaths() {
@@ -39,7 +39,7 @@ const updatedShown = post.data.updated
 ---
 
 <Shell
-  title={`${post.data.title} | Kyle Park`}
+  title={`${post.data.title} | ${SITE_NAME}`}
   description={post.data.summary}
   canonicalPath={`${BASE}/${post.id}`}
   ogType="article"

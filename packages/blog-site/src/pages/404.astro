@@ -1,10 +1,10 @@
 ---
 import Shell from '../layouts/Shell.astro';
-import { BASE } from '../config/site';
+import { BASE, SITE_NAME } from '../config/site';
 ---
 
 <Shell
-  title="글을 찾을 수 없습니다 | Kyle Park 블로그"
+  title={`글을 찾을 수 없습니다 | ${SITE_NAME}`}
   description="요청한 글이 없습니다."
   canonicalPath={`${BASE}/404`}
   current={BASE}

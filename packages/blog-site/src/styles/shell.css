@@ -17,7 +17,14 @@
   box-sizing: border-box;
 }
 
+/* The SPA's shell is a full-height flex column with the main content set to
+   grow (index.tsx:33-40 via tailwind's min-h-screen / flex-grow). Without the
+   same here, a page shorter than the viewport left the grey footer floating
+   mid-screen with 474px of white below it -- measured on /blog/tags/astro. */
 .shell-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
   /* The SPA reserves the scrollbar gutter unconditionally
      (blog-frontend/src/css/global.css:50). A short blog page that did not
@@ -344,6 +351,10 @@
    same max-width, same padding on all three sides. Pages inside it lay out
    against this column, so nothing else needs its own outer padding. */
 .shell-main {
+  /* `1 0 auto`, not `1`: a bare `flex: 1` sets flex-basis to 0, and in a
+     column container that is the height. Growing is all this needs to do. */
+  flex: 1 0 auto;
+  width: 100%;
   max-width: var(--shell-max);
   margin: 0 auto;
   padding: 32px 24px 64px;

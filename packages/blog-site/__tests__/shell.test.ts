@@ -397,3 +397,54 @@ test('the footer carries every social link the SPA does', () => {
     assert.ok(page.includes(href), `footer is missing ${href}`);
   }
 });
+
+test('the shell is a full-height column, so the footer never floats', () => {
+  // A page shorter than the viewport left the grey footer mid-screen with
+  // 474px of white beneath it (measured on /blog/tags/astro at 1440x1000).
+  // The SPA avoids this with min-h-screen on its wrapper and flex-grow on
+  // its main; these are the same two rules.
+  const css = shellCss();
+
+  const body = css.match(/\.shell-body \{([^}]*)\}/);
+  assert.ok(body, 'expected a .shell-body rule');
+  assert.match(body[1], /min-height:\s*100vh/);
+  assert.match(body[1], /flex-direction:\s*column/);
+
+  const main = css.match(/\.shell-main \{([^}]*)\}/);
+  assert.ok(main, 'expected a .shell-main rule');
+  assert.match(
+    main[1],
+    /flex:\s*1 0 auto/,
+    'a bare `flex: 1` sets flex-basis to 0, which in a column is the height',
+  );
+});
+
+test('shiki does not paint its own background onto code blocks', () => {
+  // Shiki writes `background-color:#fff` into the <pre>'s style attribute,
+  // and an inline style beats any stylesheet rule short of !important. That
+  // left code flat white inside a hairline while everything else on the page
+  // sat on the grey card surface.
+  // Assert the transformer exists by its shape, not by matching its own
+  // regex source: the first version of this test escaped that source wrongly
+  // and would have passed against a file that no longer stripped anything.
+  const config = readFileSync('astro.config.ts', 'utf8');
+  assert.match(config, /transformers:\s*\[/, 'expected shiki transformers');
+  assert.match(
+    config,
+    /pre\(node/,
+    'expected a shiki pre() transformer to strip the inline background',
+  );
+
+  for (const name of ['hello-world', 'second-post']) {
+    const file = join(SERVE_ROOT, `${name}.html`);
+    if (!existsSync(file)) continue;
+    const page = readFileSync(file, 'utf8');
+    const pres = page.match(/<pre[^>]*>/g) ?? [];
+    for (const pre of pres) {
+      assert.ok(
+        !/background-color/.test(pre),
+        `${name}.html has a <pre> still carrying an inline background: ${pre}`,
+      );
+    }
+  }
+});

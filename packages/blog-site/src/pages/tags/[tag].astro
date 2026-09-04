@@ -4,7 +4,7 @@ import Shell from '../../layouts/Shell.astro';
 import PostIndexRow from '../../components/PostIndexRow.astro';
 import TagBar from '../../components/TagBar.astro';
 import { excludeDrafts, tagCounts, postsWithTag } from '../../lib/posts';
-import { BASE } from '../../config/site';
+import { BASE, SITE_NAME } from '../../config/site';
 import '../../styles/list.css';
 
 export async function getStaticPaths() {
@@ -23,7 +23,7 @@ const tags = tagCounts(all);
 ---
 
 <Shell
-  title={`#${tag} | Kyle Park 블로그`}
+  title={`#${tag} | ${SITE_NAME}`}
   description={`${tag} 태그가 붙은 글 ${posts.length}편.`}
   canonicalPath={`${BASE}/tags/${tag}`}
   current={BASE}

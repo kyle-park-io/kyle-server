@@ -11,7 +11,13 @@ export const SERVE_ROOT = existsSync(join('dist', 'blog'))
 test('the build produced a landing page', () => {
   const index = join(SERVE_ROOT, 'index.html');
   assert.ok(existsSync(index), `${index} missing - run \`yarn build\` first`);
-  assert.match(readFileSync(index, 'utf8'), /Kyle Park/);
+  const page = readFileSync(index, 'utf8');
+  // The site's name is the domain, matching the home page's own <title>.
+  // This used to assert /Kyle Park/, which passed on the old
+  // "Kyle Park | Blog" title and would now pass only by accident, on the
+  // masthead's uppercase wordmark.
+  assert.match(page, /<title>Blog \| jungho\.dev<\/title>/);
+  assert.match(page, /KYLE PARK/, 'the masthead wordmark should render');
 });
 
 test('markdown is not run through smartypants', () => {
