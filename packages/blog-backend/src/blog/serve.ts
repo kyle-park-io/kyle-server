@@ -19,12 +19,16 @@ import { resolveLegacySlug } from './legacy-slugs';
  * build-blog.sh publishes atomically via two renames (old BLOG_DIST ->
  * .old, then .new -> BLOG_DIST), and there is a real, if brief, window
  * between them where nothing exists at BLOG_DIST. `res.sendFile` with no
- * error callback funnels that ENOENT into Express's default error handler,
- * which is an unadorned 500 — indistinguishable from a real bug. Treat a
- * missing file here as "publishing right now, try again in a moment" (503 +
- * Retry-After) instead: the window is as long as a directory rename, so a
- * retry a second later succeeds. Any other error (permissions, etc.) still
- * goes to `next(err)` so it hits the real error handler.
+ * error callback funnels that ENOENT into `send`, which sets status 404 --
+ * indistinguishable from the page genuinely not existing. That's worse than
+ * a bare 500 would be: a crawler that gets a 404 for /blog or a real post
+ * during the swap window treats it as gone and risks deindexing it, where a
+ * transient signal would make it back off and retry. Treat a missing file
+ * here as "publishing right now, try again in a moment" (503 + Retry-After)
+ * instead: the window is as long as a directory rename, so a retry a second
+ * later succeeds, and 503 + Retry-After is exactly the signal a crawler is
+ * expected to retry on. Any other error (permissions, etc.) still goes to
+ * `next(err)` so it hits the real error handler.
  */
 function sendBlogFile(
   res: Response,

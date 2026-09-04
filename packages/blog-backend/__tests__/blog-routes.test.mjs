@@ -113,7 +113,7 @@ test('POST /blog does not serve the list page', async () => {
   assert.equal(res.status, 404);
 });
 
-test('a missing BLOG_DIST degrades to 503, not an unhandled 500', async () => {
+test('a missing BLOG_DIST degrades to 503, not a crawler-hostile 404', async () => {
   // build-blog.sh's publish swap has a real window where BLOG_DIST does not
   // exist between the "move old out" and "move new in" renames. Simulate
   // that by pointing an app at a directory that was never created.
