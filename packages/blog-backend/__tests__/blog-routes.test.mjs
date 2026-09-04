@@ -106,3 +106,34 @@ test('the removed blog API is gone', async () => {
     assert.notEqual(res.status, 200, `${path} must no longer respond 200`);
   }
 });
+
+test('POST /blog does not serve the list page', async () => {
+  const res = await fetch(`${base}/blog`, { method: 'POST' });
+  assert.notEqual(res.status, 200);
+  assert.equal(res.status, 404);
+});
+
+test('a missing BLOG_DIST degrades to 503, not an unhandled 500', async () => {
+  // build-blog.sh's publish swap has a real window where BLOG_DIST does not
+  // exist between the "move old out" and "move new in" renames. Simulate
+  // that by pointing an app at a directory that was never created.
+  const missingRoot = mkdtempSync(join(tmpdir(), 'blog-routes-missing-'));
+  const missingBlogDist = join(missingRoot, 'blog-dist');
+  const spaStatic = join(missingRoot, 'spa');
+  mkdirSync(spaStatic, { recursive: true });
+  writeFileSync(join(spaStatic, 'index.html'), '<div id="root"></div>');
+
+  const app = createApp({ blogDist: missingBlogDist, spaStatic });
+  const missingServer = app.listen(0);
+  await new Promise((resolve) => missingServer.once('listening', resolve));
+  const missingBase = `http://127.0.0.1:${missingServer.address().port}`;
+
+  try {
+    const res = await fetch(`${missingBase}/blog`);
+    assert.equal(res.status, 503);
+    assert.equal(res.headers.get('retry-after'), '1');
+  } finally {
+    await new Promise((resolve) => missingServer.close(resolve));
+    rmSync(missingRoot, { recursive: true, force: true });
+  }
+});

@@ -14,18 +14,55 @@ import { resolveLegacySlug } from './legacy-slugs';
  * then the legacy 301 map, then the blog's own 404 so an unknown /blog path
  * does not fall through to the SPA shell.
  */
+
+/**
+ * build-blog.sh publishes atomically via two renames (old BLOG_DIST ->
+ * .old, then .new -> BLOG_DIST), and there is a real, if brief, window
+ * between them where nothing exists at BLOG_DIST. `res.sendFile` with no
+ * error callback funnels that ENOENT into Express's default error handler,
+ * which is an unadorned 500 — indistinguishable from a real bug. Treat a
+ * missing file here as "publishing right now, try again in a moment" (503 +
+ * Retry-After) instead: the window is as long as a directory rename, so a
+ * retry a second later succeeds. Any other error (permissions, etc.) still
+ * goes to `next(err)` so it hits the real error handler.
+ */
+function sendBlogFile(
+  res: Response,
+  next: NextFunction,
+  filePath: string,
+): void {
+  res.sendFile(filePath, (err?: NodeJS.ErrnoException) => {
+    if (!err) return;
+    if (res.headersSent) {
+      next(err);
+      return;
+    }
+    if (err.code === 'ENOENT') {
+      res
+        .status(503)
+        .set('Retry-After', '1')
+        .type('text/plain')
+        .send('blog is publishing a new build; try again in a moment');
+      return;
+    }
+    next(err);
+  });
+}
+
 export function mountBlog(app: express.Express, blogDist: string): void {
   // serve-static's `redirect: false` also disables its own directory-index
   // resolution at the mount root: to keep a bare "/blog" from redirecting to
   // "/blog/", it forces the internal lookup path to '', which skips index
-  // resolution entirely and 404s (falling through via `next()`). Handle the
-  // mount root explicitly so the list page still serves without a redirect.
-  app.use('/blog', (req: Request, res: Response, next: NextFunction) => {
-    if (req.path === '/') {
-      res.sendFile(path.join(blogDist, 'index.html'));
-      return;
-    }
-    next();
+  // resolution entirely and 404s. Handle the mount root explicitly so the
+  // list page still serves without a redirect.
+  //
+  // `app.get` rather than `app.use`: this route pattern only ever matches
+  // the exact path "/blog" (Express's non-strict routing treats "/blog" and
+  // "/blog/" the same), so unlike `app.use` — which runs for every HTTP
+  // method — a POST (or anything but GET/HEAD) to /blog now falls through
+  // to the 404 handler below instead of getting a 200 with the list page.
+  app.get('/blog', (_req: Request, res: Response, next: NextFunction) => {
+    sendBlogFile(res, next, path.join(blogDist, 'index.html'));
   });
 
   app.use(
@@ -48,7 +85,8 @@ export function mountBlog(app: express.Express, blogDist: string): void {
     res.redirect(301, target);
   });
 
-  app.use('/blog', (req: Request, res: Response) => {
-    res.status(404).sendFile(path.join(blogDist, '404.html'));
+  app.use('/blog', (req: Request, res: Response, next: NextFunction) => {
+    res.status(404);
+    sendBlogFile(res, next, path.join(blogDist, '404.html'));
   });
 }
