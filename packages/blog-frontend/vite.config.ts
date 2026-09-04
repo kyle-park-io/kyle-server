@@ -1,10 +1,23 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 import svgr from 'vite-plugin-svgr';
 
+/*
+  Production builds go through webpack (`yarn webpack-build-prod`), and only
+  that config declared the `@public` alias. So `yarn dev` had been failing on
+  every `@public/...` import — the DevRel page alone has fifteen — with
+  "Are they installed?", which reads like a missing dependency rather than a
+  missing alias. Mirror webpack.config.prod.js here so the dev server runs.
+*/
 export default defineConfig({
   base: '/blog-static',
   plugins: [solid(), svgr()],
+  resolve: {
+    alias: {
+      '@public': fileURLToPath(new URL('./public', import.meta.url)),
+    },
+  },
   css: { postcss: './postcss.config.js' },
   build: {
     outDir: 'static',

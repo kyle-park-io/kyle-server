@@ -165,63 +165,49 @@ test('a pre or table nested inside a blockquote or list item is still wrapped fo
   );
 });
 
-test('the desktop code/table bleed is not neutralised by max-width: 100% (Finding 1)', () => {
+test('wide code and tables scroll inside themselves rather than bleeding out', () => {
+  // While the article was centred inside .shell-main's column there were 30px
+  // of slack on its left, and wide blocks bled into it. The article now sits
+  // on the column's left edge, so there is nothing left to bleed into -- a
+  // bleed would put code left of every other element on the site. Any
+  // reintroduced negative left margin on these wrappers is that regression.
   const css = readFileSync(join('src', 'styles', 'post.css'), 'utf8');
-  const bleedBlock = css.match(
-    /@media \(min-width: 1200px\) \{[^}]*\.table-scroll \{([^}]*)\}/,
-  );
-  assert.ok(bleedBlock, 'expected the desktop bleed rule for .table-scroll');
+
   assert.match(
-    bleedBlock[1],
-    /max-width:\s*none/,
-    'max-width: 100% set earlier in the file otherwise wins over width, and the bleed never happens',
+    css,
+    /\.code-scroll,\n\s*\.post__content pre,\n\s*\.table-scroll \{[^}]*overflow-x:\s*auto/,
+    'wide blocks must scroll inside themselves',
+  );
+  assert.ok(
+    !/margin-left:\s*-/.test(css),
+    'no wrapper may pull left of the article column',
   );
 });
 
-test('the desktop bleed only extends left, so it cannot reach into the .toc gap', () => {
-  // .post-page's gap to .toc is 2rem; a bleed symmetric in both directions
-  // (width: calc(100% + 6rem) with margin-left: -3rem) pushed the right
-  // edge 1rem past the measure and into that gap. A left-only bleed keeps
-  // the right edge exactly where it was: the width overshoot must equal
-  // the left margin pullback.
+test('the article, its rail and its comments all start at the column left edge', () => {
+  // "그리드 다 안맞고": the article group used to be centred inside
+  // .shell-main, starting 30px right of where the index's cards, the header's
+  // utility bar and the footer's copyright all start. Everything on the site
+  // now shares one left edge.
   const css = readFileSync(join('src', 'styles', 'post.css'), 'utf8');
-  const bleedBlock = css.match(
-    /@media \(min-width: 1200px\) \{[^}]*\.table-scroll \{([^}]*)\}/,
-  );
-  assert.ok(bleedBlock, 'expected the desktop bleed rule for .table-scroll');
 
-  const widthMatch = bleedBlock[1].match(
-    /width:\s*calc\(100%\s*\+\s*([\d.]+)rem\)/,
-  );
-  const marginMatch = bleedBlock[1].match(/margin-left:\s*-([\d.]+)rem/);
+  const postPage = css.match(/\.post-page \{([^}]*)\}/);
+  assert.ok(postPage, 'expected a .post-page rule');
   assert.ok(
-    widthMatch && marginMatch,
-    'expected a `width: calc(100% + Xrem)` / `margin-left: -Xrem` bleed pair',
+    !/margin:\s*0 auto/.test(postPage[1]) && !/max-width/.test(postPage[1]),
+    '.post-page must fill .shell-main rather than centring a narrower group inside it',
   );
-  assert.equal(
-    widthMatch[1],
-    marginMatch[1],
-    'the width overshoot and the left margin pullback must match, so the right edge does not move past the measure',
+  assert.match(
+    postPage[1],
+    /justify-content:\s*space-between/,
+    'the article takes the left edge and the rail the right',
   );
-});
 
-test('the desktop bleed does not also target `.post__content pre`, which would double it', () => {
-  // astro.config.mjs's rehype transform wraps every `<pre>` in `.code-scroll`
-  // unconditionally, so `<pre>` is always inside an element the bleed rule
-  // already resizes. Bleeding both compounds: the inner `<pre>`'s own
-  // `calc(100% + Xrem)` is computed against `.code-scroll`'s *already-bled*
-  // width, pushing the rendered block well past the intended edge (measured
-  // live in a browser: it landed 2px inside the .toc rail even after the
-  // left-only fix above, when this rule still targeted `.post__content
-  // pre` too). `<pre>` has no explicit width, so once its wrapper bleeds it
-  // fills that width through ordinary block flow -- it must not get its
-  // own bleed rule.
-  const css = readFileSync(join('src', 'styles', 'post.css'), 'utf8');
-  const mediaBlock = css.match(/@media \(min-width: 1200px\) \{([\s\S]*)\n\}/);
-  assert.ok(mediaBlock, 'expected the desktop (>=1200px) media block');
+  const comments = css.match(/\.comments \{([^}]*)\}/);
+  assert.ok(comments, 'expected a .comments rule');
   assert.ok(
-    !mediaBlock[1].includes('.post__content pre'),
-    '.post__content pre must not be part of the desktop bleed rule',
+    !/auto/.test(comments[1]),
+    '.comments must start at the column left edge, not be centred',
   );
 });
 

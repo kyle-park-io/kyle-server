@@ -1,71 +1,131 @@
+/* The index reuses the home page's building blocks: a 12px uppercase section
+   heading over a 2px rule, then a grid of cards on the grey surface. The
+   first version of this file was a newspaper index -- 48px Playfair title,
+   hairline-ruled rows, 999px pill tags -- none of which appears on the home
+   page, so crossing into /blog read as arriving at a different site. */
+
 .list-page {
-  max-width: calc(var(--shell-measure) + var(--shell-toc-width) + 2rem);
-  margin: 0 auto;
-  padding: 2rem 0 0;
+  /* .shell-main already supplies the column and its padding. */
+  padding: 0;
+}
+
+/* Heading and the RSS link share one baseline and one rule, so the rule runs
+   the full width the way .home-section__title's does. */
+.list-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--shell-fg);
 }
 
 .list-header__title {
-  font-family: var(--shell-serif);
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-family: var(--shell-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--shell-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   margin: 0;
 }
 
 .list-header__subtitle {
+  font-size: 12px;
   color: var(--shell-muted);
-  margin: 0.5rem 0 1rem;
+  margin: 0;
 }
 
 .list-header__rss {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: var(--shell-accent);
-  text-decoration: none;
-}
-
-.tag-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--shell-rule);
-}
-
-.tag-bar__item {
-  border: 1px solid var(--shell-rule);
-  border-radius: 999px;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
+  font-family: var(--shell-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--shell-muted);
   text-decoration: none;
 }
 
-.tag-bar__item--active {
+.list-header__rss:hover {
+  color: var(--shell-fg);
+}
+
+/* --- tag filter ---------------------------------------------------------- */
+
+/* Chips, not pills: the home page has no 999px radius anywhere, so these
+   carry the card's border and a matching small radius instead. */
+.tag-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tag-bar__item {
+  background-color: var(--shell-surface);
+  border: 1px solid var(--shell-rule);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-family: var(--shell-sans);
+  font-size: 12px;
+  color: var(--shell-muted);
+  text-decoration: none;
+  transition: all var(--shell-transition);
+}
+
+.tag-bar__item:hover {
   border-color: var(--shell-fg);
   color: var(--shell-fg);
 }
 
-.tag-bar__count {
-  color: var(--shell-muted);
-  font-size: 0.6875rem;
+.tag-bar__item--active {
+  background-color: var(--shell-fg);
+  border-color: var(--shell-fg);
+  color: var(--shell-bg);
 }
 
+.tag-bar__count {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* --- featured ------------------------------------------------------------ */
+
+/* One step up from a post card, the way .featured-card outranks
+   .project-card on the home page: white rather than grey, 12px radius, and
+   a soft shadow. */
 .featured {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--shell-rule);
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 24px;
+  background-color: var(--shell-bg);
+  border: 1px solid var(--shell-rule);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all var(--shell-transition);
+}
+
+.featured:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .featured__image {
   flex: 1 1 280px;
   max-width: 42%;
+  display: block;
 }
 
 .featured__image img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: var(--shell-radius);
 }
 
 .featured__body {
@@ -73,36 +133,72 @@
 }
 
 .featured__label {
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
+  display: inline-block;
+  font-family: var(--shell-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   color: var(--shell-accent);
+  margin-bottom: 8px;
 }
 
 .featured__title {
   font-family: var(--shell-serif);
-  font-size: 1.75rem;
-  margin: 0.25rem 0 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+.featured__summary {
+  font-family: var(--shell-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--shell-muted);
+  margin: 0 0 12px;
+}
+
+.featured time {
+  font-family: var(--shell-sans);
+  font-size: 12px;
+  color: var(--shell-muted);
+}
+
+/* --- post cards ---------------------------------------------------------- */
+
+/* Two columns from 992px up, matching .home-grid--2 and its 16px gap. A
+   single 1052px-wide column would run post summaries to ~150 characters. */
+.post-list {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 992px) {
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .post-row {
   display: flex;
-  gap: 1rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--shell-rule);
+  flex-direction: column;
+  padding: 24px;
+  background-color: var(--shell-surface);
+  border: 1px solid var(--shell-rule);
+  border-radius: var(--shell-radius);
+  transition: all var(--shell-transition);
 }
 
-.post-row__number {
-  flex: none;
-  width: 2rem;
-  color: var(--shell-muted);
-  font-size: 0.75rem;
-  padding-top: 0.4rem;
+.post-row:hover {
+  transform: translateY(-4px);
+  border-color: var(--shell-fg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .post-row__title {
   font-family: var(--shell-serif);
   font-size: 1.25rem;
-  margin: 0;
+  line-height: 1.3;
+  margin: 0 0 8px;
 }
 
 .post-row__title a,
@@ -112,23 +208,30 @@
 }
 
 .post-row__summary {
+  font-family: var(--shell-sans);
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--shell-muted);
-  margin: 0.375rem 0;
+  margin: 0 0 16px;
 }
 
+/* Meta sits on the card's bottom edge whatever the summary's length, so a
+   row of cards keeps one baseline. */
 .post-row__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.75rem;
+  gap: 8px 12px;
+  margin-top: auto;
+  font-family: var(--shell-sans);
+  font-size: 12px;
   color: var(--shell-muted);
 }
 
 .post-row__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -139,18 +242,43 @@
   text-decoration: none;
 }
 
+.post-row__tags a:hover {
+  color: var(--shell-fg);
+}
+
 .post-row__lang {
   border: 1px solid var(--shell-rule);
-  padding: 0 0.25rem;
-  font-size: 0.625rem;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.post-list__empty {
+  color: var(--shell-muted);
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured,
+  .featured:hover,
+  .post-row,
+  .post-row:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 @media (max-width: 576px) {
-  .post-row__number {
-    display: none;
+  .featured {
+    padding: 20px;
   }
 
   .featured__image {
     max-width: 100%;
+  }
+
+  .post-row {
+    padding: 20px;
   }
 }

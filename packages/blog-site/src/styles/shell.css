@@ -6,11 +6,67 @@
    to the ingress websocket to report a count against, so Header.astro
    renders the masthead and nav only, with no visitor-count element at all. */
 
+/* The SPA gets this from Bootstrap's reset, so every width it declares is an
+   outer width. Without the same reset here, `.shell-main`'s 1100px max-width
+   plus 24px of padding resolved to a 1148px box against the home page's
+   1100px -- the blog's content column ran 48px wider than the home page's at
+   every viewport. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .shell-body {
   margin: 0;
+  /* The SPA reserves the scrollbar gutter unconditionally
+     (blog-frontend/src/css/global.css:50). A short blog page that did not
+     scroll was therefore 8px wider than the home page, shifting the masthead,
+     the content column and the footer 4px right the moment a reader crossed
+     into /blog. */
+  overflow-y: scroll;
   background: var(--shell-bg);
   color: var(--shell-fg);
   font-family: var(--shell-sans);
+  /* The SPA steps its body size up with the viewport
+     (blog-frontend/src/css/global.css:160-184). The blog was a flat 16px, so
+     at a desktop width its body copy rendered 2px smaller than the home
+     page's -- the most visible of the differences between the two sides. */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* The SPA narrows the scrollbar to 8px (global.css:143). The default gutter
+   is 15px, so without this the reserved gutter differed between the two
+   sides and every centred element still landed 3px off. */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--shell-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--shell-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+@media (min-width: 768px) {
+  .shell-body {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 992px) {
+  .shell-body {
+    font-size: 18px;
+  }
 }
 
 .shell-header {
@@ -168,8 +224,52 @@
   border: 1px solid var(--shell-rule);
 }
 
+/* Same box as the SPA's .home-container (blog-frontend/src/app/App.css:32):
+   same max-width, same padding on all three sides. Pages inside it lay out
+   against this column, so nothing else needs its own outer padding. */
 .shell-main {
-  padding: 0 1rem;
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* The home page's section heading (App.css:49): 12px, uppercase, tracked
+   out, over a 2px rule. It is the site's one heading device, so the blog
+   uses it too rather than opening with a 48px Playfair display line that
+   appears nowhere on the home page. */
+.shell-section-title {
+  font-family: var(--shell-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--shell-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0;
+}
+
+/* Card, in the home page's vocabulary (App.css:158): grey fill, hairline
+   border, 8px radius, 24px of padding, and a lift on hover. */
+.shell-card {
+  display: block;
+  padding: 24px;
+  background-color: var(--shell-surface);
+  border: 1px solid var(--shell-rule);
+  border-radius: var(--shell-radius);
+  transition: all var(--shell-transition);
+}
+
+.shell-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--shell-fg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell-card,
+  .shell-card:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 /* Mirrors blog-frontend/src/layout/Footer.css: a rule, then copyright left,
@@ -260,6 +360,11 @@
 }
 
 @media (max-width: 768px) {
+  /* Same three-step padding ladder as .home-container (App.css:423, :475). */
+  .shell-main {
+    padding: 24px 20px 48px;
+  }
+
   .shell-header__utility {
     padding: 6px 16px;
   }
@@ -271,5 +376,13 @@
 
   .shell-header__nav-link {
     font-size: 13px;
+  }
+}
+
+/* After the 768px block on purpose: these are max-width queries, so at a
+   phone width both match and the later rule wins. */
+@media (max-width: 480px) {
+  .shell-main {
+    padding: 20px 16px 40px;
   }
 }
