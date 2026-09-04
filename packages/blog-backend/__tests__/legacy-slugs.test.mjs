@@ -29,3 +29,11 @@ test('a current slug is not a legacy slug', () => {
 test('trailing slashes are tolerated', () => {
   assert.equal(resolveLegacySlug('/eth/'), '/blog/ethereum-event-object');
 });
+
+test('inherited Object.prototype members are not mistaken for legacy slugs', () => {
+  assert.equal(resolveLegacySlug('/constructor'), undefined);
+  assert.equal(resolveLegacySlug('/toString'), undefined);
+  assert.equal(resolveLegacySlug('/__proto__'), undefined);
+  assert.equal(resolveLegacySlug('/hasOwnProperty'), undefined);
+  assert.equal(resolveLegacySlug('/valueOf'), undefined);
+});
