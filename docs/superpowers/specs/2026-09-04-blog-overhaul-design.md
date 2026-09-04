@@ -111,12 +111,12 @@ git pull → HEAD unchanged? → exit (no build)
   already does with `cp -r md /usr/src/app`.
 - A failed build never swaps, so the site keeps serving the previous `dist`.
 - `flock` guards against overlapping runs.
-- Cost: the runtime image carries the Astro toolchain (+150–250 MB). Accepted for
-  a single-replica personal site. The clean upgrade is a builder sidecar writing
-  to a shared `emptyDir`, which needs changes in `~/code/kubenetes` and is
-  deliberately out of scope.
+- Cost: the runtime image carries the Astro toolchain. Measured (not estimated):
+  761 MB → 1.33 GB, roughly +570 MB. Accepted for a single-replica personal
+  site. The clean upgrade is a builder sidecar writing to a shared `emptyDir`,
+  which needs changes in `~/code/kubenetes` and is deliberately out of scope.
 
-**`blog-backend/Dockerfile` must move from `node:18` to `node:22`** — Astro 6
+**`blog-backend/Dockerfile` must move from `node:18` to `node:22`** — Astro 7.3.1
 requires Node ≥ 22.12.0 (odd-numbered majors unsupported), and Node 18 is EOL.
 The image also needs `sharp`'s native dependencies for image optimization.
 
@@ -286,8 +286,11 @@ the order matters:
    its blog routes removed, so the switch is atomic.
 3. After verifying, delete `md/` and `sort/` from the blog repo.
 
-Rollback is removing the `app.use('/blog', …)` lines and redeploying the previous
-image tag.
+Rollback is removing the `app.use('/blog', …)` lines, reverting the commits and
+rebuilding — `push2gke_artifact.sh` runs `gcloud artifacts docker images delete
+… --delete-tags` before every push, so no previous image tag survives to
+redeploy. This is precisely why the old content layout (`md/`, `sort/`) stays in
+the content repo until production is verified.
 
 ## 10. Out of scope
 

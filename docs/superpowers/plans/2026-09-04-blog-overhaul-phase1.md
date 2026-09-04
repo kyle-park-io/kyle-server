@@ -14,8 +14,8 @@
 
 - **Node ≥ 22.12.0.** Astro 7's `engines` field requires it and rejects odd majors like 23. Local machine has v24.19.0 active and v22.23.2 under nvm. The Docker image must move off `node:18` (Task 13).
 - **No new test dependencies.** All tests use the built-in `node --test` runner and `node:assert/strict`.
-- **Conventional commits.** `.husky/commit-msg` runs commitlint with `@commitlint/config-conventional`. Use `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`.
-- **`.husky/pre-commit` runs `npm test` then `yarn run prettier-format` (`prettier --write .`), which rewrites files across the whole repo on every commit.** Expect unrelated formatting churn to appear in `git status`; do not commit it — stage only the files each task names.
+- **Conventional commits.** `.husky/commit-msg` is written to run commitlint with `@commitlint/config-conventional`. Use `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`.
+- **Hooks are present in the tree but not installed.** `.husky/pre-commit` is written to run `npm test` then `yarn run prettier-format` (`prettier --write .`), and `.husky/commit-msg` to run commitlint, but `core.hooksPath` is unset in this repository and `.husky/_` does not exist, so no hook has ever run here. Formatting and commit-message linting must be run deliberately (`yarn run prettier-format`, `yarn commit-lint`) rather than relied on at commit time. If you do run `prettier-format`, expect unrelated formatting churn to appear in `git status`; do not commit it — stage only the files each task names.
 - **URLs stay extension-less:** `/blog`, `/blog/<slug>`, `/blog/tags/<tag>`. No trailing slashes, no redirect hops.
 - **Article body column is 720px.** Breakpoints reuse the existing `global.css` scale: 1200 / 992 / 768 / 576. Do not introduce a new scale.
 - **The Go reverse proxy gets no code changes.** `utils/url.go:14` keys on the first path segment, so every `/blog/**` path already resolves to `site-app-server`. Only `config/dev-links.yaml` changes (one line, Task 3).
@@ -1237,7 +1237,7 @@ lang: ko
 ## 하나뿐인 절
 
 내용.
-````
+```
 
 These live under the gitignored `src/data/`, so they exist only on the machine running the build. Task 12's `build-blog.sh` overwrites the directory with the real content repo. Re-create them with this exact content whenever the tests need them.
 
