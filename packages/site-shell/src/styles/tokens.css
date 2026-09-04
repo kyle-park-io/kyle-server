@@ -1,5 +1,7 @@
-/* Shared design tokens — imported by both the Solid SPA and the Astro blog.
-   Values are copied from blog-frontend/src/css/global.css; change them here. */
+/* Shared design tokens — imported by the Astro blog only. The Solid SPA does
+   not import this file; it still carries its own duplicated literals in
+   blog-frontend/src/css/global.css. Values here are copied from that file —
+   keep them in sync by hand until the SPA is migrated to import this too. */
 :root {
   /* palette */
   --shell-bg: #ffffff;
