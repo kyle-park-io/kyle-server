@@ -155,13 +155,26 @@
 }
 
 @media (min-width: 1200px) {
+  /* `<pre>` is always wrapped in `.code-scroll` (astro.config.mjs's rehype
+     transform wraps every `pre`/`table` unconditionally), so bleeding both
+     the wrapper and the `<pre>` it contains compounds: the second bleed is
+     computed against the first one's already-bled width. That pushed the
+     block another ~2px into the .toc rail even after switching to a
+     left-only bleed below. `<pre>` has no explicit width, so once its
+     wrapper bleeds it fills that width by normal block flow -- it does not
+     need (and must not get) its own bleed rule. `.table-scroll` has no such
+     nested double-target (`.post__content table` isn't bled), so it is
+     unaffected by this.
+     max-width: 100% (set above) otherwise wins over width and the block
+     only shifts left instead of bleeding past the edge.
+     Bleed left only: .post-page's gap to the .toc rail is 2rem, so a
+     symmetric 3rem-each-way bleed put the block's right edge 1rem inside
+     the TOC column. There is no rail on the left, so the full 3rem bleed
+     stays there and the right edge holds at the measure. */
   .code-scroll,
-  .post__content pre,
   .table-scroll {
-    /* max-width: 100% (set above) otherwise wins over width and the block
-       only shifts left instead of bleeding past both edges. */
     max-width: none;
-    width: calc(100% + 6rem);
+    width: calc(100% + 3rem);
     margin-left: -3rem;
   }
 }
