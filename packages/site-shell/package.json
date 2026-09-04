@@ -8,6 +8,6 @@
   "main": "src/nav.ts",
   "types": "src/nav.ts",
   "scripts": {
-    "test": "node --test __tests__/*.test.mjs"
+    "test": "node --test __tests__/*.test.ts"
   }
 }

@@ -3,10 +3,18 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+/** The hast subset the wrapper-plugin fixtures below build by hand. */
+interface TestNode {
+  type: string;
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  children?: TestNode[];
+}
+
 const SERVE_ROOT = existsSync(join('dist', 'blog'))
   ? join('dist', 'blog')
   : 'dist';
-const read = (file) => readFileSync(join(SERVE_ROOT, file), 'utf8');
+const read = (file: string) => readFileSync(join(SERVE_ROOT, file), 'utf8');
 
 test('a post is emitted as an extension-less-servable html file', () => {
   assert.ok(existsSync(join(SERVE_ROOT, 'hello-world.html')));
@@ -75,23 +83,27 @@ test('a pre or table nested inside a blockquote or list item is still wrapped fo
   // GFM, e.g. a quoted table) was never wrapped in `.table-scroll` and
   // could widen the page on a phone. Exercise the actual shipped plugin
   // (not a re-implementation) directly against a synthetic hast tree.
-  const config = (await import('../astro.config.mjs')).default;
-  const rehypePlugins = config.markdown.rehypePlugins;
+  const config = (await import('../astro.config.ts')).default;
+  const rehypePlugins = config.markdown?.rehypePlugins ?? [];
+  assert.ok(
+    rehypePlugins.length > 0,
+    'expected rehype plugins to be configured',
+  );
   const wrapPlugin = rehypePlugins[rehypePlugins.length - 1];
   assert.equal(
     typeof wrapPlugin,
     'function',
     'expected a rehype plugin factory',
   );
-  const transform = wrapPlugin();
+  const transform = (wrapPlugin as () => (tree: TestNode) => void)();
 
-  const table = (id) => ({
+  const table = (id: string): TestNode => ({
     type: 'element',
     tagName: 'table',
     properties: { id },
     children: [],
   });
-  const pre = (id) => ({
+  const pre = (id: string): TestNode => ({
     type: 'element',
     tagName: 'pre',
     properties: { id },
@@ -120,19 +132,23 @@ test('a pre or table nested inside a blockquote or list item is still wrapped fo
 
   transform(tree);
 
-  const findWrapped = (node, id) => {
+  const findWrapped = (node: TestNode, id: string): boolean => {
     if (node.type === 'element' && node.tagName === 'div') {
-      const child = node.children[0];
+      const child = node.children?.[0];
       if (
         child?.properties?.id === id &&
         (child.tagName === 'table' || child.tagName === 'pre')
       ) {
-        return node.properties.className.includes(
-          child.tagName === 'pre' ? 'code-scroll' : 'table-scroll',
-        );
+        const className = node.properties?.className;
+        const wanted = child.tagName === 'pre' ? 'code-scroll' : 'table-scroll';
+        return Array.isArray(className)
+          ? className.includes(wanted)
+          : String(className ?? '').includes(wanted);
       }
     }
-    return (node.children ?? []).some((child) => findWrapped(child, id));
+    return (node.children ?? []).some((child: TestNode) =>
+      findWrapped(child, id),
+    );
   };
 
   assert.ok(

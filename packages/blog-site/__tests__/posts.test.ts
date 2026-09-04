@@ -5,9 +5,15 @@ import {
   excludeDrafts,
   tagCounts,
   postsWithTag,
+  type PostLike,
 } from '../src/lib/posts.ts';
 
-const post = (id, date, tags, draft = false) => ({
+const post = (
+  id: string,
+  date: string,
+  tags: string[],
+  draft = false,
+): PostLike => ({
   id,
   data: { title: id, date: new Date(date), tags, draft },
 });

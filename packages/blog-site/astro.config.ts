@@ -17,6 +17,15 @@ import sitemap from '@astrojs/sitemap';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
+/** The slice of hast this wrapper touches; the full types live in @types/hast. */
+interface HastNode {
+  type: string;
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  children?: HastNode[];
+}
+type HastParent = HastNode & { children: HastNode[] };
+
 export default defineConfig({
   site: 'https://jungho.dev',
   base: '/blog',
@@ -57,12 +66,12 @@ export default defineConfig({
           },
         },
       ],
-      () => (tree) => {
+      () => (tree: HastParent) => {
         // Walks every depth, not just the root's direct children, so a
         // <pre> or <table> nested inside a <blockquote> or <li> is still
         // wrapped. In-place replacement (no splice) keeps each array's
         // length stable and every index visited exactly once.
-        const wrap = (parent) => {
+        const wrap = (parent: HastParent): void => {
           if (!parent || !Array.isArray(parent.children)) return;
           for (let i = 0; i < parent.children.length; i += 1) {
             const node = parent.children[i];
@@ -71,7 +80,7 @@ export default defineConfig({
             // children, so anything nested inside it (including another
             // table inside a table cell) is found before `node` itself is
             // wrapped and moved under a new div.
-            wrap(node);
+            if (Array.isArray(node.children)) wrap(node as HastParent);
             if (node.tagName !== 'pre' && node.tagName !== 'table') continue;
             parent.children[i] = {
               type: 'element',
