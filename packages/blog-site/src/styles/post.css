@@ -247,7 +247,10 @@
 
   .toc {
     position: static;
+    /* Match the body measure rather than the wider group, so the collapsed
+       panel's edges sit under the paragraph text. */
     width: auto;
+    max-width: var(--shell-measure);
     margin: 1.5rem 0;
     border: 1px solid var(--shell-rule);
     padding: 0.75rem 1rem;
@@ -260,9 +263,19 @@
 
 /* --- comments (giscus) -------------------------------------------------- */
 
+/* The article stack shares one left edge. `.post-page` centres the
+   article+rail group as a unit, so the body text sits left of the page
+   centre; centring the comments on the page instead put them 89px to the
+   right of the paragraph above them. Give the comments the group's geometry
+   and left-align the content inside it, and the two edges line up at every
+   width. */
 .comments {
-  max-width: var(--shell-measure);
+  max-width: calc(var(--shell-measure) + var(--shell-toc-width) + 2rem);
   margin: 3rem auto 0;
+}
+
+.comments > * {
+  max-width: var(--shell-measure);
 }
 
 .comments__heading {
