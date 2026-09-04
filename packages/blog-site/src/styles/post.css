@@ -60,9 +60,19 @@
   text-decoration: none;
 }
 
-.post__cover img,
-.post__content img {
+.post__cover img {
+  /* The cover legitimately fills the column: it's chosen/cropped to span
+     the full measure, so stretching it to 100% is the intended look. */
   width: 100%;
+  height: auto;
+  display: block;
+}
+
+.post__content img {
+  /* Inline images are arbitrary post assets, often much narrower than the
+     720px measure (small diagrams, screenshots). `width: 100%` upscaled and
+     blurred them; cap at their intrinsic size instead. */
+  max-width: 100%;
   height: auto;
   display: block;
 }
