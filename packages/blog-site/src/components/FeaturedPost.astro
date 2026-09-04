@@ -9,6 +9,14 @@ interface Props {
 
 const { post } = Astro.props;
 const iso = post.data.date.toISOString().slice(0, 10);
+// Match PostIndexRow's localized long form, not a raw ISO date, so the two
+// date formats in one viewport don't disagree with each other.
+const shown = post.data.date.toLocaleDateString('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Seoul',
+});
 ---
 
 <article class="featured" data-featured>
@@ -30,6 +38,6 @@ const iso = post.data.date.toISOString().slice(0, 10);
       <a href={`${BASE}/${post.id}`}>{post.data.title}</a>
     </h2>
     <p class="featured__summary">{post.data.summary}</p>
-    <time datetime={iso}>{iso}</time>
+    <time datetime={iso}>{shown}</time>
   </div>
 </article>
