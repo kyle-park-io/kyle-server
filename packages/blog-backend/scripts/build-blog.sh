@@ -12,6 +12,16 @@
 
 set -eu
 
+# cron(8) runs jobs with PATH=/usr/bin:/bin (Debian's default) and does not
+# inherit the daemon's environment, so `npm`/`node` — installed under
+# /usr/local/bin in node:22-slim — are invisible unless we put them on PATH
+# ourselves. Without this, `npm run build` below fails "not found", `set -eu`
+# aborts, BLOG_DIST is never swapped, and /blog silently keeps serving the
+# image-baked build forever. A normal interactive shell or `docker run`
+# already has /usr/local/bin on PATH, which is why this was easy to miss.
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH
+
 CONTENT_SRC="${CONTENT_SRC:-/blog/content}"
 SITE_DIR="${SITE_DIR:-/usr/src/blog-site}"
 BLOG_DIST="${BLOG_DIST:-/usr/src/app/blog-dist}"
