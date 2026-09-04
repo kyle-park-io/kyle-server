@@ -18,7 +18,8 @@
     "lib"
   ],
   "scripts": {
-    "test": "node ./__tests__/blog-backend.test.js"
+    "build": "tsc",
+    "test": "tsc && node --test __tests__/*.test.mjs"
   },
   "dependencies": {
     "@types/js-yaml": "^4.0.9",
@@ -33,7 +34,6 @@
     "@types/helmet": "^4.0.0",
     "@types/node": "^20.10.0",
     "js-yaml": "^4.1.0",
-    "md-to-html3": "0.2.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
   }

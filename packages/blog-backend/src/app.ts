@@ -1,85 +1,60 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import express, { Request, Response } from 'express';
+import express from 'express';
 import helmet from 'helmet';
 import * as path from 'path';
 import apiRouter from './routes/api';
 import { serverConfig } from './config/server.config';
-import { update } from './utils/md';
+import { mountBlog } from './blog/serve';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { setTimeout } from 'timers/promises';
-import { setInterval } from 'timers';
-
-const config = serverConfig();
-const PORT = config.server.port;
-
-const app = express();
-
-async function initialize(): Promise<void> {
-  console.log('blog update!');
-  await update();
+export interface AppOptions {
+  /** Directory holding the built astro output that is served at /blog. */
+  blogDist: string;
+  /** Directory holding the SPA webpack build, served at /blog-static. */
+  spaStatic: string;
 }
 
-function executeAsyncFunction() {
-  initialize().catch((err) => {
-    console.error('Error executing scheduled function:', err);
+export function createApp(options: AppOptions): express.Express {
+  const app = express();
+
+  app.use(helmet({ contentSecurityPolicy: false }));
+
+  // Static blog. Must come before the SPA catch-all.
+  mountBlog(app, options.blogDist);
+
+  // SPA assets.
+  app.use('/blog-static', express.static(options.spaStatic));
+
+  app.use('/api', apiRouter);
+
+  // An unmatched API path must 404 as an API, not fall through to the SPA
+  // shell — otherwise every deleted blog endpoint would still answer 200 with
+  // a page of HTML, which is worse than being gone.
+  app.use('/api', (_req, res) => {
+    res.status(404).json({ error: 'not found' });
+  });
+
+  // Everything else is a SPA route.
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(options.spaStatic, 'index.html'));
+  });
+
+  return app;
+}
+
+function start(): void {
+  const config = serverConfig();
+  const port = config.server.port;
+
+  const app = createApp({
+    blogDist: process.env.BLOG_DIST ?? '/usr/src/app/blog-dist',
+    spaStatic: path.join(__dirname, '../static'),
+  });
+
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
   });
 }
 
-async function startServer(): Promise<void> {
-  try {
-    // schedule
-    await initialize();
-    const intervalId = setInterval(executeAsyncFunction, 1000 * 60 * 10);
-
-    // helmet, csp
-    app.use(
-      helmet({ contentSecurityPolicy: false }),
-      // helmet.contentSecurityPolicy({
-      //   useDefaults: true,
-      //   directives: {
-      //     'default-src': ["'self'"],
-      //     'script-src': [
-      //       "'self'",
-      //       'https://cdn.jsdelivr.net',
-      //       'https://cdnjs.cloudflare.com',
-      //     ],
-      //     'style-src': [
-      //       "'self'",
-      //       'https://cdn.jsdelivr.net',
-      //       'https://cdnjs.cloudflare.com',
-      //     ],
-      //   },
-      // }),
-    );
-
-    // front-build(static) path
-    const staticPath = path.join(__dirname, '../static');
-    // static
-    app.use('/blog-static', (req, res, next) => {
-      // if (req.path.startsWith('/static')) {
-      // }
-      console.log('Static file requested:', req.path);
-      next();
-    });
-    app.use('/blog-static', express.static(staticPath));
-
-    // api
-    app.use('/api', apiRouter);
-
-    // extra
-    app.get('*', (req, res) => {
-      console.log('req url: ', req.url);
-      res.sendFile(path.join(staticPath, 'index.html'));
-    });
-
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error('Failed to start the server:', error);
-    process.exit(1);
-  }
+// `node dist/app.js` starts the server; importing the module does not.
+if (require.main === module) {
+  start();
 }
-
-void startServer();
