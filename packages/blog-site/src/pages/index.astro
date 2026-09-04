@@ -37,9 +37,11 @@ const rows = featured ? posts.slice(1) : posts;
 
     <div class="post-list">
       {
-        rows.map((post, i) => (
-          <PostIndexRow post={post} index={featured ? i + 1 : i} />
-        ))
+        /* `i` is already the rank within `rows` (the featured post, if any,
+           was already sliced out above) — number the rendered rows, not the
+           global rank, so the list starts at 01 whether or not a post is
+           featured. */
+        rows.map((post, i) => <PostIndexRow post={post} index={i} />)
       }
     </div>
 
