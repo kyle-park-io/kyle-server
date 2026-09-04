@@ -15,13 +15,8 @@ import Profile from './profile/Profile';
 import DevRel from './devrel/DevRel';
 import Quant from './quant/Quant';
 import PersonalQuant from './personal-quant/PersonalQuant';
-import BlogList from './blog/BlogList';
-import BlogDetail from './blog/BlogDetail';
-import BlogNotFound from './blog/BlogNotFound';
 import Chat from './chat/Chat';
 import NotFoundPage from './components/404/NotFoundPage';
-// test component
-import Test from './blog/Test';
 
 /**
  * Main Application Entry Point
@@ -45,15 +40,11 @@ if (root != null) {
         <main class="nyt-main-content tw-flex-grow tw-flex tw-flex-wrap tw-bg-white">
           <Router>
             <Route path="/" component={App} />
-            <Route path="/test" component={Test} />
             <Route path="/about" component={About} />
             <Route path="/profile" component={Profile} />
             <Route path="/devrel" component={DevRel} />
             <Route path="/quant" component={Quant} />
             <Route path="/personal-quant" component={PersonalQuant} />
-            <Route path="/blog" component={BlogList} />
-            <Route path="/blog/not-found" component={BlogNotFound} />
-            <Route path="/blog/:id" component={BlogDetail} />
             <Route path="/chat" component={Chat} />
             <Route path="/404" component={NotFoundPage} />
             <Route path="*" component={NotFoundPage} />

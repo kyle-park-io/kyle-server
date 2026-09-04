@@ -126,7 +126,11 @@ const Header: Component = (): JSX.Element => {
               )}
             </For>
             <li class="nyt-header__nav-item">
-              <button onClick={handleOpen} class="nyt-header__nav-link">
+              <button
+                onClick={handleOpen}
+                class="nyt-header__nav-link"
+                aria-label="Open navigation menu"
+              >
                 ☰
               </button>
               <Move show={show()} onHide={handleClose}></Move>
