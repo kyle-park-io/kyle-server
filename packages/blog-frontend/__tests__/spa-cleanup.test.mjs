@@ -29,11 +29,23 @@ test('no source file still imports them', () => {
   assert.ok(!source.includes('file-saver'));
 });
 
-test('the homepage links the blog and has no Extra section', () => {
+test('the homepage links the blog from a card and has no Extra section', () => {
   const app = readFileSync('src/app/App.tsx', 'utf8');
-  assert.match(app, /Writing/);
-  assert.match(app, /\/blog\/index\.json/);
+  assert.match(
+    app,
+    /<a\s+class="project-card"\s+href="\/blog"\s+rel="external">/,
+    'the Blog card must be an anchor carrying rel="external", or @solidjs/router intercepts the click and renders the SPA 404',
+  );
   assert.ok(!app.includes('Extra'), 'the Extra section is removed');
+});
+
+test('the homepage renders without fetching the blog', () => {
+  const app = readFileSync('src/app/App.tsx', 'utf8');
+  // The Writing section fetched /blog/index.json to render, so a momentary
+  // blog outage showed an empty-state link on the site's front page. The card
+  // is static markup: the homepage no longer depends on the blog being up.
+  assert.ok(!app.includes('fetch('), 'the homepage must not fetch to render');
+  assert.ok(!app.includes('index.json'), 'no runtime dependency on the feed');
 });
 
 // Every consumer that renders `site-shell`'s NavItem[] with a client-side
