@@ -125,6 +125,61 @@ test('a failed build leaves the previously published output in place', () => {
   }
 });
 
+test('a build that exits 0 but produces no index.html leaves the previously published output in place', () => {
+  const good = sandbox();
+  try {
+    run(good.env);
+    const before = readFileSync(join(good.blogDist, 'index.html'), 'utf8');
+
+    const missingIndex = { ...good.env };
+    const stub = join(good.env.SITE_DIR, 'no-index-build.sh');
+    writeFileSync(stub, '#!/bin/sh\nmkdir -p "$PWD/dist"\nexit 0\n');
+    chmodSync(stub, 0o755);
+    missingIndex.BUILD_CMD = stub;
+
+    const result = run(missingIndex);
+    assert.equal(result.ok, false, 'the script must exit non-zero');
+    assert.match(result.output, /no index\.html/);
+    assert.equal(
+      readFileSync(join(good.blogDist, 'index.html'), 'utf8'),
+      before,
+      'published output must be untouched',
+    );
+  } finally {
+    rmSync(good.root, { recursive: true, force: true });
+  }
+});
+
+test('a build that nests its output under dist/blog still publishes index.html at the root of BLOG_DIST', () => {
+  const box = sandbox();
+  try {
+    const stub = join(box.env.SITE_DIR, 'nested-build.sh');
+    writeFileSync(
+      stub,
+      [
+        '#!/bin/sh',
+        'mkdir -p "$PWD/dist/blog"',
+        'echo "<h1>nested build</h1>" > "$PWD/dist/blog/index.html"',
+        'exit 0',
+      ].join('\n') + '\n',
+    );
+    chmodSync(stub, 0o755);
+
+    const nested = { ...box.env, BUILD_CMD: stub };
+    assert.equal(run(nested).ok, true);
+    assert.ok(
+      existsSync(join(box.blogDist, 'index.html')),
+      'index.html must be published at the root of BLOG_DIST',
+    );
+    assert.ok(
+      !existsSync(join(box.blogDist, 'blog', 'index.html')),
+      'the dist/blog nesting level must be stripped, not preserved',
+    );
+  } finally {
+    rmSync(box.root, { recursive: true, force: true });
+  }
+});
+
 test('a stale temporary directory from a previous crash does not block the build', () => {
   const box = sandbox();
   try {
