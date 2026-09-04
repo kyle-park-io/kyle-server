@@ -258,3 +258,32 @@ test('a run whose lock is already held exits 0 without publishing', (t) => {
     rmSync(box.root, { recursive: true, force: true });
   }
 });
+
+test('the image busts its content clone when the content changes', () => {
+  // Docker caches the RUN that clones the content repo, so an image built
+  // after new posts were published still carried the old ones. A fresh pod
+  // serves that baked build until its first cron tick, so a deploy rolled
+  // the blog back: four posts left the live site for the minutes between a
+  // rollout and the next tick, on 2026-09-04.
+  const dockerfile = readFileSync('Dockerfile', 'utf8');
+
+  const argAt = dockerfile.indexOf('ARG CONTENT_REV');
+  const cloneAt = dockerfile.indexOf('init-script.sh');
+  assert.ok(argAt !== -1, 'expected an ARG that can bust the clone layer');
+  assert.ok(
+    argAt < cloneAt,
+    'the ARG has to come before the clone, or it busts nothing',
+  );
+  assert.match(
+    dockerfile.slice(argAt, cloneAt + 200),
+    /\$\{?CONTENT_REV\}?/,
+    'the clone step must reference CONTENT_REV, or the ARG is inert',
+  );
+
+  const deploy = readFileSync('push2gke_artifact.sh', 'utf8');
+  assert.match(
+    deploy,
+    /--build-arg=CONTENT_REV=/,
+    'the deploy script has to pass it, or nothing ever busts',
+  );
+});
