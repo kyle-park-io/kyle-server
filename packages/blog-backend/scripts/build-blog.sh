@@ -100,4 +100,16 @@ fi
 mv "$STAGING" "$BLOG_DIST"
 rm -rf "$PREVIOUS"
 
+# Record the content commit this publish is built from, so the caller (see
+# cron-update-blog.sh) can compare HEAD against the commit that was actually
+# built and published rather than the HEAD it captured before `git pull` --
+# pull and this build are not transactional, so that comparison alone can
+# make a failed build's content get silently skipped forever. Written only
+# now, after a successful swap, and only when CONTENT_SRC is inside a git
+# checkout (the test sandbox's CONTENT_SRC is a plain tmpdir, not a repo).
+LAST_BUILT_FILE="${LAST_BUILT_FILE:-$BLOG_DIST.last-built}"
+if BUILT_SHA=$(git -C "$CONTENT_SRC" rev-parse HEAD 2>/dev/null); then
+  printf '%s\n' "$BUILT_SHA" > "$LAST_BUILT_FILE"
+fi
+
 log "published $(find "$BLOG_DIST" -name '*.html' | wc -l) pages"

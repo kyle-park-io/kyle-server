@@ -192,6 +192,39 @@ test('a stale temporary directory from a previous crash does not block the build
   }
 });
 
+test('a successful build records the built content commit in LAST_BUILT_FILE', () => {
+  const box = sandbox();
+  try {
+    const gitOpts = { cwd: box.env.CONTENT_SRC, stdio: 'pipe' };
+    execFileSync('git', ['init', '-q'], gitOpts);
+    execFileSync('git', ['config', 'user.email', 'test@example.com'], gitOpts);
+    execFileSync('git', ['config', 'user.name', 'Test'], gitOpts);
+    execFileSync('git', ['add', '.'], gitOpts);
+    execFileSync('git', ['commit', '-q', '-m', 'init'], gitOpts);
+    const sha = execFileSync('git', ['rev-parse', 'HEAD'], {
+      cwd: box.env.CONTENT_SRC,
+      encoding: 'utf8',
+    }).trim();
+
+    assert.equal(run(box.env).ok, true);
+    const lastBuiltFile = `${box.blogDist}.last-built`;
+    assert.ok(existsSync(lastBuiltFile));
+    assert.equal(readFileSync(lastBuiltFile, 'utf8').trim(), sha);
+  } finally {
+    rmSync(box.root, { recursive: true, force: true });
+  }
+});
+
+test('a build whose CONTENT_SRC is not a git checkout still succeeds, with no LAST_BUILT_FILE', () => {
+  const box = sandbox();
+  try {
+    assert.equal(run(box.env).ok, true);
+    assert.ok(!existsSync(`${box.blogDist}.last-built`));
+  } finally {
+    rmSync(box.root, { recursive: true, force: true });
+  }
+});
+
 test('a run whose lock is already held exits 0 without publishing', (t) => {
   const hasFlock = (() => {
     try {
