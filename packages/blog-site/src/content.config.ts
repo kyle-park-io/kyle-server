@@ -6,7 +6,11 @@ const posts = defineCollection({
   loader: glob({
     pattern: '*/index.md',
     base: './src/data/posts',
-    // Without this the id would be `<slug>/index`; the slug is the directory.
+    // Astro 7.3.1's default id generation already strips the trailing
+    // `/index`, so this isn't working around that. It's here to pin the id
+    // to the literal post directory name, rather than routing it through
+    // Astro's slugify helper (which would lowercase/dash-transform it) —
+    // the slug is the directory, verbatim.
     generateId: ({ entry }) => entry.split('/')[0],
   }),
   schema: ({ image }) =>
