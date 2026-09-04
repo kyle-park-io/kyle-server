@@ -69,92 +69,195 @@
   }
 }
 
+/* --- header ------------------------------------------------------------- *
+ * A declaration-for-declaration mirror of the SPA's masthead
+ * (blog-frontend/src/layout/Header.css), because the two render the same
+ * masthead on either side of one site. The first version reproduced it from
+ * memory and diverged on almost every rule that draws a line: the 2px black
+ * rule under the wordmark and the gradient behind it were missing entirely,
+ * the nav sat over a border-top instead of its own border-bottom, its items
+ * were 20px apart instead of 32px, its links were --shell-fg where the SPA's
+ * are one step lighter, and neither of the SPA's two responsive steps
+ * existed. The only deliberate difference left is the offcanvas: the SPA
+ * opens a Solid component, the blog a <details> panel, since it ships no
+ * framework.
+ * -------------------------------------------------------------------------*/
+
 .shell-header {
+  width: 100%;
+  background-color: var(--shell-bg);
   border-bottom: 1px solid var(--shell-rule);
 }
 
-.shell-header__utility {
+.shell-header__utility-bar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   padding: 6px 24px;
   border-bottom: 1px solid var(--shell-rule);
+  font-family: var(--shell-sans);
   font-size: 11px;
   color: var(--shell-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
+.shell-header__utility-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.shell-header__utility-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Anchor reset on the element-agnostic selector, matching the SPA's own
+   comment: an `a.`-qualified rule would outrank the nav accent variants. */
+.shell-header__home-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--shell-chrome-transition);
+}
+
+.shell-header__home-btn:hover {
+  opacity: 0.7;
+}
+
+.shell-header__home-icon {
+  height: 20px;
+  width: auto;
+}
+
 .shell-header__date {
   font-weight: 500;
 }
 
-.shell-header__masthead {
-  display: block;
-  text-align: center;
-  padding: 1rem 0 0.5rem;
-  text-decoration: none;
-  color: inherit;
+.shell-header__visitor-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
 }
 
-/* Matched to the SPA masthead declaration for declaration
-   (blog-frontend/src/layout/Header.css:141). The logo uses the DISPLAY face,
-   Cormorant Garamond -- not the body serif. Reproducing it with the serif
-   token is what made the two mastheads visibly different typefaces. */
+.shell-header__visitor-icon {
+  color: #22c55e;
+  font-size: 8px;
+  animation: shell-pulse 2s infinite;
+}
+
+@keyframes shell-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell-header__visitor-icon {
+    animation: none;
+  }
+}
+
+.shell-header__main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 2px solid var(--shell-fg);
+  background: linear-gradient(to bottom, var(--shell-bg) 0%, #fafafa 100%);
+}
+
+.shell-header__logo-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  transition: opacity var(--shell-chrome-transition);
+}
+
+.shell-header__logo-btn:hover {
+  opacity: 0.85;
+}
+
 .shell-header__logo {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* The wordmark uses the DISPLAY face, Cormorant Garamond, not the body
+   serif. Reproducing it with the serif token is what once made the two
+   mastheads render in visibly different typefaces. */
+.shell-header__logo-accent {
   font-family: var(--shell-display);
   font-size: 36px;
   font-weight: 600;
+  color: var(--shell-fg);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1;
 }
 
-.shell-header__tagline {
-  display: block;
-  margin-top: 0.25rem;
+.shell-header__logo-tagline {
   font-family: var(--shell-serif);
-  font-size: 0.8125rem;
+  font-size: 13px;
+  font-weight: 400;
   font-style: italic;
   color: var(--shell-muted);
   letter-spacing: 0.15em;
+  text-transform: none;
+}
+
+.shell-header__nav {
+  display: flex;
+  justify-content: center;
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--shell-rule);
 }
 
 .shell-header__nav-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.25rem 1.25rem;
-  margin: 0;
-  padding: 0.5rem 1rem;
+  gap: 32px;
   list-style: none;
-  border-top: 1px solid var(--shell-rule);
+  margin: 0;
+  padding: 0;
 }
 
 .shell-header__nav-item {
   position: relative;
 }
 
-/* Matched to blog-frontend/src/layout/Header.css:183 so the nav does not
-   change typeface, size, weight or casing when a reader crosses between the
-   SPA and the blog. */
 .shell-header__nav-link {
-  position: relative;
-  display: inline-block;
-  padding: 4px 0;
-  color: var(--shell-fg);
-  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   font-family: var(--shell-serif);
   font-size: 14px;
   font-weight: 500;
+  color: var(--shell-fg-soft);
   text-transform: capitalize;
   letter-spacing: 0.03em;
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
+  padding: 4px 0;
+  position: relative;
+  transition: color var(--shell-chrome-transition);
+  text-decoration: none;
+  display: inline-block;
 }
 
-/* The SPA's growing hover underline, which the first pass replaced with a
-   plain colour change. */
 .shell-header__nav-link::after {
   content: '';
   position: absolute;
@@ -163,24 +266,27 @@
   width: 0;
   height: 2px;
   background-color: var(--shell-fg);
-  transition: width 0.3s ease-in-out;
+  transition: width var(--shell-chrome-transition);
+}
+
+.shell-header__nav-link:hover {
+  color: var(--shell-fg);
 }
 
 .shell-header__nav-link:hover::after {
   width: 100%;
 }
 
-.shell-header__nav-link:hover {
-  color: var(--shell-accent);
-}
-
-/* Accent colors for the DevRel / Quant / P.Quant links. These have no
-   --shell-* token equivalent (they are one-off literals in the SPA's own
-   Header.css), so the literal hex values are reproduced here rather than
-   inventing new shared tokens. */
+/* Accent colours for the DevRel / Quant / P.Quant links. These are one-off
+   literals in the SPA's Header.css with no token of their own, so the same
+   literals are reproduced here rather than inventing shared tokens. */
 .shell-header__nav-link--devrel {
   color: #2563eb;
   font-weight: 600;
+}
+
+.shell-header__nav-link--devrel::after {
+  background-color: #2563eb;
 }
 
 .shell-header__nav-link--devrel:hover {
@@ -192,6 +298,10 @@
   font-weight: 600;
 }
 
+.shell-header__nav-link--quant::after {
+  background-color: #dc2626;
+}
+
 .shell-header__nav-link--quant:hover {
   color: #b91c1c;
 }
@@ -201,10 +311,16 @@
   font-weight: 600;
 }
 
+.shell-header__nav-link--personal-quant::after {
+  background-color: #0d9488;
+}
+
 .shell-header__nav-link--personal-quant:hover {
   color: #0f766e;
 }
 
+/* The SPA's ☰ opens a Solid offcanvas. With no framework here it opens a
+   <details> panel, styled to read as the same nav item. */
 .shell-header__more > summary {
   list-style: none;
 }
@@ -272,29 +388,43 @@
   }
 }
 
-/* Mirrors blog-frontend/src/layout/Footer.css: a rule, then copyright left,
-   tagline centre, icons right. Values are taken from that file so the footer
-   does not change shape at the shell seam. */
+/* --- footer ------------------------------------------------------------- *
+ * Mirrors blog-frontend/src/layout/Footer.css declaration for declaration.
+ * The first version got the two things that draw the footer's edge wrong: it
+ * used a 1px --shell-rule hairline where the SPA uses a 2px black bar, and
+ * left the footer transparent where the SPA fills it with the grey surface.
+ * Its icons were 18px against the SPA's 20px, unfiltered against the SPA's
+ * greyscale-until-hover, and it was missing Telegram and rendered RSS as a
+ * text link rather than the SPA's inline glyph.
+ * -------------------------------------------------------------------------*/
+
 .shell-footer {
-  margin-top: 4rem;
+  width: 100%;
+  background-color: var(--shell-surface);
 }
 
-.shell-footer__rule {
-  height: 1px;
-  background-color: var(--shell-rule);
+.shell-footer__border-top {
+  height: 2px;
+  background-color: var(--shell-fg);
 }
 
 .shell-footer__content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  padding: 10px 24px;
+  padding-right: 4px;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 10px 24px;
 }
 
 .shell-footer__copyright {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.shell-footer__copyright-text {
   font-family: var(--shell-sans);
   font-size: 11px;
   font-weight: 500;
@@ -304,78 +434,135 @@
 }
 
 .shell-footer__tagline {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.shell-footer__tagline-text {
   font-family: var(--shell-serif);
   font-size: 12px;
   font-style: italic;
-  color: #333333;
+  color: var(--shell-fg-soft);
   letter-spacing: 0.02em;
 }
 
 .shell-footer__social {
+  flex: 1;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 12px;
 }
 
+/* The SPA's social row is <button>s that call window.open, plus one <a> for
+   the feed. Every one of these is an <a>, so the anchor reset that file
+   applies to its single link is applied to all of them here. */
 .shell-footer__social-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
-  color: var(--shell-muted);
+  justify-content: center;
+  transition: all var(--shell-chrome-transition);
+  color: var(--shell-fg);
   text-decoration: none;
-  opacity: 0.75;
-  transition: opacity 0.3s ease-in-out;
 }
 
 .shell-footer__social-btn:hover {
-  opacity: 1;
-}
-
-.shell-footer__social-btn--text {
-  font-family: var(--shell-sans);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  background-color: var(--shell-rule);
+  transform: translateY(-2px);
 }
 
 .shell-footer__social-icon {
-  width: 18px;
-  height: 18px;
+  height: 20px;
+  width: 20px;
   object-fit: contain;
-  display: block;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all var(--shell-chrome-transition);
 }
 
-/* The three-part row has nowhere to go on a phone; stack it and drop the
-   tagline, which is decoration rather than information. */
-@media (max-width: 576px) {
-  .shell-footer__content {
-    flex-direction: column;
-    gap: 0.75rem;
-    text-align: center;
-  }
+.shell-footer__social-btn:hover .shell-footer__social-icon {
+  filter: grayscale(0%);
+  opacity: 1;
+}
 
-  .shell-footer__tagline {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .shell-footer__social-btn,
+  .shell-footer__social-btn:hover {
+    transition: none;
+    transform: none;
   }
 }
+
+/* --- responsive --------------------------------------------------------- *
+ * Both steps below are the SPA's own (Header.css:293/:331, Footer.css:132/
+ * :156, App.css:423/:475), reproduced at the same breakpoints so the two
+ * sides shrink together.
+ * -------------------------------------------------------------------------*/
 
 @media (max-width: 768px) {
-  /* Same three-step padding ladder as .home-container (App.css:423, :475). */
   .shell-main {
     padding: 24px 20px 48px;
   }
 
-  .shell-header__utility {
+  .shell-header__utility-bar {
     padding: 6px 16px;
+    font-size: 10px;
+  }
+
+  .shell-header__date {
+    display: none;
+  }
+
+  .shell-header__main {
+    padding: 10px 16px;
+  }
+
+  .shell-header__logo-accent {
+    font-size: 28px;
+  }
+
+  .shell-header__logo-tagline {
+    font-size: 11px;
+  }
+
+  .shell-header__nav {
+    padding: 8px 16px;
   }
 
   .shell-header__nav-list {
-    gap: 0.25rem 1rem;
-    padding: 0.5rem;
+    gap: 20px;
   }
 
   .shell-header__nav-link {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .shell-footer__content {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 16px;
+  }
+
+  .shell-footer__copyright,
+  .shell-footer__tagline,
+  .shell-footer__social {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .shell-footer__copyright-text {
+    font-size: 10px;
+  }
+
+  .shell-footer__tagline-text {
+    font-size: 11px;
   }
 }
 
@@ -384,5 +571,50 @@
 @media (max-width: 480px) {
   .shell-main {
     padding: 20px 16px 40px;
+  }
+
+  .shell-header__utility-bar {
+    padding: 4px 12px;
+  }
+
+  .shell-header__home-icon {
+    height: 16px;
+  }
+
+  .shell-header__logo-accent {
+    font-size: 22px;
+    letter-spacing: 0.08em;
+  }
+
+  .shell-header__logo-tagline {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .shell-header__nav-list {
+    gap: 16px;
+  }
+
+  .shell-header__nav-link {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
+  .shell-footer__content {
+    padding: 6px 12px;
+    gap: 6px;
+  }
+
+  .shell-footer__copyright-text {
+    font-size: 9px;
+  }
+
+  .shell-footer__tagline {
+    display: none;
+  }
+
+  .shell-footer__social-icon {
+    height: 18px;
+    width: 18px;
   }
 }

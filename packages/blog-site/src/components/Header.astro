@@ -15,15 +15,57 @@ const today = new Date().toLocaleDateString('en-US', {
 });
 ---
 
+{
+  /*
+  Element for element, this is blog-frontend/src/layout/Header.tsx. The
+  wrappers matter: .shell-header__utility-bar is a space-between row that
+  needs both a left and a right child to place its contents the way the SPA
+  does, and .shell-header__main is what carries the 2px rule and the gradient
+  under the wordmark.
+
+  Assets come from the site root rather than this package. The Go proxy
+  serves blog-frontend/public there, so both sides load one copy of home.svg
+  instead of each shipping its own.
+*/
+}
 <header class="shell-header">
-  <div class="shell-header__utility">
-    <span class="shell-header__date">{today}</span>
+  {
+    /*
+    The SPA carries an offscreen <h1> here because its routes may not have
+    one of their own. Every blog page does -- the article title, or the
+    index heading -- so that h1 is deliberately not reproduced: a second one
+    on every article would compete with the article's own.
+  */
+  }
+  <div class="shell-header__utility-bar">
+    <div class="shell-header__utility-left">
+      <a href="/" class="shell-header__home-btn" aria-label="Home">
+        <img
+          src="/home.svg"
+          alt="Home"
+          class="shell-header__home-icon"
+          width="20"
+          height="20"
+        />
+      </a>
+      <span class="shell-header__date">{today}</span>
+    </div>
+    <div class="shell-header__utility-right">
+      <span class="shell-header__visitor-count">
+        <span class="shell-header__visitor-icon" aria-hidden="true">●</span>
+        <span data-visitor-count>0</span> online
+      </span>
+    </div>
   </div>
 
-  <a href="/" class="shell-header__masthead">
-    <span class="shell-header__logo">KYLE PARK</span>
-    <span class="shell-header__tagline">Personal Website</span>
-  </a>
+  <div class="shell-header__main">
+    <a href="/" class="shell-header__logo-btn">
+      <span class="shell-header__logo">
+        <span class="shell-header__logo-accent">KYLE PARK</span>
+        <span class="shell-header__logo-tagline">Personal Website</span>
+      </span>
+    </a>
+  </div>
 
   <nav class="shell-header__nav" aria-label="Main">
     <ul class="shell-header__nav-list">
@@ -64,3 +106,31 @@ const today = new Date().toLocaleDateString('en-US', {
     </ul>
   </nav>
 </header>
+
+{
+  /*
+  The same live count the SPA's masthead shows (Header.tsx:32-63), against
+  the same ingress socket. Without it the utility bar's right half was empty
+  on the blog and filled on the home page -- the one asymmetry left between
+  the two mastheads. Failure is silent and leaves the initial 0, exactly as
+  it does on the SPA.
+*/
+}
+<script is:inline>
+  (function () {
+    var el = document.querySelector('[data-visitor-count]');
+    if (!el || location.protocol === 'file:') return;
+    var host = location.host;
+    if (host.indexOf('localhost') === 0 || host.indexOf('127.0.0.1') === 0)
+      return;
+    try {
+      var ws = new WebSocket('wss://' + host + '/ws');
+      ws.onmessage = function (event) {
+        var n = parseInt(String(event.data).trim(), 10);
+        if (!isNaN(n)) el.textContent = String(n);
+      };
+    } catch (e) {
+      /* count stays at 0, as on the SPA */
+    }
+  })();
+</script>

@@ -1,6 +1,6 @@
 /**
- * giscus identifiers. These are public — giscus embeds them in the client
- * script on every article page — so they are committed rather than injected
+ * giscus identifiers. These are public - giscus embeds them in the client
+ * script on every article page - so they are committed rather than injected
  * as build secrets.
  *
  * Obtained with:

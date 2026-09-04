@@ -4,7 +4,7 @@ export interface NavItem {
   /** Optional accent class suffix, e.g. `nyt-header__nav-link--devrel`. */
   variant?: 'devrel' | 'quant' | 'personal-quant';
   /**
-   * Set when `href` is not an SPA route — a path a plain server (or a
+   * Set when `href` is not an SPA route - a path a plain server (or a
    * different app entirely, e.g. the statically-built blog) owns instead.
    * Consumers that do client-side routing (like the SolidJS shell's
    * Header) must render these with `rel="external"` so the router's

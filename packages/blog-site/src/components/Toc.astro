@@ -18,13 +18,13 @@ const entries = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const show = entries.length >= 3;
 
 // The parser-blocking <script is:inline> below closes the disclosure on a
-// phone before first paint (open stays in the markup — see that module
+// phone before first paint (open stays in the markup - see that module
 // script's comment below for why: Chromium won't paint a closed <details>'s
 // content no matter what CSS overrides a descendant). It renders
 // unconditionally, outside the `{show && (...)}` block, rather than nested
 // right after `</details>` inside it: prettier-plugin-astro's parser cannot
 // handle an `is:inline` script's braces once it's nested inside a `{}`
-// template expression — confirmed by testing the identical script both
+// template expression - confirmed by testing the identical script both
 // nested (fails to parse) and top-level (parses cleanly). Astro's own
 // compiler has no such issue; this is purely a formatter limitation.
 // Querying by class rather than relying on DOM adjacency means it safely
@@ -67,7 +67,7 @@ const show = entries.length >= 3;
   // A CSS-only alternative was tried and reverted: dropping `open` from the
   // markup and forcing `.toc__list` visible at >=1200px with
   // `display: block !important` (and even `content-visibility: visible
-  // !important` alongside it) does not make Chromium paint the list —
+  // !important` alongside it) does not make Chromium paint the list -
   // verified with real screenshots (not just computed-style reads), which
   // stayed showing the closed "▶ 목차" summary with no list beneath it, both
   // immediately after load and after a full second of waiting. Restoring
@@ -105,7 +105,7 @@ const show = entries.length >= 3;
     // and never become active. Instead the active heading is the LAST one
     // that has scrolled up past a fixed point near the top of the
     // viewport, and the last heading is forced active once the reader
-    // reaches the bottom of the document — otherwise a short final section
+    // reaches the bottom of the document - otherwise a short final section
     // could still never cross the threshold.
     let queued = false;
     const update = (): void => {

@@ -96,7 +96,15 @@
 /* One step up from a post card, the way .featured-card outranks
    .project-card on the home page: white rather than grey, 12px radius, and
    a soft shadow. */
+/* The whole card is the link. A stretched pseudo-element on the title's
+   anchor covers the card, so a click anywhere on it opens the post -- the
+   home page's cards behave this way (they are buttons), and a card that
+   looks clickable but only responds on its title reads as broken. The
+   anchor stays on the title so the link keeps its accessible name and the
+   markup still says what it links to. */
 .featured {
+  position: relative;
+  cursor: pointer;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -179,6 +187,8 @@
 }
 
 .post-row {
+  position: relative;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -205,6 +215,34 @@
 .featured__title a {
   color: inherit;
   text-decoration: none;
+}
+
+.post-row__title a::after,
+.featured__title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* Tag links sit above the stretched link, so a tag still filters instead of
+   opening the post underneath it. */
+.post-row__tags a {
+  position: relative;
+  z-index: 1;
+}
+
+/* Keyboard focus lands on the title anchor, whose own box is only as tall as
+   the title; ring the whole card instead, which is what a pointer hits. */
+.post-row:focus-within,
+.featured:focus-within {
+  outline: 2px solid var(--shell-fg);
+  outline-offset: 2px;
+}
+
+.post-row__title a:focus-visible,
+.featured__title a:focus-visible {
+  outline: none;
 }
 
 .post-row__summary {

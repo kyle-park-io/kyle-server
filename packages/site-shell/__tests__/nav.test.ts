@@ -24,7 +24,7 @@ test('About lives in the offcanvas, not the main nav', () => {
   assert.ok(offcanvasItems.some((i) => i.href === '/about'));
 });
 
-test('Blog is marked external — Express owns it, not the SPA router', () => {
+test('Blog is marked external - Express owns it, not the SPA router', () => {
   const blog = navItems.find((i) => i.label === 'Blog');
   assert.ok(blog, 'Blog must be present in navItems');
   assert.equal(blog.external, true);
@@ -36,7 +36,7 @@ test('every other nav and offcanvas item is a real SPA route, so external is uns
     assert.equal(
       item.external,
       undefined,
-      `${item.label} should not carry external — it is an SPA route`,
+      `${item.label} should not carry external - it is an SPA route`,
     );
   }
 });

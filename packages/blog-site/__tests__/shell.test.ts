@@ -139,3 +139,261 @@ test('the blog body type resolves to the same size as the SPA at every width', (
     'the blog body must render at the same size as the SPA body at every width',
   );
 });
+
+/*
+  The blog's masthead and footer are copies of the SPA's, and copies drift.
+  These read both files and require the rules that draw a line, set a colour
+  or set a type size to agree. What went wrong before they existed: the 2px
+  black rule under the wordmark and the gradient behind it were missing, the
+  footer used a 1px hairline where the SPA uses a 2px bar and left off the
+  grey ground entirely, nav items sat 20px apart instead of 32px, and the
+  social icons were 18px instead of 20px.
+*/
+const headerCss = () =>
+  readFileSync(
+    join('..', 'blog-frontend', 'src', 'layout', 'Header.css'),
+    'utf8',
+  );
+const footerCss = () =>
+  readFileSync(
+    join('..', 'blog-frontend', 'src', 'layout', 'Footer.css'),
+    'utf8',
+  );
+
+/** Declarations of a rule, as a `prop: value` map, with the SPA's `--nyt-*`
+ *  variables and the blog's `--shell-*` variables both resolved to the literal
+ *  they stand for, so the two sides compare on rendered values. */
+const rule = (css: string, selector: string, vars: Record<string, string>) => {
+  const quoted = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Every rule for the selector, merged in source order the way the cascade
+  // merges them. The SPA declares .nyt-header and .nyt-footer twice -- once
+  // as a block of custom properties, once as the real rule -- so taking only
+  // the first match read the token block and found none of the declarations
+  // this test is about.
+  const matches = [
+    ...css.matchAll(new RegExp(`^${quoted}\\s*\\{([^}]*)\\}`, 'gm')),
+  ];
+  assert.ok(matches.length > 0, `expected a rule for ${selector}`);
+
+  const out: Record<string, string> = {};
+  for (const decl of matches.flatMap((m) => m[1].split(';'))) {
+    const colon = decl.indexOf(':');
+    if (colon === -1) continue;
+    const prop = decl.slice(0, colon).trim();
+    if (prop === '' || prop.startsWith('/*')) continue;
+    let value = decl.slice(colon + 1).trim();
+    for (const [name, literal] of Object.entries(vars)) {
+      value = value.split(`var(${name})`).join(literal);
+    }
+    // Normalise whitespace, including inside function parens: prettier
+    // wraps the SPA's linear-gradient() across lines and leaves the blog's
+    // on one, which is not a difference in what renders.
+    out[prop] = value
+      .replace(/\s+/g, ' ')
+      .replace(/\(\s+/g, '(')
+      .replace(/\s+\)/g, ')')
+      .replace(/\s*,\s*/g, ', ');
+  }
+  return out;
+};
+
+const SPA_VARS = {
+  '--nyt-color-black': '#121212',
+  '--nyt-color-gray-dark': '#333333',
+  '--nyt-color-gray-medium': '#666666',
+  '--nyt-color-gray-light': '#f7f7f7',
+  '--nyt-color-border': '#e2e2e2',
+  '--nyt-color-white': '#ffffff',
+  '--nyt-font-serif': "'Playfair Display', 'Georgia', 'Times New Roman', serif",
+  '--nyt-font-sans': "'Source Sans 3', 'Helvetica Neue', Arial, sans-serif",
+  '--nyt-font-display': "'Cormorant Garamond', Pretendard, 'Georgia', serif",
+  '--nyt-transition': '0.2s ease-in-out',
+};
+
+const BLOG_VARS = {
+  '--shell-fg': '#121212',
+  '--shell-fg-soft': '#333333',
+  '--shell-muted': '#666666',
+  '--shell-surface': '#f7f7f7',
+  '--shell-rule': '#e2e2e2',
+  '--shell-bg': '#ffffff',
+  '--shell-serif': "'Playfair Display', 'Georgia', 'Times New Roman', serif",
+  '--shell-sans': "'Source Sans 3', 'Helvetica Neue', Arial, sans-serif",
+  '--shell-display': "'Cormorant Garamond', Pretendard, 'Georgia', serif",
+  '--shell-chrome-transition': '0.2s ease-in-out',
+};
+
+// The blog's font stacks carry Pretendard for Hangul, which the SPA's serif
+// and sans stacks do not; compare the rest of the declaration.
+const PAIRS: Array<[string, string, string[]]> = [
+  ['.nyt-header', '.shell-header', ['background-color', 'border-bottom']],
+  [
+    '.nyt-header__utility-bar',
+    '.shell-header__utility-bar',
+    [
+      'padding',
+      'border-bottom',
+      'font-size',
+      'color',
+      'text-transform',
+      'letter-spacing',
+    ],
+  ],
+  ['.nyt-header__home-icon', '.shell-header__home-icon', ['height', 'width']],
+  [
+    '.nyt-header__main',
+    '.shell-header__main',
+    ['padding', 'border-bottom', 'background'],
+  ],
+  [
+    '.nyt-header__logo-accent',
+    '.shell-header__logo-accent',
+    [
+      'font-family',
+      'font-size',
+      'font-weight',
+      'color',
+      'letter-spacing',
+      'text-transform',
+      'line-height',
+    ],
+  ],
+  [
+    '.nyt-header__logo-tagline',
+    '.shell-header__logo-tagline',
+    ['font-size', 'font-weight', 'font-style', 'color', 'letter-spacing'],
+  ],
+  ['.nyt-header__nav', '.shell-header__nav', ['padding', 'border-bottom']],
+  [
+    '.nyt-header__nav-list',
+    '.shell-header__nav-list',
+    ['gap', 'margin', 'padding'],
+  ],
+  [
+    '.nyt-header__nav-link',
+    '.shell-header__nav-link',
+    [
+      'font-size',
+      'font-weight',
+      'color',
+      'text-transform',
+      'letter-spacing',
+      'padding',
+    ],
+  ],
+  [
+    '.nyt-header__nav-link::after',
+    '.shell-header__nav-link::after',
+    ['height', 'background-color'],
+  ],
+  [
+    '.nyt-header__nav-link--devrel',
+    '.shell-header__nav-link--devrel',
+    ['color', 'font-weight'],
+  ],
+  [
+    '.nyt-header__nav-link--quant',
+    '.shell-header__nav-link--quant',
+    ['color', 'font-weight'],
+  ],
+  [
+    '.nyt-header__nav-link--personal-quant',
+    '.shell-header__nav-link--personal-quant',
+    ['color', 'font-weight'],
+  ],
+];
+
+test('the blog masthead matches the SPA masthead rule for rule', () => {
+  const spa = headerCss();
+  const blog = shellCss();
+  for (const [spaSel, blogSel, props] of PAIRS) {
+    const a = rule(spa, spaSel, SPA_VARS);
+    const b = rule(blog, blogSel, BLOG_VARS);
+    for (const prop of props) {
+      assert.equal(
+        b[prop],
+        a[prop],
+        `${blogSel} { ${prop} } must match ${spaSel}`,
+      );
+    }
+  }
+});
+
+const FOOTER_PAIRS: Array<[string, string, string[]]> = [
+  ['.nyt-footer', '.shell-footer', ['width', 'background-color']],
+  [
+    '.nyt-footer__border-top',
+    '.shell-footer__border-top',
+    ['height', 'background-color'],
+  ],
+  [
+    '.nyt-footer__content',
+    '.shell-footer__content',
+    [
+      'padding',
+      'padding-right',
+      'max-width',
+      'margin',
+      'justify-content',
+      'align-items',
+    ],
+  ],
+  [
+    '.nyt-footer__copyright-text',
+    '.shell-footer__copyright-text',
+    ['font-size', 'font-weight', 'color', 'text-transform', 'letter-spacing'],
+  ],
+  [
+    '.nyt-footer__tagline-text',
+    '.shell-footer__tagline-text',
+    ['font-size', 'font-style', 'color', 'letter-spacing'],
+  ],
+  [
+    '.nyt-footer__social',
+    '.shell-footer__social',
+    ['flex', 'justify-content', 'gap'],
+  ],
+  [
+    '.nyt-footer__social-btn',
+    '.shell-footer__social-btn',
+    ['padding', 'border-radius'],
+  ],
+  [
+    '.nyt-footer__social-icon',
+    '.shell-footer__social-icon',
+    ['height', 'width', 'object-fit', 'filter', 'opacity'],
+  ],
+];
+
+test('the blog footer matches the SPA footer rule for rule', () => {
+  const spa = footerCss();
+  const blog = shellCss();
+  for (const [spaSel, blogSel, props] of FOOTER_PAIRS) {
+    const a = rule(spa, spaSel, SPA_VARS);
+    const b = rule(blog, blogSel, BLOG_VARS);
+    for (const prop of props) {
+      assert.equal(
+        b[prop],
+        a[prop],
+        `${blogSel} { ${prop} } must match ${spaSel}`,
+      );
+    }
+  }
+});
+
+test('the footer carries every social link the SPA does', () => {
+  // Telegram was missing and RSS was a text link, so the blog's footer showed
+  // five icons and a word where the home page shows seven icons.
+  const page = html();
+  for (const href of [
+    'kyle-park.notion.site',
+    'medium.com',
+    'linkedin.com/in/kyle-park-io',
+    'github.com/kyle-park-io',
+    't.me/kyleparkio',
+    'x.com/bcd_kyle',
+    '/blog/rss.xml',
+  ]) {
+    assert.ok(page.includes(href), `footer is missing ${href}`);
+  }
+});
