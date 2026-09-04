@@ -58,7 +58,27 @@ export default defineConfig({
     // replaced by an em dash, leaving a command no reader could copy. Off.
     smartypants: false,
     // Shiki ships with Astro; `github-light` matches the site's light theme.
-    shikiConfig: { theme: 'github-light', wrap: false },
+    shikiConfig: {
+      theme: 'github-light',
+      wrap: false,
+      transformers: [
+        {
+          // Shiki writes `background-color:#fff` into the <pre>'s style
+          // attribute, and an inline style beats any stylesheet rule short of
+          // !important. That left every code block flat white inside a grey
+          // hairline while the rest of the page had moved to cards on a grey
+          // surface. Drop just the background declaration and keep shiki's
+          // token colours; post.css owns the container.
+          pre(node: { properties: Record<string, unknown> }) {
+            const style = node.properties.style;
+            if (typeof style !== 'string') return;
+            node.properties.style = style
+              .replace(/background-color\s*:[^;]*;?/gi, '')
+              .trim();
+          },
+        },
+      ],
+    },
     rehypePlugins: [
       rehypeSlug,
       [

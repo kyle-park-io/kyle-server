@@ -29,7 +29,15 @@
     'Playfair Display', Pretendard, 'Georgia', 'Times New Roman', serif;
   --shell-sans:
     'Source Sans 3', Pretendard, 'Helvetica Neue', Arial, sans-serif;
-  --shell-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* JetBrains Mono first. The stack under it resolved to SF Mono on a Mac
+     and Consolas on Windows, but on Linux and Android it fell through to the
+     bare `monospace` keyword -- DejaVu Sans Mono on most boxes -- which is
+     what made code blocks look unfinished. Pretendard follows for the Hangul
+     that appears in comments; the system stack stays as the fallback for a
+     reader who blocks webfonts. */
+  --shell-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, Pretendard,
+    monospace;
 
   /* article measure - 720px is ~40-45 Korean characters per line */
   --shell-measure: 720px;

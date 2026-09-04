@@ -149,16 +149,39 @@
 .post__content pre {
   font-family: var(--shell-mono);
   font-size: 0.875rem;
-  line-height: 1.6;
-  padding: 1rem;
+  /* Code wants more room between lines than the 1.6 body copy uses: the
+     glyphs are taller on average and the eye tracks indentation vertically. */
+  line-height: 1.75;
+  padding: 1rem 1.25rem;
+  /* The card treatment the rest of the site uses, so a code block belongs to
+     the same page as the post cards and the tag chips. Shiki's own inline
+     background is stripped in astro.config.ts, or it would win. */
+  background-color: var(--shell-surface);
   border: 1px solid var(--shell-rule);
+  border-radius: var(--shell-radius);
+  /* Shiki emits a colour on the <pre> for the theme's default foreground;
+     tab width is ours to set, and 8 is too wide at this measure. */
+  tab-size: 2;
+}
+
+.post__content pre code {
+  font-family: inherit;
+  /* Shiki puts each line in its own span; without this a long line is cut
+     off rather than reaching the wrapper's horizontal scroll. */
+  display: block;
+  width: fit-content;
+  min-width: 100%;
 }
 
 .post__content :not(pre) > code {
   font-family: var(--shell-mono);
-  font-size: 0.9em;
-  background: #f4f4f4;
-  padding: 0.1rem 0.3rem;
+  font-size: 0.875em;
+  background-color: var(--shell-surface);
+  border: 1px solid var(--shell-rule);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  /* A long identifier in running text must not widen the column. */
+  overflow-wrap: break-word;
 }
 
 .post__content table {
