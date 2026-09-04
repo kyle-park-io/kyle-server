@@ -119,6 +119,7 @@ const Header: Component = (): JSX.Element => {
                         ? `nyt-header__nav-link nyt-header__nav-link--${item.variant}`
                         : 'nyt-header__nav-link'
                     }
+                    rel={item.external === true ? 'external' : undefined}
                   >
                     {item.label}
                   </a>
