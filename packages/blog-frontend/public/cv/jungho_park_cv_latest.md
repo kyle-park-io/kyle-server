@@ -2,7 +2,7 @@
 
 **Blockchain & Backend Engineer | Quantitative Trading Systems**
 
-Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Currently Developer Relations Engineer at Mantle Network, where the output has been a 14-module content pipeline, five Korean technical documents, and hands-on developer onboarding.
+Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Currently Developer Relations Engineer at Mantle Network, where the output has been a 14-module content pipeline, five Korean technical documents, hands-on developer onboarding, and the operations site behind a 42-builder agent-payments workshop.
 
 ---
 
@@ -23,8 +23,8 @@ Builds trading systems (Rust/Go), blockchain infrastructure, and production tool
 
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team — 14 modules, 276 source files, 209 test files**
-  - X/Lark collection, Korean translation, per-channel conversion, two-stage human review, Telegram/X/PR delivery — [mantle-kr-herald](https://github.com/kyle-park-io/mantle-kr-herald)
+- **Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team — 14 modules**
+  - X/Lark collection, Korean translation, per-channel conversion, two-stage human review, Telegram/X/PR delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen — mantle-kr-herald (private repository, available on request)
 
 - **Sole author of the Korean technical documentation set — 5 documents**
   - Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0 — [Docs hub](https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8)
@@ -35,10 +35,16 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - **Owned Korea builder onboarding for The Turing Test Hackathon 2026**
   - Built the Korean builder funnel across the full 6-week registration-to-submission window of Phase 2, in a $120K two-phase global flagship program. An offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events
 
+- **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026) — 42 builders, 488 on-chain payments in three hours**
+  - Each builder connected Q402 to their own AI agent over MCP and paid on Mantle mainnet from the chat window — no wallet app, no signing prompt, no MNT for gas. Built the night's operations site myself (Next.js, PostgreSQL, Vercel, Q402 MCP): wallet registration, live leaderboard, quest verification, and a QR payment bridge, with every badge judged by reading the chain
+
 - **Ran a 7-university blockchain-club campus tour as sole speaker, completed in 3 weeks**
   - KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, Kwangwoon. Four clubs published their own session recaps unprompted, and one-off visits turned into standing partnerships
 
-- **Ran the Korean official account — 221 posts, 175K impressions, 1.84% engagement rate (1.4× the global account's 1.28%)**
+- **Co-host the monthly Korean livestream — August's post reached 17.4K, the second-highest-reach post on the account for the period**
+  - July carried Mantle's third anniversary; August ran as a Mantle × Stable collaboration covering the USDT0 stablecoin ecosystem and Chainlink CCIP bridging. Wrote the July RFQ session up as a standalone Korean article
+
+- **Run the Korean official account — 221 posts, 175K impressions, 1.84% engagement rate over Apr-Jul 2026 (1.4× the global account's 1.28%)**
   - Korea-originated campaigns and event announcements took all six highest-reach slots
 
 ### **Kronon Labs Co., Ltd.**
@@ -56,11 +62,8 @@ _Tech Stack: Go, Rust, Python, AWS, Docker_
 - **Trading Metrics & Analytics Platform**
   - Designed a metrics collection framework reused across strategies, with real-time visualization and performance analysis on infrastructure handling 10k+ data points per second
 
-- **AI-Powered Sentiment Trading System**
-  - Built a sentiment analysis engine that collects news feeds, KOL tweets, and Telegram channels, and turns them into trading signals via LLM agents
-
-- **Exchange Listing Sniper Bot**
-  - Implemented a monitoring system detecting new token listings across major exchanges, with sub-second order execution
+- **AI Sentiment Engine & Exchange Listing Sniper**
+  - A sentiment engine collecting news feeds, KOL tweets, and Telegram channels and turning them into trading signals via LLM agents, plus a monitor detecting new token listings across major exchanges with sub-second order execution
 
 ### **Medium Inc.**
 
@@ -94,12 +97,12 @@ _Tech Stack: Go, TypeScript (NestJS), Hyperledger Fabric, AWS, GCP, Docker_
 
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_
 
-https://github.com/kyle-park-io/mantle-kr-herald
+Private repository — available on request
 
-- Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team. **14 modules**, 276 source files, 209 test files
+- Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team. **14 modules**
 - Translation and conversion run **agent-in-the-loop**: a local coding agent fills a purpose-built worksheet and a human approves the result, behind two mandatory approval gates
-- Migrated the record of truth from files to **PostgreSQL and shipped it serverless on Vercel** so reviewers approve and publish from a browser. Persistence sits behind a port in a **hexagonal structure**, so swapping the store stayed at the adapter level. File-lock serialization does not survive serverless, so a dropped ledger row could republish a live post twice; a unique index closes that hazard
-- **Translation memory** mines both official accounts and feeds only human-approved EN↔KO pairs into the few-shot set
+- Migrated the record of truth from files to **PostgreSQL and shipped it serverless on Vercel**, so a reviewer who never opens a terminal approves the copy and sends it to Telegram and X from one screen. Persistence sits behind a port in a **hexagonal structure**, so swapping the store stayed at the adapter level. File-lock serialization does not survive serverless, so a dropped ledger row could republish a live post twice; a unique index closes that hazard. Storage adapters are tested against **real Postgres, not a mock** — PGlite boots one in-process
+- **Translation memory** mines both official accounts and feeds only human-approved EN↔KO pairs into the few-shot set. A glossary miner proposes Korean renderings and a tuned **rejection threshold** decides which survive — the difference between a discriminator and a rubber stamp
 
 ### **Binance Triangular Arbitrage System**
 
@@ -139,7 +142,7 @@ _Tech Stack: Go_
 
 **Team Leader, ODA Team (7th Cohort)** | Sep 2025 - Feb 2026
 
-- Society operations and program direction. Currently organizing the 8th cohort's final research conference (Sep 2026, Hana Bank Lounge, Samseong)
+- Society operations and program direction. Organized the 8th cohort's final research conference (Sep 2026, Hana Bank Lounge, Samseong)
 
 - **Sole author of the 7th cohort's five published DeFi research papers** (CC BY 4.0) — https://github.com/orakle-7th-sda/conference-pdf
   - Comprehensive stablecoin depeg survey across CEX venues (2018 - Feb 2026) and on-chain venues (2022 - Feb 2026), by venue, magnitude, cause, and duration
