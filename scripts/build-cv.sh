@@ -25,6 +25,25 @@ fi
 export PUPPETEER_EXECUTABLE_PATH="$CHROME"
 echo "using chrome: $CHROME"
 
+# cv-print.css asks for Pretendard, which is what the site sets for Korean.
+# fontconfig substitutes silently when a family is missing, so without this
+# check a machine lacking the font still produces a PDF - just typeset in
+# whatever it fell through to. That is how the Korean CV came to be set in
+# WenQuanYi Zen Hei, a Chinese font, for a month without anyone noticing.
+#
+# Install (no root needed):
+#   https://github.com/orioncactus/pretendard/releases -> public/static/alternative/*.ttf
+#   into ~/.local/share/fonts, then `fc-cache -f`
+#
+# Use the TrueType build under alternative/, not the CFF-flavoured .otf:
+# Chrome cannot subset-embed the .otf and falls back to Type3 bitmap glyphs
+# for the whole document, Latin included.
+if ! fc-match "Pretendard" 2>/dev/null | grep -qi pretendard; then
+  echo "Pretendard is not installed - the PDF would silently use a substitute font." >&2
+  echo "See the note above this check in $(basename "$0") for how to install it." >&2
+  exit 1
+fi
+
 status=0
 for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest_ko.md; do
   [ -f "$md" ] || { echo "missing: $md" >&2; exit 1; }

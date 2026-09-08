@@ -9,11 +9,17 @@
  * ---------------------------------------------------------------------------
  * Fonts
  *
- * Chrome cannot subset-embed the CJK fonts available on this machine, so any
- * Korean-capable family renders as Type3 bitmap glyphs rather than embedded
- * outlines. Noto is pinned anyway to match the archived PDFs; swap the family
- * to 'Liberation Sans' on a Latin-only document if selectable, ATS-parseable
- * text matters more than matching that look.
+ * Pretendard, which is what the site itself sets for Korean: global.css and
+ * site-shell/tokens.css put it behind each Latin face so Hangul renders in it
+ * while Latin keeps its own typeface. The CV is the same document in another
+ * medium, so it should not be set in a different face.
+ *
+ * This used to ask for 'Noto Sans CJK KR', which was never installed here and
+ * so never matched. fontconfig fell through to WenQuanYi Zen Hei, and the
+ * Korean CV went out typeset in a Chinese font that happens to carry Hangul.
+ * Pin a family that is actually installed, and check `fc-match` after changing
+ * it - a missing family fails silently and downstream it looks like a design
+ * choice.
  *
  * ---------------------------------------------------------------------------
  * Vertical rhythm
@@ -33,7 +39,7 @@
 
 body,
 .markdown-body {
-  font-family: 'Noto Sans CJK KR', sans-serif;
+  font-family: Pretendard, 'Liberation Sans', sans-serif;
   line-height: 1.55;
 }
 
