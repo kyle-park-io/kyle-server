@@ -68,7 +68,8 @@ var assetsForDev = map[string]*Asset{
 	"/devrel/q402-keynote.webp":            {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/q402-keynote.webp"},
 	"/devrel/q402-session.webp":            {contentType: "image/webp", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/devrel/q402-session.webp"},
 	// pdf
-	"/cv/jungho_park_cv_latest.pdf": {contentType: "application/pdf", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/cv/jungho_park_cv_latest.pdf"},
+	"/cv/jungho_park_cv_latest.pdf":    {contentType: "application/pdf", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/cv/jungho_park_cv_latest.pdf"},
+	"/cv/jungho_park_cv_latest_ko.pdf": {contentType: "application/pdf", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/cv/jungho_park_cv_latest_ko.pdf"},
 	// kyle-dex swagger
 	"/dex/api-docs/favicon-32x32.png": {contentType: "image/png", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/swagger-favicon-32x32.png"},
 }
