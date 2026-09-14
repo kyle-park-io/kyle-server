@@ -34,18 +34,10 @@ RUN apk add --update --no-cache \
   && pip install --no-cache-dir certbot-dns-cloudflare
 
 COPY . /build
-COPY --from=builder /build/ini/godaddy.ini /app/ini/godaddy.ini
-RUN chmod 600 /app/ini/godaddy.ini
 COPY --from=builder /build/ini/cloudflare.ini /app/ini/cloudflare.ini
 RUN chmod 600 /app/ini/cloudflare.ini
 
 WORKDIR /build
-
-# # godaddy
-# COPY --from=builder /build/scripts/install_certbot_dns_godaddy.sh /app/scripts/install_certbot_dns_godaddy.sh
-# RUN chmod +x /app/scripts/install_certbot_dns_godaddy.sh
-# COPY --from=builder /build/scripts/create_ssl_cert_godaddy.sh /app/scripts/create_ssl_cert_godaddy.sh
-# RUN chmod +x /app/scripts/create_ssl_cert_godaddy.sh
 
 # cloudflare
 COPY --from=builder /build/scripts/create_ssl_cert_cloudflare.sh /app/scripts/create_ssl_cert_cloudflare.sh

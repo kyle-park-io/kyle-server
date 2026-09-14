@@ -10,9 +10,11 @@ packages/*/static
 
 # Credentials: excluded by pattern, not by path, so a file added later
 # (e.g. a new package's provider secrets) is excluded by default instead
-# of by someone remembering to list it. packages/ingress-reverse-proxy's
-# ini/cloudflare.ini and ini/godaddy.ini are the ones known today, but this
-# is intentionally broader than that.
+# of by someone remembering to list it.
+#
+# This file only applies to builds whose context is the repository root.
+# packages/ingress-reverse-proxy is built with its own directory as the
+# context, so it has its own .dockerignore.
 **/*.ini
 **/.env
 **/.env.*

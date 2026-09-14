@@ -1,0 +1,10 @@
+# push2gke_artifact.sh builds this image with this directory as the context,
+# so the repository root .dockerignore does not apply here.
+#
+# `COPY . /build` copies the whole context into the final image, so any file
+# left in ini/ ships with it. Only the Cloudflare credentials are needed:
+# certbot renews the jungho.dev certificate through Cloudflare DNS.
+ini/*
+!ini/cloudflare.ini
+**/.env
+**/.env.*

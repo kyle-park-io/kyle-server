@@ -16,13 +16,6 @@ func CheckTLS() error {
 		logger.Log.Warn("Not exist pem files")
 		logger.Log.Info("Try to get new tls")
 
-		// out, err := exec.Command("/app/scripts/install_certbot_dns_godaddy.sh").CombinedOutput()
-		// logger.Log.Info(string(out))
-		// if err != nil {
-		// 	return errors.Wrap(err, fmt.Sprintf("check ssl fail: %s", string(out)))
-		// }
-		// out, err = exec.Command("/app/scripts/create_ssl_cert_godaddy.sh").CombinedOutput()
-
 		out, err := exec.Command("/app/scripts/create_ssl_cert_cloudflare.sh").CombinedOutput()
 		logger.Log.Info(string(out))
 		if err != nil {
