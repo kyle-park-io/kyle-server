@@ -37,8 +37,11 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			redirect.Redirect404(w, r)
 		} else {
 			if !redirect.Authorized(r, link) {
-				logger.Log.Warnf("401: %s from %s", urlPath, r.RemoteAddr)
+				logger.Log.Warnf("401: %s from %s", urlPath, redirect.ClientIP(r))
 				http.Error(w, "unauthorized", http.StatusUnauthorized)
+				return
+			}
+			if !redirect.WriteAllowed(w, r, link) {
 				return
 			}
 
