@@ -36,6 +36,12 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			redirect.Redirect404(w, r)
 		} else {
+			if !redirect.Authorized(r, link) {
+				logger.Log.Warnf("401: %s from %s", urlPath, r.RemoteAddr)
+				http.Error(w, "unauthorized", http.StatusUnauthorized)
+				return
+			}
+
 			switch link.Name {
 
 			// asset js, css(current no used, assets -> static branch)
