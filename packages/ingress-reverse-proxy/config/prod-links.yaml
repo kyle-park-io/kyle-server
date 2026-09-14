@@ -53,6 +53,8 @@ links:
   - name: api-quant2
     route: /api-quant2
     url: http://kyle-quant-backend-app-server-service.default.svc.cluster.local:8081
+    # Balances: only the kyle-quant server holds this token
+    tokenEnv: QUANT2_API_TOKEN
   - name: api-quant3
     route: /api-quant3
     url: http://kyle-quant-backend-app-server-service.default.svc.cluster.local:8082
