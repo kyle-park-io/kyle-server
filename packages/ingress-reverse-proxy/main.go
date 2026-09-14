@@ -1,8 +1,10 @@
 package main
 
 import (
+	cryptotls "crypto/tls"
 	"fmt"
 	"net/http"
+	"time"
 
 	"ingress-reverse-proxy/assets"
 	"ingress-reverse-proxy/constants"
@@ -155,9 +157,19 @@ func main() {
 		httpsMux.HandleFunc("/", handlers.MainHandler)
 		// set middleware
 		enhancedMux := middleware.Middleware(httpsMux)
+		// certbot renews the certificate in place; pick it up without a restart
+		certs, err := tls.NewCertReloader(constants.SSL_CERT_FILE, constants.SSL_KEY_FILE)
+		if err != nil {
+			logger.Log.Fatal("Failed to start server: ", err)
+		}
+		go certs.Watch(time.Hour)
+		httpsServer := &http.Server{
+			Addr:      fmt.Sprintf(":%d", constants.HTTPSPort),
+			Handler:   enhancedMux,
+			TLSConfig: &cryptotls.Config{GetCertificate: certs.GetCertificate},
+		}
 		logger.Log.Info("Starting HTTPS server on port:", constants.HTTPSPort)
-		// enhancedMux
-		err = http.ListenAndServeTLS(fmt.Sprintf(":%d", constants.HTTPSPort), constants.SSL_CERT_FILE, constants.SSL_KEY_FILE, enhancedMux)
+		err = httpsServer.ListenAndServeTLS("", "")
 		if err != nil {
 			logger.Log.Fatal("Failed to start server: ", err)
 		}
