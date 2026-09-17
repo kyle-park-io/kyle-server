@@ -180,6 +180,94 @@ const Profile: Component = (): JSX.Element => {
             </div>
           </section>
 
+          {/* Projects Section */}
+          <section class="profile-section">
+            <h2 class="profile-section__title">Projects</h2>
+            <div class="profile-section__content">
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">skills</h3>
+                  <span class="profile-item__period">Since Sep 2026</span>
+                </div>
+                <p class="profile-item__role">
+                  Agent skill marketplace for Claude Code and Codex
+                </p>
+                <p class="profile-item__desc">
+                  Repeated engineering decisions turned into skills, packaged as
+                  seven domain plugins that each repository switches on as
+                  needed. Trigger evals check that a skill fires when it should,
+                  and guard hooks check what agents write.
+                </p>
+                <span class="profile-item__duration">Private repository</span>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">writing-guides</h3>
+                  <span class="profile-item__period">Since Sep 2026</span>
+                </div>
+                <p class="profile-item__role">
+                  Instructions for agent-written copy
+                </p>
+                <p class="profile-item__desc">
+                  Guides for Korean copy, translation, talk scripts, and
+                  documents, with each rule tagged by the feedback, published
+                  post, or measurement behind it. A checker runs before every
+                  commit, and one master file builds a talk's slides, script,
+                  and PDF.
+                </p>
+                <span class="profile-item__duration">Private repository</span>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">muster</h3>
+                  <span class="profile-item__period">Sep 2026</span>
+                </div>
+                <p class="profile-item__role">
+                  Local dashboard for scheduled jobs · React, Fastify
+                </p>
+                <p class="profile-item__desc">
+                  Windows Task Scheduler, systemd timers, cron, and Codex and
+                  Claude schedules on one screen, across Windows, WSL, macOS,
+                  and Linux. Every change shows the exact command before it
+                  runs.
+                </p>
+                <a
+                  href="https://github.com/kyle-park-io/muster"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-item__link"
+                >
+                  View on GitHub →
+                </a>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">jungho.dev</h3>
+                  <span class="profile-item__period">Since Oct 2023</span>
+                </div>
+                <p class="profile-item__role">
+                  This site · SolidJS, Astro, Go, GKE
+                </p>
+                <p class="profile-item__desc">
+                  A SolidJS app and an Astro blog served as one site by a Go
+                  reverse proxy, with a test that holds their layouts together
+                  at six viewport widths and a live count of who is reading.
+                </p>
+                <a
+                  href="https://github.com/kyle-park-io/kyle-server"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="profile-item__link"
+                >
+                  View on GitHub →
+                </a>
+              </div>
+            </div>
+          </section>
+
           {/* Awards Section */}
           <section class="profile-section">
             <h2 class="profile-section__title">Awards</h2>
