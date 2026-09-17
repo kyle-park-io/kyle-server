@@ -41,6 +41,13 @@ body,
 .markdown-body {
   font-family: Pretendard, 'Liberation Sans', sans-serif;
   line-height: 1.55;
+  /*
+   * Chrome breaks Hangul between any two syllables by default, which splits
+   * words across lines ("넣/는"). Break Korean at spaces like Latin text, and
+   * let an over-long token (a URL) still wrap rather than overflow.
+   */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 code,
@@ -174,4 +181,28 @@ ol ol > li {
 ul > li:last-child,
 ol > li:last-child {
   margin-bottom: 0;
+}
+
+/*
+ * An entry's lead paragraph (role and dates, tech stack, repository) belongs
+ * with the bullets it introduces. Without this a page boundary can fall
+ * between them and leave the stack line alone at the foot of a page.
+ */
+p:has(+ ul),
+p:has(+ ol) {
+  break-after: avoid;
+}
+
+/*
+ * A short list moves as a unit rather than leaving its last bullet alone at
+ * the top of the next page. "Short" is eight flat items or fewer, or three
+ * items or fewer with details under them. A long one (the current role has
+ * eight bullets with details) must stay breakable, or it drags its whole
+ * section to the next page and leaves the one before it mostly empty.
+ */
+ul:not(:has(> li:nth-child(9))):not(:has(ul, ol)),
+ol:not(:has(> li:nth-child(9))):not(:has(ul, ol)),
+ul:not(:has(> li:nth-child(4))),
+ol:not(:has(> li:nth-child(4))) {
+  break-inside: avoid;
 }

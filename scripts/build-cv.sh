@@ -48,7 +48,7 @@ status=0
 for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest_ko.md; do
   [ -f "$md" ] || { echo "missing: $md" >&2; exit 1; }
   echo "building $(basename "$md") ..."
-  npx --yes md-to-pdf --config-file "${SCRIPT_DIR}/cv-pdf.config.js" "$md"
+  npx --yes md-to-pdf --config-file "${SCRIPT_DIR}/cv-pdf.config.js" "$md" </dev/null
 
   pdf="${md%.md}.pdf"
   if [ ! -s "$pdf" ]; then
