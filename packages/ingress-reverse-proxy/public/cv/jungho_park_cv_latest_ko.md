@@ -85,7 +85,7 @@ _기술 스택: TypeScript, PostgreSQL, Vercel, Vitest_ · 비공개 저장소, 
 
 ### **skills**: Claude Code·Codex용 에이전트 스킬 마켓플레이스
 
-_기술 스택: 에이전트 스킬, Python, Bash_ · https://github.com/kyle-park-io/skills
+_기술 스택: 에이전트 스킬, Python, Bash_ · 비공개 저장소, 요청 시 열람 가능
 
 - 반복하는 엔지니어링 판단을 스킬로 만들어 **도메인 플러그인 7개**로 묶고, 레포마다 필요한 도메인만 켜도록 구성. 원본 파일 하나에서 Claude Code와 Codex 매니페스트를 함께 생성
 - **스킬 6개에 트리거 평가 적용.** 음성 쿼리를 이웃 스킬로 가야 맞는 질문으로 채워, 발동 조건이 정확한지 느슨한지 가려냄

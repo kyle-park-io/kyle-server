@@ -85,7 +85,7 @@ _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, avai
 
 ### **skills**: Agent Skill Marketplace for Claude Code and Codex
 
-_Tech Stack: Agent skills, Python, Bash_ · https://github.com/kyle-park-io/skills
+_Tech Stack: Agent skills, Python, Bash_ · Private repository, available on request
 
 - Turns repeated engineering decisions into skills, packaged as **7 domain plugins** that each repository enables as needed. One source file generates the manifests for both Claude Code and Codex
 - **Trigger evals for 6 skills.** The negative queries are the ones that belong to a neighbouring skill, which is what separates a precise trigger from a loose one
