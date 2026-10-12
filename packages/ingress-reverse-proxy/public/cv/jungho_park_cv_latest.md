@@ -2,7 +2,7 @@
 
 **Blockchain & Backend Engineer | Quantitative Trading Systems**
 
-Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Currently Developer Relations Engineer for Korea at Mantle Network, having designed and built the content operations pipeline the team uses daily (14 modules), now working on its next iterations and hands-on developer onboarding. Also builds the agent tooling behind that work: a skill marketplace for Claude Code and Codex, and writing guides with their own checker.
+Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Currently Developer Relations Engineer for Korea at Mantle Network, having designed and built the content operations pipeline the team uses daily (16 modules), now working on its next iterations and hands-on developer onboarding. Also builds the agent tooling behind that work: a skill marketplace for Claude Code and Codex, and writing guides with their own checker.
 
 ---
 
@@ -21,7 +21,7 @@ Builds trading systems (Rust/Go), blockchain infrastructure, and production tool
 **Developer Relations Engineer** | Apr 2026 - Present\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team (14 modules)**
+- **Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team (16 modules)**
   - X/Lark collection, Korean translation, per-channel conversion, two-stage human review, Telegram/X/PR delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen (mantle-kr-herald, private repository, available on request)
 
 - **Sole author of the Korean technical documentation set (5 documents)**
@@ -39,10 +39,10 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - **Ran a 7-university blockchain-club campus tour as sole speaker, completed in 3 weeks**
   - KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, Kwangwoon. Four clubs published their own session recaps unprompted, and one-off visits turned into standing partnerships
 
-- **Co-host the monthly Korean livestream: August's post reached 17.4K, the second-highest-reach post on the account for the period**
-  - July carried Mantle's third anniversary; August ran as a Mantle × Stable collaboration covering the USDT0 stablecoin ecosystem and Chainlink CCIP bridging. Wrote the July RFQ session up as a standalone Korean article
+- **Co-host the monthly Korean livestream: August's post reached 18.0K, the second-highest-reach post on the account over Apr-Sep 2026**
+  - July carried Mantle's third anniversary; August ran as a Mantle × Stable collaboration covering the USDT0 stablecoin ecosystem and Chainlink CCIP bridging; September, ahead of KBW, closed with a workshop on choosing among Mantle's RPC providers by request cost. Wrote the July RFQ session up as a standalone Korean article
 
-- **Run the Korean official account: 221 posts, 175K impressions, 1.84% engagement rate over Apr-Jul 2026 (1.4× the global account's 1.28%)**
+- **Run the Korean official account: 279 posts, 246K impressions, 1.74% engagement rate over Apr-Sep 2026 (1.7× the global account's 1.03%)**
   - Korea-originated campaigns and event announcements took all six highest-reach slots
 
 ### **Kronon Labs Co., Ltd.**
@@ -78,24 +78,31 @@ _Tech Stack: Go, TypeScript (NestJS), Hyperledger Fabric, AWS, GCP, Docker_
 
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, available on request
 
-- Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team. **14 modules**
+- Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team. **16 modules**
 - Translation and conversion run **agent-in-the-loop**: a local coding agent fills a purpose-built worksheet and a human approves the result, behind two mandatory approval gates
 - Migrated the record of truth from files to **PostgreSQL and shipped it serverless on Vercel**, so a reviewer who never opens a terminal approves the copy and sends it to Telegram and X from one screen. Persistence sits behind a port in a **hexagonal structure**, so swapping the store stayed at the adapter level. File-lock serialization does not survive serverless, so a dropped ledger row could republish a live post twice; a unique index closes that hazard. Storage adapters are tested against **real Postgres, not a mock**: PGlite boots one in-process
 - **Translation memory** mines both official accounts and feeds only human-approved EN↔KO pairs into the few-shot set. A glossary miner proposes Korean renderings and a tuned **rejection threshold** decides which survive, which is the difference between a discriminator and a rubber stamp
+
+### **trustline**: Off-Chain Security Scanner for Web3 Projects
+
+_Tech Stack: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
+
+- Built after leading the response to a real breach, a Next.js server taken through React2Shell (CVE-2025-55182). **9 scan modules** check the off-chain stack before deploy for the mistakes that let one breach spread: secrets in build output, management ports open to the internet, over-privileged cloud IAM, account-wide credentials, persistence artifacts, and disabled audit logs
+- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. A read-only on-chain command recovers the EtherRAT malware's command-and-control values from Ethereum smart contracts and maps the contracts around them; the findings feed the scanner's IOC set
 
 ### **skills**: Agent Skill Marketplace for Claude Code and Codex
 
 _Tech Stack: Agent skills, Python, Bash_ · Private repository, available on request
 
 - Turns repeated engineering decisions into skills, packaged as **7 domain plugins** that each repository enables as needed. One source file generates the manifests for both Claude Code and Codex
-- **Trigger evals for 6 skills.** The negative queries are the ones that belong to a neighbouring skill, which is what separates a precise trigger from a loose one
+- **Trigger evals for 8 skills.** The negative queries are the ones that belong to a neighbouring skill, which is what separates a precise trigger from a loose one
 - Stack presets (Postgres backend, Next.js on Vercel, Terraform, data analytics) so a new repository starts with the right skills on, plus tested guard hooks on agent file writes and commands
 
 ### **writing-guides**: Instructions for Agent-Written Copy
 
 _Tech Stack: Markdown, Node.js, Python_ · Private repository, available on request
 
-- 55 guides for Korean copy, translation, talk scripts, and documents. Every rule is tagged with its evidence: a piece of feedback, a published post, or a measurement
+- 62 guides for Korean copy, screen copy, translation, talk scripts, and documents. Every rule is tagged with its evidence: a piece of feedback, a published post, or a measurement
 - A pre-commit checker (links and anchors, dashes, evidence tags, index completeness, stock closing phrases, section numbering) and a presentation toolchain that builds the PDF, HTML, speaker script, and slide images from one master file
 
 ### **muster**: Local Scheduler Dashboard
