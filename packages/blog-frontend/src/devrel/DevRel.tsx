@@ -46,6 +46,8 @@ const POST_LIVESTREAM_JULY =
   'https://x.com/0xMantleKR/status/2082436272082321740';
 const POST_LIVESTREAM_AUG =
   'https://x.com/0xMantleKR/status/2088218155865026872';
+const POST_LIVESTREAM_SEP =
+  'https://x.com/0xMantleKR/status/2101989280667386179';
 const POST_RFQ_ARTICLE = 'https://x.com/bcd_kyle/status/2086720804331667583';
 
 interface Figure {
@@ -154,7 +156,7 @@ interface Metric {
 }
 
 const metrics: Metric[] = [
-  { value: '14', label: 'Modules', note: 'Content ops pipeline, shipped' },
+  { value: '16', label: 'Modules', note: 'Content ops pipeline, shipped' },
   {
     value: '5',
     label: 'Documents',
@@ -168,20 +170,20 @@ const metrics: Metric[] = [
   },
   { value: '42', label: 'Builders', note: 'Each running their own agent' },
   {
-    value: '17.4K',
+    value: '18.0K',
     label: 'Peak Reach',
     note: 'August Korean livestream post',
   },
   {
-    value: '221',
+    value: '279',
     label: 'Posts',
-    note: 'Korean official account, Apr–Jul 2026',
+    note: 'Korean official account, Apr-Sep 2026',
   },
-  { value: '175K', label: 'Impressions', note: 'Across the same period' },
+  { value: '246K', label: 'Impressions', note: 'Across the same period' },
   {
-    value: '1.84%',
+    value: '1.74%',
     label: 'Engagement',
-    note: "1.4× the global account's 1.28%",
+    note: "1.7× the global account's 1.03%",
   },
 ];
 
@@ -521,16 +523,18 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Co-host the monthly Korean livestream on the official account.
-                July carried Mantle's third anniversary — ecosystem updates, an
-                RFQ session, and community creator interviews. August ran as a
-                Mantle × Stable collaboration with Stable's CEO as guest,
+                July carried Mantle's third anniversary, with ecosystem updates,
+                an RFQ session, and community creator interviews. August ran as
+                a Mantle × Stable collaboration with Stable's CEO as guest,
                 covering the USDT0 stablecoin ecosystem and Chainlink CCIP
-                bridging.
+                bridging. September, ahead of KBW, closed with a workshop on
+                choosing among Mantle's RPC providers by what an app's requests
+                actually cost.
               </p>
               <ul class="devrel-work__list">
                 <li>
-                  The August live post reached <strong>17.4K</strong> — the
-                  second-highest-reach post on the account across the period,
+                  The August live post reached <strong>18.0K</strong>, the
+                  second-highest-reach post on the account over Apr-Sep 2026,
                   behind only the World Cup campaign
                 </li>
                 <li>
@@ -540,6 +544,14 @@ const DevRel: Component = (): JSX.Element => {
                 </li>
               </ul>
               <div class="devrel-work__links">
+                <a
+                  href={POST_LIVESTREAM_SEP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="devrel-work__link"
+                >
+                  September livestream →
+                </a>
                 <a
                   href={POST_LIVESTREAM_AUG}
                   target="_blank"
@@ -611,11 +623,10 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">@0xMantleKR</span>
               </div>
               <p class="devrel-work__desc">
-                Run the Korean official account. Over the first four months,
-                Apr–Jul 2026, that came to 221 posts and 175K impressions at a
-                1.84% engagement rate — 1.4× the global account's 1.28% — with
-                Korea-originated campaigns and event announcements taking all
-                six highest-reach slots.
+                Run the Korean official account. Over Apr-Sep 2026 that came to
+                279 posts and 246K impressions at a 1.74% engagement rate, 1.7×
+                the global account's 1.03%, with Korea-originated campaigns and
+                event announcements taking all six highest-reach slots.
               </p>
               <a
                 href={ACCOUNT_KR}
