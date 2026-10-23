@@ -98,7 +98,7 @@ const Profile: Component = (): JSX.Element => {
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">Mantle Network</h3>
-                  <span class="profile-item__period">Apr 2026 — Present</span>
+                  <span class="profile-item__period">Apr 2026 — Oct 2026</span>
                 </div>
                 <p class="profile-item__role">Developer Relations Engineer</p>
                 <p class="profile-item__desc">
@@ -110,7 +110,7 @@ const Profile: Component = (): JSX.Element => {
                 <a href="/devrel" class="profile-item__link">
                   See the DevRel work →
                 </a>
-                <span class="profile-item__duration">Current</span>
+                <span class="profile-item__duration">7 months</span>
               </div>
 
               <div class="profile-item profile-item--experience">

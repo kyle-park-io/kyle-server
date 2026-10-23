@@ -11,6 +11,8 @@ import Q402Group from '@public/devrel/q402-group.webp';
 import Q402Keynote from '@public/devrel/q402-keynote.webp';
 import Q402Session from '@public/devrel/q402-session.webp';
 import Q402Graph from '@public/devrel/q402-graph.webp';
+import InhaLecture from '@public/devrel/inha-lecture.webp';
+import InhaLab from '@public/devrel/inha-lab.webp';
 import CampusKoreaUniversity from '@public/devrel/campus-korea-university.webp';
 import CampusInha from '@public/devrel/campus-inha.webp';
 import CampusKwangwoon from '@public/devrel/campus-kwangwoon.webp';
@@ -42,6 +44,8 @@ const POST_MOGAKKO = 'https://x.com/0xMantleKR/status/2055620699696582677';
 
 const POST_Q402_RECAP = 'https://x.com/bcd_kyle/status/2095089810738401789';
 const POST_Q402_NUMBERS = 'https://x.com/bcd_kyle/status/2095089815951942054';
+const POST_INHA_RECAP = 'https://x.com/bcd_kyle/status/2113676788199309380';
+const INHA_SLIDES = 'https://pay-lab-inha.vercel.app/slides';
 const POST_LIVESTREAM_JULY =
   'https://x.com/0xMantleKR/status/2082436272082321740';
 const POST_LIVESTREAM_AUG =
@@ -108,6 +112,20 @@ const q402Photos: Figure[] = [
     caption:
       'The room’s payment graph, read live off Mantle mainnet on the site built for the night',
     source: POST_Q402_NUMBERS,
+  },
+];
+
+const inhaPhotos: Figure[] = [
+  {
+    src: InhaLecture,
+    caption: 'Stablecoin payments class at Inha University',
+    source: POST_INHA_RECAP,
+  },
+  {
+    src: InhaLab,
+    caption:
+      'Walking the room through Lab 1, sending testnet USDC to a classmate',
+    source: POST_INHA_RECAP,
   },
 ];
 
@@ -213,7 +231,7 @@ const DevRel: Component = (): JSX.Element => {
               documentation, onboarding curriculum, hackathon builder funnel,
               builder workshops, and the Korean official account.
             </p>
-            <span class="devrel-hero__period">Apr 2026 — Present</span>
+            <span class="devrel-hero__period">Apr 2026 — Oct 2026</span>
           </div>
         </header>
 
@@ -225,16 +243,17 @@ const DevRel: Component = (): JSX.Element => {
               I joined Mantle Network as a Developer Relations Engineer for the
               Korean market, coming from a background in trading systems and
               blockchain infrastructure. That engineering background shapes how
-              I work: the tooling the Korea team runs on is something I build,
-              not something I request.
+              I work: the tooling the Korea team ran on was something I built,
+              not something I requested.
             </p>
             <p>
-              The work splits into what I ship and what I run. Shipped: a
+              The work split into what I shipped and what I ran. Shipped: a
               content operations pipeline the team uses daily, the Korean
               technical documentation set, and the live operations site behind
-              the Q402 builder workshop. Run: developer onboarding, the Korea
-              builder funnel for the flagship hackathon, a campus tour, the
-              monthly Korean livestream, and the Korean official account.
+              the Q402 builder workshop. Ran: developer onboarding, the Korea
+              builder funnel for the flagship hackathon, a campus tour, a
+              stablecoin payments class at Inha University, the monthly Korean
+              livestream, and the Korean official account.
             </p>
           </div>
         </section>
@@ -515,6 +534,113 @@ const DevRel: Component = (): JSX.Element => {
               </a>
             </div>
 
+            {/* Inha University Lecture */}
+            <div class="devrel-work">
+              <div class="devrel-work__header">
+                <h3 class="devrel-work__title">Inha University Lecture</h3>
+                <span class="devrel-work__tag">
+                  Stablecoin Payments · Oct 2026
+                </span>
+              </div>
+              <p class="devrel-work__desc">
+                Taught a 165-minute session of Inha University's Digital Assets
+                and Market Infrastructure course for finance students, on how
+                stablecoin payments move and what changes when an AI agent pays.
+                The class met while Korea was still writing its rules. On the
+                day, there was no law under which a won stablecoin could be
+                issued, nine bills sat in the National Assembly's subcommittee,
+                and the government's own bill, first promised for 2025, had
+                slipped five times.
+              </p>
+              <ul class="devrel-work__list">
+                <li>
+                  Opened on what the room already used rather than on crypto:
+                  the won price of USDT on Upbit, Upbit's GIWA chain and Toss's
+                  won-stablecoin trial on the OP Stack, and the three ways a
+                  stablecoin reaches people who never hold one, through their
+                  bank app, their deposits and loans, and AI agents that pay
+                </li>
+                <li>
+                  Students then moved money themselves. They made a wallet on
+                  their phones, sent testnet USDC to a classmate and read the
+                  receipt on a block explorer, then set that arrival against a
+                  card payment, a bank transfer that banks settle the next day,
+                  and a SWIFT wire
+                </li>
+                <li>
+                  Delegation came next. Students signed a spending limit for an
+                  AI agent in claude.ai or Codex, watched a request past the
+                  limit get refused by both the lab server and the USDC
+                  contract, and reset the limit themselves
+                </li>
+                <li>
+                  Closed on the Korean bills issue by issue, read against the
+                  USDC the class had just sent: who may issue, what reserves
+                  must back it and how redemption is guaranteed, whether holders
+                  may earn interest, and where the Bank of Korea and the
+                  Financial Services Commission stand
+                </li>
+                <li>
+                  <strong>30 of 34 participants</strong> completed the classmate
+                  transfer and <strong>22</strong> the agent payment, by the lab
+                  site's own records
+                </li>
+                <li>
+                  Ran on the lab kit first built for the Q402 workshop, moved to
+                  Ethereum Sepolia and Circle's testnet USDC so the class would
+                  look at the structure rather than one chain's name. The lab
+                  server paid the gas, and the deck is public on the lab site
+                </li>
+              </ul>
+              <div class="devrel-work__meta">
+                <span class="devrel-work__meta-label">Stack:</span>
+                <span class="devrel-work__meta-value">
+                  Next.js 16, PostgreSQL, Privy, viem, MCP, Vercel
+                </span>
+              </div>
+              <div class="devrel-gallery devrel-gallery--wide">
+                <For each={inhaPhotos}>
+                  {(photo) => (
+                    <figure class="devrel-figure">
+                      <a
+                        href={photo.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={photo.src}
+                          alt={photo.caption}
+                          loading="lazy"
+                          class="devrel-figure__img"
+                        />
+                      </a>
+                      <figcaption class="devrel-figure__caption">
+                        {photo.caption}
+                      </figcaption>
+                    </figure>
+                  )}
+                </For>
+              </div>
+              <div class="devrel-work__links">
+                <a
+                  href={POST_INHA_RECAP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="devrel-work__link"
+                >
+                  Read the recap →
+                </a>
+                <a
+                  href={INHA_SLIDES}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="devrel-work__link"
+                >
+                  Slides (Korean) →
+                </a>
+              </div>
+            </div>
+
             {/* Korean Livestream */}
             <div class="devrel-work">
               <div class="devrel-work__header">
@@ -522,7 +648,7 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">Monthly · Co-host</span>
               </div>
               <p class="devrel-work__desc">
-                Co-host the monthly Korean livestream on the official account.
+                Co-hosted the monthly Korean livestream on the official account.
                 July carried Mantle's third anniversary, with ecosystem updates,
                 an RFQ session, and community creator interviews. August ran as
                 a Mantle × Stable collaboration with Stable's CEO as guest,
