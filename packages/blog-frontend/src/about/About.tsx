@@ -27,8 +27,9 @@ const About: Component = (): JSX.Element => {
               continuous development and collaboration within the community.
             </p>
             <p>
-              I currently work as a Developer Relations Engineer at Mantle
-              Network, running developer outreach for the Korean market — the
+              From April to October 2026 I worked as a Developer Relations
+              Engineer at Mantle Network, running developer outreach for the
+              Korean market — the
               content operations pipeline, the Korean technical documentation
               set, onboarding curriculum, and the builder funnel for the
               hackathon program. That work is written up on the{' '}

@@ -2,7 +2,7 @@
 
 **Blockchain & Backend Engineer | Quantitative Trading Systems**
 
-Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Currently Developer Relations Engineer for Korea at Mantle Network, having designed and built the content operations pipeline the team uses daily (16 modules), now working on its next iterations and hands-on developer onboarding. Also builds the agent tooling behind that work: a skill marketplace for Claude Code and Codex, and writing guides with their own checker.
+Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Developer Relations Engineer for Korea at Mantle Network from April to October 2026: designed and built the content operations pipeline the team uses daily (16 modules), then worked on its next iterations and hands-on developer onboarding. Also builds the agent tooling behind that work: a skill marketplace for Claude Code and Codex, and writing guides with their own checker.
 
 ---
 
@@ -18,7 +18,7 @@ Builds trading systems (Rust/Go), blockchain infrastructure, and production tool
 
 ### **Mantle Network**
 
-**Developer Relations Engineer** | Apr 2026 - Present\
+**Developer Relations Engineer** | Apr 2026 - Oct 2026 (7 months)\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team (16 modules)**
@@ -39,10 +39,10 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - **Ran a 7-university blockchain-club campus tour as sole speaker, completed in 3 weeks**
   - KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, Kwangwoon. Four clubs published their own session recaps unprompted, and one-off visits turned into standing partnerships
 
-- **Co-host the monthly Korean livestream: August's post reached 18.0K, the second-highest-reach post on the account over Apr-Sep 2026**
+- **Co-hosted the monthly Korean livestream: August's post reached 18.0K, the second-highest-reach post on the account over Apr-Sep 2026**
   - July carried Mantle's third anniversary; August ran as a Mantle × Stable collaboration covering the USDT0 stablecoin ecosystem and Chainlink CCIP bridging; September, ahead of KBW, closed with a workshop on choosing among Mantle's RPC providers by request cost. Wrote the July RFQ session up as a standalone Korean article
 
-- **Run the Korean official account: 279 posts, 246K impressions, 1.74% engagement rate over Apr-Sep 2026 (1.7× the global account's 1.03%)**
+- **Ran the Korean official account: 279 posts, 246K impressions, 1.74% engagement rate over Apr-Sep 2026 (1.7× the global account's 1.03%)**
   - Korea-originated campaigns and event announcements took all six highest-reach slots
 
 ### **Kronon Labs Co., Ltd.**

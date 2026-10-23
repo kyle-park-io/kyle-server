@@ -213,7 +213,7 @@ const DevRel: Component = (): JSX.Element => {
               documentation, onboarding curriculum, hackathon builder funnel,
               builder workshops, and the Korean official account.
             </p>
-            <span class="devrel-hero__period">Apr 2026 — Present</span>
+            <span class="devrel-hero__period">Apr 2026 — Oct 2026</span>
           </div>
         </header>
 
@@ -225,14 +225,14 @@ const DevRel: Component = (): JSX.Element => {
               I joined Mantle Network as a Developer Relations Engineer for the
               Korean market, coming from a background in trading systems and
               blockchain infrastructure. That engineering background shapes how
-              I work: the tooling the Korea team runs on is something I build,
-              not something I request.
+              I work: the tooling the Korea team ran on was something I built,
+              not something I requested.
             </p>
             <p>
-              The work splits into what I ship and what I run. Shipped: a
+              The work split into what I shipped and what I ran. Shipped: a
               content operations pipeline the team uses daily, the Korean
               technical documentation set, and the live operations site behind
-              the Q402 builder workshop. Run: developer onboarding, the Korea
+              the Q402 builder workshop. Ran: developer onboarding, the Korea
               builder funnel for the flagship hackathon, a campus tour, the
               monthly Korean livestream, and the Korean official account.
             </p>
@@ -522,7 +522,7 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">Monthly · Co-host</span>
               </div>
               <p class="devrel-work__desc">
-                Co-host the monthly Korean livestream on the official account.
+                Co-hosted the monthly Korean livestream on the official account.
                 July carried Mantle's third anniversary, with ecosystem updates,
                 an RFQ session, and community creator interviews. August ran as
                 a Mantle × Stable collaboration with Stable's CEO as guest,
