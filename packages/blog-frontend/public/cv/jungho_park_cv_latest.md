@@ -36,6 +36,9 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026): 42 builders, 488 on-chain payments in three hours**
   - Each builder connected Q402 to their own AI agent over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the night's operations site myself in the four days before the event (Next.js, PostgreSQL, Vercel, Q402 MCP): wallet registration, live leaderboard, quest verification, and a QR payment bridge, with every badge judged by reading the chain
 
+- **Taught a stablecoin payments class at Inha University (Oct 2026): 30 of 34 participants completed the classmate transfer, 22 the agent payment**
+  - A 165-minute session of the Digital Assets and Market Infrastructure course for finance students, on how stablecoin payments move and what changes when an AI agent pays. Students made a wallet on their phones, sent testnet USDC to a classmate and read the receipt on a block explorer, then signed a spending limit for an AI agent in claude.ai or Codex and watched a request past the limit get refused by both the lab server and the USDC contract. Closed on Korea's won-stablecoin bills, read issue by issue against the USDC the class had just sent. Ran on the lab kit first built for the Q402 workshop, moved to Ethereum Sepolia and Circle's testnet USDC, with the lab server paying the gas. [Slides (Korean)](https://pay-lab-inha.vercel.app/slides)
+
 - **Ran a 7-university blockchain-club campus tour as sole speaker, completed in 3 weeks**
   - KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, Kwangwoon. Four clubs published their own session recaps unprompted, and one-off visits turned into standing partnerships
 
