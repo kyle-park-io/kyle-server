@@ -176,8 +176,7 @@ const Quant: Component = (): JSX.Element => {
                   <p class="quant-experience__project-desc">
                     Developed backend for real-time monitoring of Bithumb and
                     Upbit listing announcements, triggering immediate orders on
-                    overseas exchanges upon detection. Achieved order latency
-                    optimization down to approximately 130ms.
+                    overseas exchanges upon detection.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
