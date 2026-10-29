@@ -93,7 +93,7 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 - **Frontend**: React, SolidJS, Astro
 - **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
 - **AI Tooling**: Claude Code, Codex, MCP servers, agent skills and trigger evals, agent-in-the-loop pipelines
-- **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, High-Frequency Trading, Medium-Frequency Trading, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
+- **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, Cross-Exchange and Triangular Arbitrage, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
 
 ---
 
