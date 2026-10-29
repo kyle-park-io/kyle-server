@@ -97,7 +97,7 @@ const Profile: Component = (): JSX.Element => {
             <div class="profile-section__content">
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
-                  <h3 class="profile-item__title">Mantle Network</h3>
+                  <h3 class="profile-item__title">Mantle</h3>
                   <span class="profile-item__period">Apr 2026 — Oct 2026</span>
                 </div>
                 <p class="profile-item__role">Developer Relations Engineer</p>
@@ -115,7 +115,7 @@ const Profile: Component = (): JSX.Element => {
 
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
-                  <h3 class="profile-item__title">Kronon Labs Inc.</h3>
+                  <h3 class="profile-item__title">Kronon Labs Co., Ltd.</h3>
                   <span class="profile-item__period">Apr 2025 — Nov 2025</span>
                 </div>
                 <p class="profile-item__role">
@@ -399,7 +399,7 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-link__text">
                     <span class="profile-link__label">DevRel</span>
                     <span class="profile-link__desc">
-                      Developer relations work at Mantle Network
+                      Developer relations work at Mantle
                     </span>
                   </span>
                   <span class="profile-link__arrow">→</span>

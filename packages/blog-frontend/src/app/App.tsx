@@ -120,7 +120,7 @@ const App: Component = (): JSX.Element => {
                 class="project-card__icon-img"
               />
               <h3 class="project-card__title">DevRel</h3>
-              <p class="project-card__desc">Mantle Network · Korea</p>
+              <p class="project-card__desc">Mantle · Korea</p>
             </button>
 
             <button

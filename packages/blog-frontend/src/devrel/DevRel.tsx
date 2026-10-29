@@ -25,7 +25,7 @@ import './DevRel.css';
 
 /**
  * DevRel Page Component
- * Developer relations work for the Korean market at Mantle Network
+ * Developer relations work for the Korean market at Mantle
  * Light background with dark cards, blue accent matching the header nav link
  *
  * Photos come from the @0xMantleKR official account and from @bcd_kyle; every
@@ -224,7 +224,7 @@ const DevRel: Component = (): JSX.Element => {
             />
           </a>
           <div class="devrel-hero__text">
-            <span class="devrel-hero__label">Mantle Network</span>
+            <span class="devrel-hero__label">Mantle</span>
             <h1 class="devrel-hero__title">Developer Relations</h1>
             <p class="devrel-hero__desc">
               Korean market developer outreach — content operations, technical
@@ -240,7 +240,7 @@ const DevRel: Component = (): JSX.Element => {
           <h2 class="devrel-section__title">Overview</h2>
           <div class="devrel-section__content">
             <p>
-              I joined Mantle Network as a Developer Relations Engineer for the
+              I joined Mantle as a Developer Relations Engineer for the
               Korean market, coming from a background in trading systems and
               blockchain infrastructure. That engineering background shapes how
               I work: the tooling the Korea team ran on was something I built,
