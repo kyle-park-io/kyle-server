@@ -108,7 +108,7 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
               <img src={MantleIcon} alt="Mantle" class="nav-link__icon-img" />
               <span class="nav-link__text">
                 <span class="nav-link__title">DevRel</span>
-                <span class="nav-link__desc">Mantle Network · Korea</span>
+                <span class="nav-link__desc">Mantle · Korea</span>
               </span>
               <span class="nav-link__arrow">→</span>
             </button>
