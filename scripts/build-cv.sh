@@ -5,7 +5,10 @@ set -euo pipefail
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 CV_DIR="${SCRIPT_DIR}/../packages/blog-frontend/public/cv"
 MIN_PAGES=1
-MAX_PAGES=4
+# The master CV keeps every verified fact; per-posting CVs are trimmed in
+# kyle-career. Raised from 4 on 2026-10-30 when past-work facts pushed the
+# English CV to 5 pages.
+MAX_PAGES=5
 
 page_count() {
   python3 -c "
