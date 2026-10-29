@@ -1,22 +1,23 @@
 # PARK JUNGHO (Kyle) - CV
 
-**Blockchain & Backend Engineer | Quantitative Trading Systems**
+**Backend Engineer for Blockchain and Quantitative Trading Systems**
 
-Builds trading systems (Rust/Go), blockchain infrastructure, and production tooling end to end. Developer Relations Engineer for Korea at Mantle Network from April to October 2026: designed and built the content operations pipeline the team uses daily (16 modules), then worked on its next iterations and hands-on developer onboarding. Also builds the agent tooling behind that work: a skill marketplace for Claude Code and Codex, and writing guides with their own checker.
+Backend engineer building cross-chain bridges, smart contracts, and trading systems in Rust, Go, and TypeScript. In 2026, Developer Relations Engineer for Korea at Mantle: led builder onboarding for a global hackathon, ran builder workshops, wrote Korean technical docs, and built the 16-module content pipeline the Korea team uses daily.
 
 ---
 
 ## CONTACT
 
 - **Email**: andy3638@naver.com · **Telegram**: https://t.me/kyleparkio
-- **GitHub**: https://github.com/kyle-park-io · **Portfolio**: https://jungho.dev (quant career at `/quant`, personal strategies at `/personal-quant`)
-- **Live Quant Trading Dashboard**: https://kyle-quant.xyz (pw: demo2025)
+- **GitHub**: https://github.com/kyle-park-io · **Portfolio**: https://jungho.dev
+- **Quant Career**: https://jungho.dev/quant · **Personal Trading Strategies**: https://jungho.dev/personal-quant
+- **Live Quant Trading Dashboard**: https://kyle-quant.xyz · password demo2025
 
 ---
 
 ## PROFESSIONAL EXPERIENCE
 
-### **Mantle Network**
+### **Mantle**
 
 **Developer Relations Engineer** | Apr 2026 - Oct 2026 (7 months)\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
@@ -51,12 +52,13 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 ### **Kronon Labs Co., Ltd.**
 
 **Trading System Backend Engineer** | Apr 2025 - Nov 2025 (8 months)\
-_Tech Stack: Go (Fiber, Fx), Python, AWS (ECS, ECR, Parameter Store), Docker_
+_Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX Cross-Exchange Arbitrage System**: built the exchange-facing Go backend of a Taker-Taker and Maker-Taker arbitrage system: order APIs and user-data WebSockets for 7 exchanges and Solana DEX, balances, PnL, a delta manager, and a dashboard tracking PnL and positions in real time
-- **Solana DEX Trading Infrastructure**: on-chain trading bots in Go implementing in-house alpha strategies (New Pair Detection, Back From The Dead, Fat LP Analysis), with wallet and holder entry filters, Jupiter swaps, and Helius WebSocket pool subscriptions
-- **Trading Metrics Collection & Analytics**: a Bybit 1-minute kline WebSocket collector with a performance-ranking API, and a batched metrics collector for strategy detectors
-- **AI Sentiment Engine & Exchange Listing Sniper**: a sentiment engine that scores news Telegram channels and KOL tweets with several OpenAI assistants and routes signals to Binance and Bybit futures orders, plus a monitor that turns Upbit and Bithumb listing announcements into orders on overseas exchanges
+- **CEX Cross-Exchange Arbitrage System (Rothchild)**: a Taker-Taker and Maker-Taker arbitrage system built with the team. Its Go strategy engine trades spreads across Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, and Bithumb spot markets, Bybit against Jupiter, Bithumb and Upbit KRW markets against Bybit, and the perpetual DEXs Paradex, Backpack, Extended, and Rails. Built its exchange-facing backend: order APIs and user-data WebSockets for 8 exchanges including Gate.io, plus Solana DEX, balances, PnL, a delta manager, and a dashboard tracking PnL and positions in real time
+- **Solana DEX Trading Infrastructure**: on-chain trading bots in Go implementing in-house alpha strategies (New Pair Detection, Back From The Dead, Fat LP Analysis), with GoPlus security and wallet and holder entry filters, Jupiter swaps and trigger orders, a price cache with 5-minute and 1-hour volatility, tiered sell rules, and Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and Meteora pools
+- **Trading Metrics Collection & Analytics**: an altcoin performance chart backend built with the team: a Django API ranking the top 50 altcoins against BTC, open-interest-to-market-cap ratios from Velo, and kline changes stored in MongoDB. Built its Bybit 1-minute kline WebSocket collector and kline API and added time ranges and BTC change rates to the performance API; also designed a batched metrics collector for strategy detectors
+- **AI Sentiment Engine & Exchange Listing Sniper**: built with the team, a sentiment engine that scores news Telegram channels and KOL tweets with several OpenAI assistants and routes signals to Binance and Bybit futures orders, and a listing sniper that catches Upbit and Bithumb listing announcements and sends new symbols over gRPC to order servers in Tokyo and Singapore that place Binance futures, MEXC, and Bybit orders. Right after joining, ran the earlier listing detector, which watched Upbit and Bithumb notices and ordered on Binance futures, Bybit, MEXC, and OKX, in a dev environment and wrote up seven improvements
+- **Prediction Market Monitoring (Totoro)**: with the team, a module that pairs Polymarket and Kalshi NFL and Premier League markets by match and pulls their prices
 
 ### **Medium Inc.**
 
@@ -74,6 +76,24 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric, Kafka, MySQL
 _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 
 - **Government Research Project**: built the report intake and lookup REST API server for an IITP (Institute of Information & Communications Technology Planning & Evaluation) funded project with Node.js, Express, Sequelize, and MariaDB: JWT login, S3 image upload, report search, and a 5-table database schema
+
+---
+
+## EDUCATION & LANGUAGES
+
+- **Kyung Hee University, Seoul**: Bachelor of Engineering in Mechanical Engineering | Mar 2014 - Aug 2022
+- **English**: TOEIC Speaking 150/200, Intermediate High · **Korean**: Native
+---
+
+## TECHNICAL SKILLS
+
+- **Languages**: Rust, Go, Python, TypeScript
+- **Backend Frameworks**: NestJS, Next.js, Fastify, Gin, Fiber, Fx
+- **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
+- **Frontend**: React, SolidJS, Astro
+- **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
+- **AI Tooling**: Claude Code, Codex, MCP servers, agent skills and trigger evals, agent-in-the-loop pipelines
+- **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, High-Frequency Trading, Medium-Frequency Trading, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
 
 ---
 
@@ -120,7 +140,7 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
 
 _Tech Stack: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
 
-- High-performance triangular arbitrage engine using FIX and SBE for ultra-low-latency execution, with real-time opportunity detection across multiple Binance pairs
+- Triangular arbitrage engine that receives order books and sends orders over Binance FIX API sessions in SBE encoding, computing fee-adjusted opportunities on the BTC, ETH, and USDT triangle and measuring order latency
 
 ### **Polymarket & Crypto Prediction Markets**
 
@@ -155,21 +175,3 @@ _Tech Stack: Go_
 
 - **6th Cohort BTCFi Bitcoin Options Service** (May 2025 - Nov 2025): one-way option proof of concept on BitVMX-CPU, a Go backend (60 REST APIs, WebSocket, PostgreSQL), and the BitStriker frontend (React, MutinyNet wallet support)
 
----
-
-## TECHNICAL SKILLS
-
-- **Languages**: Rust, Go, Python, TypeScript
-- **Backend Frameworks**: NestJS, Next.js, Fastify, Gin, Fiber, Fx
-- **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
-- **Frontend**: React, SolidJS, Astro
-- **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
-- **AI Tooling**: Claude Code, Codex, MCP servers, agent skills and trigger evals, agent-in-the-loop pipelines
-- **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, High-Frequency Trading, Medium-Frequency Trading, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
-
----
-
-## EDUCATION & LANGUAGES
-
-- **Kyung Hee University, Seoul**: Bachelor of Engineering in Mechanical Engineering | Mar 2014 - Aug 2022
-- **English**: Intermediate-High (TOEIC Speaking Level 6, 150/200) · **Korean**: Native

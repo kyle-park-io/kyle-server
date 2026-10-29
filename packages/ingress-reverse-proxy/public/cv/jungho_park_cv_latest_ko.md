@@ -1,27 +1,28 @@
 # 박정호 (Kyle) - 이력서
 
-**블록체인 & 백엔드 엔지니어 | 퀀트 트레이딩 시스템**
+**블록체인·퀀트 트레이딩 시스템 백엔드 엔지니어**
 
-트레이딩 시스템(Rust/Go)과 블록체인 인프라, 프로덕션 도구를 처음부터 끝까지 직접 만듭니다. 2026년 4월부터 10월까지 Mantle Network에서 한국 데브렐을 맡아, 팀이 매일 사용하는 콘텐츠 운영 파이프라인(16개 모듈)을 직접 설계·구현해 배포했고 이어서 고도화와 개발자 온보딩을 진행했습니다. 이 일을 받치는 에이전트 도구도 직접 만듭니다. Claude Code·Codex용 스킬 마켓플레이스와, 자체 검사기를 갖춘 글쓰기 지침을 운영하고 있습니다.
+크로스체인 브릿지, 스마트 컨트랙트, 트레이딩 시스템을 Rust, Go, TypeScript로 개발해 온 백엔드 엔지니어입니다. 2026년에는 Mantle에서 한국 데브렐로 해커톤 빌더 온보딩, 빌더 워크샵, 한국어 기술 문서를 맡았고, 한국팀이 매일 사용하는 콘텐츠 운영 파이프라인을 16개 모듈로 설계·구현해 배포했습니다.
 
 ---
 
 ## 연락처
 
 - **이메일**: andy3638@naver.com · **텔레그램**: https://t.me/kyleparkio
-- **GitHub**: https://github.com/kyle-park-io · **포트폴리오**: https://jungho.dev (퀀트 개발 경력 `/quant`, 개인 트레이딩 전략 `/personal-quant`)
-- **실시간 퀀트 트레이딩 대시보드**: https://kyle-quant.xyz (비밀번호: demo2025)
+- **GitHub**: https://github.com/kyle-park-io · **포트폴리오**: https://jungho.dev
+- **퀀트 개발 경력**: https://jungho.dev/quant · **개인 트레이딩 전략**: https://jungho.dev/personal-quant
+- **실시간 퀀트 트레이딩 대시보드**: https://kyle-quant.xyz · 비밀번호 demo2025
 
 ---
 
 ## 경력 사항
 
-### **Mantle Network**
+### **Mantle**
 
 **데브렐 엔지니어 (한국)** | 2026년 4월 - 2026년 10월 (7개월)\
 _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **한국팀 콘텐츠 운영 파이프라인 단독 설계·구현 후 팀에 배포 (16개 모듈)**
+- **한국팀 콘텐츠 운영 파이프라인 16개 모듈 단독 설계·구현 후 팀에 배포**
   - X/Lark 수집, 한국어 번역, 채널별 변환(보도자료 포함), 2단계 사람 검수, 텔레그램/X 발송. 터미널을 열지 않는 검수자가 한 화면에서 승인부터 발송까지 처리 (mantle-kr-herald, 비공개 저장소, 요청 시 열람 가능)
 
 - **한국어 기술 문서 5종 단독 집필**
@@ -31,7 +32,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
   - Mantle 인프라 세팅, Bybit API, Byreal Skills CLI, MerchantMoe/Agni/Fluxion 연동, 테스트넷 컨트랙트 배포 실습, 스테이블코인 페어 트레이딩 봇 라이브 빌드
 
 - **The Turing Test 해커톤 2026 한국 빌더 온보딩 총괄**
-  - 총상금 $120K 규모의 2단계 글로벌 플래그십 해커톤에서, 등록부터 제출까지 이어지는 Phase 2의 6주 전 구간을 한국 빌더 유입 채널로 설계·운영. 오프라인 모각코, 서울 해커하우스 워크샵(빌더 100명 이상), 온라인 라이브 워크샵, 외부 파트너 행사 3건
+  - 총상금 $120K 규모의 2단계 글로벌 플래그십 해커톤에서, 등록부터 제출까지 이어지는 Phase 2의 6주 전 구간을 한국 빌더 유입 채널로 설계·운영. 오프라인 모각코, 빌더 100명 이상이 참가한 서울 해커하우스 워크샵, 온라인 라이브 워크샵, 외부 파트너 행사 3건
 
 - **Q402 빌더 워크샵 운영 (Mantle × Quack AI, 2026년 8월): 빌더 42명, 3시간 동안 온체인 결제 488건**
   - 참가자가 각자의 AI 에이전트를 MCP로 Q402에 연결해, 지갑 앱도 서명 창도 가스용 MNT도 없이 채팅 창에서 Mantle 메인넷 결제를 실행. 그날의 운영 사이트를 행사 3일 전부터 당일까지 직접 구축(Next.js, PostgreSQL, Vercel, Q402 MCP). 지갑 등록, 실시간 리더보드, 퀘스트 검증, QR 결제 브릿지 포함. 배지 판정은 체인을 직접 읽어서 처리
@@ -45,18 +46,19 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 - **월간 한국어 라이브스트림 공동 진행: 8월 라이브 포스트 노출 1.8만, 2026년 4~9월 계정 내 2위**
   - 7월은 Mantle 3주년, 8월은 Mantle × Stable 협업으로 USDT0 스테이블코인 생태계와 Chainlink CCIP 브릿징을 다룸. 9월에는 KBW를 앞두고 맨틀 RPC 제공자를 앱의 요청 비용으로 비교해 고르는 워크샵을 방송 마지막 순서로 진행. 7월 RFQ 세션은 한국어 단독 아티클로 별도 집필
 
-- **한국 공식 계정 운영: 2026년 4~9월 게시물 279건, 노출 24.6만, 참여율 1.74% (글로벌 계정 1.03%의 1.7배)**
+- **한국 공식 계정 운영: 2026년 4~9월 게시물 279건, 노출 24.6만, 참여율 1.74%로 글로벌 계정 1.03%의 1.7배**
   - 한국팀이 직접 기획한 캠페인·행사 공지가 노출 상위 6개를 모두 차지
 
 ### **크로논 랩스 주식회사**
 
 **트레이딩 시스템 백엔드 엔지니어** | 2025년 4월 - 2025년 11월 (8개월)\
-_기술 스택: Go (Fiber, Fx), Python, AWS (ECS, ECR, Parameter Store), Docker_
+_기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX 거래소 간 차익거래 시스템**: Taker-Taker·Maker-Taker 차익거래 시스템의 거래소 연동 백엔드를 Go로 구현. 7개 거래소와 Solana DEX의 주문 API와 사용자 데이터 WebSocket, 잔고, PnL, 델타 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축
-- **Solana DEX 트레이딩 인프라**: 자체 알파 전략(신규 페어 탐지, Back From The Dead, Fat LP 분석)을 구현한 온체인 트레이딩 봇을 Go로 개발. 지갑과 홀더 분석 진입 필터, Jupiter 스왑, Helius WebSocket 풀 구독 포함
-- **트레이딩 지표 수집과 분석**: Bybit 1분봉 WebSocket 수집기와 성과 순위 API 구현, 전략 탐지기의 배치 지표 수집기 설계
-- **AI 감성 분석 엔진 및 거래소 상장 스나이퍼 봇**: 뉴스 텔레그램 채널과 KOL 트윗을 OpenAI 어시스턴트 여러 개로 채점해 Binance·Bybit 선물 주문으로 잇는 감성 분석 엔진, 그리고 업비트와 빗썸의 상장 공지를 해외 거래소 주문으로 잇는 모니터링 시스템 구현
+- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, 빗썸 현물 사이, Bybit와 Jupiter 사이, 빗썸·업비트 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 이 가운데 거래소 연동 백엔드를 맡아 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 API와 사용자 데이터 WebSocket, 잔고, PnL, 델타 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축
+- **Solana DEX 트레이딩 인프라**: 자체 알파 전략(신규 페어 탐지, Back From The Dead, Fat LP 분석)을 구현한 온체인 트레이딩 봇을 Go로 개발. GoPlus 보안 검사와 지갑·홀더 분석 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시 포함
+- **트레이딩 지표 수집과 분석**: 팀과 함께 만든 알트코인 성과 차트 백엔드. Django API가 상위 알트코인 50개의 성과를 BTC와 견줘 순위를 내고, Velo의 미결제약정 대비 시가총액 비율과 MongoDB에 쌓은 봉 변화율을 함께 제공. 이 가운데 Bybit 1분봉 WebSocket 수집기와 봉 API를 구현하고 성과 API에 기간 인자와 BTC 대비 변동률 추가. 전략 탐지기의 배치 지표 수집기 설계
+- **AI 감성 분석 엔진 및 거래소 상장 스나이퍼 봇**: 뉴스 텔레그램 채널과 KOL 트윗을 OpenAI 어시스턴트 여러 개로 채점해 Binance·Bybit 선물 주문으로 잇는 감성 분석 엔진, 그리고 업비트와 빗썸의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 상장 스나이퍼를 팀과 함께 구현. 입사 직후 업비트·빗썸 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지를 정리
+- **예측 시장 모니터링 Totoro**: Polymarket과 Kalshi의 NFL·프리미어리그 경기 시장을 경기별로 짝지어 가격을 받는 모니터링 모듈을 팀과 함께 개발
 
 ### **미디움 주식회사**
 
@@ -73,7 +75,25 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric, Kafka, My
 **백엔드 엔지니어** | 2022년 8월 - 2022년 9월 (2개월)\
 _기술 스택: Node.js, Express, MariaDB, AWS S3_
 
-- **정부 연구 프로젝트**: IITP(정보통신기획평가원) 지원 과제의 신고 접수·조회 REST API 서버를 Node.js, Express, Sequelize, MariaDB로 개발. JWT 로그인, S3 이미지 업로드, 신고 검색 API와 DB 스키마(테이블 5개) 정리
+- **정부 연구 프로젝트**: IITP(정보통신기획평가원) 지원 과제의 신고 접수·조회 REST API 서버를 Node.js, Express, Sequelize, MariaDB로 개발. JWT 로그인, S3 이미지 업로드, 신고 검색 API와 테이블 5개의 DB 스키마 정리
+
+---
+
+## 학력 및 언어
+
+- **경희대학교**: 기계공학과 공학사 | 2014년 3월 - 2022년 8월
+- **영어**: TOEIC Speaking 150/200, Intermediate High · **한국어**: 원어민
+---
+
+## 기술 스택
+
+- **언어**: Rust, Go, Python, TypeScript
+- **백엔드 프레임워크**: NestJS, Next.js, Fastify, Gin, Fiber, Fx
+- **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
+- **프론트엔드**: React, SolidJS, Astro
+- **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
+- **AI 도구**: Claude Code, Codex, MCP 서버, 에이전트 스킬과 트리거 평가, 에이전트 인 더 루프 파이프라인
+- **전문 분야**: 금융 시장 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 고빈도 트레이딩, 중빈도 트레이딩, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 기술 문서 집필
 
 ---
 
@@ -83,7 +103,7 @@ _기술 스택: Node.js, Express, MariaDB, AWS S3_
 
 _기술 스택: TypeScript, PostgreSQL, Vercel, Vitest_ · 비공개 저장소, 요청 시 열람 가능
 
-- Mantle 한국팀의 콘텐츠 운영 파이프라인을 단독 설계·구현해 팀에 배포. **16개 모듈**, 2026년 7월부터 10월까지 커밋 1,051건, 시험 파일 400개(시험 케이스 4,801개)
+- Mantle 한국팀의 콘텐츠 운영 파이프라인을 단독 설계·구현해 팀에 배포. **16개 모듈**, 2026년 7월부터 10월까지 커밋 1,051건, 시험 파일 400개와 시험 케이스 4,801개
 - 번역과 변환은 **에이전트 인 더 루프**로 동작. 로컬 코딩 에이전트가 전용 워크시트를 채우고 사람이 승인하며, 필수 승인 게이트는 2단계
 - 기록의 원천을 파일에서 **PostgreSQL로 이관하고 Vercel 서버리스로 배포**하여, 터미널을 열지 않는 검수자가 한 화면에서 승인하고 텔레그램·X로 발송까지 하도록 전환. 영속성을 포트 뒤에 둔 **헥사고날 구조**라 저장소 교체는 어댑터 수준에서 마무리됨. 파일 락 직렬화가 서버리스에서 유지되지 않아 원장 행이 누락되면 이미 나간 글이 두 번 발행될 수 있는데, 이 위험은 유니크 인덱스로 차단. 스토리지 어댑터는 목 대신 **실제 Postgres로 테스트**하며, PGlite를 인프로세스로 띄움
 - **번역 메모리**가 양쪽 공식 계정을 훑어 사람이 승인한 EN↔KO 쌍만 골라 few-shot에 투입. 용어 마이너가 한국어 표현 후보를 제안하면 조정된 **기각 임계값**이 살아남을 후보를 가려내어, 코퍼스가 후보를 실제로 걸러내도록 함
@@ -120,7 +140,7 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
 
 _기술 스택: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
 
-- FIX와 SBE를 활용한 초저지연 삼각 차익거래 엔진, 바이낸스 다수 페어에 걸친 실시간 기회 탐지
+- 바이낸스 FIX API의 SBE 세션으로 호가를 받고 주문을 보내는 삼각 차익거래 엔진, BTC·ETH·USDT 삼각형에서 수수료를 뺀 기회 계산과 주문 지연 측정
 
 ### **폴리마켓 및 암호화폐 예측 시장**
 
@@ -133,7 +153,7 @@ _기술 스택: Go_
 ## 수상 및 자격
 
 - **Mantle 글로벌 해커톤 2025 1위** (DeFi & Composabilities 트랙 우승, DOOR Protocol) | 2026년 2월
-  - 선순위·후순위 트랜치 볼트(ERC-4626), 안전 모듈, 출금 에포크, 금리 오라클을 담은 핵심 컨트랙트 7개(테스트 함수 150개)와 Next.js 대시보드, 키퍼 봇 작성
+  - 선순위·후순위 트랜치 볼트(ERC-4626), 안전 모듈, 출금 에포크, 금리 오라클을 담은 핵심 컨트랙트 7개와 테스트 함수 150개, Next.js 대시보드, 키퍼 봇 작성
 - **Seoulana 해커톤 2025 3위** (Solana 블록체인 개발 경진대회) | 2025년 4월
   - 출품작 Stream Square의 Orca Whirlpool 풀, 포지션, 유동성 트랜잭션 구현
 - **일반기계기사** (한국산업인력공단) | 2020년 12월
@@ -153,23 +173,5 @@ _기술 스택: Go_
   - 솔라나 서처/솔버 전략 설계. Jito 번들·Jupiter v6·Helius WebSocket 기반 실시간 디페그 차익거래 6개 전략 계열
   - 그 외 DeFi 생태계 17범주 택소노미, 범주별 스테이블코인 존재 형태 정리
 
-- **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): BitVMX-CPU 위 일방향 옵션 PoC, Go 백엔드(REST API 60개, WebSocket, PostgreSQL), BitStriker 프런트엔드(React, MutinyNet 지갑 연동)
+- **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): BitVMX-CPU 위 일방향 옵션 PoC, Go와 PostgreSQL로 만든 REST API 60개와 WebSocket 백엔드, BitStriker 프런트엔드(React, MutinyNet 지갑 연동)
 
----
-
-## 기술 스택
-
-- **언어**: Rust, Go, Python, TypeScript
-- **백엔드 프레임워크**: NestJS, Next.js, Fastify, Gin, Fiber, Fx
-- **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
-- **프론트엔드**: React, SolidJS, Astro
-- **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
-- **AI 도구**: Claude Code, Codex, MCP 서버, 에이전트 스킬과 트리거 평가, 에이전트 인 더 루프 파이프라인
-- **전문 분야**: 금융 시장 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 초고빈도 트레이딩, 중빈도 트레이딩, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 기술 문서 집필
-
----
-
-## 학력 및 언어
-
-- **경희대학교**: 기계공학과 공학사 | 2014년 3월 - 2022년 8월
-- **영어**: 중급 (TOEIC Speaking Level 6, 150/200) · **한국어**: 원어민
