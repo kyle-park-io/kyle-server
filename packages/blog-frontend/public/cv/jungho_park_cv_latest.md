@@ -140,7 +140,7 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
 
 _Tech Stack: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
 
-- Triangular arbitrage engine that receives order books and sends orders over Binance FIX API sessions in SBE encoding, computing fee-adjusted opportunities on the BTC, ETH, and USDT triangle and measuring order latency
+- Triangular arbitrage engine that receives order books and sends orders over Binance FIX API sessions in SBE encoding, computing fee-adjusted opportunities on the BTC, ETH, and USDT triangle
 
 ### **Polymarket & Crypto Prediction Markets**
 
