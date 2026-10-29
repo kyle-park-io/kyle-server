@@ -140,7 +140,7 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
 
 _기술 스택: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
 
-- 바이낸스 FIX API의 SBE 세션으로 호가를 받고 주문을 보내는 삼각 차익거래 엔진, BTC·ETH·USDT 삼각형에서 수수료를 뺀 기회 계산과 주문 지연 측정
+- 바이낸스 FIX API의 SBE 세션으로 호가를 받고 주문을 보내는 삼각 차익거래 엔진, BTC·ETH·USDT 삼각형에서 수수료를 뺀 기회 계산
 
 ### **폴리마켓 및 암호화폐 예측 시장**
 
