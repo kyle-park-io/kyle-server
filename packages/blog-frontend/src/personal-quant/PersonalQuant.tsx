@@ -112,8 +112,12 @@ const PersonalQuant: Component = (): JSX.Element => {
                     inefficiencies
                   </li>
                   <li>
-                    High-performance implementation in Rust and Go for
-                    low-latency execution
+                    Implemented in Rust and Go; skips a signal when the two prices
+                    are more than 29 ms apart or the older one is more than 29 ms old
+                  </li>
+                  <li>
+                    Order execution is off by default; each opportunity is logged
+                    and sent as a Telegram alert
                   </li>
                 </ul>
               </div>
@@ -149,10 +153,10 @@ const PersonalQuant: Component = (): JSX.Element => {
                 <p class="strategy-card__description">
                   Triangular arbitrage strategy that identifies and exploits
                   price inefficiencies across three currency pairs on Binance
-                  (e.g., BTC/USDT → ETH/BTC → ETH/USDT). The system continuously
-                  monitors order book depth and calculates optimal execution
-                  paths to profit from temporary price discrepancies, with a
-                  primary focus on minimizing execution latency.
+                  (e.g., BTC/USDT → ETH/BTC → ETH/USDT). The system receives order
+                  books over Binance's FIX SBE market data session, checks both
+                  directions of the triangle (USDT → BTC → ETH → USDT and the
+                  reverse), and computes the profit left after fees.
                 </p>
               </div>
 
@@ -190,20 +194,20 @@ const PersonalQuant: Component = (): JSX.Element => {
                 <h4 class="strategy-card__subtitle">Key Features</h4>
                 <ul class="strategy-card__features">
                   <li>
-                    Executes three consecutive orders across linked currency
-                    pairs to complete arbitrage cycle
+                    Sends three IOC limit orders across the linked pairs, 50 ms
+                    apart; execution is off by default (dry run)
                   </li>
                   <li>
-                    FIX 4.4 protocol with SBE encoding reduces network overhead
-                    for low-latency execution
+                    Binance FIX API sessions in SBE (Simple Binary Encoding) for
+                    both market data and order entry
                   </li>
                   <li>
                     Rust async runtime enables concurrent order book processing
                     and order placement
                   </li>
                   <li>
-                    Real-time profitability calculation accounting for trading
-                    fees and slippage
+                    Profit computed after a 0.1% taker fee on each leg; trades only
+                    above 0.3%
                   </li>
                 </ul>
               </div>
