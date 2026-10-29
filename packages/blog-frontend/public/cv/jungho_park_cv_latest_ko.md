@@ -93,7 +93,7 @@ _기술 스택: Node.js, Express, MariaDB, AWS S3_
 - **프론트엔드**: React, SolidJS, Astro
 - **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
 - **AI 도구**: Claude Code, Codex, MCP 서버, 에이전트 스킬과 트리거 평가, 에이전트 인 더 루프 파이프라인
-- **전문 분야**: 금융 시장 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 고빈도 트레이딩, 중빈도 트레이딩, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 기술 문서 집필
+- **전문 분야**: 금융 시장 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 거래소 간·삼각 차익거래, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 기술 문서 집필
 
 ---
 
