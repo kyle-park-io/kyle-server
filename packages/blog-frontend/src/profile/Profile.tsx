@@ -275,12 +275,13 @@ const Profile: Component = (): JSX.Element => {
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">
-                    🏆 1st Place — Mantle Global Hackathon 2025
+                    🏆 Track 1st Place — Mantle Global Hackathon 2025
                   </h3>
                   <span class="profile-item__period">Feb 2026</span>
                 </div>
                 <p class="profile-item__role">
-                  DeFi &amp; Composabilities Track Winner
+                  DeFi &amp; Composability Track winner, Mantle Incubation Grant
+                  recipient
                 </p>
                 <p class="profile-item__desc">
                   DOOR Protocol — a Decentralized Offered Rate protocol for

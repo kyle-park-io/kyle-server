@@ -240,11 +240,11 @@ const DevRel: Component = (): JSX.Element => {
           <h2 class="devrel-section__title">Overview</h2>
           <div class="devrel-section__content">
             <p>
-              I joined Mantle as a Developer Relations Engineer for the
-              Korean market, coming from a background in trading systems and
-              blockchain infrastructure. That engineering background shapes how
-              I work: the tooling the Korea team ran on was something I built,
-              not something I requested.
+              I joined Mantle as a Developer Relations Engineer for the Korean
+              market, coming from a background in trading systems and blockchain
+              infrastructure. That engineering background shapes how I work: the
+              tooling the Korea team ran on was something I built, not something
+              I requested.
             </p>
             <p>
               The work split into what I shipped and what I ran. Shipped: a
@@ -288,50 +288,44 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Designed and implemented the Korea team's content operations
-                pipeline and deployed it to the team. It collects from X
-                and Lark, translates to Korean, converts per channel, routes
-                through two-stage human review, and delivers to Telegram, X, and
-                pull requests.
+                pipeline and deployed it to the team. It collects from X and
+                Lark, translates to Korean, converts per channel, routes through
+                two-stage human review, and delivers to Telegram, X, and pull
+                requests.
               </p>
               <ul class="devrel-work__list">
                 <li>
-                  Translation and conversion run{' '}
-                  <strong>agent-in-the-loop</strong> — a local coding agent
-                  fills a purpose-built worksheet and a human approves the
-                  result, behind two mandatory approval gates
+                  <strong>Agent-in-the-loop translation</strong>: a local coding
+                  agent fills a purpose-built worksheet and a human approves it.
+                  Only translation pairs a human approved on the two official
+                  accounts become few-shot examples for the next translation,
+                  and glossary candidates pass a tuned rejection threshold
+                  before going to human review
                 </li>
                 <li>
-                  Migrated the record of truth from files to{' '}
-                  <strong>PostgreSQL</strong> and shipped it serverless on
-                  Vercel. A reviewer who never opens a terminal now approves the
-                  copy and sends it to Telegram and X from the same screen.
-                  Persistence sits behind a port in a hexagonal structure, so
-                  swapping the store stayed at the adapter level
+                  <strong>Hexagonal structure and the PostgreSQL move</strong>:
+                  external APIs, files, and storage sit behind ports. Over the
+                  99 commits that moved the record store from files to
+                  PostgreSQL and shipped it serverless on Vercel, no existing
+                  domain file changed; the move added 19 adapters and swapped
+                  the entry points
                 </li>
                 <li>
-                  File-lock serialization does not survive serverless, so a
-                  dropped ledger row could republish a live post twice — a
-                  unique index closes that hazard
-                </li>
-                <li>
-                  A <strong>translation memory</strong> mines both official
-                  accounts and feeds only human-approved EN↔KO pairs into the
-                  few-shot set
-                </li>
-                <li>
-                  A glossary miner proposes Korean renderings and a tuned{' '}
-                  <strong>rejection threshold</strong> decides which survive. On
-                  a real run it threw out two renderings the corpus argued
-                  against, and kept the best find of the run precisely because
-                  the corpus was silent on it — the difference between a
-                  discriminator and a rubber stamp
+                  A unique index closes the double-publish hazard that appears
+                  when serverless drops the file lock
                 </li>
               </ul>
               <div class="devrel-work__meta">
+                <span class="devrel-work__meta-label">Scale:</span>
+                <span class="devrel-work__meta-value">
+                  16 modules, 1,051 commits from July to October 2026
+                </span>
+              </div>
+              <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Tests:</span>
                 <span class="devrel-work__meta-value">
-                  Storage adapters run against real Postgres, not a mock —
-                  PGlite boots one in-process
+                  400 test files and 5,115 test cases. Storage adapters are
+                  tested against Postgres running in PGlite, not a mock
                 </span>
               </div>
               <div class="devrel-work__meta">
@@ -355,9 +349,9 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">5 Documents</span>
               </div>
               <p class="devrel-work__desc">
-                Wrote the Korean technical documentation set: the
-                Mantle block explorer in beginner and deep-dive editions, a DEX
-                comparative deep dive, an AI agent trading path guide, and an
+                Wrote the Korean technical documentation set: the Mantle block
+                explorer in beginner and deep-dive editions, a DEX comparative
+                deep dive, an AI agent trading path guide, and an
                 asset-withdrawal guide.
               </p>
               <ul class="devrel-work__list">
@@ -479,9 +473,9 @@ const DevRel: Component = (): JSX.Element => {
                 </li>
                 <li>
                   Built the night's operations site as the first version of
-                  pay-lab: wallet registration,
-                  the live leaderboard, quest verification, a QR payment bridge
-                  for phone-only attendees, and the staff console.{' '}
+                  pay-lab: wallet registration, the live leaderboard, quest
+                  verification, a QR payment bridge for phone-only attendees,
+                  and the staff console.{' '}
                   <strong>
                     Every badge and quest was judged by reading the chain
                   </strong>
@@ -544,14 +538,14 @@ const DevRel: Component = (): JSX.Element => {
                 </span>
               </div>
               <p class="devrel-work__desc">
-                Taught a session of Inha University's Digital Assets
-                and Market Infrastructure course for finance students, on how
-                stablecoin payments move and what changes when an AI agent pays.
-                The class met while Korea was still writing its rules. On the
-                day, there was no law under which a won stablecoin could be
-                issued, nine bills sat in the National Assembly's subcommittee,
-                and the government's own bill, first promised for 2025, had
-                slipped five times.
+                Taught a session of Inha University's Digital Assets and Market
+                Infrastructure course for finance students, on how stablecoin
+                payments move and what changes when an AI agent pays. The class
+                met while Korea was still writing its rules. On the day, there
+                was no law under which a won stablecoin could be issued, nine
+                bills sat in the National Assembly's subcommittee, and the
+                government's own bill, first promised for 2025, had slipped five
+                times.
               </p>
               <ul class="devrel-work__list">
                 <li>
