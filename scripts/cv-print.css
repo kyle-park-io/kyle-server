@@ -40,6 +40,14 @@
 body,
 .markdown-body {
   font-family: Pretendard, 'Liberation Sans', sans-serif;
+  /*
+   * md-to-pdf's base sheet sets the body to 0.6875em and labels it "11 pt",
+   * but it renders as 11px, which is 8.25pt on paper. Tech Interview Handbook
+   * asks for "a minimum size of 10 pt for readability", so set it in points.
+   * Headings are em-based and scale with it.
+   */
+  font-size: 10pt;
+  /* WCAG 2.1 SC 1.4.8 asks for at least 1.5 within paragraphs. */
   line-height: 1.55;
   /*
    * Chrome breaks Hangul between any two syllables by default, which splits
@@ -56,6 +64,17 @@ kbd,
 samp,
 tt {
   font-family: 'DejaVu Sans Mono', monospace;
+}
+
+/*
+ * The base sheet sets inline code to 1.2em of the body. With a 10pt body that
+ * is 16px, larger than the text around it, and DejaVu Sans Mono already reads
+ * wider than Pretendard. 0.9em keeps a command in a bullet the same visual
+ * size as its sentence.
+ */
+p code,
+li code {
+  font-size: 0.9em;
 }
 
 /*
@@ -195,14 +214,19 @@ p:has(+ ol) {
 
 /*
  * A short list moves as a unit rather than leaving its last bullet alone at
- * the top of the next page. "Short" is eight flat items or fewer, or three
- * items or fewer with details under them. A long one (the current role has
- * eight bullets with details) must stay breakable, or it drags its whole
- * section to the next page and leaves the one before it mostly empty.
+ * the top of the next page. "Short" is three items or fewer, or a list that
+ * sits straight under a section heading (education, skills), whose items are
+ * one line each.
+ *
+ * Until 2026-10-30 this also held every flat list of eight items or fewer
+ * together. Once the role entries became one paragraph per bullet, that rule
+ * pushed whole sections (six Kronon Labs bullets) to the next page and left
+ * the page before it half empty. Each bullet already keeps itself whole
+ * (`break-inside: avoid` on li above), so a long list breaks between bullets.
  */
-ul:not(:has(> li:nth-child(9))):not(:has(ul, ol)),
-ol:not(:has(> li:nth-child(9))):not(:has(ul, ol)),
 ul:not(:has(> li:nth-child(4))),
-ol:not(:has(> li:nth-child(4))) {
+ol:not(:has(> li:nth-child(4))),
+h2 + ul,
+h2 + ol {
   break-inside: avoid;
 }

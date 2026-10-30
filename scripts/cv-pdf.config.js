@@ -18,11 +18,15 @@ module.exports = {
    * md-to-pdf defaults to 20mm left / 40mm right, which is asymmetric by
    * accident rather than design: it pushed the text column off-centre and
    * wasted 20mm of line width, forcing extra wrapping and a mostly empty
-   * final page. Symmetric 20mm centres the column and widens it 150mm -> 170mm.
+   * final page. Symmetric margins centre the column.
+   *
+   * 0.5in on each side is Tech Interview Handbook's "narrow margins are 0.5 on
+   * each side". It gives back part of the length the 10pt body adds (see
+   * cv-print.css): the column is 184mm wide instead of 170mm at 20mm margins.
    */
   pdf_options: {
     printBackground: true,
     format: 'a4',
-    margin: { top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' },
+    margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
   },
 };
