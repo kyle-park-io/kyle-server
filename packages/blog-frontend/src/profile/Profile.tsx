@@ -137,8 +137,8 @@ const Profile: Component = (): JSX.Element => {
                   ODA Team (7th Cohort, Sep 2025 — Feb 2026)
                 </p>
                 <p class="profile-item__desc">
-                  KAIST-based blockchain research society. Sole author of the
-                  7th cohort's five published DeFi research papers (CC BY 4.0),
+                  KAIST-based blockchain research society. Wrote the 7th
+                  cohort's five published DeFi research papers (CC BY 4.0),
                   covering a stablecoin depeg survey across CEX and on-chain
                   venues, Solana searcher/solver strategy design, and a
                   17-category DeFi ecosystem taxonomy.
