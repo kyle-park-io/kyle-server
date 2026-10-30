@@ -46,10 +46,10 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
 - **CEX Cross-Exchange Arbitrage System (Rothchild)**: a Taker-Taker and Maker-Taker arbitrage system built with the team. Its Go strategy engine trades spreads across Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, and Bithumb spot markets, Bybit against Jupiter, Bithumb and Upbit KRW markets against Bybit, and the perpetual DEXs Paradex, Backpack, Extended, and Rails. Built its exchange-facing backend: order APIs and user-data WebSockets for 8 exchanges including Gate.io, plus Solana DEX, balances, PnL, a delta manager, and a dashboard tracking PnL and positions in real time
-- **Solana DEX Trading Infrastructure**: on-chain trading bots in Go implementing in-house alpha strategies (New Pair Detection, Back From The Dead, Fat LP Analysis), with GoPlus security and wallet and holder entry filters, Jupiter swaps and trigger orders, a price cache with 5-minute and 1-hour volatility, tiered sell rules, and Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and Meteora pools
+- **Solana DEX Trading Infrastructure**: on-chain trading bots in Go implementing three alpha strategies (New Pair Detection, Back From The Dead, Fat LP Analysis), with GoPlus security and wallet and holder entry filters, Jupiter swaps and trigger orders, a price cache with 5-minute and 1-hour volatility, tiered sell rules, and Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and Meteora pools
 - **Trading Metrics Collection & Analytics**: an altcoin performance chart backend built with the team: a Django API ranking the top 50 altcoins against BTC, open-interest-to-market-cap ratios from Velo, and kline changes stored in MongoDB. Built its Bybit 1-minute kline WebSocket collector and kline API and added time ranges and BTC change rates to the performance API; also designed a batched metrics collector for strategy detectors
 - **News and KOL Signal Trading Engine**: a futures trading engine built with the team. It ingests private Telegram channels and X list tweets, scores each item's similarity to known events with the average of several OpenAI assistants, and routes signals to Binance and Bybit USDT-futures orders. Built the X list-tweet collector, the private Telegram channel subscription, and the multi-assistant scoring, and iterated three versions of the assistant instructions against a 100-item test list
-- **Exchange Listing Sniper**: built with the team, a sniper that catches Upbit and Bithumb listing announcements and sends new symbols over gRPC to order servers in Tokyo and Singapore that place Binance futures, MEXC, and Bybit orders. Right after joining, ran the earlier listing detector, which watched Upbit and Bithumb notices and ordered on Binance futures, Bybit, MEXC, and OKX, in a dev environment and wrote up seven improvements
+- **Exchange Listing Sniper**: built with the team, a sniper that catches Upbit and Bithumb listing announcements and sends new symbols over gRPC to order servers in Tokyo and Singapore that place Binance futures, MEXC, and Bybit orders. Ran the earlier listing detector, which watched Upbit and Bithumb notices and ordered on Binance futures, Bybit, MEXC, and OKX, in a dev environment and wrote up seven improvements
 - **Prediction Market Monitoring (Totoro)**: with the team, a module that pairs Polymarket and Kalshi NFL and Premier League markets by match and pulls their prices
 
 ### **Medium Inc.**
@@ -75,37 +75,50 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 
 - **Kyung Hee University, Seoul**: Bachelor of Engineering in Mechanical Engineering | Mar 2014 - Aug 2022
 - **English**: TOEIC Speaking 150/200, Intermediate High · **Korean**: Native
+
 ---
 
 ## TECHNICAL SKILLS
 
 - **Languages**: Rust, Go, Python, TypeScript
-- **Backend Frameworks**: NestJS, Next.js, Fastify, Gin, Fiber, Fx
+- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
 - **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
 - **Frontend**: React, SolidJS, Astro
 - **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
 - **AI Tooling**: Claude Code, Codex, MCP servers, agent skills and trigger evals, agent-in-the-loop pipelines
-- **Specializations**: Financial Market Protocols, DeFi Protocols, DEX/CEX Trading Systems, Cross-Exchange and Triangular Arbitrage, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
+- **Specializations**: FIX and SBE Trading Protocols, DeFi Protocols, DEX/CEX Trading Systems, Cross-Exchange and Triangular Arbitrage, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
 
 ---
 
 ## SELECTED PROJECTS
 
-### **mantle-kr-herald**: Content Operations Pipeline (Mantle KR)
+### **mantle-kr-herald**: Content Operations Pipeline for the Mantle Korea Team
 
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, available on request
 
-- Designed and built the Korea team's content operations pipeline and deployed it to the team. **16 modules**, 1,051 commits from July to October 2026, 400 test files (4,801 test cases)
-- Translation and conversion run **agent-in-the-loop**: a local coding agent fills a purpose-built worksheet and a human approves the result, behind two mandatory approval gates
-- Migrated the record of truth from files to **PostgreSQL and shipped it serverless on Vercel**, so a reviewer who never opens a terminal approves the copy and sends it to Telegram and X from one screen. Persistence sits behind a port in a **hexagonal structure**, so swapping the store stayed at the adapter level. File-lock serialization does not survive serverless, so a dropped ledger row could republish a live post twice; a unique index closes that hazard. Storage adapters are tested against **real Postgres, not a mock**: PGlite boots one in-process
-- **Translation memory** mines both official accounts and feeds only human-approved EN↔KO pairs into the few-shot set. A glossary miner proposes Korean renderings and a tuned **rejection threshold** decides which survive, which is the difference between a discriminator and a rubber stamp
+- **Agent-in-the-loop translation**: a local coding agent fills a purpose-built worksheet and a human approves it. Only translation pairs that a human approved on the two official accounts become few-shot examples for the next translation, and glossary candidates pass a tuned rejection threshold before going to human review
+- **Hexagonal structure and the PostgreSQL move**: external APIs, files, and storage sit behind ports. Over the 99 commits that moved the record store from files to PostgreSQL and shipped it serverless on Vercel, no existing domain file changed; the move added 19 adapters and swapped the entry points. A unique index closes the double-publish hazard that appears when serverless drops the file lock
+- **Scale and tests**: 1,051 commits from July to October 2026, 16 modules, 400 test files, and 5,115 test cases. Storage adapters are tested against Postgres running in PGlite, not a mock
 
 ### **pay-lab**: On-Chain Payments Lab Kit for Workshops and Lectures
 
 _Tech Stack: Next.js, PostgreSQL, Privy, viem, MCP, Vercel_ · Private repository, available on request
 
-- Started as the operations site for the Aug 2026 Q402 builder workshop, then redesigned into lab modules (wallet creation, send and receipt, spending-limit signature, agent connection, agent payment) with one config file per event choosing the chain, gas sponsorship, funding, and limits. Chain adapters for Mantle, Mantle Sepolia, and Ethereum Sepolia. Ran the Oct 2026 Inha University class on Ethereum Sepolia with Circle's testnet USDC
-- The lab server submits each student's signed transfer and pays the gas, with per-transfer and per-student caps set in the config. A remote MCP server for the class connects to claude.ai and Codex over OAuth, and the agent's wallet tools spend only within the limit the signed-in student signed
+- **One kit, two events**: started as the operations site for the Aug 2026 Q402 builder workshop, where 42 builders made 488 on-chain payments, and ran the Oct 2026 Inha University class on the same kit with Ethereum Sepolia and Circle's testnet USDC
+- **Per-event config**: redesigned into lab modules (wallet creation, send and receipt, spending-limit signature, agent connection, agent payment) with one config file per event choosing the chain, gas sponsorship, funding, and limits. Chain adapters for Mantle, Mantle Sepolia, and Ethereum Sepolia
+- **Gas sponsorship and agent limits**: the lab server submits each student's signed transfer and pays the gas, with per-transfer and per-student caps set in the config. A remote MCP server for the class connects to claude.ai and Codex over OAuth, and the agent's wallet tools spend only within the limit the signed-in student signed
+
+### **Binance Triangular Arbitrage System**
+
+_Tech Stack: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
+
+- Triangular arbitrage engine that receives order books and sends orders over Binance FIX API sessions in SBE encoding, computing fee-adjusted opportunities on the BTC, ETH, and USDT triangle
+
+### **Polymarket 15-Minute Market Arbitrage Bot**
+
+_Tech Stack: Go, Rust_
+
+- Arbitrage bot for Polymarket's 15-minute crypto markets that buys both outcomes when Yes plus No costs less than $1. Once both legs fill, each pair is worth $1 at settlement or on a merge; fees and one-leg fills decide whether it pays. Drops the signal when the two prices are more than 29ms apart or the older one is more than 29ms old. Order execution is off by default; every opportunity is logged and sent as a Telegram alert
 
 ### **trustline**: Off-Chain Security Scanner for Web3 Projects
 
@@ -135,23 +148,12 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
 
 - One screen for Windows Task Scheduler, systemd timers, cron, and Codex and Claude schedules across Windows, WSL, macOS, and Linux. Bound to 127.0.0.1, with a confirmation step that shows the exact command for every change
 
-### **Binance Triangular Arbitrage System**
-
-_Tech Stack: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
-
-- Triangular arbitrage engine that receives order books and sends orders over Binance FIX API sessions in SBE encoding, computing fee-adjusted opportunities on the BTC, ETH, and USDT triangle
-
-### **Polymarket & Crypto Prediction Markets**
-
-_Tech Stack: Go_
-
-- Prediction-market arbitrage and 15-minute crypto momentum trading on sub-$1 mispricings
-
 ---
 
 ## AWARDS & CERTIFICATIONS
 
-- **1st Place, Mantle Global Hackathon 2025** (DeFi & Composabilities Track Winner, DOOR Protocol) | Feb 2026
+- **1st Place, DeFi & Composability Track, Mantle Global Hackathon 2025** (DOOR Protocol) | Feb 2026
+  - Also selected for a Mantle Incubation Grant. The hackathon drew 500+ submissions
   - Wrote the 7 core contracts (150 test functions) for senior/junior tranche vaults (ERC-4626), a safety module, withdrawal epochs, and a rate oracle, plus the Next.js dashboard and keeper bot
 - **3rd Place, Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
   - Built the Orca Whirlpool pool, position, and liquidity transactions for the entry, Stream Square
@@ -168,7 +170,7 @@ _Tech Stack: Go_
 - Society operations and program direction. Organized the 8th cohort's final research conference (Sep 2026, Hana Bank Lounge, Samseong)
 
 - **Wrote the 7th cohort's five published DeFi research papers** (CC BY 4.0): https://github.com/orakle-7th-sda/conference-pdf
-  - Comprehensive stablecoin depeg survey across CEX venues (2018 - Feb 2026) and on-chain venues (2022 - Feb 2026), by venue, magnitude, cause, and duration
+  - Stablecoin depeg survey covering CEX cases from 2018 to Feb 2026 and on-chain cases from 2022 to Feb 2026, by venue, magnitude, cause, and duration
   - Solana searcher/solver strategy design. Six strategy families for real-time depeg arbitrage on Jito bundles, Jupiter v6, and Helius WebSocket
   - Plus a 17-category DeFi ecosystem taxonomy and a cross-category stablecoin map
 

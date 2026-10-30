@@ -200,7 +200,7 @@ const App: Component = (): JSX.Element => {
                 <br />
                 Fixed Income
                 <br />
-                🏆 1st Place
+                🏆 DeFi &amp; Composability Track 1st Place
                 <br />
                 Mantle Global Hackathon 2025
               </p>

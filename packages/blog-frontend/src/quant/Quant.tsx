@@ -92,13 +92,16 @@ const Quant: Component = (): JSX.Element => {
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
                     <span class="quant-experience__tech-list">
-                      Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb, Upbit, Jupiter, Helius, Solscan, Paradex, Backpack, Extended, Rails
+                      Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb,
+                      Upbit, Jupiter, Helius, Solscan, Paradex, Backpack,
+                      Extended, Rails
                     </span>
                   </div>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
-                      Go (Fiber, Fx, GORM), Scala code generator, PostgreSQL, AWS (ECS, ECR, Parameter Store, KMS), Docker
+                      Go (Fiber, Fx, GORM), Scala code generator, PostgreSQL,
+                      AWS (ECS, ECR, Parameter Store, KMS), Docker
                     </span>
                   </div>
                 </div>
@@ -109,7 +112,7 @@ const Quant: Component = (): JSX.Element => {
                     Solana DEX Trading Infrastructure
                   </h4>
                   <p class="quant-experience__project-desc">
-                    On-chain trading bots in Go implementing in-house alpha
+                    On-chain trading bots in Go implementing three alpha
                     strategies (New Pair Detection, Back From The Dead, Fat LP
                     Analysis): new-pool and volume-spike detection from
                     CoinGecko Terminal across Solana, Ethereum, BSC, Base, and
@@ -122,13 +125,16 @@ const Quant: Component = (): JSX.Element => {
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
                     <span class="quant-experience__tech-list">
-                      CoinGecko Terminal, GoPlus Security, Solscan, Helius, QuickNode, Alchemy, Jupiter, Raydium, Saros
+                      CoinGecko Terminal, GoPlus Security, Solscan, Helius,
+                      QuickNode, Alchemy, Jupiter, Raydium, Saros
                     </span>
                   </div>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
-                      Go (Cobra, solana-go, GORM), PostgreSQL, Kafka and Redis event publishers, AWS (EC2, Parameter Store), Slack, Telegram
+                      Go (Cobra, solana-go, GORM), PostgreSQL, Kafka and Redis
+                      event publishers, AWS (EC2, Parameter Store), Slack,
+                      Telegram
                     </span>
                   </div>
                 </div>
@@ -149,14 +155,13 @@ const Quant: Component = (): JSX.Element => {
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
-                    <span class="quant-experience__tech-list">
-                      Bybit, Velo
-                    </span>
+                    <span class="quant-experience__tech-list">Bybit, Velo</span>
                   </div>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
-                      Go (Fx, GORM), Python (Django Ninja), PostgreSQL, MongoDB (DocumentDB), Redis, Docker, AWS ECR
+                      Go (Fx, GORM), Python (Django Ninja), PostgreSQL, MongoDB
+                      (DocumentDB), Redis, Docker, AWS ECR
                     </span>
                   </div>
                 </div>
@@ -180,13 +185,15 @@ const Quant: Component = (): JSX.Element => {
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
                     <span class="quant-experience__tech-list">
-                      OpenAI Assistants, twitterapi.io, Telegram, Velo News, Binance, Bybit
+                      OpenAI Assistants, twitterapi.io, Telegram, Velo News,
+                      Binance, Bybit
                     </span>
                   </div>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
-                      Go (Fx, Zap, GORM), PostgreSQL, AWS (EC2, Parameter Store, KMS)
+                      Go (Fx, Zap, GORM), PostgreSQL, AWS (EC2, Parameter Store,
+                      KMS)
                     </span>
                   </div>
                 </div>
@@ -213,7 +220,8 @@ const Quant: Component = (): JSX.Element => {
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
-                      Go (Fx, gRPC, GORM), PostgreSQL, AWS (Tokyo, Singapore), Docker
+                      Go (Fx, gRPC, GORM), PostgreSQL, AWS (Tokyo, Singapore),
+                      Docker
                     </span>
                   </div>
                 </div>
@@ -264,7 +272,8 @@ const Quant: Component = (): JSX.Element => {
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
                     <span class="quant-experience__tech-list">
-                      Upbit, Bithumb, Binance Futures, Bybit, MEXC, OKX, Smart Proxy, Slack
+                      Upbit, Bithumb, Binance Futures, Bybit, MEXC, OKX, Smart
+                      Proxy, Slack
                     </span>
                   </div>
                   <div class="quant-experience__tech">
@@ -298,7 +307,8 @@ const Quant: Component = (): JSX.Element => {
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
-                      Python (ccxt, python-telegram-bot, APScheduler, asyncpg), PostgreSQL, AWS EC2
+                      Python (ccxt, python-telegram-bot, APScheduler, asyncpg),
+                      PostgreSQL, AWS EC2
                     </span>
                   </div>
                 </div>
