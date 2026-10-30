@@ -248,7 +248,7 @@ const DevRel: Component = (): JSX.Element => {
             </p>
             <p>
               The work split into what I shipped and what I ran. Shipped: a
-              content operations pipeline the team uses daily, the Korean
+              content operations pipeline for the Korea team, the Korean
               technical documentation set, and the live operations site behind
               the Q402 builder workshop. Ran: developer onboarding, the Korea
               builder funnel for the flagship hackathon, a campus tour, a
@@ -300,7 +300,8 @@ const DevRel: Component = (): JSX.Element => {
                   Only translation pairs a human approved on the two official
                   accounts become few-shot examples for the next translation,
                   and glossary candidates pass a tuned rejection threshold
-                  before going to human review
+                  before going to human review. The 178-term glossary feeds the
+                  translation prompt and a term check
                 </li>
                 <li>
                   <strong>Hexagonal structure and the PostgreSQL move</strong>:
@@ -319,6 +320,14 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__meta-label">Scale:</span>
                 <span class="devrel-work__meta-value">
                   16 modules, 1,051 commits from July to October 2026
+                </span>
+              </div>
+              <div class="devrel-work__meta">
+                <span class="devrel-work__meta-label">Output:</span>
+                <span class="devrel-work__meta-value">
+                  From July to October 2026: 446 X posts collected, 162
+                  translations, 106 of them approved by reviewers, and 837
+                  channel versions
                 </span>
               </div>
               <div class="devrel-work__meta">
@@ -425,6 +434,10 @@ const DevRel: Component = (): JSX.Element => {
                 <li>The Seoul hacker house workshop, 100+ builders</li>
                 <li>A live online workshop</li>
                 <li>3 external partner events</li>
+                <li>
+                  In Mantle's official count, South Korea ranked seventh by
+                  country share at 4.3%
+                </li>
               </ul>
               <div class="devrel-gallery">
                 <For each={hackathonPhotos}>
