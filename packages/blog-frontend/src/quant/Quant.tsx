@@ -161,10 +161,10 @@ const Quant: Component = (): JSX.Element => {
                   </div>
                 </div>
 
-                {/* Sentiment */}
+                {/* News and KOL signals */}
                 <div class="quant-experience__project">
                   <h4 class="quant-experience__project-title">
-                    AI Sentiment Engine
+                    News and KOL Signal Engine
                   </h4>
                   <p class="quant-experience__project-desc">
                     A news and KOL signal engine built with the team. It reads
@@ -381,7 +381,7 @@ const Quant: Component = (): JSX.Element => {
                   <li>CEX / DEX Arbitrage</li>
                   <li>On-Chain Strategies</li>
                   <li>Listing Alert Trading</li>
-                  <li>Sentiment-based Trading</li>
+                  <li>News and KOL Signal Trading</li>
                 </ul>
               </div>
 
@@ -405,7 +405,7 @@ const Quant: Component = (): JSX.Element => {
                   <li>Kline / Candle Data</li>
                   <li>KRW Market Arbitrage</li>
                   <li>Volatility Analysis</li>
-                  <li>AI Sentiment Analysis</li>
+                  <li>LLM News Scoring</li>
                 </ul>
               </div>
 

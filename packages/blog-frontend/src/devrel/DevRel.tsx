@@ -178,9 +178,9 @@ const metrics: Metric[] = [
   {
     value: '5',
     label: 'Documents',
-    note: 'Korean technical docs, sole author',
+    note: 'Korean technical docs',
   },
-  { value: '7', label: 'Universities', note: 'Campus tour, sole speaker' },
+  { value: '7', label: 'Universities', note: 'Campus tour, three weeks' },
   {
     value: '488',
     label: 'Payments',
@@ -287,8 +287,8 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">Content Operations</span>
               </div>
               <p class="devrel-work__desc">
-                Sole designer and implementer of the Korea team's content
-                operations pipeline, deployed to the team. It collects from X
+                Designed and implemented the Korea team's content operations
+                pipeline and deployed it to the team. It collects from X
                 and Lark, translates to Korean, converts per channel, routes
                 through two-stage human review, and delivers to Telegram, X, and
                 pull requests.
@@ -355,7 +355,7 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">5 Documents</span>
               </div>
               <p class="devrel-work__desc">
-                Sole author of the Korean technical documentation set: the
+                Wrote the Korean technical documentation set: the
                 Mantle block explorer in beginner and deep-dive editions, a DEX
                 comparative deep dive, an AI agent trading path guide, and an
                 asset-withdrawal guide.
@@ -478,7 +478,8 @@ const DevRel: Component = (): JSX.Element => {
                   60 one-to-three batch settlements
                 </li>
                 <li>
-                  Built the night's operations site myself: wallet registration,
+                  Built the night's operations site as the first version of
+                  pay-lab: wallet registration,
                   the live leaderboard, quest verification, a QR payment bridge
                   for phone-only attendees, and the staff console.{' '}
                   <strong>
@@ -543,7 +544,7 @@ const DevRel: Component = (): JSX.Element => {
                 </span>
               </div>
               <p class="devrel-work__desc">
-                Taught a 165-minute session of Inha University's Digital Assets
+                Taught a session of Inha University's Digital Assets
                 and Market Infrastructure course for finance students, on how
                 stablecoin payments move and what changes when an AI agent pays.
                 The class met while Korea was still writing its rules. On the
@@ -581,15 +582,12 @@ const DevRel: Component = (): JSX.Element => {
                   Financial Services Commission stand
                 </li>
                 <li>
-                  <strong>30 of 34 participants</strong> completed the classmate
-                  transfer and <strong>22</strong> the agent payment, by the lab
-                  site's own records
-                </li>
-                <li>
-                  Ran on the lab kit first built for the Q402 workshop, moved to
-                  Ethereum Sepolia and Circle's testnet USDC so the class would
-                  look at the structure rather than one chain's name. The lab
-                  server paid the gas, and the deck is public on the lab site
+                  Ran on pay-lab, the payments lab kit that began as the Q402
+                  workshop site and now picks its chain, gas sponsorship, and
+                  limits from one config per event. The class ran on Ethereum
+                  Sepolia and Circle's testnet USDC so it would look at the
+                  structure rather than one chain's name. The lab server paid
+                  the gas, and the deck is public on the lab site
                 </li>
               </ul>
               <div class="devrel-work__meta">
@@ -648,16 +646,27 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">Monthly · Co-host</span>
               </div>
               <p class="devrel-work__desc">
-                Co-hosted the monthly Korean livestream on the official account.
-                July carried Mantle's third anniversary, with ecosystem updates,
-                an RFQ session, and community creator interviews. August ran as
-                a Mantle × Stable collaboration with Stable's CEO as guest,
-                covering the USDT0 stablecoin ecosystem and Chainlink CCIP
-                bridging. September, ahead of KBW, closed with a workshop on
-                choosing among Mantle's RPC providers by what an app's requests
-                actually cost.
+                Co-hosted the monthly Korean livestream on the official account
+                and presented its technical session each month. July carried
+                Mantle's third anniversary, August ran as a Mantle × Stable
+                collaboration with Stable's CEO as guest, and September came
+                ahead of KBW.
               </p>
               <ul class="devrel-work__list">
+                <li>
+                  July's RFQ session compared traditional and on-chain RFQ and
+                  set AMM, on-chain CLOB, RFQ, and intent execution side by side
+                </li>
+                <li>
+                  August's bridge session covered Lock & Mint against Burn &
+                  Mint and the different bridge routes Mantle's assets take: the
+                  canonical bridge, LayerZero OFT, and Chainlink CCIP
+                </li>
+                <li>
+                  September's RPC workshop compared seven Mantle RPC providers
+                  and priced three of them per month from the request counts of
+                  a vault app, a trading screen, bots, and an indexer
+                </li>
                 <li>
                   The August live post reached <strong>18.0K</strong>, the
                   second-highest-reach post on the account over Apr-Sep 2026,
@@ -712,10 +721,15 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__tag">7 Universities · 3 Weeks</span>
               </div>
               <p class="devrel-work__desc">
-                Ran a seven-university blockchain-club campus tour as the sole
-                speaker, completed in three weeks. Four clubs published their
-                own session recaps unprompted, and one-off visits turned into
-                standing partnerships.
+                Presented Mantle's builder programs and hackathon tracks at
+                seven university blockchain clubs over three weeks in May 2026,
+                with a Mantle testnet contract deployment lab at Sungkyunkwan
+                and a live build of a stablecoin pair-trading bot at Ewha. The
+                Korea University, Ewha, Sungkyunkwan, and KAIST clubs posted
+                session recaps on their X accounts. In the campus research
+                contest introduced on the tour, a Sungkyunkwan club member won
+                the grand prize and the Kwangwoon club won the
+                most-participating-club award.
               </p>
               <div class="devrel-gallery devrel-gallery--campus">
                 <For each={campusTour}>
