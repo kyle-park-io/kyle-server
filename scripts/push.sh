@@ -93,3 +93,8 @@ if [ -n "$INGRESS_VERSION" ]; then
   echo "  kubectl set image deployment/ingress-reverse-proxy-app-server-deployment \\"
   echo "    ingress-reverse-proxy-app-server=$REGISTRY/ingress-reverse-proxy-app-server:$INGRESS_VERSION"
 fi
+
+# Cloudflare keeps /cv/* for max-age=14400, so a changed CV needs a purge or
+# readers get the old PDF for up to four hours.
+echo "If the CV changed, after the rollout finishes:"
+echo "  bash scripts/purge-cv.sh"
