@@ -39,7 +39,7 @@ CV 를 바꾼 배포에서 `kubectl rollout status`가 끝난 뒤에 레포 루�
 bash scripts/purge-cv.sh
 ```
 
-국문과 영문 CV 의 PDF 와 md 주소 4개를 지우고, 2초 뒤 주소마다 다시 요청해 `CF-Cache-Status`를 찍는다. Cloudflare 는 purge 요청이 200 이어도 실제로 지웠는지는 보장하지 않고, 다시 요청해 HIT 가 아닌지 보라고 한다([원문](https://developers.cloudflare.com/cache/how-to/purge-cache/), 2026-10-30 열람). 다른 주소를 지우려면 주소를 인자로 넘긴다(`bash scripts/purge-cv.sh https://jungho.dev/cv/jungho_park_cv_latest_ko.pdf`).
+국문과 영문 CV 의 PDF 와 md 주소 4개를 지우고, 2초 뒤 주소마다 다시 요청해 `CF-Cache-Status`를 찍는다. Cloudflare 는 purge 요청이 200 이어도 실제로 지웠는지는 보장하지 않고, 다시 요청해 HIT 가 아닌지 보라고 한다([원문](https://developers.cloudflare.com/cache/how-to/purge-cache/), 2026-10-30 열람). md 주소 2개는 `DYNAMIC`으로 찍히는데, Cloudflare 가 그 주소를 캐시하지 않는다는 뜻이라 그대로 두면 된다(2026-10-30 16:36 첫 실행에서 PDF 2개는 `MISS`, md 2개는 `DYNAMIC`, 10초 뒤 PDF 해시가 레포 파일과 같았다). 다른 주소를 지우려면 주소를 인자로 넘긴다(`bash scripts/purge-cv.sh https://jungho.dev/cv/jungho_park_cv_latest_ko.pdf`).
 
 ## 4. 거절될 때
 
