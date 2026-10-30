@@ -22,11 +22,11 @@ Backend engineer building cross-chain bridges, smart contracts, and trading syst
 **Developer Relations Engineer** | Apr 2026 - Oct 2026 (7 months)\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team (16 modules)**
+- **Designed, built, and deployed the Korea team's content operations pipeline (16 modules)**
   - X/Lark collection, Korean translation, per-channel conversion (press releases included), two-stage human review, Telegram/X delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen (mantle-kr-herald, private repository, available on request)
 
-- **Sole author of the Korean technical documentation set (5 documents)**
-  - Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0. [Docs hub](https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8)
+- **Wrote the Korean technical documentation set (5 documents)**
+  - Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0. Link to the documents: https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8
 
 - **Designed and delivered hands-on technical onboarding curriculum**
   - Mantle infra setup, Bybit API, Byreal Skills CLI, MerchantMoe/Agni/Fluxion integrations, testnet contract deployment labs, and a live-built stablecoin pair-trading bot
@@ -35,12 +35,12 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
   - Built the Korean builder funnel across the full 6-week registration-to-submission window of Phase 2, in a $120K two-phase global flagship program. An offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026): 42 builders, 488 on-chain payments in three hours**
-  - Each builder connected Q402 to their own AI agent over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the night's operations site myself from three days before the event through the day itself (Next.js, PostgreSQL, Vercel, Q402 MCP): wallet registration, live leaderboard, quest verification, and a QR payment bridge, with every badge judged by reading the chain
+  - Each builder connected Q402 to their own AI agent over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the night's operations site from three days before the event through the day itself (Next.js, PostgreSQL, Vercel, Q402 MCP): wallet registration, live leaderboard, quest verification, and a QR payment bridge, with every badge judged by reading the chain
 
 - **Taught a stablecoin payments class at Inha University (Oct 2026): 30 of 34 participants completed the classmate transfer, 22 the agent payment**
-  - A 165-minute session of the Digital Assets and Market Infrastructure course for finance students, on how stablecoin payments move and what changes when an AI agent pays. Students made a wallet on their phones, sent testnet USDC to a classmate and read the receipt on a block explorer, then signed a spending limit for an AI agent in claude.ai or Codex and watched a request past the limit get refused by both the lab server and the USDC contract. Closed on Korea's won-stablecoin bills, read issue by issue against the USDC the class had just sent. Ran on the lab kit first built for the Q402 workshop, moved to Ethereum Sepolia and Circle's testnet USDC, with the lab server paying the gas. [Slides (Korean)](https://pay-lab-inha.vercel.app/slides)
+  - A 165-minute session of the Digital Assets and Market Infrastructure course for finance students, on how stablecoin payments move and what changes when an AI agent pays. Students made a wallet on their phones, sent testnet USDC to a classmate and read the receipt on a block explorer, then signed a spending limit for an AI agent in claude.ai or Codex and watched a request past the limit get refused by both the lab server and the USDC contract. Closed on Korea's won-stablecoin bills, read issue by issue against the USDC the class had just sent. Ran on the lab kit first built for the Q402 workshop, moved to Ethereum Sepolia and Circle's testnet USDC, with the lab server paying the gas. Link to the slides, in Korean: https://pay-lab-inha.vercel.app/slides
 
-- **Ran a 7-university blockchain-club campus tour as sole speaker, completed in 3 weeks**
+- **Spoke at 7 university blockchain clubs on a campus tour completed in 3 weeks**
   - KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, Kwangwoon. Four clubs published their own session recaps unprompted, and one-off visits turned into standing partnerships
 
 - **Co-hosted the monthly Korean livestream: August's post reached 18.0K, the second-highest-reach post on the account over Apr-Sep 2026**
@@ -103,7 +103,7 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, available on request
 
-- Sole designer and implementer of the Korea team's content operations pipeline, deployed to the team. **16 modules**, 1,051 commits from July to October 2026, 400 test files (4,801 test cases)
+- Designed and built the Korea team's content operations pipeline and deployed it to the team. **16 modules**, 1,051 commits from July to October 2026, 400 test files (4,801 test cases)
 - Translation and conversion run **agent-in-the-loop**: a local coding agent fills a purpose-built worksheet and a human approves the result, behind two mandatory approval gates
 - Migrated the record of truth from files to **PostgreSQL and shipped it serverless on Vercel**, so a reviewer who never opens a terminal approves the copy and sends it to Telegram and X from one screen. Persistence sits behind a port in a **hexagonal structure**, so swapping the store stayed at the adapter level. File-lock serialization does not survive serverless, so a dropped ledger row could republish a live post twice; a unique index closes that hazard. Storage adapters are tested against **real Postgres, not a mock**: PGlite boots one in-process
 - **Translation memory** mines both official accounts and feeds only human-approved EN↔KO pairs into the few-shot set. A glossary miner proposes Korean renderings and a tuned **rejection threshold** decides which survive, which is the difference between a discriminator and a rubber stamp
@@ -112,7 +112,7 @@ _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, avai
 
 _Tech Stack: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
-- Built after leading the response to a real breach, a Next.js server taken through React2Shell (CVE-2025-55182). **9 scan modules** check the off-chain stack before deploy for the mistakes that let one breach spread: secrets in build output, management ports open to the internet, over-privileged cloud IAM, account-wide credentials, persistence artifacts, and disabled audit logs
+- Built after leading the response to a breach, a Next.js server taken through React2Shell (CVE-2025-55182). **9 scan modules** check the off-chain stack before deploy for the mistakes that let one breach spread: secrets in build output, management ports open to the internet, over-privileged cloud IAM, account-wide credentials, persistence artifacts, and disabled audit logs
 - Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. A read-only on-chain command recovers the EtherRAT malware's command-and-control values from Ethereum smart contracts and maps the contracts around them; the findings feed the scanner's IOC set
 
 ### **skills**: Agent Skill Marketplace for Claude Code and Codex
@@ -168,7 +168,7 @@ _Tech Stack: Go_
 
 - Society operations and program direction. Organized the 8th cohort's final research conference (Sep 2026, Hana Bank Lounge, Samseong)
 
-- **Sole author of the 7th cohort's five published DeFi research papers** (CC BY 4.0): https://github.com/orakle-7th-sda/conference-pdf
+- **Wrote the 7th cohort's five published DeFi research papers** (CC BY 4.0): https://github.com/orakle-7th-sda/conference-pdf
   - Comprehensive stablecoin depeg survey across CEX venues (2018 - Feb 2026) and on-chain venues (2022 - Feb 2026), by venue, magnitude, cause, and duration
   - Solana searcher/solver strategy design. Six strategy families for real-time depeg arbitrage on Jito bundles, Jupiter v6, and Helius WebSocket
   - Plus a 17-category DeFi ecosystem taxonomy and a cross-category stablecoin map
