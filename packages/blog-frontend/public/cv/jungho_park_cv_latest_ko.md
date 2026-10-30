@@ -46,10 +46,10 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
 - **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, 빗썸 현물 사이, Bybit와 Jupiter 사이, 빗썸·업비트 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 이 가운데 거래소 연동 백엔드를 맡아 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 API와 사용자 데이터 WebSocket, 잔고, PnL, 델타 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축
-- **Solana DEX 트레이딩 인프라**: 자체 알파 전략(신규 페어 탐지, Back From The Dead, Fat LP 분석)을 구현한 온체인 트레이딩 봇을 Go로 개발. GoPlus 보안 검사와 지갑·홀더 분석 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시 포함
+- **Solana DEX 트레이딩 인프라**: 알파 전략 3종(신규 페어 탐지, Back From The Dead, Fat LP 분석)을 구현한 온체인 트레이딩 봇을 Go로 개발. GoPlus 보안 검사와 지갑·홀더 분석 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시 포함
 - **트레이딩 지표 수집과 분석**: 팀과 함께 만든 알트코인 성과 차트 백엔드. Django API가 상위 알트코인 50개의 성과를 BTC와 견줘 순위를 내고, Velo의 미결제약정 대비 시가총액 비율과 MongoDB에 쌓은 봉 변화율을 함께 제공. 이 가운데 Bybit 1분봉 WebSocket 수집기와 봉 API를 구현하고 성과 API에 기간 인자와 BTC 대비 변동률 추가. 전략 탐지기의 배치 지표 수집기 설계
 - **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. 텔레그램 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 주문으로 연결. 이 가운데 X 리스트 트윗 수집 모듈, 텔레그램 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 구현하고, 어시스턴트 지시문 3개 판을 기사 100건 목록으로 반복 시험해 개선
-- **거래소 상장 스나이퍼**: 업비트와 빗썸의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. 입사 직후 업비트·빗썸 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리
+- **거래소 상장 스나이퍼**: 업비트와 빗썸의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. 업비트·빗썸 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리
 - **예측 시장 모니터링 Totoro**: Polymarket과 Kalshi의 NFL·프리미어리그 경기 시장을 경기별로 짝지어 가격을 받는 모니터링 모듈을 팀과 함께 개발
 
 ### **미디움 주식회사**
@@ -75,44 +75,57 @@ _기술 스택: Node.js, Express, MariaDB, AWS S3_
 
 - **경희대학교**: 기계공학과 공학사 | 2014년 3월 - 2022년 8월
 - **영어**: TOEIC Speaking 150/200, Intermediate High · **한국어**: 원어민
+
 ---
 
 ## 기술 스택
 
 - **언어**: Rust, Go, Python, TypeScript
-- **백엔드 프레임워크**: NestJS, Next.js, Fastify, Gin, Fiber, Fx
+- **백엔드 프레임워크**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
 - **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
 - **프론트엔드**: React, SolidJS, Astro
 - **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
 - **AI 도구**: Claude Code, Codex, MCP 서버, 에이전트 스킬과 트리거 평가, 에이전트 인 더 루프 파이프라인
-- **전문 분야**: 금융 시장 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 거래소 간·삼각 차익거래, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 기술 문서 집필
+- **전문 분야**: FIX·SBE 거래 프로토콜, DeFi 프로토콜, DEX/CEX 트레이딩 시스템, 거래소 간·삼각 차익거래, 크로스체인 브릿지, 사내 도구 및 워크플로 자동화, 기술 문서 집필
 
 ---
 
 ## 주요 프로젝트
 
-### **mantle-kr-herald**: 콘텐츠 운영 파이프라인 (Mantle KR)
+### **mantle-kr-herald**: Mantle 한국팀 콘텐츠 운영 파이프라인
 
 _기술 스택: TypeScript, PostgreSQL, Vercel, Vitest_ · 비공개 저장소, 요청 시 열람 가능
 
-- Mantle 한국팀의 콘텐츠 운영 파이프라인을 설계·구현해 팀에 배포. **16개 모듈**, 2026년 7월부터 10월까지 커밋 1,051건, 시험 파일 400개와 시험 케이스 4,801개
-- 번역과 변환은 **에이전트 인 더 루프**로 동작. 로컬 코딩 에이전트가 전용 워크시트를 채우고 사람이 승인하며, 필수 승인 게이트는 2단계
-- 기록의 원천을 파일에서 **PostgreSQL로 이관하고 Vercel 서버리스로 배포**하여, 터미널을 열지 않는 검수자가 한 화면에서 승인하고 텔레그램·X로 발송까지 하도록 전환. 영속성을 포트 뒤에 둔 **헥사고날 구조**라 저장소 교체는 어댑터 수준에서 마무리됨. 파일 락 직렬화가 서버리스에서 유지되지 않아 원장 행이 누락되면 이미 나간 글이 두 번 발행될 수 있는데, 이 위험은 유니크 인덱스로 차단. 스토리지 어댑터는 목 대신 **실제 Postgres로 테스트**하며, PGlite를 인프로세스로 띄움
-- **번역 메모리**가 양쪽 공식 계정을 훑어 사람이 승인한 EN↔KO 쌍만 골라 few-shot에 투입. 용어 마이너가 한국어 표현 후보를 제안하면 조정된 **기각 임계값**이 살아남을 후보를 가려내어, 코퍼스가 후보를 실제로 걸러내도록 함
+- **에이전트 인 더 루프 번역**: 로컬 코딩 에이전트가 전용 워크시트를 채우고 사람이 승인. 두 공식 계정에서 사람이 승인한 영어·한국어 번역 쌍만 골라 다음 번역의 few-shot 예시로 쓰고, 용어집 후보는 조정한 기각 임계값으로 걸러 사람 검토로 넘김
+- **헥사고날 구조와 PostgreSQL 전환**: 외부 API, 파일, 저장소를 포트 뒤에 둔 헥사고날 구조로 설계. 기록 저장소를 파일에서 PostgreSQL로 옮기고 Vercel 서버리스로 배포한 커밋 99건에서 기존 도메인 파일은 고치지 않고, 어댑터 19개 추가와 실행 진입점 교체로 전환. 서버리스에서 파일 락이 사라져 생기는 이중 발행 위험은 유니크 인덱스로 차단
+- **규모와 시험**: 2026년 7월부터 10월까지 커밋 1,051건, 16개 모듈, 시험 파일 400개와 시험 케이스 5,115개. 스토리지 어댑터는 목 객체 대신 PGlite로 띄운 Postgres에서 시험
 
 ### **pay-lab**: 워크샵과 강의용 온체인 결제 실습 키트
 
 _기술 스택: Next.js, PostgreSQL, Privy, viem, MCP, Vercel_ · 비공개 저장소, 요청 시 열람 가능
 
-- 2026년 8월 Q402 빌더 워크샵의 현장 운영 사이트로 시작해, 실습을 지갑 생성, 송금과 영수증, 지출 한도 서명, 에이전트 연결, 에이전트 결제 모듈로 나누고 행사마다 설정 파일 하나로 체인, 가스 대납, 충전, 한도를 고르는 구조로 재설계. 체인 어댑터는 Mantle, Mantle Sepolia, Ethereum Sepolia. 2026년 10월 인하대학교 강의를 Ethereum Sepolia와 Circle 테스트넷 USDC로 운영
-- 학생이 서명한 송금을 운영 서버가 대신 제출해 가스를 내고, 한 번에 보낼 수 있는 금액과 학생별 횟수를 설정으로 제한. 수업용 원격 MCP 서버를 OAuth로 claude.ai와 Codex에 연결하고, 에이전트의 지갑 도구는 로그인한 학생이 서명한 한도 안에서만 송금
+- **두 행사에 같은 키트**: 빌더 42명이 온체인 결제 488건을 실행한 2026년 8월 Q402 빌더 워크샵의 현장 운영 사이트로 시작해, 2026년 10월 인하대학교 강의를 같은 키트로 Ethereum Sepolia와 Circle 테스트넷 USDC에서 운영
+- **행사별 설정**: 실습을 지갑 생성, 송금과 영수증, 지출 한도 서명, 에이전트 연결, 에이전트 결제 모듈로 나누고, 행사마다 설정 파일 하나로 체인, 가스 대납, 충전, 한도를 고르는 구조로 재설계. 체인 어댑터는 Mantle, Mantle Sepolia, Ethereum Sepolia
+- **가스 대납과 에이전트 한도**: 학생이 서명한 송금을 운영 서버가 대신 제출해 가스를 내고, 한 번에 보낼 수 있는 금액과 학생별 횟수를 설정으로 제한. 수업용 원격 MCP 서버를 OAuth로 claude.ai와 Codex에 연결하고, 에이전트의 지갑 도구는 로그인한 학생이 서명한 한도 안에서만 송금
+
+### **바이낸스 삼각 차익거래 시스템**
+
+_기술 스택: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
+
+- 바이낸스 FIX API의 SBE 세션으로 호가를 받고 주문을 보내는 삼각 차익거래 엔진, BTC·ETH·USDT 삼각형에서 수수료를 뺀 기회 계산
+
+### **폴리마켓 15분 시장 차익거래 봇**
+
+_기술 스택: Go, Rust_
+
+- 폴리마켓 암호화폐 15분 시장에서 Yes와 No 가격의 합이 $1 미만일 때 두 결과를 함께 사는 차익거래 봇. 두 다리가 모두 체결되면 한 쌍이 정산이나 병합으로 $1이 되고, 수익 여부는 수수료와 한 다리만 체결되는 경우가 가름. 두 가격의 시각 차이나 오래된 가격의 나이가 29ms를 넘으면 신호를 버림. 주문 실행은 기본으로 꺼 두고 기회마다 기록과 텔레그램 알림
 
 ### **trustline**: Web3 프로젝트용 오프체인 보안 스캐너
 
 _기술 스택: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
-- 대응을 이끈 침해 사고(React2Shell, CVE-2025-55182로 Next.js 서버가 뚫린 건)에서 출발. **스캔 모듈 9개**가 침해 한 번을 오프체인 스택 전체로 번지게 하는 설정 실수를 배포 전에 점검. 빌드 결과물의 시크릿, 인터넷에 열린 관리 포트, 과한 클라우드 IAM 권한, 계정 전체에 걸친 자격 증명, 백도어 지속성 흔적, 꺼진 감사 로그를 다룸
-- **npm**(`npx trustline-scanner scan .`)과 **GitHub Marketplace Action**으로 배포하고, SARIF 출력으로 GitHub 코드 스캐닝에 연결. 읽기 전용 온체인 명령이 EtherRAT 악성코드가 이더리움 스마트 컨트랙트에 써 둔 C2 값을 복원하고 주변 컨트랙트를 추적하며, 그 결과를 스캐너의 IOC 데이터셋에 반영
+- React2Shell 취약점 CVE-2025-55182로 Next.js 서버가 뚫린 침해 사고의 대응을 이끈 뒤 만든 스캐너. **스캔 모듈 9개**가 침해 한 번을 오프체인 스택 전체로 번지게 하는 설정 실수를 배포 전에 점검. 빌드 결과물의 시크릿, 인터넷에 열린 관리 포트, 과한 클라우드 IAM 권한, 계정 전체에 걸친 자격 증명, 백도어 지속성 흔적, 꺼진 감사 로그를 다룸
+- `npx trustline-scanner scan .` 한 줄로 실행하는 **npm** 패키지와 **GitHub Marketplace Action**으로 배포하고, SARIF 출력으로 GitHub 코드 스캐닝에 연결. 읽기 전용 온체인 명령이 EtherRAT 악성코드가 이더리움 스마트 컨트랙트에 써 둔 C2 값을 복원하고 주변 컨트랙트를 추적하며, 그 결과를 스캐너의 IOC 데이터셋에 반영
 
 ### **skills**: Claude Code·Codex용 에이전트 스킬 마켓플레이스
 
@@ -135,23 +148,12 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
 
 - Windows, WSL, macOS, Linux의 작업 스케줄러, systemd timer, cron, Codex·Claude 예약 작업을 한 화면에서 조회·제어. 127.0.0.1에만 바인딩하고, 모든 변경은 실제 명령을 보여주는 확인 단계를 거침
 
-### **바이낸스 삼각 차익거래 시스템**
-
-_기술 스택: Rust, FIX Protocol, SBE (Simple Binary Encoding)_
-
-- 바이낸스 FIX API의 SBE 세션으로 호가를 받고 주문을 보내는 삼각 차익거래 엔진, BTC·ETH·USDT 삼각형에서 수수료를 뺀 기회 계산
-
-### **폴리마켓 및 암호화폐 예측 시장**
-
-_기술 스택: Go_
-
-- 예측 시장 차익거래, $1 미만 미스프라이싱을 노리는 15분 모멘텀 트레이딩
-
 ---
 
 ## 수상 및 자격
 
-- **Mantle 글로벌 해커톤 2025 1위** (DeFi & Composabilities 트랙 우승, DOOR Protocol) | 2026년 2월
+- **Mantle 글로벌 해커톤 2025 DeFi & Composability 트랙 1위** (DOOR Protocol) | 2026년 2월
+  - Mantle 인큐베이션 그랜트 선정. 대회 제출작 500개 이상
   - 선순위·후순위 트랜치 볼트(ERC-4626), 안전 모듈, 출금 에포크, 금리 오라클을 담은 핵심 컨트랙트 7개와 테스트 함수 150개, Next.js 대시보드, 키퍼 봇 작성
 - **Seoulana 해커톤 2025 3위** (Solana 블록체인 개발 경진대회) | 2025년 4월
   - 출품작 Stream Square의 Orca Whirlpool 풀, 포지션, 유동성 트랜잭션 구현
@@ -168,7 +170,7 @@ _기술 스택: Go_
 - 대학 블록체인 리서치 학회 운영과 프로그램 방향 총괄. 8기 최종 리서치 컨퍼런스 개최 (2026년 9월, 삼성역 하나은행 라운지)
 
 - **7기 공개 DeFi 리서치 5편 집필** (CC BY 4.0): https://github.com/orakle-7th-sda/conference-pdf
-  - CEX(2018년 - 2026년 2월)와 온체인(2022년 - 2026년 2월) 스테이블코인 디페그 사례 종합 조사. 거래소·프로토콜별 이탈 폭, 원인, 지속 시간
+  - 2018년부터 2026년 2월까지의 CEX 사례와 2022년부터 2026년 2월까지의 온체인 사례를 모은 스테이블코인 디페그 조사. 거래소·프로토콜별 이탈 폭, 원인, 지속 시간
   - 솔라나 서처/솔버 전략 설계. Jito 번들·Jupiter v6·Helius WebSocket 기반 실시간 디페그 차익거래 6개 전략 계열
   - 그 외 DeFi 생태계 17범주 택소노미, 범주별 스테이블코인 존재 형태 정리
 
