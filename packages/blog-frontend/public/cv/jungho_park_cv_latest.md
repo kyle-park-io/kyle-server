@@ -2,7 +2,7 @@
 
 **Backend Engineer for Blockchain and Quantitative Trading Systems**
 
-Backend engineer building cross-chain bridges, smart contracts, and trading systems in Rust, Go, and TypeScript. In 2026, Developer Relations Engineer for Korea at Mantle: led builder onboarding for a global hackathon, ran builder workshops, wrote Korean technical docs, and built the 16-module content pipeline the Korea team uses daily.
+Backend engineer building cross-chain bridges, smart contracts, and trading systems in Rust, Go, and TypeScript. In 2026, Developer Relations Engineer for Korea at Mantle: led builder onboarding for a global hackathon, ran builder workshops, wrote Korean technical docs, and built and deployed the Korea team's 16-module content pipeline.
 
 ---
 
@@ -22,13 +22,13 @@ Backend engineer building cross-chain bridges, smart contracts, and trading syst
 **Developer Relations Engineer** | Apr 2026 - Oct 2026 (7 months)\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: X and Lark collection, Korean translation, per-channel conversion including press releases, two-stage human review, and Telegram and X delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen. Architecture and test scale are under mantle-kr-herald in Selected Projects
+- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: X and Lark collection, Korean translation, per-channel conversion including press releases, two-stage human review, and Telegram and X delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen. From July to October 2026 it collected 446 X posts and produced 162 translations and 837 channel versions; reviewers approved 106 of the translations. Architecture and test scale are under mantle-kr-herald in Selected Projects
 
 - **Wrote the Korean technical documentation set (5 documents)**: Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0. Link to the documents: https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8
 
 - **Designed and delivered hands-on technical onboarding curriculum**: Mantle infra setup, Bybit API, Byreal Skills CLI, MerchantMoe, Agni, and Fluxion integrations, testnet contract deployment labs, and a live-built stablecoin pair-trading bot
 
-- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**: built the Korean builder funnel across the full 6-week registration-to-submission window of Phase 2, in a $120K two-phase global flagship program. An offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events
+- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**: built the Korean builder funnel across the full 6-week registration-to-submission window of Phase 2, in a $120K two-phase global flagship program. An offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events. In Mantle's official count, South Korea ranked seventh by country share at 4.3%
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: 42 builders connected Q402 to their own AI agents over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the operations site as the first version of pay-lab: wallet registration, live leaderboard, quest verification, and a QR payment bridge, with badges and quests judged from on-chain data. 488 on-chain payments in three hours
 
@@ -86,7 +86,7 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 - **Frontend**: React, SolidJS, Astro
 - **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
 - **AI Tooling**: Claude Code, Codex, MCP servers, agent skills and trigger evals, agent-in-the-loop pipelines
-- **Specializations**: FIX and SBE Trading Protocols, DeFi Protocols, DEX/CEX Trading Systems, Cross-Exchange and Triangular Arbitrage, Cross-Chain Bridges, Internal Tooling & Workflow Automation, Technical Writing
+- **Specializations**: FIX and SBE Trading Protocols, DeFi Protocols, DEX/CEX Trading Systems, Cross-Exchange and Triangular Arbitrage, Cross-Chain Bridges, Workflow Automation, Technical Writing
 
 ---
 
@@ -96,7 +96,7 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, available on request
 
-- **Agent-in-the-loop translation**: a local coding agent fills a purpose-built worksheet and a human approves it. Only translation pairs that a human approved on the two official accounts become few-shot examples for the next translation, and glossary candidates pass a tuned rejection threshold before going to human review
+- **Agent-in-the-loop translation**: a local coding agent fills a purpose-built worksheet and a human approves it. Only translation pairs that a human approved on the two official accounts become few-shot examples for the next translation, and glossary candidates pass a tuned rejection threshold before going to human review. The 178-term glossary feeds the translation prompt and a term check
 - **Hexagonal structure and the PostgreSQL move**: external APIs, files, and storage sit behind ports. Over the 99 commits that moved the record store from files to PostgreSQL and shipped it serverless on Vercel, no existing domain file changed; the move added 19 adapters and swapped the entry points. A unique index closes the double-publish hazard that appears when serverless drops the file lock
 - **Scale and tests**: 1,051 commits from July to October 2026, 16 modules, 400 test files, and 5,115 test cases. Storage adapters are tested against Postgres running in PGlite, not a mock
 
