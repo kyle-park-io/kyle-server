@@ -105,4 +105,26 @@ done
 if [ $status -ne 0 ]; then
   echo "warning: a URL is still HIT. Wait a few seconds and run this again." >&2
 fi
+
+# A MISS only says the cache was empty. Fetch each PDF the way a reader does
+# and compare it with the repo file, so a run that ends here means readers get
+# this checkout's CV. A mismatch usually means the rollout has not finished or
+# this checkout is not the deployed commit.
+CV_DIR="$(dirname "$(readlink -f "$0")")/../packages/blog-frontend/public/cv"
+for u in "${URLS[@]}"; do
+  case "$u" in
+    *.pdf) ;;
+    *) continue ;;
+  esac
+  file="$CV_DIR/$(basename "$u")"
+  [ -f "$file" ] || continue
+  live=$(curl -sS "$u" | sha256sum | cut -c1-16)
+  repo=$(sha256sum "$file" | cut -c1-16)
+  if [ "$live" = "$repo" ]; then
+    echo "  same as repo  $u"
+  else
+    echo "  DIFFERENT     $u (live $live, repo $repo)" >&2
+    status=1
+  fi
+done
 exit $status
