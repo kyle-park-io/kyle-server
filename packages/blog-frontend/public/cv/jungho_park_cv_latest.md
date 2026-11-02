@@ -99,15 +99,15 @@ _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 - **Re-runnable stages**: each stage from collection to delivery is its own command, approval is kept apart from sending, and a per-item lineage records every stage's output so each review edit can be traced
 - **Translation loop**: a local coding agent fills a worksheet and a human approves it. Approved translations become few-shot examples, a translation memory of paired official English and Korean posts adds precedents with overlapping tags, and weekly glossary mining from human edits drops one-off corrections the Korean account never uses. The 178-term glossary feeds the prompt and a term check
 - **Repurposing and multi-channel delivery**: one approved translation becomes 12 content types such as announcements, explainers, KOL copy, and press releases, formatted for 9 channels and sent via the Telegram Bot API and Typefully to X, LinkedIn, Threads, Bluesky, Mastodon, and Substack, with a unique index on the delivery ledger for idempotent sends
-- **Config split and hexagonal structure**: accounts, glossary, and conversion guides live in config, so another brand can reuse it. With external APIs and storage behind 34 ports, moving storage from files to PostgreSQL on Vercel serverless added 19 adapters without touching domain code. 5,115 test cases; storage adapters run against in-process Postgres
+- **Config split and hexagonal structure**: accounts, glossary, and conversion guides live in config, so another brand can reuse it. With external APIs and storage behind 34 ports, moving storage from files to PostgreSQL on Vercel serverless added 19 adapters without touching domain code, backed by 5,115 test cases
 
 ### **pay-lab**: On-Chain Payments Lab Kit Reconfigured per Event
 
 _Tech Stack: Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
-- **Reusable kit**: rebuilt the Q402 workshop site into lab modules, per-event config, and chain adapters, then ran the Oct 2026 Inha University class on it; an architecture test enforces layer dependencies
+- **Reusable kit**: split the Q402 workshop site into lab modules, per-event config, and chain adapters, tied to no single event or chain. One setting runs the same code on Mantle, Mantle Sepolia, Ethereum Sepolia, or local Anvil, and an architecture test enforces layer dependencies. Ran the Oct 2026 Inha University class on it
 - **Gasless payments and agent limits**: relays students' EIP-3009 signed USDC transfers and pays the gas. Agent wallet tools spend only within the student's EIP-2612 permit, through a remote MCP server on wallet-signature OAuth for claude.ai and Codex that takes the sender only from the access token
-- **Money-path safety**: funding reserves a record and sends at most once, and stalled records are reconciled against the chain. A 30-student load test found Vercel functions reusing a nonce and failing 3 to 8 of 30 transactions, fixed with a PostgreSQL advisory lock and a nonce table that serialize each wallet's sends
+- **Money-path safety**: fail-closed balance, limit, and registration checks. Funding inserts a record keyed by event and address before sending, so each address is paid at most once, and a stalled record is released only when the chain shows no send. A 30-student load test found Vercel functions reusing a nonce and failing 3 to 8 of 30 transactions, fixed with a PostgreSQL advisory lock and a per-wallet nonce table
 
 ### **Binance Triangular Arbitrage Engine**
 
@@ -121,7 +121,7 @@ _Tech Stack: Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 _Tech Stack: Go, Rust_
 
 - Buys both outcomes in Polymarket's 15-minute crypto Up/Down markets when their best asks sum below $1. Once both legs fill, each pair is worth $1 at settlement or on a merge; fees and leg risk decide whether it pays
-- A stale-quote filter drops a signal when the two quotes are over 29ms apart, the older one is over 29ms old, or over 29ms passes before the order. A later version re-derived the threshold from the fee table and pre-signs orders across price levels to send both legs as FOK, so no unfilled order rests on the book. Execution is off by default, with Telegram alerts
+- In v1, a stale-quote filter drops a signal when the two quotes are over 29ms apart, the older one is over 29ms old, or over 29ms passes before the order. v2 re-derives the threshold from the fee table and pre-signs orders across price levels to send both legs as FOK, so no unfilled order rests on the book. Execution is off by default, with Telegram alerts
 
 ### **trustline**: Off-Chain Security Scanner for Web3 Projects
 
@@ -156,7 +156,7 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
 ## AWARDS & CERTIFICATIONS
 
 - **1st Place, DeFi & Composability Track, and Mantle Incubation Grant, Mantle Global Hackathon 2025** (DOOR Protocol) | Feb 2026
-  - 500+ submissions from 2,000+ builders across 6 tracks and $150K in prizes. DOOR Protocol won its track and was one of 3 teams picked for Mantle incubation grants that continue after the event
+  - 500+ submissions from 2,000+ builders across 6 tracks and $150K in prizes. Only 3 teams received Mantle incubation grants for long-term support after the event
   - A DeFi rate protocol on Mantle that splits yield and risk into senior and junior tranches. Entered as a team and wrote the 7 core contracts (150 test functions) for ERC-4626 tranche vaults, a safety module, withdrawal epochs, and a rate oracle, plus the Next.js dashboard and keeper bot
 - **3rd Place, Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
   - Built the Orca Whirlpool pool, position, and liquidity transactions for the entry, Stream Square
