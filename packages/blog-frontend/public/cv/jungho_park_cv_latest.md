@@ -20,7 +20,7 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 ### **Mantle**
 
 **Developer Relations Engineer** | Apr 2026 - Oct 2026 (7 months)\
-_Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network_\
+*Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network*\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Owned Korea builder onboarding for The Turing Test Hackathon 2026**: designed and ran Korean builder onboarding across the full 6-week registration-to-submission window of Phase 2 in a $120K two-phase global flagship hackathon. Ran an offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events. In Mantle's official count, South Korea ranked seventh by country share at 4.3%
