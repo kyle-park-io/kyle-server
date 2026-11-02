@@ -95,7 +95,7 @@ const Profile: Component = (): JSX.Element => {
           <section class="profile-section">
             <h2 class="profile-section__title">Experience</h2>
             <div class="profile-section__content">
-              <div class="profile-item profile-item--experience">
+              <div class="profile-item profile-item--experience profile-item--devrel">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">Mantle</h3>
                   <span class="profile-item__period">Apr 2026 — Oct 2026</span>
@@ -114,7 +114,7 @@ const Profile: Component = (): JSX.Element => {
                 <span class="profile-item__duration">7 months</span>
               </div>
 
-              <div class="profile-item profile-item--experience">
+              <div class="profile-item profile-item--experience profile-item--quant">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">Kronon Labs Co., Ltd.</h3>
                   <span class="profile-item__period">Apr 2025 — Nov 2025</span>
@@ -281,7 +281,7 @@ const Profile: Component = (): JSX.Element => {
           <section class="profile-section">
             <h2 class="profile-section__title">Awards</h2>
             <div class="profile-section__content">
-              <div class="profile-item profile-item--experience">
+              <div class="profile-item profile-item--experience profile-item--award">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">
                     🏆 Track 1st Place — Mantle Global Hackathon 2025
@@ -298,7 +298,7 @@ const Profile: Component = (): JSX.Element => {
                 </p>
               </div>
 
-              <div class="profile-item profile-item--experience">
+              <div class="profile-item profile-item--experience profile-item--award">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">
                     🥉 3rd Place — Seoulana Hackathon 2025
@@ -320,27 +320,70 @@ const Profile: Component = (): JSX.Element => {
                 📌 You can also check my resume on Wanted profile.
               </p>
               <div class="profile-links">
-                <a
-                  href="/cv/jungho_park_cv_latest.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="profile-link"
-                >
+                <div class="profile-doc">
                   <span class="profile-link__icon">📋</span>
                   <span class="profile-link__text">
-                    <span class="profile-link__label">CV / Resume</span>
+                    <span class="profile-link__label">Resume</span>
                     <span class="profile-link__desc">
-                      Professional resume and career history
+                      Three pages, the version to send with an application
                     </span>
                   </span>
-                  <span class="profile-link__arrow">→</span>
-                </a>
+                  <span class="profile-doc__files">
+                    <a
+                      href="/cv/jungho_park_cv_latest.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="profile-doc__file"
+                    >
+                      English PDF
+                    </a>
+                    <a
+                      href="/cv/jungho_park_cv_latest_ko.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      hreflang="ko"
+                      class="profile-doc__file"
+                    >
+                      한국어 PDF
+                    </a>
+                  </span>
+                </div>
+
+                <div class="profile-doc">
+                  <span class="profile-link__icon">📚</span>
+                  <span class="profile-link__text">
+                    <span class="profile-link__label">Full CV</span>
+                    <span class="profile-link__desc">
+                      Every role, project, and figure in full, with no page
+                      limit
+                    </span>
+                  </span>
+                  <span class="profile-doc__files">
+                    <a
+                      href="/cv/jungho_park_cv_full.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="profile-doc__file"
+                    >
+                      English PDF
+                    </a>
+                    <a
+                      href="/cv/jungho_park_cv_full_ko.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      hreflang="ko"
+                      class="profile-doc__file"
+                    >
+                      한국어 PDF
+                    </a>
+                  </span>
+                </div>
 
                 <a
                   href="https://kyle-park.notion.site/CV-10c5e2b1051680319fe4f8e1713993b4"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="profile-link"
+                  class="profile-link profile-link--archived"
                 >
                   <span class="profile-link__icon">📄</span>
                   <span class="profile-link__text">
@@ -358,7 +401,7 @@ const Profile: Component = (): JSX.Element => {
                   href="https://kyle-park.notion.site/Cover-Letter-f3ea582e4db84ad3b256b4f153349d02"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="profile-link"
+                  class="profile-link profile-link--archived"
                 >
                   <span class="profile-link__icon">✉️</span>
                   <span class="profile-link__text">

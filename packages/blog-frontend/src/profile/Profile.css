@@ -17,6 +17,20 @@
   --profile-color-gray-light: #f7f7f7;
   --profile-color-border: #e2e2e2;
   --profile-color-white: #ffffff;
+  /*
+   * Body copy sits one step lighter than the role line and one step darker
+   * than dates, so a card reads in three levels instead of one grey.
+   */
+  --profile-color-body: #4a4a4a;
+  /*
+   * One meaning per color, the same as the header navigation (layout/Header.css):
+   * blue is the DevRel page and Mantle, red is the quant page and Kronon Labs.
+   * Amber marks awards only. Every other card keeps the neutral rule.
+   */
+  --profile-color-devrel: #2563eb;
+  --profile-color-quant: #dc2626;
+  --profile-color-award: #b45309;
+  --profile-color-rule: #c4c4c4;
   --profile-transition: 0.3s ease-in-out;
   --profile-max-width: 900px;
 }
@@ -222,7 +236,9 @@
 .profile-item__desc {
   font-family: var(--profile-font-sans);
   font-size: 14px;
-  color: var(--profile-color-gray-medium);
+  line-height: 1.6;
+  color: var(--profile-color-body);
+  word-break: keep-all;
   margin: 0 0 8px 0;
 }
 
@@ -232,13 +248,23 @@
   font-family: var(--profile-font-sans);
   font-size: 13px;
   font-weight: 600;
-  color: #2563eb;
-  text-decoration: none;
+  /* Neutral by default; blue and red belong to the DevRel and quant cards. */
+  color: var(--profile-color-gray-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
   margin: 0 0 8px 0;
   transition: color var(--profile-transition);
 }
 
 .profile-item__link:hover {
+  color: var(--profile-color-black);
+}
+
+.profile-item--devrel .profile-item__link {
+  color: var(--profile-color-devrel);
+}
+
+.profile-item--devrel .profile-item__link:hover {
   color: #1d4ed8;
 }
 
@@ -257,7 +283,27 @@
   padding: 20px;
   background-color: var(--profile-color-gray-light);
   border-radius: 8px;
-  border-left: 4px solid var(--profile-color-black);
+  border-left: 4px solid var(--profile-color-rule);
+}
+
+.profile-item--devrel {
+  border-left-color: var(--profile-color-devrel);
+}
+
+.profile-item--quant {
+  border-left-color: var(--profile-color-quant);
+}
+
+.profile-item--quant .profile-item__link {
+  color: var(--profile-color-quant);
+}
+
+.profile-item--quant .profile-item__link:hover {
+  color: #b91c1c;
+}
+
+.profile-item--award {
+  border-left-color: var(--profile-color-award);
 }
 
 .profile-item--education {
@@ -374,6 +420,59 @@
 
 .profile-link--highlight:hover .profile-link__arrow {
   color: var(--profile-color-white);
+}
+
+/*
+ * A document with an English and a Korean file: the row names the document
+ * and its two files sit on the right as their own links.
+ */
+.profile-doc {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background-color: var(--profile-color-gray-light);
+  border: 1px solid var(--profile-color-border);
+  border-radius: 8px;
+}
+
+.profile-doc__files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.profile-doc__file {
+  font-family: var(--profile-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--profile-color-black);
+  background-color: var(--profile-color-white);
+  border: 1px solid var(--profile-color-black);
+  border-radius: 6px;
+  padding: 6px 12px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--profile-transition),
+    color var(--profile-transition);
+}
+
+.profile-doc__file:hover,
+.profile-doc__file:focus-visible {
+  background-color: var(--profile-color-black);
+  color: var(--profile-color-white);
+}
+
+/* Archived documents stay reachable but step back from the current ones. */
+.profile-link--archived {
+  background-color: transparent;
+}
+
+.profile-link--archived .profile-link__label {
+  font-weight: 500;
+  color: var(--profile-color-gray-dark);
 }
 
 /* ============================================
@@ -493,6 +592,16 @@
   .profile-link {
     padding: 12px;
     gap: 12px;
+  }
+
+  .profile-doc {
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .profile-doc__files {
+    width: 100%;
   }
 
   .profile-link__label {
