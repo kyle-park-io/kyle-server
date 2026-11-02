@@ -81,13 +81,20 @@ const Quant: Component = (): JSX.Element => {
                     across Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, and
                     Bithumb spot markets, Bybit against Jupiter, Bithumb and
                     Upbit KRW markets against Bybit, and the perpetual DEXs
-                    Paradex, Backpack, Extended, and Rails. I built the
-                    exchange-facing backend: order APIs and user-data WebSockets
-                    for 8 exchanges including Gate.io, plus Solana DEX,
-                    balances, PnL, a delta manager, and a dashboard tracking PnL
-                    and positions in real time. The team added cross-exchange
-                    withdrawals and an auto-balancer. Gate.io was replaced by
-                    Bithumb in September 2025.
+                    Paradex, Backpack, Extended, and Rails. I owned the console
+                    backend for orders, balances, and PnL: I added order
+                    replacement and lookup methods to the common exchange
+                    interface a teammate started, and built order placement,
+                    cancellation, replacement, and lookup, user-data WebSockets
+                    for fills, and keepalive and reconnection for 8 exchanges
+                    including Gate.io, plus Solana DEX. I also built PnL with 1-
+                    and 5-minute history and 1h, 4h, 1d, and 7d totals, a delta
+                    manager that nets each asset's delta and clears it on the
+                    exchange holding the largest balance, a dashboard tracking
+                    PnL and positions in real time, and recorded exchange
+                    responses to test each integration. The team added
+                    cross-exchange withdrawals and an auto-balancer. Gate.io was
+                    replaced by Bithumb in September 2025.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
@@ -109,7 +116,7 @@ const Quant: Component = (): JSX.Element => {
                 {/* Solana DEX */}
                 <div class="quant-experience__project">
                   <h4 class="quant-experience__project-title">
-                    Solana DEX Trading Infrastructure
+                    Solana DEX On-Chain Trading Bots
                   </h4>
                   <p class="quant-experience__project-desc">
                     On-chain trading bots in Go implementing three alpha
@@ -120,7 +127,11 @@ const Quant: Component = (): JSX.Element => {
                     filters, Jupiter swaps and trigger orders, a price cache
                     with 5-minute and 1-hour volatility, tiered sell rules, and
                     Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and
-                    Meteora pools.
+                    Meteora pools. A Solscan call coordinator built on a
+                    lock-free ring buffer and a worker pool queues calls at
+                    three priorities and enforces the rate limit in one place.
+                    249 commits across 4 repositories, with 186 test functions
+                    and 25 benchmarks.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>

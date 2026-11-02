@@ -102,10 +102,11 @@ const Profile: Component = (): JSX.Element => {
                 </div>
                 <p class="profile-item__role">Developer Relations Engineer</p>
                 <p class="profile-item__desc">
-                  Korean market developer outreach. Built the Korea team's
-                  content operations pipeline, authored the Korean technical
-                  documentation set, and ran the builder funnel for The Turing
-                  Test Hackathon 2026 and a seven-university campus tour.
+                  Korea developer relations at Mantle, the institutional
+                  infrastructure connecting real-world assets to on-chain
+                  capital markets. Led Korean builder onboarding for The Turing
+                  Test Hackathon 2026, ran a mainnet payment workshop, and built
+                  and shipped the Korea team's content operations pipeline.
                 </p>
                 <a href="/devrel" class="profile-item__link">
                   See the DevRel work →
@@ -122,8 +123,14 @@ const Profile: Component = (): JSX.Element => {
                   Trading System Backend Engineer
                 </p>
                 <p class="profile-item__desc">
-                  Trading Strategy Implementation
+                  In a cross-exchange arbitrage system built with the team,
+                  owned the console backend for orders, balances, PnL, and delta
+                  management across 8 exchanges and Solana DEX. Built Solana DEX
+                  on-chain trading bots.
                 </p>
+                <a href="/quant" class="profile-item__link">
+                  See the quant work →
+                </a>
                 <span class="profile-item__duration">8 months</span>
               </div>
 
@@ -174,7 +181,9 @@ const Profile: Component = (): JSX.Element => {
                 <p class="profile-item__role">
                   Development Team · Backend Developer (1st Year)
                 </p>
-                <p class="profile-item__desc">Blockchain Development</p>
+                <p class="profile-item__desc">
+                  REST API server for a government-funded research project
+                </p>
                 <span class="profile-item__duration">2 months</span>
               </div>
             </div>
