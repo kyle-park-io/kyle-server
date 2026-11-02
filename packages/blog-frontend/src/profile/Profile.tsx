@@ -207,7 +207,6 @@ const Profile: Component = (): JSX.Element => {
                   needed. Trigger evals check that a skill fires when it should,
                   and guard hooks check what agents write.
                 </p>
-                <span class="profile-item__duration">Private repository</span>
               </div>
 
               <div class="profile-item profile-item--experience">
@@ -225,7 +224,6 @@ const Profile: Component = (): JSX.Element => {
                   commit, and one master file builds a talk's slides, script,
                   and PDF.
                 </p>
-                <span class="profile-item__duration">Private repository</span>
               </div>
 
               <div class="profile-item profile-item--experience">

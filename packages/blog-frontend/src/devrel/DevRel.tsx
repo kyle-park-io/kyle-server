@@ -343,12 +343,6 @@ const DevRel: Component = (): JSX.Element => {
                   TypeScript, PostgreSQL, Vercel, Vitest
                 </span>
               </div>
-              <div class="devrel-work__meta">
-                <span class="devrel-work__meta-label">Source:</span>
-                <span class="devrel-work__meta-value">
-                  Private repository — available on request
-                </span>
-              </div>
             </div>
 
             {/* Korean Technical Documentation */}
