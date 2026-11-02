@@ -2,7 +2,7 @@
 
 **퀀트 트레이딩·블록체인 시스템 백엔드 엔지니어**
 
-거래소 간 차익거래, 온체인 트레이딩, 크로스체인 브릿지를 Rust, Go, TypeScript로 만드는 백엔드 엔지니어입니다. 크로논 랩스에서 팀과 함께 만든 차익거래 시스템의 8개 거래소 주문 연동, PnL·델타 관리, Solana DEX 봇을 맡았습니다. 2026년에는 글로벌 기업 Mantle에 데브렐 엔지니어로 합류하여 해커톤 한국 빌더 온보딩과 메인넷 결제 워크샵을 운영하고, 한국팀 콘텐츠 파이프라인을 설계해 배포했습니다.
+거래소 간 차익거래, 온체인 트레이딩, 크로스체인 브릿지를 Rust, Go, TypeScript로 만드는 백엔드 엔지니어입니다. 크로논 랩스에서 팀과 함께 만든 차익거래 시스템의 8개 거래소 주문 연동, PnL·Delta 관리, Solana DEX 봇을 맡았습니다. 2026년에는 글로벌 기업 Mantle에 데브렐 엔지니어로 합류하여 해커톤 한국 빌더 온보딩과 메인넷 결제 워크샵을 운영하고, 한국팀 콘텐츠 파이프라인을 설계해 배포했습니다.
 
 ---
 
@@ -44,7 +44,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 **트레이딩 시스템 백엔드 엔지니어** | 2025년 4월 - 2025년 11월 (8개월)\
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, 빗썸 현물 사이, Bybit와 Jupiter 사이, 빗썸·업비트 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 이 가운데 주문, 잔고, 손익을 다루는 콘솔 백엔드를 맡아, 팀원이 만든 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 델타를 잔고가 가장 많은 거래소에서 청산하는 델타 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
+- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, 빗썸 현물 사이, Bybit와 Jupiter 사이, 빗썸·업비트 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 이 가운데 주문, 잔고, PnL을 다루는 콘솔 백엔드를 맡아, 팀원이 만든 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
 - **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석의 알파 전략 3종을 실행하는 봇을 Go로 개발하고 저장소 4개의 커밋 249건 작성. GoPlus 보안 검사와 상위 홀더 30명·신규 지갑 보유 비율 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시. Solscan 호출은 락 없는 링 버퍼와 작업자 풀로 만든 조정기가 세 우선순위로 줄 세워 호출 한도를 한 곳에서 적용. 시험 함수 186개와 벤치마크 함수 25개
 - **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. 텔레그램 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 주문으로 연결. 이 가운데 X 리스트 트윗 수집 모듈, 텔레그램 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 구현. LLM 판정은 기사 100건 시험 목록을 만들어 어시스턴트 지시문 3개 판을 반복 시험하며 개선
 - **거래소 상장 스나이퍼**: 업비트와 빗썸의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. 업비트·빗썸 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리
@@ -78,7 +78,7 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 ## 기술 스택
 
-- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·델타 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-1400), 워크플로 자동화, 기술 문서 집필
+- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-1400), 워크플로 자동화, 기술 문서 집필
 - **언어**: Rust, Go, Python, TypeScript
 - **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
 - **백엔드 프레임워크**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
