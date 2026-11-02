@@ -143,7 +143,7 @@ Old:
 - **Portfolio**: https://jungho.dev
 - **Professional Quant Career**: https://jungho.dev/quant
 - **Personal Trading Strategy Development**: https://jungho.dev/personal-quant
-- **Live Quant Trading Dashboard**: https://kyle-quant.xyz (pw: demo2025)
+- **Live Quant Trading Dashboard**: https://kyle-quant.xyz
 ```
 
 New:
@@ -152,7 +152,7 @@ New:
 - **Email**: andy3638@naver.com
 - **Telegram**: https://t.me/kyleparkio
 - **Portfolio**: https://jungho.dev — quant career (`/quant`), personal strategies (`/personal-quant`)
-- **Live Quant Trading Dashboard**: https://kyle-quant.xyz (pw: demo2025)
+- **Live Quant Trading Dashboard**: https://kyle-quant.xyz
 ```
 
 - [ ] **Step 3: Mantle 섹션 교체 (26~35행)**
@@ -379,7 +379,7 @@ New:
 - **이메일**: andy3638@naver.com
 - **텔레그램**: https://t.me/kyleparkio
 - **포트폴리오**: https://jungho.dev — 퀀트 개발 경력(`/quant`), 개인 트레이딩 전략(`/personal-quant`)
-- **실시간 퀀트 트레이딩 대시보드**: https://kyle-quant.xyz (비밀번호: demo2025)
+- **실시간 퀀트 트레이딩 대시보드**: https://kyle-quant.xyz
 ```
 
 - [ ] **Step 3: Mantle 섹션 교체 (26~35행)**

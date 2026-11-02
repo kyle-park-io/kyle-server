@@ -111,7 +111,7 @@ hands-on developer onboarding, not marketing copy.
 - **Email**: andy3638@naver.com
 - **Telegram**: https://t.me/kyleparkio
 - **Portfolio**: https://jungho.dev — quant career (`/quant`), personal strategies (`/personal-quant`)
-- **Live Quant Trading Dashboard**: https://kyle-quant.xyz (pw: demo2025)
+- **Live Quant Trading Dashboard**: https://kyle-quant.xyz
 ```
 
 하단 `PORTFOLIO` 섹션은 삭제하고 Notion 포트폴리오 링크만 위 `Portfolio` 줄에 흡수한다.

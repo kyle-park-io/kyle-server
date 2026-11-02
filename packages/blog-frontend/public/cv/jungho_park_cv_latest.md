@@ -2,7 +2,7 @@
 
 **Backend Engineer for Quantitative Trading and Blockchain Systems**
 
-Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-chain bridges in Rust, Go, and TypeScript. Builds systems where new exchanges, chains, and databases plug in as adapters. At Kronon Labs, owned 8-exchange order connectivity, PnL, and delta management in a team-built arbitrage system, plus Solana DEX trading bots. At Mantle, a global company, ran Korea developer relations and built the Korea team's content pipeline.
+Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-chain bridges in Rust, Go, and TypeScript. At Kronon Labs, owned 8-exchange order connectivity, PnL, and delta management in the team's arbitrage system. In 2026, joined Mantle, a global company, as Developer Relations Engineer and built the Korea team's content pipeline.
 
 ---
 
@@ -11,7 +11,7 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 - **Email**: andy3638@naver.com · **Telegram**: https://t.me/kyleparkio
 - **GitHub**: https://github.com/kyle-park-io · **Portfolio**: https://jungho.dev
 - **Quant Career**: https://jungho.dev/quant · **Personal Trading Strategies**: https://jungho.dev/personal-quant
-- **Live Quant Trading Dashboard**: https://kyle-quant.xyz · password demo2025
+- **Live Quant Trading Dashboard**: https://kyle-quant.xyz
 
 ---
 
@@ -23,7 +23,7 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 _Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network_\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**: built the Korean builder funnel across the full 6-week registration-to-submission window of Phase 2, in a $120K two-phase global flagship program. An offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events. In Mantle's official count, South Korea ranked seventh by country share at 4.3%
+- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**: designed and ran Korean builder onboarding across the full 6-week registration-to-submission window of Phase 2 in a $120K two-phase global flagship hackathon. Ran an offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events. In Mantle's official count, South Korea ranked seventh by country share at 4.3%
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: 42 builders connected Q402 to their own AI agents over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the operations site as the first version of pay-lab: wallet registration, live leaderboard, quest verification, and a QR payment bridge, with badges and quests judged from on-chain data. 488 on-chain payments in three hours
 
@@ -36,8 +36,6 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - **Co-hosted the monthly Korean X livestream and presented its technical session (Jul - Sep 2026)**: July's RFQ session set AMM, on-chain CLOB, RFQ, and intent execution side by side and became a standalone X article. August's bridge session covered Lock & Mint against Burn & Mint and Mantle's bridge routes: the canonical bridge, LayerZero OFT, and Chainlink CCIP. September's RPC workshop compared seven Mantle RPC providers and priced three of them per month by app type. The August live post drew 18.0K views, the second-highest of the Korean account's posts over Apr-Sep 2026
 
 - **Campus tour of university blockchain clubs (May 2026)**: presented Mantle's builder programs and hackathon tracks at seven clubs over three weeks: KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, and Kwangwoon. Ran a Mantle testnet contract deployment lab at Sungkyunkwan and a live build of a stablecoin pair-trading bot at Ewha. The Korea University, Ewha, Sungkyunkwan, and KAIST clubs posted session recaps on their X accounts. In the campus research contest introduced on the tour, a Sungkyunkwan club member won the grand prize and the Kwangwoon club won the most-participating-club award
-
-- **Designed and delivered hands-on technical onboarding curriculum**: Mantle infra setup, Bybit API, Byreal Skills CLI, and MerchantMoe, Agni, and Fluxion integrations
 
 - **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%. Korea-originated campaigns and event announcements took all six highest-reach slots
 
@@ -94,7 +92,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 ### **mantle-kr-herald**: Content Operations Pipeline for the Mantle Korea Team
 
-_Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, available on request
+_Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_
 
 - **Agent-in-the-loop translation**: a local coding agent fills a purpose-built worksheet and a human approves it. Only translation pairs that a human approved on the two official accounts become few-shot examples for the next translation, and glossary candidates pass a tuned rejection threshold before going to human review. The 178-term glossary feeds the translation prompt and a term check
 - **Hexagonal structure and the PostgreSQL move**: external APIs, files, and storage sit behind 34 ports. Over the 99 commits that moved the record store from files to PostgreSQL and shipped it serverless on Vercel, no existing domain file changed; the move added 19 adapters and swapped the entry points. A unique index closes the double-publish hazard that appears when serverless drops the file lock
@@ -102,7 +100,7 @@ _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, avai
 
 ### **pay-lab**: On-Chain Payments Lab Kit for Workshops and Lectures
 
-_Tech Stack: Next.js, PostgreSQL, Privy, viem, MCP, Vercel_ · Private repository, available on request
+_Tech Stack: Next.js, PostgreSQL, Privy, viem, MCP, Vercel_
 
 - **One kit, two events**: started as the operations site for the Aug 2026 Q402 builder workshop, where 42 builders made 488 on-chain payments, and ran the Oct 2026 Inha University class on the same kit with Ethereum Sepolia and Circle's testnet USDC
 - **Per-event config**: redesigned into lab modules (wallet creation, send and receipt, spending-limit signature, agent connection, agent payment) with one config file per event choosing the chain, gas sponsorship, funding, and limits. Chain adapters for Mantle, Mantle Sepolia, and Ethereum Sepolia
@@ -129,7 +127,7 @@ _Tech Stack: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-par
 
 ### **skills**: Agent Skill Marketplace for Claude Code and Codex
 
-_Tech Stack: Agent skills, Python, Bash_ · Private repository, available on request
+_Tech Stack: Agent skills, Python, Bash_
 
 - Turns repeated engineering decisions into skills, packaged as **7 domain plugins** that each repository enables as needed. One source file generates the manifests for both Claude Code and Codex
 - **Trigger evals for 8 skills.** The negative queries are the ones that belong to a neighbouring skill, which is what separates a precise trigger from a loose one
@@ -137,7 +135,7 @@ _Tech Stack: Agent skills, Python, Bash_ · Private repository, available on req
 
 ### **writing-guides**: Instructions for Agent-Written Copy
 
-_Tech Stack: Markdown, Node.js, Python_ · Private repository, available on request
+_Tech Stack: Markdown, Node.js, Python_
 
 - 62 guides for Korean copy, screen copy, translation, talk scripts, and documents. Every rule is tagged with its evidence: a piece of feedback, a published post, or a measurement
 - A pre-commit checker (links and anchors, dashes, evidence tags, index completeness, stock closing phrases, section numbering) and a presentation toolchain that builds the PDF, HTML, speaker script, and slide images from one master file
