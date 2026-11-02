@@ -174,5 +174,5 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
   - 솔라나 서처/솔버 전략 설계. Jito 번들·Jupiter v6·Helius WebSocket 기반 실시간 디페그 차익거래 6개 전략 계열
   - 그 외 DeFi 생태계 17범주 택소노미, 범주별 스테이블코인 존재 형태 정리
 
-- **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): BitVMX-CPU 위 일방향 옵션 PoC, Go와 PostgreSQL로 만든 REST API 60개와 WebSocket 백엔드, BitStriker 프런트엔드(React, MutinyNet 지갑 연동)
+- **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): BitVMX-CPU 위 일방향 옵션 PoC, Go와 PostgreSQL로 만든 REST API 60개와 WebSocket 백엔드, BitStriker 프론트엔드(React, MutinyNet 지갑 연동)
 
