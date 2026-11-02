@@ -5,11 +5,15 @@ set -euo pipefail
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 CV_DIR="${SCRIPT_DIR}/../packages/blog-frontend/public/cv"
 MIN_PAGES=1
-# The master CV keeps every verified fact; per-posting CVs are trimmed in
-# kyle-career. Raised from 4 on 2026-10-30 when past-work facts pushed the
-# English CV to 5 pages, and to 6 on the same day when the body went from
-# 8.25pt to 10pt (see cv-print.css).
-MAX_PAGES=6
+# Two documents per language since 2026-11-03:
+#   jungho_park_cv_latest{,_ko}.md  the resume handed to companies, at most
+#                                   3 pages (Korean hiring guides allow about 3
+#                                   for experienced hires; English guides say
+#                                   1 to 2, see writing-guides resume.md)
+#   jungho_park_cv_full{,_ko}.md    the full CV that keeps every verified fact
+#                                   and has no page limit
+# Per-posting CVs are cut from these in kyle-career and keep the 3-page limit.
+RESUME_MAX_PAGES=3
 
 page_count() {
   python3 -c "
@@ -49,10 +53,16 @@ if ! fc-match "Pretendard" 2>/dev/null | grep -qi pretendard; then
 fi
 
 status=0
-for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest_ko.md; do
+for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest_ko.md \
+  "${CV_DIR}"/jungho_park_cv_full.md "${CV_DIR}"/jungho_park_cv_full_ko.md; do
   [ -f "$md" ] || { echo "missing: $md" >&2; exit 1; }
   echo "building $(basename "$md") ..."
-  npx --yes md-to-pdf --config-file "${SCRIPT_DIR}/cv-pdf.config.js" "$md" </dev/null
+  # cv-pdf.config.js sets English line spacing apart from Korean (cv-print.css).
+  case "$md" in
+    *_ko.md) cv_lang=ko ;;
+    *) cv_lang=en ;;
+  esac
+  CV_LANG="$cv_lang" npx --yes md-to-pdf --config-file "${SCRIPT_DIR}/cv-pdf.config.js" "$md" </dev/null
 
   pdf="${md%.md}.pdf"
   if [ ! -s "$pdf" ]; then
@@ -61,12 +71,17 @@ for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest
     continue
   fi
 
+  case "$md" in
+    *_full*) max_pages="" ;;
+    *) max_pages="$RESUME_MAX_PAGES" ;;
+  esac
+
   pages=$(page_count "$pdf")
   if [ "$pages" -lt "$MIN_PAGES" ]; then
-    echo "  FAIL  $(basename "$pdf"): ${pages} pages — build is broken, produced no page content" >&2
+    echo "  FAIL  $(basename "$pdf"): ${pages} pages, build is broken, produced no page content" >&2
     status=1
-  elif [ "$pages" -gt "$MAX_PAGES" ]; then
-    echo "  FAIL  $(basename "$pdf"): ${pages} pages (max ${MAX_PAGES}) — too long, trim content" >&2
+  elif [ -n "$max_pages" ] && [ "$pages" -gt "$max_pages" ]; then
+    echo "  FAIL  $(basename "$pdf"): ${pages} pages (max ${max_pages}), too long, trim content" >&2
     status=1
   else
     echo "  ok    $(basename "$pdf"): ${pages} pages"

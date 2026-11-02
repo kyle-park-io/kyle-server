@@ -15,6 +15,12 @@ module.exports = {
   css: readFileSync(join(__dirname, 'cv-print.css'), 'utf8'),
 
   /*
+   * build-cv.sh sets CV_LANG per file. cv-print.css keys the English line
+   * spacing off this class; anything else keeps the Korean default.
+   */
+  body_class: [process.env.CV_LANG === 'en' ? 'cv-en' : 'cv-ko'],
+
+  /*
    * md-to-pdf defaults to 20mm left / 40mm right, which is asymmetric by
    * accident rather than design: it pushed the text column off-centre and
    * wasted 20mm of line width, forcing extra wrapping and a mostly empty
