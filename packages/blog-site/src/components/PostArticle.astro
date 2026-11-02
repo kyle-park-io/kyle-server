@@ -1,0 +1,87 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Toc from './Toc.astro';
+import ProgressBar from './ProgressBar.astro';
+import { readingMinutes } from '../lib/reading-time';
+import { BASE } from '../config/site';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  /**
+   * The folder this copy is served from: BASE for a live post, `${BASE}/archive`
+   * for an archived one. The markdown download sits next to the page.
+   */
+  root: string;
+}
+
+const { post, root } = Astro.props;
+const { Content, headings } = await render(post);
+const minutes = readingMinutes(post.body ?? '');
+const iso = post.data.date.toISOString().slice(0, 10);
+const dateOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Seoul',
+} as const;
+const shown = post.data.date.toLocaleDateString('ko-KR', dateOptions);
+const updatedShown = post.data.updated
+  ? post.data.updated.toLocaleDateString('ko-KR', dateOptions)
+  : undefined;
+---
+
+<ProgressBar />
+
+<div class="post-page">
+  <article class="post" lang={post.data.lang}>
+    <header class="post__header">
+      <h1 class="post__title">{post.data.title}</h1>
+      <p class="post__meta">
+        <time datetime={iso}>{shown}</time>
+        <span class="post__dot">·</span>
+        <span>약 {minutes}분</span>
+        {updatedShown && <span class="post__dot">·</span>}
+        {updatedShown && <span>수정: {updatedShown}</span>}
+      </p>
+      <ul class="post__tags">
+        {
+          post.data.tags.map((tag) => (
+            <li>
+              <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <slot name="notice" />
+
+    {
+      post.data.cover && (
+        <figure class="post__cover">
+          <Image
+            src={post.data.cover}
+            alt=""
+            widths={[720, 1440]}
+            loading="eager"
+          />
+        </figure>
+      )
+    }
+
+    <div class="post__content">
+      <Content />
+    </div>
+
+    <footer class="post__footer">
+      <a class="post__download" href={`${root}/${post.id}.md`} download>
+        원문 마크다운 내려받기
+      </a>
+      <a class="post__back" href={BASE}>← 글 목록</a>
+    </footer>
+  </article>
+
+  <Toc headings={headings} />
+</div>

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { sortByDateDesc, excludeDrafts } from '../lib/posts';
+import { sortByDateDesc, listed } from '../lib/posts';
 import { BASE } from '../config/site';
 
 /**
@@ -8,9 +8,7 @@ import { BASE } from '../config/site';
  * /api-blog/api/blog/sorted-by-date/top-10 endpoint.
  */
 export const GET: APIRoute = async () => {
-  const posts = sortByDateDesc(
-    excludeDrafts(await getCollection('posts'), false),
-  );
+  const posts = sortByDateDesc(listed(await getCollection('posts'), false));
 
   const items = posts.map((post) => ({
     slug: post.id,

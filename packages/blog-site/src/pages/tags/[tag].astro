@@ -3,21 +3,18 @@ import { getCollection } from 'astro:content';
 import Shell from '../../layouts/Shell.astro';
 import PostIndexRow from '../../components/PostIndexRow.astro';
 import TagBar from '../../components/TagBar.astro';
-import { excludeDrafts, tagCounts, postsWithTag } from '../../lib/posts';
+import { listed, tagCounts, postsWithTag } from '../../lib/posts';
 import { BASE, SITE_NAME } from '../../config/site';
 import '../../styles/list.css';
 
 export async function getStaticPaths() {
-  const posts = excludeDrafts(
-    await getCollection('posts'),
-    import.meta.env.DEV,
-  );
+  const posts = listed(await getCollection('posts'), import.meta.env.DEV);
   const tags = new Set(posts.flatMap((post) => post.data.tags));
   return [...tags].map((tag) => ({ params: { tag } }));
 }
 
 const { tag } = Astro.params;
-const all = excludeDrafts(await getCollection('posts'), import.meta.env.DEV);
+const all = listed(await getCollection('posts'), import.meta.env.DEV);
 const posts = postsWithTag(all, tag!);
 const tags = tagCounts(all);
 ---

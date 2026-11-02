@@ -1,16 +1,15 @@
 ---
-import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Shell from '../layouts/Shell.astro';
-import Toc from '../components/Toc.astro';
 import Giscus from '../components/Giscus.astro';
-import ProgressBar from '../components/ProgressBar.astro';
+import PostArticle from '../components/PostArticle.astro';
 import { excludeDrafts } from '../lib/posts';
-import { readingMinutes } from '../lib/reading-time';
 import { BASE, SITE_NAME } from '../config/site';
 import '../styles/post.css';
 
 export async function getStaticPaths() {
+  // Archived posts keep a page here too, so links to the old address still
+  // land: the page only forwards to /blog/archive/<slug>.
   const posts = excludeDrafts(
     await getCollection('posts'),
     import.meta.env.DEV,
@@ -19,23 +18,9 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await render(post);
-const minutes = readingMinutes(post.body ?? '');
-const iso = post.data.date.toISOString().slice(0, 10);
-const shown = post.data.date.toLocaleDateString('ko-KR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'Asia/Seoul',
-});
-const updatedShown = post.data.updated
-  ? post.data.updated.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      timeZone: 'Asia/Seoul',
-    })
-  : undefined;
+if (post.data.archived) {
+  return Astro.redirect(`${BASE}/archive/${post.id}`, 301);
+}
 ---
 
 <Shell
@@ -47,57 +32,7 @@ const updatedShown = post.data.updated
   lang={post.data.lang}
   current={BASE}
 >
-  <ProgressBar />
-
-  <div class="post-page">
-    <article class="post" lang={post.data.lang}>
-      <header class="post__header">
-        <h1 class="post__title">{post.data.title}</h1>
-        <p class="post__meta">
-          <time datetime={iso}>{shown}</time>
-          <span class="post__dot">·</span>
-          <span>약 {minutes}분</span>
-          {updatedShown && <span class="post__dot">·</span>}
-          {updatedShown && <span>수정: {updatedShown}</span>}
-        </p>
-        <ul class="post__tags">
-          {
-            post.data.tags.map((tag) => (
-              <li>
-                <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </header>
-
-      {
-        post.data.cover && (
-          <figure class="post__cover">
-            <Image
-              src={post.data.cover}
-              alt=""
-              widths={[720, 1440]}
-              loading="eager"
-            />
-          </figure>
-        )
-      }
-
-      <div class="post__content">
-        <Content />
-      </div>
-
-      <footer class="post__footer">
-        <a class="post__download" href={`${BASE}/${post.id}.md`} download>
-          원문 마크다운 내려받기
-        </a>
-        <a class="post__back" href={BASE}>← 글 목록</a>
-      </footer>
-    </article>
-
-    <Toc headings={headings} />
-  </div>
+  <PostArticle post={post} root={BASE} />
 
   <Giscus />
 </Shell>
