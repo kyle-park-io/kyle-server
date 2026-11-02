@@ -60,19 +60,6 @@ interface Figure {
   source: string;
 }
 
-const onboardingPhotos: Figure[] = [
-  {
-    src: OnboardingLiveBuild,
-    caption: 'Live build session at the Seoul AI Hacker House',
-    source: POST_HACKER_HOUSE,
-  },
-  {
-    src: OnboardingSession,
-    caption: 'Mantle Seoul workshop — ecosystem and AI infrastructure strategy',
-    source: POST_SEOUL_WORKSHOP,
-  },
-];
-
 const hackathonPhotos: Figure[] = [
   {
     src: HackerhouseWorkshop,
@@ -85,9 +72,19 @@ const hackathonPhotos: Figure[] = [
     source: POST_HACKER_HOUSE,
   },
   {
+    src: OnboardingLiveBuild,
+    caption: 'Live build session at the Seoul AI Hacker House',
+    source: POST_HACKER_HOUSE,
+  },
+  {
     src: Mogakko,
     caption: 'AI Awakening offline co-working — hackathon onboarding',
     source: POST_MOGAKKO,
+  },
+  {
+    src: OnboardingSession,
+    caption: 'Mantle Seoul workshop — ecosystem and AI infrastructure strategy',
+    source: POST_SEOUL_WORKSHOP,
   },
 ];
 
@@ -228,8 +225,8 @@ const DevRel: Component = (): JSX.Element => {
             <h1 class="devrel-hero__title">Developer Relations</h1>
             <p class="devrel-hero__desc">
               Korean market developer outreach — content operations, technical
-              documentation, onboarding curriculum, hackathon builder funnel,
-              builder workshops, and the Korean official account.
+              documentation, hackathon builder onboarding, builder workshops,
+              the Korean livestream, and the Korean official account.
             </p>
             <span class="devrel-hero__period">Apr 2026 — Oct 2026</span>
           </div>
@@ -250,10 +247,10 @@ const DevRel: Component = (): JSX.Element => {
               The work split into what I shipped and what I ran. Shipped: a
               content operations pipeline for the Korea team, the Korean
               technical documentation set, and the live operations site behind
-              the Q402 builder workshop. Ran: developer onboarding, the Korea
-              builder funnel for the flagship hackathon, a campus tour, a
-              stablecoin payments class at Inha University, the monthly Korean
-              livestream, and the Korean official account.
+              the Q402 builder workshop. Ran: Korea builder onboarding for both
+              phases of the flagship hackathon, a campus tour, a stablecoin
+              payments class at Inha University, the Korean livestream, and the
+              Korean official account.
             </p>
           </div>
         </section>
@@ -374,44 +371,6 @@ const DevRel: Component = (): JSX.Element => {
               </a>
             </div>
 
-            {/* Onboarding Curriculum */}
-            <div class="devrel-work">
-              <div class="devrel-work__header">
-                <h3 class="devrel-work__title">Onboarding Curriculum</h3>
-                <span class="devrel-work__tag">Hands-on</span>
-              </div>
-              <p class="devrel-work__desc">
-                Designed and delivered a hands-on technical onboarding
-                curriculum: Mantle infra setup, Bybit API, Byreal Skills CLI,
-                MerchantMoe / Agni / Fluxion integrations, testnet contract
-                deployment labs, and a stablecoin pair-trading bot built live in
-                front of the room.
-              </p>
-              <div class="devrel-gallery devrel-gallery--wide">
-                <For each={onboardingPhotos}>
-                  {(photo) => (
-                    <figure class="devrel-figure">
-                      <a
-                        href={photo.source}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          src={photo.src}
-                          alt={photo.caption}
-                          loading="lazy"
-                          class="devrel-figure__img"
-                        />
-                      </a>
-                      <figcaption class="devrel-figure__caption">
-                        {photo.caption}
-                      </figcaption>
-                    </figure>
-                  )}
-                </For>
-              </div>
-            </div>
-
             {/* Turing Test Hackathon */}
             <div class="devrel-work">
               <div class="devrel-work__header">
@@ -420,17 +379,38 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Owned Korea builder onboarding for the flagship two-phase global
-                program, building the Korean builder funnel across the full
-                six-week registration-to-submission window of Phase 2.
+                program, from the invite-only Phase 1 ClawHack trading contest
+                through the six-week registration-to-submission window of Phase
+                2.
               </p>
               <ul class="devrel-work__list">
-                <li>An offline co-working session for hackathon onboarding</li>
-                <li>The Seoul hacker house workshop, 100+ builders</li>
-                <li>A live online workshop</li>
-                <li>3 external partner events</li>
                 <li>
-                  In Mantle's official count, South Korea ranked seventh by
-                  country share at 4.3%
+                  Phase 1: ran the X live workshop on building AI agents and
+                  entering ClawHack, and recruited Korean whitelist participants
+                  over Telegram
+                </li>
+                <li>
+                  A Korean participant's agent took first place on the volume
+                  track at <strong>$10.31M</strong>, and the 12 Korean wallets
+                  tracked made up 26.88% of total volume
+                </li>
+                <li>
+                  Pulled Korean results from the leaderboard API into a report
+                  with Phase 2 improvement requests for the global team
+                </li>
+                <li>
+                  Phase 2: an offline co-working session with 48 registrations
+                  and a live online workshop
+                </li>
+                <li>
+                  At the Seoul hacker house, 100+ builders, led the hackathon
+                  workshop and moderated a fireside chat
+                </li>
+                <li>
+                  Introduced the hackathon at The Age of Agentic AI meetup,
+                  which Mantle sponsored, led the main session of the
+                  community-hosted Mantle Seoul workshop, and joined the AI
+                  community Solp Club as a guest
                 </li>
               </ul>
               <div class="devrel-gallery">
@@ -644,11 +624,13 @@ const DevRel: Component = (): JSX.Element => {
             <div class="devrel-work">
               <div class="devrel-work__header">
                 <h3 class="devrel-work__title">Korean Livestream</h3>
-                <span class="devrel-work__tag">Monthly · Co-host</span>
+                <span class="devrel-work__tag">Apr-Sep 2026 · Co-host</span>
               </div>
               <p class="devrel-work__desc">
-                Co-hosted the monthly Korean livestream on the official account
-                and presented its technical session each month. July carried
+                Co-hosted the Korean livestream on the official account from
+                April and ran its hackathon segments for Phase 1 and Phase 2,
+                bringing ClawHack AI agent traders onto the April show. From
+                July, presented its technical session each month. July carried
                 Mantle's third anniversary, August ran as a Mantle × Stable
                 collaboration with Stable's CEO as guest, and September came
                 ahead of KBW.
