@@ -1,8 +1,8 @@
 # PARK JUNGHO (Kyle) - CV
 
-**Backend Engineer for Blockchain and Quantitative Trading Systems**
+**Backend Engineer for Quantitative Trading and Blockchain Systems**
 
-Backend engineer building cross-chain bridges, smart contracts, and trading systems in Rust, Go, and TypeScript. In 2026, Developer Relations Engineer for Korea at Mantle: led builder onboarding for a global hackathon, ran builder workshops, wrote Korean technical docs, and built and deployed the Korea team's 16-module content pipeline.
+Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-chain bridges in Rust, Go, and TypeScript. Builds systems where new exchanges, chains, and databases plug in as adapters. At Kronon Labs, owned 8-exchange order connectivity, PnL, and delta management in a team-built arbitrage system, plus Solana DEX trading bots. At Mantle, a global company, ran Korea developer relations and built the Korea team's content pipeline.
 
 ---
 
@@ -20,23 +20,24 @@ Backend engineer building cross-chain bridges, smart contracts, and trading syst
 ### **Mantle**
 
 **Developer Relations Engineer** | Apr 2026 - Oct 2026 (7 months)\
+_Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network_\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
-
-- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: X and Lark collection, Korean translation, per-channel conversion including press releases, two-stage human review, and Telegram and X delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen. From July to October 2026 it collected 446 X posts and produced 162 translations and 837 channel versions; reviewers approved 106 of the translations. Architecture and test scale are under mantle-kr-herald in Selected Projects
-
-- **Wrote the Korean technical documentation set (5 documents)**: Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0. Link to the documents: https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8
-
-- **Designed and delivered hands-on technical onboarding curriculum**: Mantle infra setup, Bybit API, Byreal Skills CLI, MerchantMoe, Agni, and Fluxion integrations, testnet contract deployment labs, and a live-built stablecoin pair-trading bot
 
 - **Owned Korea builder onboarding for The Turing Test Hackathon 2026**: built the Korean builder funnel across the full 6-week registration-to-submission window of Phase 2, in a $120K two-phase global flagship program. An offline co-working session, the Seoul hacker house workshop (100+ builders), a live online workshop, and 3 external partner events. In Mantle's official count, South Korea ranked seventh by country share at 4.3%
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: 42 builders connected Q402 to their own AI agents over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the operations site as the first version of pay-lab: wallet registration, live leaderboard, quest verification, and a QR payment bridge, with badges and quests judged from on-chain data. 488 on-chain payments in three hours
 
+- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: X and Lark collection, Korean translation, per-channel conversion including press releases, two-stage human review, and Telegram and X delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen. From July to October 2026 it collected 446 X posts and produced 162 translations and 837 channel versions; reviewers approved 106 of the translations
+
 - **Taught a stablecoin payments class at Inha University (Oct 2026)**: a session of the Digital Assets and Market Infrastructure course for finance students, on how stablecoin payments move and what changes when an AI agent pays. Ran two labs on pay-lab: students made a wallet on their phones, sent testnet USDC to a classmate and read the receipt on a block explorer, then signed a spending limit for an AI agent in claude.ai or Codex and watched a request past the limit get refused by both the lab server and the USDC contract. Covered Korea's pending won-stablecoin bills issue by issue: who may issue, reserves and redemption, and interest. Link to the slides, in Korean: https://pay-lab-inha.vercel.app/slides
+
+- **Wrote the Korean technical documentation set (5 documents)**: Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0. Link to the documents: https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8
+
+- **Co-hosted the monthly Korean X livestream and presented its technical session (Jul - Sep 2026)**: July's RFQ session set AMM, on-chain CLOB, RFQ, and intent execution side by side and became a standalone X article. August's bridge session covered Lock & Mint against Burn & Mint and Mantle's bridge routes: the canonical bridge, LayerZero OFT, and Chainlink CCIP. September's RPC workshop compared seven Mantle RPC providers and priced three of them per month by app type. The August live post drew 18.0K views, the second-highest of the Korean account's posts over Apr-Sep 2026
 
 - **Campus tour of university blockchain clubs (May 2026)**: presented Mantle's builder programs and hackathon tracks at seven clubs over three weeks: KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, and Kwangwoon. Ran a Mantle testnet contract deployment lab at Sungkyunkwan and a live build of a stablecoin pair-trading bot at Ewha. The Korea University, Ewha, Sungkyunkwan, and KAIST clubs posted session recaps on their X accounts. In the campus research contest introduced on the tour, a Sungkyunkwan club member won the grand prize and the Kwangwoon club won the most-participating-club award
 
-- **Co-hosted the monthly Korean X livestream and presented its technical session (Jul - Sep 2026)**: July's RFQ session compared traditional and on-chain RFQ and set AMM, on-chain CLOB, RFQ, and intent execution side by side, and became a standalone X article. August's bridge session covered Lock & Mint against Burn & Mint and the different bridge routes Mantle's assets take: the canonical bridge, LayerZero OFT, and Chainlink CCIP. September's RPC workshop compared seven Mantle RPC providers and priced three of them per month from the request counts of different app types. The August live post drew 18.0K views, the second-highest of the Korean account's posts over Apr-Sep 2026
+- **Designed and delivered hands-on technical onboarding curriculum**: Mantle infra setup, Bybit API, Byreal Skills CLI, and MerchantMoe, Agni, and Fluxion integrations
 
 - **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%. Korea-originated campaigns and event announcements took all six highest-reach slots
 
@@ -45,11 +46,11 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 **Trading System Backend Engineer** | Apr 2025 - Nov 2025 (8 months)\
 _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX Cross-Exchange Arbitrage System (Rothchild)**: a Taker-Taker and Maker-Taker arbitrage system built with the team. Its Go strategy engine trades spreads across Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, and Bithumb spot markets, Bybit against Jupiter, Bithumb and Upbit KRW markets against Bybit, and the perpetual DEXs Paradex, Backpack, Extended, and Rails. Built its exchange-facing backend: order APIs and user-data WebSockets for 8 exchanges including Gate.io, plus Solana DEX, balances, PnL, a delta manager, and a dashboard tracking PnL and positions in real time
-- **Solana DEX Trading Infrastructure**: on-chain trading bots in Go implementing three alpha strategies (New Pair Detection, Back From The Dead, Fat LP Analysis), with GoPlus security and wallet and holder entry filters, Jupiter swaps and trigger orders, a price cache with 5-minute and 1-hour volatility, tiered sell rules, and Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and Meteora pools
-- **Trading Metrics Collection & Analytics**: an altcoin performance chart backend built with the team: a Django API ranking the top 50 altcoins against BTC, open-interest-to-market-cap ratios from Velo, and kline changes stored in MongoDB. Built its Bybit 1-minute kline WebSocket collector and kline API and added time ranges and BTC change rates to the performance API; also designed a batched metrics collector for strategy detectors
-- **News and KOL Signal Trading Engine**: a futures trading engine built with the team. It ingests private Telegram channels and X list tweets, scores each item's similarity to known events with the average of several OpenAI assistants, and routes signals to Binance and Bybit USDT-futures orders. Built the X list-tweet collector, the private Telegram channel subscription, and the multi-assistant scoring, and iterated three versions of the assistant instructions against a 100-item test list
+- **CEX Cross-Exchange Arbitrage System (Rothchild)**: a Taker-Taker and Maker-Taker arbitrage system built with the team. Its Go strategy engine trades spreads across Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, and Bithumb spot markets, Bybit against Jupiter, Bithumb and Upbit KRW markets against Bybit, and the perpetual DEXs Paradex, Backpack, Extended, and Rails. Owned the console backend for orders, balances, and PnL: added order replacement and lookup methods to the common exchange interface a teammate started, and built order placement, cancellation, replacement, and lookup, user-data WebSockets for fills, and keepalive and reconnection for 8 exchanges including Gate.io, plus Solana DEX. Built PnL with 1- and 5-minute history and 1h, 4h, 1d, and 7d totals, a delta manager that nets each asset's delta and clears it on the exchange holding the largest balance, and a dashboard tracking PnL and positions in real time. Set up recorded exchange responses to test each integration
+- **Solana DEX On-Chain Trading Bots**: bots in Go running three alpha strategies (New Pair Detection, Back From The Dead, Fat LP Analysis), 249 commits across 4 repositories. GoPlus security checks and top-30-holder and fresh-wallet-share entry filters, Jupiter swaps and trigger orders, a price cache with 5-minute and 1-hour volatility, tiered sell rules, and Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and Meteora pools. A Solscan call coordinator built on a lock-free ring buffer and a worker pool queues calls at three priorities and enforces the rate limit in one place. 186 test functions and 25 benchmarks
+- **News and KOL Signal Trading Engine**: a futures trading engine built with the team. It ingests private Telegram channels and X list tweets, scores each item's similarity to known events with the average of several OpenAI assistants, and routes signals to Binance and Bybit USDT-futures orders. Built the X list-tweet collector, the private Telegram channel subscription, and the multi-assistant scoring. Evaluated the LLM scoring on a 100-item test list built for it and iterated three versions of the assistant instructions
 - **Exchange Listing Sniper**: built with the team, a sniper that catches Upbit and Bithumb listing announcements and sends new symbols over gRPC to order servers in Tokyo and Singapore that place Binance futures, MEXC, and Bybit orders. Ran the earlier listing detector, which watched Upbit and Bithumb notices and ordered on Binance futures, Bybit, MEXC, and OKX, in a dev environment and wrote up seven improvements
+- **Trading Metrics Collection & Analytics**: for an altcoin performance chart backend built with the team, which ranks the top 50 altcoins against BTC alongside open-interest-to-market-cap ratios from Velo, built the Bybit 1-minute kline WebSocket collector and kline API and added time ranges and BTC change rates to the performance API. Also designed a batched metrics collector for strategy detectors
 - **Prediction Market Monitoring (Totoro)**: with the team, a module that pairs Polymarket and Kalshi NFL and Premier League markets by match and pulls their prices
 
 ### **Medium Inc.**
@@ -57,17 +58,16 @@ _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (EC
 **Backend Engineer** | Sep 2022 - Feb 2024 (1 year 6 months)\
 _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, MySQL, AWS, Docker_
 
-- **Cross-Chain Bridge Infrastructure**: a multisig-verified bridge linking the company L1 mainnet RIGO (Cosmos Tendermint with EVM), the private consortium chain MDL (a Hyperledger Fabric 2.2.2 fork), and Ethereum, with a Kafka event pipeline, 17 bridge chaincodes, and Solidity contracts
+- **Cross-Chain Bridge Infrastructure**: built with the team, a multisig-verified bridge linking the company L1 mainnet RIGO (Cosmos Tendermint with EVM), the private consortium chain MDL (a Hyperledger Fabric 2.2.2 fork), and Ethereum. A Kafka event pipeline, 17 bridge chaincodes, and Solidity contracts
 - **Security Token Platform (ERC-1400)**: an STO token designed and built as a Go chaincode on Hyperledger Fabric to the ERC-1400 interface: partition-based issue, transfer, and redeem, and token wallets
 - **RIGO Chain Communicator**: a Go client sending RIGO transactions over Tendermint RPC, deployed in-house
 - **Hyperledger Fabric Network Automation**: Bash scripts that automate Fabric CA enrollment, genesis block and channel transaction generation, orderer, peer, and CouchDB startup, channel creation and joins, anchor peer updates, the chaincode package, install, approve, and commit steps, and the block explorer connection. Seven Docker Compose configurations with different channel, organization, and orderer counts on Fabric 2.2.6 and 2.2.13 images, the largest with 3 organizations and 2 etcdraft orderers, plus four configurations that run the same sequence from Fabric binaries on Linux and macOS without Docker
 
 ### **BF Labs Inc.**
 
-**Backend Engineer** | Aug 2022 - Sep 2022 (2 months)\
-_Tech Stack: Node.js, Express, MariaDB, AWS S3_
+**Backend Engineer** | Aug 2022 - Sep 2022 (2 months)
 
-- **Government Research Project**: built the report intake and lookup REST API server for an IITP (Institute of Information & Communications Technology Planning & Evaluation) funded project with Node.js, Express, Sequelize, and MariaDB: JWT login, S3 image upload, report search, and a 5-table database schema
+- **Government Research Project**: built the report intake and lookup REST API server for an IITP (Institute of Information & Communications Technology Planning & Evaluation) funded project with Node.js, Express, and MariaDB
 
 ---
 
@@ -80,13 +80,13 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 
 ## TECHNICAL SKILLS
 
+- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL and Delta Management, Cross-Exchange and Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-1400), Workflow Automation, Technical Writing
 - **Languages**: Rust, Go, Python, TypeScript
-- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
 - **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
-- **Frontend**: React, SolidJS, Astro
+- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
 - **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
 - **AI Tooling**: Claude Code, Codex, MCP servers, agent skills and trigger evals, agent-in-the-loop pipelines
-- **Specializations**: FIX and SBE Trading Protocols, DeFi Protocols, DEX/CEX Trading Systems, Cross-Exchange and Triangular Arbitrage, Cross-Chain Bridges, Workflow Automation, Technical Writing
+- **Frontend**: React, SolidJS, Astro
 
 ---
 
@@ -97,8 +97,8 @@ _Tech Stack: Node.js, Express, MariaDB, AWS S3_
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest_ · Private repository, available on request
 
 - **Agent-in-the-loop translation**: a local coding agent fills a purpose-built worksheet and a human approves it. Only translation pairs that a human approved on the two official accounts become few-shot examples for the next translation, and glossary candidates pass a tuned rejection threshold before going to human review. The 178-term glossary feeds the translation prompt and a term check
-- **Hexagonal structure and the PostgreSQL move**: external APIs, files, and storage sit behind ports. Over the 99 commits that moved the record store from files to PostgreSQL and shipped it serverless on Vercel, no existing domain file changed; the move added 19 adapters and swapped the entry points. A unique index closes the double-publish hazard that appears when serverless drops the file lock
-- **Scale and tests**: 1,051 commits from July to October 2026, 16 modules, 400 test files, and 5,115 test cases. Storage adapters are tested against Postgres running in PGlite, not a mock
+- **Hexagonal structure and the PostgreSQL move**: external APIs, files, and storage sit behind 34 ports. Over the 99 commits that moved the record store from files to PostgreSQL and shipped it serverless on Vercel, no existing domain file changed; the move added 19 adapters and swapped the entry points. A unique index closes the double-publish hazard that appears when serverless drops the file lock
+- **Scale and tests**: 1,051 commits from July to October 2026, 16 modules, 400 test files, and 5,115 test cases. Storage adapters are tested against Postgres running in process, not a mock
 
 ### **pay-lab**: On-Chain Payments Lab Kit for Workshops and Lectures
 

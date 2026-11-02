@@ -334,7 +334,7 @@ const DevRel: Component = (): JSX.Element => {
                 <span class="devrel-work__meta-label">Tests:</span>
                 <span class="devrel-work__meta-value">
                   400 test files and 5,115 test cases. Storage adapters are
-                  tested against Postgres running in PGlite, not a mock
+                  tested against Postgres running in process, not a mock
                 </span>
               </div>
               <div class="devrel-work__meta">
