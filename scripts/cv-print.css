@@ -47,7 +47,11 @@ body,
    * Headings are em-based and scale with it.
    */
   font-size: 10pt;
-  /* WCAG 2.1 SC 1.4.8 asks for at least 1.5 within paragraphs. */
+  /*
+   * Korean: W3C's Requirements for Hangul Text Layout (klreq 7.4.1) shows
+   * proportional line spacing at 160% of the character size, the setting
+   * Korean word processors start from. 1.55 sits just under it.
+   */
   line-height: 1.55;
   /*
    * Chrome breaks Hangul between any two syllables by default, which splits
@@ -56,6 +60,19 @@ body,
    */
   word-break: keep-all;
   overflow-wrap: anywhere;
+}
+
+/*
+ * English: printed resumes set Latin text tighter than Korean. Jake's Resume
+ * and sb2nov set items in \small of an 11pt LaTeX class, which LaTeX's
+ * size11.clo defines as 10pt on a 12pt baseline (1.2). 1.35 keeps Pretendard's
+ * taller Latin readable at 10pt while staying close to those templates. Letter
+ * spacing stays at the font default in both languages: none of the resume
+ * guides read on 2026-11-03 asks for tracking.
+ */
+.cv-en,
+.cv-en .markdown-body {
+  line-height: 1.35;
 }
 
 code,

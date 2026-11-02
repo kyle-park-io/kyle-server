@@ -72,6 +72,10 @@ URLS=(
   "$BASE/jungho_park_cv_latest.pdf"
   "$BASE/jungho_park_cv_latest_ko.md"
   "$BASE/jungho_park_cv_latest.md"
+  "$BASE/jungho_park_cv_full_ko.pdf"
+  "$BASE/jungho_park_cv_full.pdf"
+  "$BASE/jungho_park_cv_full_ko.md"
+  "$BASE/jungho_park_cv_full.md"
 )
 if [ $# -gt 0 ]; then
   URLS=("$@")
