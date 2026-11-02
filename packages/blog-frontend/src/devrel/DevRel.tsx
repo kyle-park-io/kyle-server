@@ -379,7 +379,7 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Owned Korea builder onboarding for the flagship two-phase global
-                program, from the invite-only Phase 1 ClawHack trading contest
+                program, from the Phase 1 ClawHack AI trading agent contest
                 through the six-week registration-to-submission window of Phase
                 2.
               </p>
