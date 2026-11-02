@@ -130,8 +130,7 @@ const Quant: Component = (): JSX.Element => {
                     Meteora pools. A Solscan call coordinator built on a
                     lock-free ring buffer and a worker pool queues calls at
                     three priorities and enforces the rate limit in one place.
-                    249 commits across 4 repositories, with 186 test functions
-                    and 25 benchmarks.
+                    186 test functions and 25 benchmarks.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>

@@ -286,45 +286,56 @@ const DevRel: Component = (): JSX.Element => {
               <p class="devrel-work__desc">
                 Designed and implemented the Korea team's content operations
                 pipeline and deployed it to the team. It collects from X and
-                Lark, translates to Korean, converts per channel, routes through
-                two-stage human review, and delivers to Telegram, X, and pull
-                requests.
+                Lark, translates to Korean, converts per channel including press
+                releases, routes through two-stage human review, and delivers to
+                Telegram and X.
               </p>
               <ul class="devrel-work__list">
                 <li>
-                  <strong>Agent-in-the-loop translation</strong>: a local coding
-                  agent fills a purpose-built worksheet and a human approves it.
-                  Only translation pairs a human approved on the two official
-                  accounts become few-shot examples for the next translation,
-                  and glossary candidates pass a tuned rejection threshold
-                  before going to human review. The 178-term glossary feeds the
-                  translation prompt and a term check
+                  <strong>Re-runnable stages</strong>: each stage from
+                  collection to delivery is its own command, approval is kept
+                  apart from sending, and a per-item lineage records every
+                  stage's output so each review edit can be traced
                 </li>
                 <li>
-                  <strong>Hexagonal structure and the PostgreSQL move</strong>:
-                  external APIs, files, and storage sit behind ports. Over the
-                  99 commits that moved the record store from files to
-                  PostgreSQL and shipped it serverless on Vercel, no existing
-                  domain file changed; the move added 19 adapters and swapped
-                  the entry points
+                  <strong>Translation loop</strong>: a local coding agent fills
+                  a worksheet and a human approves it. Approved translations
+                  become few-shot examples, a translation memory of paired
+                  official English and Korean posts adds precedents with
+                  overlapping tags, and weekly glossary mining from human edits
+                  drops one-off corrections the Korean account never uses. The
+                  178-term glossary feeds the prompt and a term check
                 </li>
                 <li>
-                  A unique index closes the double-publish hazard that appears
-                  when serverless drops the file lock
+                  <strong>Repurposing and multi-channel delivery</strong>: one
+                  approved translation becomes 12 content types such as
+                  announcements, explainers, KOL copy, and press releases,
+                  formatted for 9 channels and sent via the Telegram Bot API and
+                  Typefully to X, LinkedIn, Threads, Bluesky, Mastodon, and
+                  Substack, with a unique index on the delivery ledger for
+                  idempotent sends
+                </li>
+                <li>
+                  <strong>Config split and hexagonal structure</strong>:
+                  accounts, glossary, and conversion guides live in config, so
+                  another brand can reuse it. With external APIs and storage
+                  behind 34 ports, moving storage from files to PostgreSQL on
+                  Vercel serverless added 19 adapters without touching domain
+                  code
                 </li>
               </ul>
               <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Scale:</span>
                 <span class="devrel-work__meta-value">
-                  16 modules, 1,051 commits from July to October 2026
+                  16 modules, 12 content types, 9 channels
                 </span>
               </div>
               <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Output:</span>
                 <span class="devrel-work__meta-value">
-                  From July to October 2026: 446 X posts collected, 162
-                  translations, 106 of them approved by reviewers, and 837
-                  channel versions
+                  From July 2026, the Korean official account's posts were
+                  translated and reviewed here before going out. By October: 446
+                  X posts collected, 162 translations, and 837 channel versions
                 </span>
               </div>
               <div class="devrel-work__meta">
@@ -337,7 +348,7 @@ const DevRel: Component = (): JSX.Element => {
               <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Stack:</span>
                 <span class="devrel-work__meta-value">
-                  TypeScript, PostgreSQL, Vercel, Vitest
+                  TypeScript, PostgreSQL, Vercel, Vitest, Claude Code
                 </span>
               </div>
             </div>
@@ -379,7 +390,7 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Owned Korea builder onboarding for the flagship two-phase global
-                program, from the invite-only Phase 1 ClawHack trading contest
+                program, from the Phase 1 ClawHack AI trading agent contest
                 through the six-week registration-to-submission window of Phase
                 2.
               </p>
