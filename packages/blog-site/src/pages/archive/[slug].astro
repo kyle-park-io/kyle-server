@@ -1,0 +1,55 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Shell from '../../layouts/Shell.astro';
+import PostArticle from '../../components/PostArticle.astro';
+import { archived } from '../../lib/posts';
+import { BASE, SITE_NAME } from '../../config/site';
+import '../../styles/post.css';
+
+export async function getStaticPaths() {
+  const posts = archived(await getCollection('posts'), import.meta.env.DEV);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const next = post.data.supersededBy
+  ? await getEntry('posts', post.data.supersededBy)
+  : undefined;
+if (post.data.supersededBy && !next) {
+  throw new Error(
+    `${post.id}: supersededBy "${post.data.supersededBy}" is not a post`,
+  );
+}
+const written = post.data.date.toLocaleDateString('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Seoul',
+});
+---
+
+<Shell
+  title={`${post.data.title} (보관) | ${SITE_NAME}`}
+  description={post.data.summary}
+  canonicalPath={`${BASE}/archive/${post.id}`}
+  ogType="article"
+  lang={post.data.lang}
+  current={BASE}
+  noindex
+>
+  <PostArticle post={post} root={`${BASE}/archive`}>
+    <aside class="post__archived" slot="notice">
+      <p>
+        보관한 글입니다. {written}에 쓴 내용을 고치지 않고 그대로 두었고, 블로그
+        글 목록과 검색 엔진 결과에는 나오지 않습니다.
+      </p>
+      {
+        next && (
+          <p>
+            새로 쓴 글: <a href={`${BASE}/${next.id}`}>{next.data.title}</a>
+          </p>
+        )
+      }
+    </aside>
+  </PostArticle>
+</Shell>

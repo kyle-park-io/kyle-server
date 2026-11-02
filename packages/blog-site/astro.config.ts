@@ -16,6 +16,29 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
+
+/**
+ * Slugs whose frontmatter says `archived: true`. Their old address only
+ * forwards to /blog/archive/<slug>, and that copy is noindex, so neither
+ * belongs in the sitemap. Read from disk because the sitemap integration runs
+ * outside the content layer.
+ */
+function archivedSlugs(): Set<string> {
+  const dir = fileURLToPath(new URL('./src/data/posts', import.meta.url));
+  const slugs = new Set<string>();
+  if (!existsSync(dir)) return slugs;
+  for (const slug of readdirSync(dir)) {
+    const file = join(dir, slug, 'index.md');
+    if (!existsSync(file)) continue;
+    const head = readFileSync(file, 'utf8').split('\n---', 2)[0];
+    if (/^archived:\s*true\s*$/m.test(head)) slugs.add(slug);
+  }
+  return slugs;
+}
+const ARCHIVED = archivedSlugs();
 
 /** The slice of hast this wrapper touches; the full types live in @types/hast. */
 interface HastNode {
@@ -39,6 +62,11 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      filter(page) {
+        const path = new URL(page).pathname.replace(/\/+$/, '');
+        if (path.startsWith('/blog/archive/')) return false;
+        return !ARCHIVED.has(path.slice('/blog/'.length));
+      },
       // Every canonical URL on this site is trailing-slash-free
       // (trailingSlash: 'never' above), including the blog index itself
       // (`/blog`). @astrojs/sitemap otherwise derives `/blog/` for that

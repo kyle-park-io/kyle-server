@@ -1,13 +1,11 @@
 import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { sortByDateDesc, excludeDrafts } from '../lib/posts';
+import { sortByDateDesc, listed } from '../lib/posts';
 import { BASE, BLOG_TITLE, BLOG_DESCRIPTION, SITE_URL } from '../config/site';
 
 export const GET: APIRoute = async () => {
-  const posts = sortByDateDesc(
-    excludeDrafts(await getCollection('posts'), false),
-  );
+  const posts = sortByDateDesc(listed(await getCollection('posts'), false));
 
   return rss({
     title: BLOG_TITLE,

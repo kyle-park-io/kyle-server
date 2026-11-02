@@ -5,6 +5,7 @@ export interface PostLike {
     date: Date;
     tags: string[];
     draft: boolean;
+    archived?: boolean;
   };
 }
 
@@ -21,6 +22,25 @@ export function excludeDrafts<T extends PostLike>(
   includeDrafts: boolean,
 ): T[] {
   return includeDrafts ? posts : posts.filter((p) => !p.data.draft);
+}
+
+/**
+ * The posts a reader browses: no drafts (outside `astro dev`) and no archived
+ * posts. Archived posts stay reachable only at /blog/archive/<slug>.
+ */
+export function listed<T extends PostLike>(
+  posts: T[],
+  includeDrafts: boolean,
+): T[] {
+  return excludeDrafts(posts, includeDrafts).filter((p) => !p.data.archived);
+}
+
+/** Archived posts that are not drafts. */
+export function archived<T extends PostLike>(
+  posts: T[],
+  includeDrafts: boolean,
+): T[] {
+  return excludeDrafts(posts, includeDrafts).filter((p) => p.data.archived);
 }
 
 /** Descending by count, then alphabetical, so the tag bar is stable. */

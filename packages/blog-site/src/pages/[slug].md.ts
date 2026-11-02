@@ -1,12 +1,9 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
-import { excludeDrafts } from '../lib/posts';
+import { listed } from '../lib/posts';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = excludeDrafts(
-    await getCollection('posts'),
-    import.meta.env.DEV,
-  );
+  const posts = listed(await getCollection('posts'), import.meta.env.DEV);
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { body: post.body ?? '' },

@@ -30,6 +30,14 @@ const posts = defineCollection({
       cover: image().optional(),
       draft: z.boolean().default(false),
       lang: z.enum(['ko', 'en']).default('ko'),
+      // An archived post leaves the list, tags, feeds and sitemap, and is
+      // served as written at /blog/archive/<slug>. Its old address forwards
+      // there. supersededBy names the slug of the post that replaces it.
+      archived: z.boolean().default(false),
+      supersededBy: z
+        .string()
+        .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'supersededBy must be a post slug')
+        .optional(),
     }),
 });
 
