@@ -322,9 +322,9 @@ const DevRel: Component = (): JSX.Element => {
               <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Output:</span>
                 <span class="devrel-work__meta-value">
-                  From July to October 2026: 446 X posts collected, 162
-                  translations, 106 of them approved by reviewers, and 837
-                  channel versions
+                  From July 2026, the Korean official account's posts were
+                  translated and reviewed here before going out. By October: 446
+                  X posts collected, 162 translations, and 837 channel versions
                 </span>
               </div>
               <div class="devrel-work__meta">
