@@ -42,3 +42,7 @@ PDF 두 개는 ingress 이미지가 내보내고(`packages/ingress-reverse-proxy
 1. `bash scripts/purge-cv.sh`. 설정은 [`setup/cloudflare-cache-purge.md`](setup/cloudflare-cache-purge.md)에 있다. 정상이면 PDF 2개는 `MISS`, md 2개는 `DYNAMIC`이고, 이어서 PDF 2개를 실제 주소에서 받아 레포 파일과 견준 줄이 `same as repo`로 찍힌다. `DIFFERENT`가 찍히면 rollout 이 끝나지 않았거나 이 checkout 이 배포한 커밋이 아니다.
 2. 화면을 고쳤으면 실제 주소에서 바뀐 문장을 읽는다. `google-chrome --headless=new --virtual-time-budget=8000 --dump-dom "https://jungho.dev/devrel?check=$(date +%s)"`의 출력에서 새 문장이 나오고 뺀 말이 없는지 본다. 접힌 칸과 탭 안의 글도 이 출력에 들어 있다.
 3. 고친 결과를 알릴 때는 PR 번호, 올린 버전, 국문과 영문 쪽 수, 2번까지의 확인 결과를 같이 쓴다.
+
+## 4. 맞춤 CV 따라가기
+
+정본이 바뀌면 같은 작업에서 공고별 맞춤 CV 도 다시 만든다. 맞춤 CV 는 비공개 레포 kyle-career 에 있고, 다시 만드는 순서는 그 레포 `docs/tailored-cv.md` 13절에 있다. 2026-11-02 PR #42 를 배포한 뒤 손으로 만든 맞춤 CV 세 개가 이 단계에서 빠져, 다음 날 PR #46 때 정본보다 두 번 뒤처져 있었다.
