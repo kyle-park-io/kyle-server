@@ -199,13 +199,15 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-item__period">Since Sep 2026</span>
                 </div>
                 <p class="profile-item__role">
-                  Agent skill marketplace for Claude Code and Codex
+                  Agent skill marketplace and guardrail hooks for Claude Code
+                  and Codex
                 </p>
                 <p class="profile-item__desc">
                   Repeated engineering decisions turned into skills, packaged as
                   seven domain plugins that each repository switches on as
                   needed. Trigger evals check that a skill fires when it should,
-                  and guard hooks check what agents write.
+                  and PreToolUse guardrail hooks stop nested subagents, runaway
+                  fan-out, and secret output before they run.
                 </p>
               </div>
 
