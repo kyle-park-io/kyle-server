@@ -28,7 +28,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: 42 builders connected their AI agents to Q402 over MCP and paid on Mantle mainnet from chat with no wallet app or gas. Built the operations site, the first version of pay-lab; 488 on-chain payments in three hours
 
-- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: collection, translation, per-channel conversion, two-stage human review, and delivery on one screen. The Korean official account posted through it from July 2026; by October it had collected 446 X posts and made 162 translations and 837 channel versions
+- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: schedulers translate Mantle's English X posts into Korean and rewrite them per channel, and a person approves the translation and then the channel copy before sending. The Korean official account posted through it from July 2026; by October it had collected 446 X posts and made 162 translations and 837 channel versions
 
 - **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%
 
@@ -81,9 +81,9 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 ## SELECTED PROJECTS
 
-**mantle-kr-herald**: Human-in-the-Loop Multi-Channel Content Pipeline | _TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
+**mantle-kr-herald**: Mantle Korea Team's Human-in-the-Loop Content Pipeline | _TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 
-- Re-runnable stages with approval kept apart from sending, few-shot examples and a translation memory in the prompt, and idempotent delivery. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code; 5,115 test cases
+- Approved translations become few-shot examples and paired official posts a translation memory in the prompt; sends are idempotent so no post goes out twice. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code; 5,115 test cases
 
 **pay-lab**: On-Chain Payments Lab Kit Reconfigured per Workshop or Class | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 

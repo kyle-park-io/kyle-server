@@ -285,26 +285,35 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Designed and implemented the Korea team's content operations
-                pipeline and deployed it to the team. It collects from X and
-                Lark, translates to Korean, converts per channel including press
-                releases, routes through two-stage human review, and delivers to
-                Telegram and X.
+                pipeline and deployed it to the team. English posts from
+                Mantle's official X account and messages from the internal Lark
+                chat are collected, translated into Korean, rewritten per
+                channel including press releases, and sent to Telegram and X.
+                Schedulers collect X posts, translate, and convert; a reviewer
+                who never opens a terminal approves the translation and then
+                each channel version in the browser before sending.
               </p>
               <ul class="devrel-work__list">
                 <li>
-                  <strong>Re-runnable stages</strong>: each stage from
-                  collection to delivery is its own command, approval is kept
-                  apart from sending, and a per-item lineage records every
-                  stage's output so each review edit can be traced
+                  <strong>Re-runnable stages</strong>: collection, translation,
+                  conversion, formatting, and delivery are each a command that
+                  can be re-run, and approval is kept apart from sending. One
+                  systemd timer collects new X posts and drafts their
+                  translations, another turns approved translations into
+                  formatted channel versions, and each stops where a person has
+                  to approve. A per-item lineage records every stage's output so
+                  each review edit can be traced
                 </li>
                 <li>
-                  <strong>Translation loop</strong>: a local coding agent fills
-                  a worksheet and a human approves it. Approved translations
-                  become few-shot examples, a translation memory of paired
-                  official English and Korean posts adds precedents with
-                  overlapping tags, and weekly glossary mining from human edits
-                  drops one-off corrections the Korean account never uses. The
-                  178-term glossary feeds the prompt and a term check
+                  <strong>Translation and translation memory</strong>: a coding
+                  agent (Claude Code) fills a worksheet file left with empty
+                  translation slots, and a person edits and approves it on the
+                  review screen. Approved translations become few-shot examples,
+                  a translation memory of paired official English and Korean
+                  posts adds precedents with overlapping tags, and weekly
+                  glossary mining from human edits drops one-off corrections the
+                  Korean account never uses. The 178-term glossary feeds the
+                  prompt and a term check
                 </li>
                 <li>
                   <strong>Repurposing and multi-channel delivery</strong>: one

@@ -28,7 +28,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: 42 builders connected Q402 to their own AI agents over MCP and paid on Mantle mainnet from the chat window, with no wallet app, no signing prompt, and no MNT for gas. Built the operations site as the first version of pay-lab: wallet registration, live leaderboard, quest verification, and a QR payment bridge, with badges and quests judged from on-chain data. 488 on-chain payments in three hours
 
-- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: X and Lark collection, Korean translation, per-channel conversion including press releases, two-stage human review, and Telegram and X delivery. A reviewer who never opens a terminal approves the copy and sends it from the same screen. From July 2026 the Korean official account's posts were translated and reviewed in it before posting; by October it had collected 446 X posts and made 162 translations and 837 channel versions
+- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: English posts from Mantle's official X account and messages from the internal Lark chat are collected, translated into Korean, rewritten per channel including press releases, and sent to Telegram and X. Schedulers collect X posts, translate, and convert; a reviewer who never opens a terminal approves the translation and then each channel version in the browser before sending. From July 2026 the Korean official account's posts were translated and reviewed in it before posting; by October it had collected 446 X posts and made 162 translations and 837 channel versions
 
 - **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%. Korea-team campaigns and event notices took the top six posts by reach
 
@@ -93,12 +93,12 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 ## SELECTED PROJECTS
 
-### **mantle-kr-herald**: Human-in-the-Loop Multi-Channel Content Pipeline
+### **mantle-kr-herald**: Mantle Korea Team's Human-in-the-Loop Content Pipeline
 
 _Tech Stack: TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 
-- **Re-runnable stages**: each stage from collection to delivery is its own command, approval is kept apart from sending, and a per-item lineage records every stage's output so each review edit can be traced
-- **Translation loop**: a local coding agent fills a worksheet and a human approves it. Approved translations become few-shot examples, a translation memory of paired official English and Korean posts adds precedents with overlapping tags, and weekly glossary mining from human edits drops one-off corrections the Korean account never uses. The 178-term glossary feeds the prompt and a term check
+- **Re-runnable stages**: collection, translation, conversion, formatting, and delivery are each a command that can be re-run, and approval is kept apart from sending. One systemd timer collects new X posts and drafts their translations, another turns approved translations into formatted channel versions, and each stops where a person has to approve. A per-item lineage records every stage's output so each review edit can be traced
+- **Translation and translation memory**: a coding agent (Claude Code) fills a worksheet file left with empty translation slots, and a person edits and approves it on the review screen. Approved translations become few-shot examples, a translation memory of paired official English and Korean posts adds precedents with overlapping tags, and weekly glossary mining from human edits drops one-off corrections the Korean account never uses. The 178-term glossary feeds the prompt and a term check
 - **Repurposing and multi-channel delivery**: one approved translation becomes 12 content types such as announcements, explainers, KOL copy, and press releases, formatted for 9 channels and sent via the Telegram Bot API and Typefully to X, LinkedIn, Threads, Bluesky, Mastodon, and Substack, with a unique index on the delivery ledger for idempotent sends
 - **Config split and hexagonal structure**: accounts, glossary, and conversion guides live in config, so another brand can reuse it. With external APIs and storage behind 34 ports, moving storage from files to PostgreSQL on Vercel serverless added 19 adapters without touching domain code. 5,115 test cases; storage adapters run against Postgres started in process
 
