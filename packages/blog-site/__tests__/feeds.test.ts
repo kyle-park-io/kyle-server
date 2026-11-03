@@ -94,6 +94,25 @@ test('a 404 page is emitted', () => {
   assert.match(read('404.html'), /글을 찾을 수 없습니다/);
 });
 
+test('the 404 page offers the index, home and the newest listed posts', () => {
+  const page = read('404.html');
+  assert.match(page, /<a class="nf__btn nf__btn--primary"[^>]*href="\/blog"[^>]*>글 목록 보기<\/a>/);
+  assert.match(page, /href="\/"[^>]*>홈으로 가기<\/a>/);
+  const recent = page.split('<ul class="nf__recent-list"')[1] ?? '';
+  assert.match(recent, /href="\/blog\/second-post"/);
+  assert.match(recent, /href="\/blog\/hello-world"/);
+  assert.ok(!recent.includes('old-snippet'), 'an archived post must not be offered');
+});
+
+test('the 404 page styles itself instead of borrowing unloaded index classes', () => {
+  const page = read('404.html');
+  assert.ok(!page.includes('list-header__title'), 'list.css is not loaded on the 404 page');
+  const sheets = [...page.matchAll(/<link rel="stylesheet" href="\/blog\/(_astro\/[^"]+\.css)"/g)]
+    .map((m) => read(m[1]))
+    .join('');
+  assert.ok((page + sheets).includes('.nf__num'), 'the 404 styles must reach the page');
+});
+
 test('the 404 page is noindexed and not self-canonical', () => {
   const page = read('404.html');
   assert.match(page, /<meta name="robots" content="noindex, follow">/);
