@@ -127,10 +127,12 @@ const Quant: Component = (): JSX.Element => {
                     filters, Jupiter swaps and trigger orders, a price cache
                     with 5-minute and 1-hour volatility, tiered sell rules, and
                     Helius WebSocket monitoring of Pump.fun, Raydium, Orca, and
-                    Meteora pools. A Solscan call coordinator built on a
-                    lock-free ring buffer and a worker pool queues calls at
-                    three priorities and enforces the rate limit in one place.
-                    186 test functions and 25 benchmarks.
+                    Meteora pools. Moved the two holder-analysis services'
+                    direct Solscan calls behind one call-coordination service
+                    that queues requests at three priorities and enforces the
+                    rate limit in one place; its queue is a lock-free ring
+                    buffer and a worker pool makes the calls. 186 test functions
+                    and 25 benchmarks.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>

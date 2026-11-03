@@ -40,7 +40,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
 - **CEX 거래소 간 차익거래 시스템 Rothchild**: Binance, Bybit, Bithumb, Upbit, 무기한 선물 DEX를 오가는 팀의 Taker-Taker·Maker-Taker 차익거래 시스템에서 주문, 잔고, PnL 콘솔 백엔드를 담당. 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결 WebSocket, 재연결, 자산별 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, 실시간 PnL 대시보드 구현
-- **Solana DEX 온체인 트레이딩 봇**: 알파 전략 3종을 실행하는 Go 봇. GoPlus와 홀더 분포 진입 필터, Jupiter 스왑과 트리거 주문, Helius WebSocket 풀 감시, 락 없는 링 버퍼 조정기 한 곳에서 적용하는 Solscan 호출 한도
+- **Solana DEX 온체인 트레이딩 봇**: 알파 전략 3종을 실행하는 Go 봇. GoPlus와 홀더 분포 진입 필터, Jupiter 스왑과 트리거 주문, Helius WebSocket 풀 감시. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아, 요청을 우선순위 세 단계로 줄 세우고 호출 한도를 그 서비스에서만 적용
 - **뉴스·KOL 시그널 트레이딩 엔진**: Telegram과 X 수집 모듈, OpenAI 어시스턴트 여러 개의 평균 점수 판정을 구현해 팀의 Binance·Bybit USDT 선물 주문 엔진에 연결. 기사 100건 시험 목록으로 지시문 3개 판을 반복 시험
 - **거래소 상장 스나이퍼**: Upbit·Bithumb 상장 공지의 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘겨 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현
 
@@ -70,7 +70,7 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 ## 기술 스택
 
-- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-1400)
+- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-2612, ERC-3009), 증권형 토큰(ERC-1400 방식)
 - **언어**: Rust, Go, Python, TypeScript
 - **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
 - **백엔드 프레임워크**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
@@ -85,10 +85,10 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 - 단계마다 다시 돌리는 명령, 승인과 발송의 분리, few-shot 예시와 번역 메모리를 넣은 프롬프트, 멱등 발송. 외부 API와 저장소를 포트 34개 뒤에 두어 파일에서 PostgreSQL로 옮길 때 도메인 코드 수정 없이 어댑터 19개로 전환. 시험 케이스 5,115개
 
-**pay-lab**: 행사마다 설정만 바꿔 쓰는 온체인 결제 실습 키트 | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
+**pay-lab**: 워크샵과 강의마다 설정만 바꿔 쓰는 온체인 결제 실습 키트 | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
-- 실습 모듈, 회차 설정, 체인 어댑터로 나눠 설정 값 하나로 같은 코드가 Mantle, Ethereum Sepolia, 로컬 Anvil에서 실행되는 키트. EIP-3009 가스 대납, EIP-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버
-- fail-closed 검사, 멱등 충전, 멈춘 송금의 리컨실리에이션. 가상 학생 30명 부하 시험에서 같은 논스로 30건 중 3건에서 8건이 실패하던 문제를 PostgreSQL advisory lock과 지갑별 논스 테이블로 해결
+- 실습 모듈, 회차 설정, 체인 어댑터로 나눠 설정 값 하나로 같은 코드가 Mantle, Ethereum Sepolia, 로컬 Anvil에서 실행되는 키트. ERC-3009 가스 대납, ERC-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버
+- fail-closed 검사, 멱등 충전, 멈춘 송금의 reconciliation. 가상 학생 30명 부하 시험에서 같은 논스로 30건 중 3건에서 8건이 실패하던 문제를 PostgreSQL advisory lock과 지갑별 논스 테이블로 해결
 
 **Binance 삼각 차익거래 엔진** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
