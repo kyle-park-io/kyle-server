@@ -40,7 +40,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
 - **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Built order placement, cancellation, replacement, and lookup, fill WebSockets, and reconnection for 8 exchanges plus Solana DEX, a delta manager that clears each asset's delta on the exchange holding the largest balance, and a real-time PnL dashboard
-- **Solana DEX On-Chain Trading Bots**: Go bots running three alpha strategies with GoPlus and holder-distribution entry filters, Jupiter swaps and trigger orders, and Helius WebSocket pool monitoring; a lock-free ring buffer coordinator enforces the Solscan rate limit in one place
+- **Solana DEX On-Chain Trading Bots**: Go bots running three alpha strategies with GoPlus and holder-distribution entry filters, Jupiter swaps and trigger orders, and Helius WebSocket pool monitoring. Moved the two holder-analysis services' direct Solscan calls behind one call-coordination service that queues requests at three priorities and enforces the rate limit in one place
 - **News and KOL Signal Trading Engine**: built the Telegram and X collectors and the multi-assistant OpenAI scoring that route signals to Binance and Bybit USDT-futures orders in the team's engine, iterating three instruction versions against a 100-item test list
 - **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit
 
@@ -70,7 +70,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 ## TECHNICAL SKILLS
 
-- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL/Delta Management, Cross-Exchange & Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-1400)
+- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL/Delta Management, Cross-Exchange & Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-2612, ERC-3009), Security Tokens (ERC-1400 style)
 - **Languages**: Rust, Go, Python, TypeScript
 - **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
 - **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
@@ -85,9 +85,9 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 - Re-runnable stages with approval kept apart from sending, few-shot examples and a translation memory in the prompt, and idempotent delivery. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code; 5,115 test cases
 
-**pay-lab**: On-Chain Payments Lab Kit Reconfigured per Event | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
+**pay-lab**: On-Chain Payments Lab Kit Reconfigured per Workshop or Class | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
-- Lab modules, per-event config, and chain adapters, so one setting runs the same code on Mantle, Ethereum Sepolia, or local Anvil. EIP-3009 gas relaying, agent wallet tools capped by an EIP-2612 permit, and a remote MCP server on wallet-signature OAuth for claude.ai and Codex
+- Lab modules, per-event config, and chain adapters, so one setting runs the same code on Mantle, Ethereum Sepolia, or local Anvil. ERC-3009 gas relaying, agent wallet tools capped by an ERC-2612 permit, and a remote MCP server on wallet-signature OAuth for claude.ai and Codex
 - Fail-closed money paths, idempotent funding, and reconciliation of stalled sends. A 30-student load test found serverless functions reusing a nonce and failing 3 to 8 of 30 transactions, fixed with a PostgreSQL advisory lock and a per-wallet nonce table
 
 **Binance Triangular Arbitrage Engine** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_

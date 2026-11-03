@@ -48,7 +48,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
 - **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb 현물 사이, Bybit와 Jupiter 사이, Bithumb·Upbit 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 이 가운데 주문, 잔고, PnL을 다루는 콘솔 백엔드를 맡아, 팀원이 만든 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
-- **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석의 알파 전략 3종을 실행하는 봇을 Go로 개발. GoPlus 보안 검사와 상위 홀더 30명·신규 지갑 보유 비율 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시. Solscan 호출은 락 없는 링 버퍼와 작업자 풀로 만든 조정기가 세 우선순위로 줄 세워 호출 한도를 한 곳에서 적용. 시험 함수 186개와 벤치마크 함수 25개
+- **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석의 알파 전략 3종을 실행하는 봇을 Go로 개발. GoPlus 보안 검사와 상위 홀더 30명·신규 지갑 보유 비율 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아, 요청을 우선순위 세 단계로 줄 세우고 호출 한도를 그 서비스에서만 적용. 큐는 락 없는 링 버퍼, 호출은 작업자 풀로 처리. 시험 함수 186개와 벤치마크 함수 25개
 - **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. Telegram 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 주문으로 연결. 이 가운데 X 리스트 트윗 수집 모듈, Telegram 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 구현. LLM 판정은 기사 100건 시험 목록을 만들어 어시스턴트 지시문 3개 판을 반복 시험하며 개선
 - **거래소 상장 스나이퍼**: Upbit와 Bithumb의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. Upbit·Bithumb 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리
 - **트레이딩 지표 수집과 분석**: 상위 알트코인 50개를 BTC와 견줘 순위를 내고 Velo의 미결제약정 대비 시가총액 비율을 함께 주는 알트코인 성과 차트 백엔드를 팀과 함께 개발. 이 가운데 Bybit 1분봉 WebSocket 수집기와 봉 API를 구현하고 성과 API에 기간 인자와 BTC 대비 변동률 추가. 전략 탐지기의 배치 지표 수집기 설계
@@ -81,7 +81,7 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 ## 기술 스택
 
-- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-1400), 워크플로 자동화, 기술 문서 집필
+- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-2612, ERC-3009), 증권형 토큰(ERC-1400 방식), 워크플로 자동화, 기술 문서 집필
 - **언어**: Rust, Go, Python, TypeScript
 - **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
 - **백엔드 프레임워크**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
@@ -102,13 +102,13 @@ _기술 스택: TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 - **콘텐츠 리퍼포징과 멀티채널 발송**: 승인된 번역 하나를 공지, 해설, KOL용 글, 보도자료 등 유형 12종으로 바꾸고 X, Telegram, KakaoTalk 등 채널 9개의 규격으로 포맷. Telegram 봇 API와 Typefully로 X, LinkedIn, Threads, Bluesky, Mastodon, Substack에 발송하고, 발송 원장의 유니크 인덱스로 같은 글이 두 번 나가지 않는 멱등 발송
 - **설정 분리와 헥사고날 구조**: 수집 계정, 용어집, 변환 지침을 코드 밖 설정으로 분리해 다른 브랜드도 설정만 바꿔 쓰는 구조. 외부 API와 저장소를 포트 34개 뒤에 두어, 저장소를 파일에서 PostgreSQL로 옮겨 Vercel 서버리스로 배포할 때 도메인 코드 수정 없이 어댑터 19개로 전환. 시험 케이스 5,115개, 저장소 어댑터는 프로세스 안에서 띄운 Postgres로 시험
 
-### **pay-lab**: 행사마다 설정만 바꿔 쓰는 온체인 결제 실습 키트
+### **pay-lab**: 워크샵과 강의마다 설정만 바꿔 쓰는 온체인 결제 실습 키트
 
 _기술 스택: Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
-- **범용 키트로 재설계**: Q402 워크샵 현장 사이트를 실습 모듈, 회차 설정, 체인 어댑터로 나눠 특정 행사와 체인에 종속되지 않는 키트로 재설계. 체인과 스테이블코인은 설정 값 하나로 골라 같은 코드가 Mantle 메인넷, Mantle Sepolia, Ethereum Sepolia, 로컬 Anvil에서 실행되고, 새 행사는 회차 설정 하나를 더해 실습 모듈과 한도를 고르는 구조. 서비스 층이 특정 행사나 체인 설정을 가져오지 못하게 아키텍처 테스트로 강제하고, 2026년 10월 인하대학교 강의를 이 키트로 Ethereum Sepolia에서 운영
-- **가스리스 결제와 에이전트 지출 한도**: 학생이 EIP-3009로 서명한 USDC 송금을 서버가 제출하는 가스 대납, EIP-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버. 에이전트 도구는 보내는 사람을 입력으로 받지 않고 접근 토큰의 주소만 사용
-- **돈이 나가는 경로의 안전성**: 잔고, 한도, 등록 확인 가운데 하나라도 실패하면 보내지 않는 fail-closed 원칙. 실습용 USDC 충전은 행사와 주소를 기본 키로 한 기록을 먼저 INSERT한 뒤 송금해 같은 주소에 두 번 보내지 않는 멱등 처리. 서버리스 함수가 송금 도중 멈춰 트랜잭션 해시 없이 남은 기록은 충전 지갑의 대기 거래와 그 주소로 간 Transfer를 확인해 보내지 않은 것이 확실할 때만 푸는 리컨실리에이션으로 정리. 가상 학생 30명 부하 시험에서 Vercel 함수들이 같은 논스로 거래를 만들어 30건 중 3건에서 8건이 실패하는 문제를 찾아, PostgreSQL advisory lock과 지갑별 논스 테이블로 서버 지갑의 송금을 직렬화
+- **범용 키트로 재설계**: Q402 워크샵 현장 사이트를 실습 모듈, 회차 설정, 체인 어댑터로 나눠 특정 워크샵과 체인에 종속되지 않는 키트로 재설계. 체인과 스테이블코인은 설정 값 하나로 골라 같은 코드가 Mantle 메인넷, Mantle Sepolia, Ethereum Sepolia, 로컬 Anvil에서 실행되고, 새 워크샵이나 강의는 회차 설정 하나를 더해 실습 모듈과 한도를 고르는 구조. 서비스 층이 특정 회차나 체인 설정을 가져오지 못하게 아키텍처 테스트로 강제하고, 2026년 10월 인하대학교 강의를 이 키트로 Ethereum Sepolia에서 운영
+- **가스리스 결제와 에이전트 지출 한도**: 학생이 ERC-3009로 서명한 USDC 송금을 서버가 제출하는 가스 대납, ERC-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버. 에이전트 도구는 보내는 사람을 입력으로 받지 않고 접근 토큰의 주소만 사용
+- **돈이 나가는 경로의 안전성**: 잔고, 한도, 등록 확인 가운데 하나라도 실패하면 보내지 않는 fail-closed 원칙. 실습용 USDC 충전은 회차와 주소를 기본 키로 한 기록을 먼저 INSERT한 뒤 송금해 같은 주소에 두 번 보내지 않는 멱등 처리. 서버리스 함수가 송금 도중 멈춰 트랜잭션 해시 없이 남은 기록은 충전 지갑의 대기 거래와 그 주소로 간 Transfer를 확인해 보내지 않은 것이 확실할 때만 푸는 reconciliation으로 정리. 가상 학생 30명 부하 시험에서 Vercel 함수들이 같은 논스로 거래를 만들어 30건 중 3건에서 8건이 실패하는 문제를 찾아, PostgreSQL advisory lock과 지갑별 논스 테이블로 서버 지갑의 송금을 직렬화
 
 ### **Binance 삼각 차익거래 엔진**
 
