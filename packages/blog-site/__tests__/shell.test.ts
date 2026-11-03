@@ -26,6 +26,15 @@ test('header renders every nav item as a real anchor', () => {
   }
 });
 
+test('the header date is rewritten in the browser, not frozen at build time', () => {
+  const page = html();
+  assert.match(page, /<span class="shell-header__date" data-shell-date>/);
+  const scripts = [...page.matchAll(/<script type="module" src="\/blog\/(_astro\/[^"]+\.js)"/g)]
+    .map((m) => readFileSync(join(SERVE_ROOT, m[1]), 'utf8'))
+    .join('');
+  assert.ok((page + scripts).includes('data-shell-date'), 'a script must fill the date');
+});
+
 test('head carries canonical, description and OG tags', () => {
   const page = html();
   assert.match(

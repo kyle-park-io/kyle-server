@@ -7,12 +7,17 @@ interface Props {
 }
 
 const { current = '/blog' } = Astro.props;
-const today = new Date().toLocaleDateString('en-US', {
+// Pages are built once and served for days, so this is only the fallback for
+// a reader without scripts; the script below writes the reader's own date, as
+// the SPA's header does. Before that the blog showed the build date: on
+// 2026-11-03 it still read Monday, November 2.
+const DATE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-});
+};
+const today = new Date().toLocaleDateString('en-US', DATE_FORMAT);
 ---
 
 {
@@ -48,7 +53,7 @@ const today = new Date().toLocaleDateString('en-US', {
           height="20"
         />
       </a>
-      <span class="shell-header__date">{today}</span>
+      <span class="shell-header__date" data-shell-date>{today}</span>
     </div>
     <div class="shell-header__utility-right">
       <div class="presence">
@@ -129,6 +134,16 @@ const today = new Date().toLocaleDateString('en-US', {
 <script>
   import { connectPresence } from 'site-shell/src/presence';
   import { renderPresenceCard } from 'site-shell/src/presence-card';
+
+  const dateEl = document.querySelector('[data-shell-date]');
+  if (dateEl) {
+    dateEl.textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
 
   const countEl = document.querySelector('[data-presence-count]');
   const cardEl = document.querySelector<HTMLElement>('[data-presence-card]');
