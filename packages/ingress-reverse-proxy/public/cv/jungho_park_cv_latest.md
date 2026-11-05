@@ -28,7 +28,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: 42 builders connected their AI agents to Q402 over MCP and paid on Mantle mainnet from chat with no wallet app or gas. Built the operations site, the first version of pay-lab; 488 on-chain payments in three hours
 
-- **Designed, built, and deployed the Korea team's 16-module content operations pipeline**: schedulers translate Mantle's English X posts into Korean and rewrite them per channel, and a person approves the translation and then the channel copy before sending. The Korean official account posted through it from July 2026; by October it had collected 446 X posts and made 162 translations and 837 channel versions
+- **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers translate Mantle's English X posts into Korean and rewrite them per channel, and a person approves the translation and then the channel copy before sending. The Korean official account posted through it from July 2026; by October it had collected 446 X posts and made 162 translations and 837 channel versions
 
 - **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%
 
@@ -107,8 +107,8 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 ## AWARDS & CERTIFICATIONS
 
 - **1st Place, DeFi & Composability Track, and Mantle Incubation Grant, Mantle Global Hackathon 2025** (DOOR Protocol) | Feb 2026
-  - 500+ submissions from 2,000+ builders and $150K in prizes; only 3 teams received incubation grants. Entered as a team and wrote 7 contracts including ERC-4626 tranche vaults, the Next.js dashboard, and the keeper bot
-- **3rd Place, Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
+  - 500+ submissions from 2,000+ builders and $150K in prizes; only 3 teams received incubation grants. Wrote all of it: the proposal, 7 contracts including ERC-4626 tranche vaults, the backend, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
+- **3rd Place, Bitcoin on Solana Track (Zeus Network), Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
 - **Engineer General Machinery** (Human Resources Development Service of Korea) | Dec 2020
 
 ---
