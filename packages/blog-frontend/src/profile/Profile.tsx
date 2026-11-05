@@ -301,12 +301,13 @@ const Profile: Component = (): JSX.Element => {
               <div class="profile-item profile-item--experience profile-item--award">
                 <div class="profile-item__header">
                   <h3 class="profile-item__title">
-                    🥉 3rd Place — Seoulana Hackathon 2025
+                    🥉 Track 3rd Place — Seoulana Hackathon 2025
                   </h3>
                   <span class="profile-item__period">Apr 2025</span>
                 </div>
                 <p class="profile-item__role">
-                  Solana blockchain development competition
+                  Bitcoin on Solana Track (Zeus Network), Solana blockchain
+                  development competition
                 </p>
               </div>
             </div>
