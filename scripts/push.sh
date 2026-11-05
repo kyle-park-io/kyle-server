@@ -70,6 +70,36 @@ if [ -z "$SITE_VERSION" ] && [ -z "$INGRESS_VERSION" ]; then
   usage
 fi
 
+# Neither image builds the frontend: site-app-server ships
+# packages/blog-backend/static as it is on disk, and the proxy ships the CV
+# copies in packages/ingress-reverse-proxy/public. scripts/build.sh writes
+# both. On 2026-11-05 build.sh was skipped after merging PR #61, so site 0.1.25
+# went out with the bundle built on 11-03 and /devrel and /profile kept the
+# old text until 0.1.26. Stop before building when either is behind.
+FRONTEND="$SCRIPT_DIR/../packages/blog-frontend"
+if [ -n "$SITE_VERSION" ]; then
+  BUNDLE=$(ls "$SCRIPT_DIR"/../packages/blog-backend/static/assets/main.blog.*.js 2>/dev/null | head -1 || true)
+  if [ -z "$BUNDLE" ]; then
+    echo "no frontend bundle in packages/blog-backend/static; run scripts/build.sh first" >&2
+    exit 1
+  fi
+  NEWER=$(find "$FRONTEND/src" "$FRONTEND/public" -type f -newer "$BUNDLE" | head -5)
+  if [ -n "$NEWER" ]; then
+    echo "these files are newer than the bundle $(basename "$BUNDLE"); run scripts/build.sh first:" >&2
+    echo "$NEWER" | sed 's/^/  /' >&2
+    exit 1
+  fi
+fi
+if [ -n "$INGRESS_VERSION" ]; then
+  for f in "$FRONTEND"/public/cv/*; do
+    copy="$SCRIPT_DIR/../packages/ingress-reverse-proxy/public/cv/$(basename "$f")"
+    if ! cmp -s "$f" "$copy"; then
+      echo "$copy differs from $f; run scripts/build.sh and commit the copies first" >&2
+      exit 1
+    fi
+  done
+fi
+
 if [ -n "$SITE_VERSION" ]; then
   echo "==> site-app-server $SITE_VERSION"
   (cd "$SCRIPT_DIR/../packages/blog-backend" && ./push2gke_artifact.sh "$SITE_VERSION")

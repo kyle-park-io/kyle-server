@@ -47,7 +47,7 @@ PDF 네 개는 ingress 이미지가 내보내고(`packages/ingress-reverse-proxy
      -o jsonpath='{range .items[*]}{.spec.template.spec.containers[0].image}{"\n"}{end}'
    ```
 
-4. `bash scripts/push.sh --site <버전> --ingress <버전>`(하나만 올리면 그 인자만)
+4. `bash scripts/push.sh --site <버전> --ingress <버전>`(하나만 올리면 그 인자만). 두 이미지 모두 화면을 빌드하지 않고 디스크에 있는 결과를 담는다. site 는 `packages/blog-backend/static`의 번들을, ingress 는 `packages/ingress-reverse-proxy/public/cv/`의 사본을 담는다. 그래서 `push.sh`는 `packages/blog-frontend/src`나 `public`에 번들보다 새 파일이 있거나 CV 사본이 정본과 다르면 빌드 전에 멈추고 `build.sh`를 먼저 돌리라고 찍는다. 2026-11-05 PR #61 을 merge 한 뒤 `build.sh`를 건너뛰어 site 0.1.25 가 11월 3일에 만든 번들로 나갔고, `/devrel`과 `/profile`은 0.1.26 까지 옛 문장을 보였다.
 5. `kubectl set image`로 두 배포의 이미지를 바꾸고, `kubectl rollout status deployment/<배포 이름>`이 끝날 때까지 기다린다. `push.sh`가 끝에 두 명령을 찍어 준다.
 
 ## 3. 캐시 지우고 확인하기
