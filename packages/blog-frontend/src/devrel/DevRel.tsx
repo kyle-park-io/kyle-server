@@ -336,7 +336,7 @@ const DevRel: Component = (): JSX.Element => {
               <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Scale:</span>
                 <span class="devrel-work__meta-value">
-                  16 modules, 12 content types, 9 channels
+                  12 content types, 9 channels
                 </span>
               </div>
               <div class="devrel-work__meta">
@@ -350,8 +350,8 @@ const DevRel: Component = (): JSX.Element => {
               <div class="devrel-work__meta">
                 <span class="devrel-work__meta-label">Tests:</span>
                 <span class="devrel-work__meta-value">
-                  400 test files and 5,115 test cases. Storage adapters are
-                  tested against Postgres running in process, not a mock
+                  5,115 test cases. Storage adapters are tested against Postgres
+                  running in process, not a mock
                 </span>
               </div>
               <div class="devrel-work__meta">
