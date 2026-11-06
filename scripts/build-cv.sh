@@ -62,7 +62,9 @@ for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest
     *_ko.md) cv_lang=ko ;;
     *) cv_lang=en ;;
   esac
-  CV_LANG="$cv_lang" npx --yes md-to-pdf --config-file "${SCRIPT_DIR}/cv-pdf.config.js" "$md" </dev/null
+  # The PDF's title is the file name. Without one, Chrome titles the PDF with the local URL it printed
+  # ("localhost:44783/packages/blog-frontend/public/cv/jungho_park_cv_latest.md#"), and a PDF viewer shows it in its tab.
+  CV_LANG="$cv_lang" npx --yes md-to-pdf --config-file "${SCRIPT_DIR}/cv-pdf.config.js" --document-title "$(basename "$md" .md)" "$md" </dev/null
 
   pdf="${md%.md}.pdf"
   if [ ! -s "$pdf" ]; then
