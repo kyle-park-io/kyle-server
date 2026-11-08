@@ -18,9 +18,6 @@ links:
   - name: redis-tcp
     route: /redis-tcp
     url: http://localhost:3005
-  - name: btcfi
-    route: /btcfi
-    url: http://localhost:8080
   # static
   - name: blog-static
     route: /blog-static
@@ -28,9 +25,6 @@ links:
   - name: dex-static
     route: /dex-static
     url: http://dex-app-server-service.default.svc.cluster.local:8080
-  - name: btcfi-static
-    route: /btcfi-static
-    url: http://orakle-btcfi-backend-app-server-service.default.svc.cluster.local:8080
   # api
   - name: api-blog
     route: /api-blog
@@ -44,9 +38,6 @@ links:
   - name: api-tracker
     route: /api-tracker
     url: http://localhost:3007
-  - name: api-btcfi
-    route: /api-btcfi
-    url: http://localhost:8080
   - name: api-quant
     route: /api-quant
     url: http://localhost:8080
