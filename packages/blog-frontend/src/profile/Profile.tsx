@@ -148,7 +148,9 @@ const Profile: Component = (): JSX.Element => {
                   cohort's five published DeFi research papers (CC BY 4.0),
                   covering a stablecoin depeg survey across CEX and on-chain
                   venues, Solana searcher/solver strategy design, and a
-                  17-category DeFi ecosystem taxonomy.
+                  17-category DeFi ecosystem taxonomy. Built a Solana depeg
+                  searcher in Go that sorts depegs by cause, arbitrages the
+                  recoverable ones, and never trades a structural collapse.
                 </p>
                 <a
                   href="https://github.com/orakle-7th-sda/conference-pdf"
