@@ -18,7 +18,7 @@ CV 정본(`packages/blog-frontend/public/cv/`)이나 경력 화면(`/devrel`, `/
 1. main 에서 브랜치를 만든다(`fix/cv-<주제>`).
 2. 상세판 국문과 영문, 이력서 국문과 영문 네 파일을 같은 커밋에서 고친다. 이력서에 없는 항목만 바꿨으면 상세판 두 파일만 고친다.
 3. 같은 사실이 실린 화면을 고친다. 화면 파일은 `packages/blog-frontend/src/`의 `devrel/DevRel.tsx`, `profile/Profile.tsx`, `quant/`, `personal-quant/`다. 정본에서 바꾸거나 뺀 말은 `rg '<뺀 말>' packages/blog-frontend/src`로 찾는다.
-4. `bash scripts/build-cv.sh`로 PDF 네 개를 다시 만든다. 이력서가 3쪽을 넘으면 실패하고, 상세판은 쪽 수를 찍기만 한다. 네 PDF 의 쪽 수를 PR 본문에 적는다. PDF 의 제목 칸에는 파일 이름이 들어간다(`--document-title`). 2026-11-06 전까지는 제목을 주지 않아 Chrome 이 인쇄한 로컬 주소(「localhost:44783/packages/blog-frontend/public/cv/jungho_park_cv_latest.md#」)를 제목으로 썼고, PDF 를 연 사람의 뷰어 탭에 그 주소가 보였다. 이력서가 넘치면 글자 크기와 여백을 줄이지 말고 이력서 문장을 먼저 줄인다. 글자 크기, 줄 간격, 여백(`scripts/cv-print.css`, `scripts/cv-pdf.config.js`)을 바꿨으면 배포 전에 쪽 수를 보여 주고 승인을 받는다.
+4. `bash scripts/build-cv.sh`로 PDF 네 개를 다시 만든다. 이력서가 3쪽을 넘으면 실패하고, 상세판은 쪽 수를 찍기만 한다. 네 PDF 의 쪽 수를 PR 본문에 적는다. PDF 의 제목 칸에는 파일 이름이 들어간다(`--document-title`). 2026-11-06 전까지는 제목을 주지 않아 Chrome 이 인쇄한 로컬 주소(「localhost:44783/packages/blog-frontend/public/cv/jungho_park_cv_latest.md#」)를 제목으로 썼고, PDF 를 연 사람의 뷰어 탭에 그 주소가 보였다. 이력서가 넘치면 글자 크기와 여백을 줄이지 말고 이력서 문장을 먼저 줄인다. 글자 크기, 줄 간격, 여백(`scripts/cv-print.css`, `scripts/cv-pdf.config.js`)을 바꿨으면 배포 전에 쪽 수를 보여 주고 승인을 받는다. 정본 줄을 늘렸으면 PR 을 merge 하기 전에 kyle-career 맞춤 CV 의 쪽 수도 본다(kyle-career `docs/tailored-cv.md` 13절 5번). 2026-11-09 PR #66 은 정본 이력서가 3쪽에 들었는데도 3쪽이 꽉 찬 맞춤 CV 를 4쪽으로 밀어, PR #70 으로 다시 줄였다.
 5. 낱말 규칙과 절 순서를 검사한다. 검사 스크립트는 맞춤 CV 를 두는 비공개 레포 kyle-career 에 있다.
 
    ```
