@@ -119,5 +119,5 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 **8기 부학회장** | 2026년 3월 - 현재 · **7기 ODA 팀 팀장** | 2025년 9월 - 2026년 2월
 
-- 8기 최종 리서치 컨퍼런스를 개최하고, 스테이블코인 디페그 조사와 Solana 서처/솔버 전략 설계를 포함한 7기 공개 DeFi 리서치 5편 집필. 디페그를 원인 유형으로 갈라 회복될 디페그는 차익거래하고 구조적 붕괴는 거래하지 않는 Solana 디페그 서처를 Go로 구현\
+- 8기 최종 리서치 컨퍼런스를 개최하고, 스테이블코인 디페그 조사를 포함한 7기 공개 DeFi 리서치 5편 집필. 회복될 디페그만 골라 차익거래하는 Solana 디페그 서처를 Go로 구현\
   리서치 링크: https://github.com/orakle-7th-sda/conference-pdf
