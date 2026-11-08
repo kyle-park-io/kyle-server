@@ -129,7 +129,7 @@ _Tech Stack: Go, Rust_
 _Tech Stack: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
 - Built after leading the response to a breach, a Next.js server taken through React2Shell (CVE-2025-55182). **9 scan modules** check the off-chain stack before deploy for the mistakes that let one breach spread: secrets in build output, management ports open to the internet, over-privileged cloud IAM, account-wide credentials, persistence artifacts, and disabled audit logs
-- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. A read-only on-chain command recovers the EtherRAT malware's command-and-control values from Ethereum smart contracts and maps the contracts around them; the findings feed the scanner's IOC set
+- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. An on-chain command recovers the command-and-control address the EtherRAT malware reads from an Ethereum contract and traces the deployer, the wallet that paid the deployer's gas, and the operator's other C2 contracts. The C2 contracts, domains, IPs, address-poisoning drainer wallets, and WEMIX laundering paths it found go into the scanner's IOC dataset so other projects can match them
 
 ### **skills**: Agent Skill Marketplace and Guardrail Hooks for Claude Code and Codex
 
@@ -177,6 +177,8 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
   Link to the papers: https://github.com/orakle-7th-sda/conference-pdf
   - Stablecoin depeg survey covering CEX cases from 2018 to Feb 2026 and on-chain cases from 2022 to Feb 2026, by venue, magnitude, cause, and duration
   - Solana searcher/solver strategy design. Six strategy families for real-time depeg arbitrage on Jito bundles, Jupiter v6, and Helius WebSocket
+  - Built a Solana depeg searcher in Go that sorts each depeg into four causes (pool imbalance, fear depeg, structural collapse, liquidity drain), arbitrages recoverable depegs through Jito bundles, and never trades a structural collapse. It reads three USDC/USDT pools on Orca, Meteora, and Raydium over Helius WebSocket and compares them with Pyth oracle and Binance and Coinbase prices; to skip transient rebalances and thin pools, it classifies a deviation only when it exceeds 0.1% for over 2 seconds in a pool with at least $50,000 TVL\
+    Repository: https://github.com/orakle-7th-sda/defi-searcher
   - Plus a 17-category DeFi ecosystem taxonomy and a cross-category stablecoin map
 
 - **6th Cohort BTCFi Bitcoin Options Service** (May 2025 - Nov 2025): one-way option PoC on BitVMX-CPU, a Go backend (60 REST APIs, WebSocket, PostgreSQL), and the BitStriker frontend (React, MutinyNet wallet)
