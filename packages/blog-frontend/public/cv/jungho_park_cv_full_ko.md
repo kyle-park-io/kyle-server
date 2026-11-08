@@ -129,7 +129,7 @@ _기술 스택: Go, Rust_
 _기술 스택: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
 - React2Shell 취약점 CVE-2025-55182로 Next.js 서버가 뚫린 침해 사고의 대응을 이끈 뒤 만든 스캐너. **스캔 모듈 9개**가 침해 한 번을 오프체인 스택 전체로 번지게 하는 설정 실수를 배포 전에 점검. 빌드 결과물의 시크릿, 인터넷에 열린 관리 포트, 과한 클라우드 IAM 권한, 계정 전체에 걸친 자격 증명, 백도어 지속성 흔적, 꺼진 감사 로그를 다룸
-- `npx trustline-scanner scan .` 한 줄로 실행하는 **npm** 패키지와 **GitHub Marketplace Action**으로 배포하고, SARIF 출력으로 GitHub 코드 스캐닝에 연결. 온체인 명령으로 EtherRAT 악성코드가 Ethereum 컨트랙트에서 읽어 오는 C2 주소를 복원하고, 배포자와 배포자에게 가스비를 댄 지갑, 같은 운영자의 다른 C2 컨트랙트까지 추적. 찾은 C2 컨트랙트와 도메인, IP, 주소 포이즈닝 드레이너 지갑, WEMIX 세탁 경로는 다른 프로젝트에서도 대조하도록 스캐너의 IOC 데이터셋에 넣음
+- `npx trustline-scanner scan .` 한 줄로 실행하는 **npm** 패키지와 **GitHub Marketplace Action**으로 배포하고, SARIF 출력으로 GitHub 코드 스캐닝에 연결. 온체인 명령으로 EtherRAT 악성코드가 Ethereum 컨트랙트에서 읽는 C2 주소와 같은 운영자의 다른 C2 컨트랙트를 찾아, 다른 프로젝트에서도 대조하도록 IOC 데이터셋에 넣음
 
 ### **skills**: Claude Code·Codex 에이전트 스킬 마켓플레이스와 가드레일 훅
 
