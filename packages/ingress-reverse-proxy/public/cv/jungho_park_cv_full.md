@@ -129,7 +129,7 @@ _Tech Stack: Go, Rust_
 _Tech Stack: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
 - Built after leading the response to a breach, a Next.js server taken through React2Shell (CVE-2025-55182). **9 scan modules** check the off-chain stack before deploy for the mistakes that let one breach spread: secrets in build output, management ports open to the internet, over-privileged cloud IAM, account-wide credentials, persistence artifacts, and disabled audit logs
-- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. An on-chain command recovers the command-and-control address the EtherRAT malware reads from an Ethereum contract and traces the deployer, the wallet that paid the deployer's gas, and the operator's other C2 contracts. The C2 contracts, domains, IPs, address-poisoning drainer wallets, and WEMIX laundering paths it found go into the scanner's IOC dataset so other projects can match them
+- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. An on-chain command finds the C2 address the EtherRAT malware reads from an Ethereum contract and the operator's other C2 contracts, and adds them to the IOC dataset so other projects can match them
 
 ### **skills**: Agent Skill Marketplace and Guardrail Hooks for Claude Code and Codex
 
