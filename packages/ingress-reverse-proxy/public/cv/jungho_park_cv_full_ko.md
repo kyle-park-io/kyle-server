@@ -47,11 +47,11 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 **트레이딩 시스템 백엔드 엔지니어** | 2025년 4월 - 2025년 11월 (8개월)\
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb 현물 사이, Bybit와 Jupiter 사이, Bithumb·Upbit 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 이 가운데 주문, 잔고, PnL을 다루는 콘솔 백엔드를 맡아, 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
+- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb 현물 사이, Bybit와 Jupiter 사이, Bithumb·Upbit 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 주문, 잔고, PnL을 다루는 콘솔 백엔드를 맡아, 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
 - **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석의 알파 전략 3종을 실행하는 봇을 Go로 개발. GoPlus 보안 검사와 상위 홀더 30명·신규 지갑 보유 비율 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아, 요청을 우선순위 세 단계로 줄 세우고 호출 한도를 그 서비스에서만 적용. 큐는 락 없는 링 버퍼, 호출은 작업자 풀로 처리. 시험 함수 186개와 벤치마크 함수 25개
-- **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. Telegram 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 주문으로 연결. 이 가운데 X 리스트 트윗 수집 모듈, Telegram 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 구현. LLM 판정은 기사 100건 시험 목록을 만들어 어시스턴트 지시문 3개 판을 반복 시험하며 개선
+- **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. Telegram 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 주문으로 연결. X 리스트 트윗 수집 모듈, Telegram 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 맡아 구현. LLM 판정은 기사 100건 시험 목록을 만들어 어시스턴트 지시문 3개 판을 반복 시험하며 개선
 - **거래소 상장 스나이퍼**: Upbit와 Bithumb의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. Upbit·Bithumb 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리
-- **트레이딩 지표 수집과 분석**: 상위 알트코인 50개의 가격 변동률을 BTC와 견줘 순위를 내고 Velo의 미결제약정 대비 시가총액 비율을 함께 주는 알트코인 변동률 차트 백엔드를 팀과 함께 개발. 이 가운데 Bybit 1분봉 WebSocket 수집기와 봉 API를 구현하고, 순위 API에 조회 기간 인자와 BTC 대비 변동률 추가. 전략 탐지기의 배치 지표 수집기 설계
+- **트레이딩 지표 수집과 분석**: 상위 알트코인 50개의 가격 변동률을 BTC와 견줘 순위를 내고 Velo의 미결제약정 대비 시가총액 비율을 함께 주는 알트코인 변동률 차트 백엔드를 팀과 함께 개발. Bybit 1분봉 WebSocket 수집기와 봉 API를 맡아 구현하고, 순위 API에 조회 기간 인자와 BTC 대비 변동률 추가. 전략 탐지기의 배치 지표 수집기 설계
 - **예측 시장 모니터링 Totoro**: Polymarket과 Kalshi의 NFL·프리미어리그 경기 시장을 경기별로 짝지어 가격을 받는 모니터링 모듈을 팀과 함께 개발
 
 ### **미디움 주식회사**
@@ -129,7 +129,7 @@ _기술 스택: Go, Rust_
 _기술 스택: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
 - React2Shell 취약점 CVE-2025-55182로 Next.js 서버가 뚫린 침해 사고의 대응을 이끈 뒤 만든 스캐너. **스캔 모듈 9개**가 침해 한 번을 오프체인 스택 전체로 번지게 하는 설정 실수를 배포 전에 점검. 빌드 결과물의 시크릿, 인터넷에 열린 관리 포트, 과한 클라우드 IAM 권한, 계정 전체에 걸친 자격 증명, 백도어 지속성 흔적, 꺼진 감사 로그를 다룸
-- `npx trustline-scanner scan .` 한 줄로 실행하는 **npm** 패키지와 **GitHub Marketplace Action**으로 배포하고, SARIF 출력으로 GitHub 코드 스캐닝에 연결. 읽기 전용 온체인 명령이 EtherRAT 악성코드가 Ethereum 스마트 컨트랙트에 써 둔 C2 값을 복원하고 주변 컨트랙트를 추적하며, 그 결과를 스캐너의 IOC 데이터셋에 반영
+- `npx trustline-scanner scan .` 한 줄로 실행하는 **npm** 패키지와 **GitHub Marketplace Action**으로 배포하고, SARIF 출력으로 GitHub 코드 스캐닝에 연결. 온체인 명령으로 EtherRAT 악성코드가 Ethereum 컨트랙트에서 읽어 오는 C2 주소를 복원하고, 배포자와 배포자에게 가스비를 댄 지갑, 같은 운영자의 다른 C2 컨트랙트까지 추적. 찾은 C2 컨트랙트와 도메인, IP, 주소 포이즈닝 드레이너 지갑, WEMIX 세탁 경로는 다른 프로젝트에서도 대조하도록 스캐너의 IOC 데이터셋에 넣음
 
 ### **skills**: Claude Code·Codex 에이전트 스킬 마켓플레이스와 가드레일 훅
 
@@ -177,6 +177,8 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
   리서치 링크: https://github.com/orakle-7th-sda/conference-pdf
   - 2018년부터 2026년 2월까지의 CEX 사례와 2022년부터 2026년 2월까지의 온체인 사례를 모은 스테이블코인 디페그 조사. 거래소·프로토콜별 이탈 폭, 원인, 지속 시간
   - Solana 서처/솔버 전략 설계. Jito 번들·Jupiter v6·Helius WebSocket 기반 실시간 디페그 차익거래 6개 전략 계열
+  - 디페그를 원인 유형 4가지(풀 불균형, 공포 디페그, 구조적 붕괴, 유동성 고갈)로 갈라, 회복될 디페그는 Jito 번들로 차익거래하고 구조적 붕괴는 거래하지 않는 Solana 디페그 서처를 Go로 구현. Helius WebSocket으로 Orca, Meteora, Raydium의 USDC/USDT 풀 세 곳을 받아 Pyth 오라클과 Binance, Coinbase 시세에 견주고, 잠깐의 재조정과 얕은 풀은 거르도록 TVL 5만 달러 이상 풀에서 0.1% 넘는 이탈이 2초 넘게 이어질 때만 분류\
+    저장소: https://github.com/orakle-7th-sda/defi-searcher
   - 그 외 DeFi 생태계 17범주 택소노미, 범주별 스테이블코인 존재 형태 정리
 
 - **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): BitVMX-CPU 위 일방향 옵션 PoC, Go와 PostgreSQL로 만든 REST API 60개와 WebSocket 백엔드, BitStriker 프론트엔드(React, MutinyNet 지갑 연동)
