@@ -62,9 +62,6 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 			case "api-tracker":
 				// redirect.RedirectAPIHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
-			case "api-btcfi":
-				// redirect.RedirectAPIHandler(w, r, link)
-				redirect.RedirectHandler(w, r, link)
 			case "api-quant":
 				// redirect.RedirectAPIHandler(w, r, link)
 				redirect.RedirectHandler(w, r, link)
@@ -89,16 +86,11 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectHandler(w, r, link)
 			case "redis-tcp":
 				redis.HTTPToTCPHandler(w, r, link)
-			case "btcfi":
-				// redirect.RedirectChangeHandler(w, r, link)
-				redirect.RedirectHandler(w, r, link)
 
 			// static
 			case "blog-static":
 				redirect.RedirectHandler(w, r, link)
 			case "dex-static":
-				redirect.RedirectHandler(w, r, link)
-			case "btcfi-static":
 				redirect.RedirectHandler(w, r, link)
 
 			// websocket (main server, redis)
