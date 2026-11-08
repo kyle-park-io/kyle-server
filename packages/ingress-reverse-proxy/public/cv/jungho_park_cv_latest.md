@@ -119,5 +119,5 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **Vice President (8th Cohort)** | Mar 2026 - Present · **Team Leader, ODA Team (7th Cohort)** | Sep 2025 - Feb 2026
 
-- Organized the 8th cohort's final research conference and wrote the 7th cohort's five published DeFi research papers, including a stablecoin depeg survey and Solana searcher/solver strategies. Built a Solana depeg searcher in Go that sorts depegs by cause, arbitrages the recoverable ones, and never trades a structural collapse\
+- Organized the 8th cohort's final research conference, wrote the 7th cohort's five published DeFi papers including a stablecoin depeg survey, and built a Go searcher arbitraging only recoverable Solana depegs\
   Link to the papers: https://github.com/orakle-7th-sda/conference-pdf
