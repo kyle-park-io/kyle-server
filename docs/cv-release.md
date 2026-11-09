@@ -38,6 +38,8 @@ CV 정본(`packages/blog-frontend/public/cv/`)이나 경력 화면(`/devrel`, `/
 
 PDF 네 개는 ingress 이미지가 내보내고(`packages/ingress-reverse-proxy/assets/prodassets.go`의 `/cv/` 네 줄), 화면은 site 이미지가 내보낸다. md 주소 네 개는 ingress 목록에 없어 site 의 화면 HTML 이 나간다. 새 CV 파일을 더하면 `prodassets.go`와 `devassets.go`에 줄을 더하지 않는 한 그 주소로 PDF 가 나가지 않는다. 그래서 PDF 만 바꾼 배포는 ingress 만, 화면을 바꾼 배포는 site 도 올린다.
 
+이 절은 yarn, docker, gcloud, kubectl이 있는 컴퓨터에서 한다. `command -v yarn docker gcloud kubectl`이 넷을 모두 찍는지 먼저 본다. 2026-11-10 WSL(`~/daily`)에는 넷 다 없어, `build.sh`가 화면 번들을 지운 뒤 yarn을 찾지 못하고 CV 사본만 복사했고 이미지는 올리지 못했다. 그 뒤로 `build.sh`는 yarn이 없으면 아무것도 지우지 않고 멈춘다.
+
 1. `git checkout main && git pull --ff-only`
 2. `bash scripts/build.sh`. 이 스크립트가 `packages/blog-frontend/public/`을 `packages/ingress-reverse-proxy/public/`으로 복사해 CV 사본 8개(이력서와 상세판의 md 와 PDF)가 바뀐다. 사본만 담은 PR(`chore(ingress): copy the CV from PR #<번호>`)을 열어 merge 하고 main 을 다시 받는다. 사본이 정본과 같은지는 `cmp`로 본다.
 3. 지금 버전을 읽고 다음 패치 버전을 고른다.
