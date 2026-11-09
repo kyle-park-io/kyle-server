@@ -51,6 +51,13 @@ if ! fc-match "Pretendard" 2>/dev/null | grep -qi pretendard; then
   echo "See the note above this check in $(basename "$0") for how to install it." >&2
   exit 1
 fi
+# The .otf build passes the check above but prints every glyph as a Type3 bitmap
+# (the new WSL of 2026-11-09 had it). Stop before printing.
+if fc-match "Pretendard" 2>/dev/null | grep -qi '\.otf:'; then
+  echo "Pretendard resolves to the .otf build; Chrome would print the text as Type3 bitmaps." >&2
+  echo "Install the TrueType build under alternative/ (see the note above) and move the .otf files out of the font folders." >&2
+  exit 1
+fi
 
 status=0
 for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest_ko.md \
@@ -77,6 +84,13 @@ for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest
     *_full*) max_pages="" ;;
     *) max_pages="$RESUME_MAX_PAGES" ;;
   esac
+
+  # Type3 fonts mean Chrome drew the text as bitmaps instead of embedding a font.
+  if grep -aq '/Subtype */Type3' "$pdf"; then
+    echo "  FAIL  $pdf: text printed as Type3 bitmaps, check fc-match Pretendard" >&2
+    status=1
+    continue
+  fi
 
   pages=$(page_count "$pdf")
   if [ "$pages" -lt "$MIN_PAGES" ]; then
