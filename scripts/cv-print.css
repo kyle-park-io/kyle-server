@@ -95,6 +95,19 @@ li code {
 }
 
 /*
+ * The base sheet's `p code, li code { font-family: monospace }` outranks the
+ * plain `code` rule above, so a command in a bullet took whatever the machine
+ * calls monospace. The old laptop said DejaVu Sans Mono; the WSL set up on
+ * 2026-11-09 has a ~/.config/fontconfig/fonts.conf that says JetBrains Mono,
+ * and the same CV came out in a different face. Name the family here instead.
+ */
+p code,
+li code,
+pre code {
+  font-family: 'DejaVu Sans Mono', monospace;
+}
+
+/*
  * Vertical hierarchy.
  *
  * The base sheet zeroes every heading margin while leaving <p> a 1em bottom
@@ -114,6 +127,22 @@ h2 {
 
 h3 {
   margin: 1.1em 0 0.3em;
+}
+
+/*
+ * Bold inside a heading asks for `bolder` than 700, which is 900. The old laptop
+ * had no Pretendard Black, so Chrome drew it in ExtraBold; a machine with the
+ * full Pretendard set draws it in Black (2026-11-09). Pin ExtraBold so the
+ * archived PDFs and new ones match wherever they are built.
+ */
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong,
+th strong {
+  font-weight: 800;
 }
 
 /*
