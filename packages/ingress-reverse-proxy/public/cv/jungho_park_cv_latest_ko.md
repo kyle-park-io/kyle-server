@@ -41,7 +41,7 @@ _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS 
 
 - **CEX 거래소 간 차익거래 시스템 Rothchild**: Binance, Bybit, Bithumb, Upbit, 무기한 선물 DEX를 오가는 팀의 Taker-Taker·Maker-Taker 차익거래 시스템에서 주문, 잔고, PnL 콘솔 백엔드를 담당. 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결 WebSocket, 재연결, 자산별 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, 실시간 PnL 대시보드 구현
 - **Solana DEX 온체인 트레이딩 봇**: 알파 전략 3종을 실행하는 Go 봇. GoPlus와 홀더 분포 진입 필터, Jupiter 스왑과 트리거 주문, Helius WebSocket 풀 감시. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아, 요청을 우선순위 세 단계로 줄 세우고 호출 한도를 조정 서비스에서만 적용
-- **뉴스·KOL 시그널 트레이딩 엔진**: Telegram과 X 수집 모듈, OpenAI 어시스턴트 여러 개의 평균 점수 판정을 구현해 팀의 Binance·Bybit USDT 선물 주문 엔진에 연결. 기사 100건 시험 목록으로 지시문 3개 판을 반복 시험
+- **뉴스·KOL 시그널 트레이딩 엔진**: Telegram과 X 수집 모듈, OpenAI 어시스턴트 여러 개의 평균 점수 판정을 구현해 팀의 Binance·Bybit USDT 선물 주문 엔진에 연결. 기사 100건 시험 목록으로 지시문 3개 판을 반복 시험하며 판정을 개선
 - **거래소 상장 스나이퍼**: Upbit·Bithumb 상장 공지의 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘겨 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현
 
 ### **미디움 주식회사**

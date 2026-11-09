@@ -41,7 +41,7 @@ _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (EC
 
 - **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Built order placement, cancellation, replacement, and lookup, fill WebSockets, and reconnection for 8 exchanges plus Solana DEX, a delta manager that clears each asset's delta on the exchange holding the largest balance, and a real-time PnL dashboard
 - **Solana DEX On-Chain Trading Bots**: Go bots running three alpha strategies with GoPlus and holder-distribution entry filters, Jupiter swaps and trigger orders, and Helius WebSocket pool monitoring. Moved the two holder-analysis services' direct Solscan calls behind one call-coordination service that queues requests at three priorities and enforces the rate limit in one place
-- **News and KOL Signal Trading Engine**: built the Telegram and X collectors and the multi-assistant OpenAI scoring that route signals to Binance and Bybit USDT-futures orders in the team's engine, iterating three instruction versions against a 100-item test list
+- **News and KOL Signal Trading Engine**: built the Telegram and X collectors and the multi-assistant OpenAI scoring that route signals to Binance and Bybit USDT-futures orders in the team's engine, improving the scoring by testing three instruction versions against a 100-item test list
 - **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit
 
 ### **Medium Inc.**
