@@ -75,23 +75,43 @@ body,
   line-height: 1.35;
 }
 
+/*
+ * JetBrains Mono is the code face of the site this CV is published on
+ * (site-shell tokens.css --shell-mono) and of writing-guides' document PDFs.
+ * Until 2026-11-09 this said DejaVu Sans Mono, which no one chose: it was the
+ * desktop's fontconfig monospace. Pretendard follows for Hangul inside code.
+ * Use the installed TrueType build, not Google Fonts: Google serves JetBrains
+ * Mono as a variable font, and Chrome prints that as Type3 glyphs (2026-11-09).
+ */
 code,
 pre,
 kbd,
 samp,
 tt {
-  font-family: 'DejaVu Sans Mono', monospace;
+  font-family: 'JetBrains Mono', Pretendard, monospace;
 }
 
 /*
  * The base sheet sets inline code to 1.2em of the body. With a 10pt body that
- * is 16px, larger than the text around it, and DejaVu Sans Mono already reads
- * wider than Pretendard. 0.9em keeps a command in a bullet the same visual
- * size as its sentence.
+ * is 16px, larger than the text around it. 0.9em keeps a command in a bullet
+ * the same visual size as its sentence.
  */
 p code,
 li code {
   font-size: 0.9em;
+}
+
+/*
+ * The base sheet's `p code, li code { font-family: monospace }` outranks the
+ * plain `code` rule above, so a command in a bullet took whatever the machine
+ * calls monospace: DejaVu Sans Mono on the desktop, JetBrains Mono on the
+ * laptop set up on 2026-11-09 (its ~/.config/fontconfig/fonts.conf). Name the
+ * family here too.
+ */
+p code,
+li code,
+pre code {
+  font-family: 'JetBrains Mono', Pretendard, monospace;
 }
 
 /*
@@ -114,6 +134,22 @@ h2 {
 
 h3 {
   margin: 1.1em 0 0.3em;
+}
+
+/*
+ * Bold inside a heading asks for `bolder` than 700, which is 900. The desktop
+ * has no Pretendard Black (its fonts read on 2026-11-09), so Chrome drew it in
+ * ExtraBold; the laptop has the full Pretendard set and drew it in Black. Pin ExtraBold so the
+ * archived PDFs and new ones match wherever they are built.
+ */
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong,
+th strong {
+  font-weight: 800;
 }
 
 /*
