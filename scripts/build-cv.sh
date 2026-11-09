@@ -44,18 +44,33 @@ echo "using chrome: $CHROME"
 #   into ~/.local/share/fonts, then `fc-cache -f`
 #
 # Use the TrueType build under alternative/, not the CFF-flavoured .otf:
-# Chrome cannot subset-embed the .otf and falls back to Type3 bitmap glyphs
-# for the whole document, Latin included.
+# Chrome cannot subset-embed the .otf and falls back to Type3 glyphs for the
+# whole document, Latin included.
+#
+# Code is set in JetBrains Mono (cv-print.css). Install its static TrueType
+# files the same way:
+#   https://github.com/JetBrains/JetBrainsMono/releases -> fonts/ttf/*.ttf
+# Not the variable build (fonts/variable/, or Google Fonts): Chrome prints a
+# variable font as Type3 too (2026-11-09).
 if ! fc-match "Pretendard" 2>/dev/null | grep -qi pretendard; then
   echo "Pretendard is not installed - the PDF would silently use a substitute font." >&2
   echo "See the note above this check in $(basename "$0") for how to install it." >&2
   exit 1
 fi
-# The .otf build passes the check above but prints every glyph as a Type3 bitmap
-# (the new WSL of 2026-11-09 had it). Stop before printing.
+# The .otf build passes the check above but prints every glyph as Type3 (the new
+# WSL of 2026-11-09 had it). On the desktop the same CV went from 3 pages to 4.
+# Stop before printing.
 if fc-match "Pretendard" 2>/dev/null | grep -qi '\.otf:'; then
-  echo "Pretendard resolves to the .otf build; Chrome would print the text as Type3 bitmaps." >&2
+  echo "Pretendard resolves to the .otf build; Chrome would print the text as Type3 glyphs." >&2
   echo "Install the TrueType build under alternative/ (see the note above) and move the .otf files out of the font folders." >&2
+  exit 1
+fi
+
+# cv-print.css sets code in JetBrains Mono; without it a command in a bullet
+# silently takes Pretendard. See the install note above.
+if ! fc-match "JetBrains Mono" 2>/dev/null | grep -qi jetbrains; then
+  echo "JetBrains Mono is not installed - code in the CV would silently use a substitute font." >&2
+  echo "See the note above the Pretendard check in $(basename "$0") for how to install it." >&2
   exit 1
 fi
 
@@ -85,9 +100,10 @@ for md in "${CV_DIR}"/jungho_park_cv_latest.md "${CV_DIR}"/jungho_park_cv_latest
     *) max_pages="$RESUME_MAX_PAGES" ;;
   esac
 
-  # Type3 fonts mean Chrome drew the text as bitmaps instead of embedding a font.
+  # Type3 fonts mean Chrome drew the glyphs itself instead of embedding a font
+  # (a .otf or a variable font), so the PDF no longer matches other machines.
   if grep -aq '/Subtype */Type3' "$pdf"; then
-    echo "  FAIL  $pdf: text printed as Type3 bitmaps, check fc-match Pretendard" >&2
+    echo "  FAIL  $pdf: text printed as Type3 glyphs, check fc-match Pretendard and JetBrains Mono" >&2
     status=1
     continue
   fi
