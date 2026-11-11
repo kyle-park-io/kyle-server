@@ -131,8 +131,7 @@ const Quant: Component = (): JSX.Element => {
                     direct Solscan calls behind one call-coordination service
                     that queues requests at three priorities and enforces the
                     rate limit in one place; its queue is a lock-free ring
-                    buffer and a worker pool makes the calls. 186 test functions
-                    and 25 benchmarks.
+                    buffer and a worker pool makes the calls.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
