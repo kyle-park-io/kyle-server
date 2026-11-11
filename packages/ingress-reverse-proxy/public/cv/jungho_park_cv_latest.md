@@ -88,7 +88,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 **pay-lab**: On-Chain Payments Lab Kit Reconfigured per Workshop or Class | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
 - Lab modules, per-event config, and chain adapters, so one setting runs the same code on Mantle, Ethereum Sepolia, or local Anvil. ERC-3009 gas relaying, agent wallet tools capped by an ERC-2612 permit, and a remote MCP server on wallet-signature OAuth for claude.ai and Codex
-- Fail-closed money paths, idempotent funding, and reconciliation of stalled sends. A 30-student load test found serverless functions reusing a nonce and failing 3 to 8 of 30 transactions, fixed with a PostgreSQL advisory lock and a per-wallet nonce table
+- Fail-closed money paths, idempotent funding, and reconciliation of stalled sends. A PostgreSQL advisory lock and a per-wallet nonce table serialize the server wallet's sends so concurrent sends do not reuse a nonce
 
 **Binance Triangular Arbitrage Engine** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 

@@ -88,7 +88,7 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 **pay-lab**: 워크샵과 강의마다 설정만 바꿔 쓰는 온체인 결제 실습 키트 | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
 - 실습 모듈, 회차 설정, 체인 어댑터로 나눠 설정 값 하나로 같은 코드가 Mantle, Ethereum Sepolia, 로컬 Anvil에서 실행되는 키트. ERC-3009 가스 대납, ERC-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버
-- fail-closed 검사, 멱등 충전, 멈춘 송금의 reconciliation. 가상 학생 30명 부하 시험에서 같은 논스로 30건 중 3건에서 8건이 실패하던 문제를 PostgreSQL advisory lock과 지갑별 논스 테이블로 해결
+- fail-closed 검사, 멱등 충전, 멈춘 송금의 reconciliation. 동시에 몰린 송금이 같은 논스로 부딪히지 않도록 PostgreSQL advisory lock과 지갑별 논스 테이블로 서버 지갑의 송금을 직렬화
 
 **Binance 삼각 차익거래 엔진** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
