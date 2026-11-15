@@ -49,7 +49,7 @@ _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (EC
 **Backend Engineer** | Sep 2022 - Feb 2024 (1 year 6 months)\
 _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, MySQL, AWS, Docker_
 
-- **Cross-Chain Bridge Infrastructure**: with the team, a multisig-verified bridge linking the company L1 RIGO, the Fabric consortium chain MDL, and Ethereum, with a Kafka event pipeline, 17 bridge chaincodes, and Solidity contracts
+- **Cross-Chain Bridge Infrastructure**: with the team, a multisig-verified bridge linking the company L1 RIGO, the Fabric consortium chain MDL, and Ethereum, with a Kafka event pipeline that skips redelivered events on the transaction-ID primary key, 17 bridge chaincodes, and Solidity contracts
 - **Security Token Platform (ERC-1400)**: designed and built a Go chaincode on Hyperledger Fabric for partition-based issue, transfer, and redeem, and token wallets
 - **Hyperledger Fabric Network Automation**: Bash scripts from certificate enrollment to chaincode commit, in seven Docker Compose configurations and four without Docker
 
@@ -83,12 +83,12 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **mantle-kr-herald**: Mantle Korea Team's Human-in-the-Loop Content Pipeline | _TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 
-- Approved translations become few-shot examples and paired official posts a translation memory in the prompt; sends are idempotent so no post goes out twice. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code; 5,115 test cases
+- Approved translations become few-shot examples and paired official posts a translation memory in the prompt; sends are idempotent on a database primary key. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code; 5,115 test cases
 
 **pay-lab**: On-Chain Payments Lab Kit Reconfigured per Workshop or Class | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
 - Lab modules, per-event config, and chain adapters, so one setting runs the same code on Mantle, Ethereum Sepolia, or local Anvil. ERC-3009 gas relaying, agent wallet tools capped by an ERC-2612 permit, and a remote MCP server on wallet-signature OAuth for claude.ai and Codex
-- Fail-closed money paths, idempotent funding, and reconciliation of stalled sends. A PostgreSQL advisory lock and a per-wallet nonce table serialize the server wallet's sends so concurrent sends do not reuse a nonce
+- Fail-closed money paths, idempotent funding, and reconciliation of stalled sends. A load test found Vercel instances reusing the wallet nonce; a PostgreSQL advisory lock and a per-wallet nonce table now serialize sends, and 30 simulated students sending within 2 seconds all went through
 
 **Binance Triangular Arbitrage Engine** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 

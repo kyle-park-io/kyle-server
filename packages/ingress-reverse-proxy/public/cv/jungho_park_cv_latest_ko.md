@@ -49,7 +49,7 @@ _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS 
 **백엔드 엔지니어** | 2022년 9월 - 2024년 2월 (1년 6개월)\
 _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, MySQL, AWS, Docker_
 
-- **크로스체인 브릿지 인프라**: 자사 L1 RIGO, Fabric 컨소시엄 체인 MDL, Ethereum을 잇는 다중 서명 검증형 브릿지를 팀과 함께 개발. Kafka 이벤트 파이프라인, 브릿지 체인코드 17개, Solidity 컨트랙트
+- **크로스체인 브릿지 인프라**: 자사 L1 RIGO, Fabric 컨소시엄 체인 MDL, Ethereum을 잇는 다중 서명 검증형 브릿지를 팀과 함께 개발. 체인별 Kafka 토픽을 중개자와 검증자가 저마다 다른 소비자 그룹으로 받고 거래 ID 기본 키로 중복 이벤트를 건너뛰는 이벤트 파이프라인, 브릿지 체인코드 17개, Solidity 컨트랙트
 - **증권형 토큰 플랫폼 (ERC-1400)**: Hyperledger Fabric Go 체인코드로 파티션별 발행·이전·소각과 토큰 지갑을 설계·구현
 - **Hyperledger Fabric 네트워크 구성 자동화**: 인증서 발급부터 체인코드 커밋까지 Bash로 자동화한 Docker Compose 구성 7종과 Docker 없는 구성 4종
 
@@ -83,12 +83,12 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 **mantle-kr-herald**: Mantle 한국팀의 Human-in-the-loop 콘텐츠 파이프라인 | _TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 
-- 승인된 번역과 공식 영문·한국어 게시물 쌍을 few-shot 예시와 번역 메모리로 프롬프트에 넣고, 같은 글이 두 번 나가지 않게 멱등 발송. 외부 API와 저장소를 포트 34개 뒤에 두어 파일에서 PostgreSQL로 옮길 때 도메인 코드 수정 없이 어댑터 19개로 전환. 시험 케이스 5,115개
+- 승인된 번역과 공식 영문·한국어 게시물 쌍을 few-shot 예시와 번역 메모리로 프롬프트에 넣고, 같은 글이 두 번 나가지 않게 발송 원장의 기본 키로 멱등 발송. 외부 API와 저장소를 포트 34개 뒤에 두어 파일에서 PostgreSQL로 옮길 때 도메인 코드 수정 없이 어댑터 19개로 전환. 시험 케이스 5,115개
 
 **pay-lab**: 워크샵과 강의마다 설정만 바꿔 쓰는 온체인 결제 실습 키트 | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
 - 실습 모듈, 회차 설정, 체인 어댑터로 나눠 설정 값 하나로 같은 코드가 Mantle, Ethereum Sepolia, 로컬 Anvil에서 실행되는 키트. ERC-3009 가스 대납, ERC-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버
-- fail-closed 검사, 멱등 충전, 멈춘 송금의 reconciliation. 동시에 몰린 송금이 같은 논스로 부딪히지 않도록 PostgreSQL advisory lock과 지갑별 논스 테이블로 서버 지갑의 송금을 직렬화
+- fail-closed 검사, 멱등 충전, 멈춘 송금의 reconciliation. 운영 부하 시험에서 찾은 Vercel 함수 사이의 논스 충돌을 PostgreSQL advisory lock과 지갑별 논스 테이블로 직렬화해, 가상 학생 30명이 2초 안에 몰아 보낸 송금을 모두 처리
 
 **Binance 삼각 차익거래 엔진** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
