@@ -322,9 +322,9 @@ const DevRel: Component = (): JSX.Element => {
                   formatted for 9 channels and sent via the Telegram Bot API and
                   Typefully to X, LinkedIn, Threads, Bluesky, Mastodon, and
                   Substack, with idempotent sends even on serverless functions,
-                  which keep no file lock or serialized writes: the delivery
-                  ledger's primary key (item, type, outlet) rejects a second
-                  record of the same send
+                  where a file lock and in-process serialized writes no longer
+                  hold: the delivery ledger's primary key (item, type, outlet)
+                  rejects a second record of the same send
                 </li>
                 <li>
                   <strong>Config split and hexagonal structure</strong>:
