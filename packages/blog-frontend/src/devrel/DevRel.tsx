@@ -321,8 +321,10 @@ const DevRel: Component = (): JSX.Element => {
                   announcements, explainers, KOL copy, and press releases,
                   formatted for 9 channels and sent via the Telegram Bot API and
                   Typefully to X, LinkedIn, Threads, Bluesky, Mastodon, and
-                  Substack, with a unique index on the delivery ledger for
-                  idempotent sends
+                  Substack, with idempotent sends even on serverless functions,
+                  which keep no file lock or serialized writes: the delivery
+                  ledger's primary key (item, type, outlet) rejects a second
+                  record of the same send
                 </li>
                 <li>
                   <strong>Config split and hexagonal structure</strong>:
