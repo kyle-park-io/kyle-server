@@ -1,0 +1,90 @@
+# Build the two images on every pull request and push nothing.
+#
+# Until now a broken image showed up only on the desktop, in scripts/push.sh,
+# after the PR was merged. This job runs the same build steps on a clean
+# checkout: scripts/build.sh's frontend bundle for the site image, then the
+# docker builds that packages/*/push2gke_artifact.sh run, without --push and
+# without registry credentials.
+name: image build
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: image-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # the site Dockerfile builds on node:22 (Astro 7 needs >= 22.12)
+          node-version: 22
+          cache: yarn
+
+      # package.json pins yarn 1.22.22 through packageManager
+      - run: corepack enable
+
+      - run: yarn install --frozen-lockfile
+
+      # scripts/build.sh: the express server serves this bundle, and the
+      # Dockerfile copies packages/blog-backend/static, which git ignores
+      - name: frontend bundle
+        working-directory: packages/blog-frontend
+        run: |
+          yarn run clean-build-prod
+          cp -r -p static ../blog-backend/static
+
+      - uses: docker/setup-buildx-action@v3
+
+      # CONTENT_REV busts the content clone layer the same way
+      # packages/blog-backend/push2gke_artifact.sh does
+      - name: content revision
+        id: content
+        run: echo "rev=$(git ls-remote https://github.com/kyle-park-io/blog.git HEAD | cut -f1)" >> "$GITHUB_OUTPUT"
+
+      - name: docker build (site-app-server)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: packages/blog-backend/Dockerfile
+          platforms: linux/amd64
+          provenance: false
+          push: false
+          build-args: |
+            PROGRAM_VER=ci
+            CONTENT_REV=${{ steps.content.outputs.rev }}
+
+  ingress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # The Dockerfile copies ini/cloudflare.ini, which git ignores because it
+      # holds the Cloudflare token. A placeholder lets the build run; the
+      # image is never pushed, and the real file stays on the desktop.
+      - name: placeholder credentials
+        run: |
+          mkdir -p packages/ingress-reverse-proxy/ini
+          printf '# placeholder for the CI build; the image is not pushed\n' > packages/ingress-reverse-proxy/ini/cloudflare.ini
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: docker build (ingress-reverse-proxy-app-server)
+        uses: docker/build-push-action@v6
+        with:
+          context: packages/ingress-reverse-proxy
+          platforms: linux/amd64
+          provenance: false
+          push: false
+          build-args: |
+            PROGRAM_VER=ci
