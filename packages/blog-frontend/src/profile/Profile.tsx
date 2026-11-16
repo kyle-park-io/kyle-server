@@ -256,6 +256,46 @@ const Profile: Component = (): JSX.Element => {
 
               <div class="profile-item profile-item--experience">
                 <div class="profile-item__header">
+                  <h3 class="profile-item__title">matching-ledger</h3>
+                  <span class="profile-item__period">Nov 2026</span>
+                </div>
+                <p class="profile-item__role">
+                  Single-writer matching engine and double-entry settlement
+                  ledger · Rust
+                </p>
+                <p class="profile-item__desc">
+                  Replaying 10 different synthetic order logs under 16
+                  conditions, 320 replays in all, gave 0 state-hash mismatches,
+                  and 2,000 tail corruptions of one log and 400 kill -9 runs
+                  gave 0 prefix-recovery failures. Recovering from a snapshot
+                  plus the log tail cut the recovery of a 10.2-million-record
+                  log from a median 5.43 s of full replay to 1.65 s with a
+                  snapshot every 1,000,000 records (Nov 2026, desktop WSL2).
+                </p>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
+                  <h3 class="profile-item__title">judgment-pipeline</h3>
+                  <span class="profile-item__period">Nov 2026</span>
+                </div>
+                <p class="profile-item__role">
+                  Fault tests of a messaging pipeline for article judgments ·
+                  Rust, Python, Kafka
+                </p>
+                <p class="profile-item__desc">
+                  Killing a message consumer with SIGKILL 86 times, the Redis
+                  Streams, NATS JetStream, and Kafka adapters lost 0 messages
+                  with ack after processing, and a primary-key sink took 0
+                  duplicates while a sink without the key took 9, 16, and 1,167.
+                  A transactional outbox had 0 mismatches on all 4 adapters with
+                  20 producer kills and 20 relay kills (Nov 2026; a fake judge
+                  and synthetic articles).
+                </p>
+              </div>
+
+              <div class="profile-item profile-item--experience">
+                <div class="profile-item__header">
                   <h3 class="profile-item__title">jungho.dev</h3>
                   <span class="profile-item__period">Since Oct 2023</span>
                 </div>

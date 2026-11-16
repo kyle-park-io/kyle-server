@@ -130,8 +130,7 @@ const Quant: Component = (): JSX.Element => {
                     Meteora pools. Moved the two holder-analysis services'
                     direct Solscan calls behind one call-coordination service
                     that queues requests at three priorities and enforces the
-                    rate limit in one place; its queue is a lock-free ring
-                    buffer and a worker pool makes the calls.
+                    rate limit in one place; a worker pool makes the calls.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">APIs:</span>
@@ -348,6 +347,38 @@ const Quant: Component = (): JSX.Element => {
                     <span class="quant-experience__tech-label">Stack:</span>
                     <span class="quant-experience__tech-list">
                       Go (go-ethereum fork), PostgreSQL
+                    </span>
+                  </div>
+                </div>
+
+                {/* Kronon Labs code re-measured */}
+                <div class="quant-experience__project">
+                  <h4 class="quant-experience__project-title">
+                    Kronon Labs Code Re-Measured (Nov 2026)
+                  </h4>
+                  <p class="quant-experience__project-desc">
+                    Rebuilt parts of this work after leaving and tested them
+                    under the same conditions on a desktop. The Solscan call
+                    coordinator: behind the same mock limit (1,000 calls per 60
+                    seconds), the earlier structure drew 155 HTTP 429 responses
+                    and a priority channel with a token bucket drew 0, and a
+                    ring buffer carrying the original code's protocol lost calls
+                    in every stress run. Listing notices: a new connection per
+                    request gave a p99 of 62.0 ms against 18.8 to 21.5 ms with
+                    connection reuse, and at a 1-second polling interval the
+                    interval outweighs the request latency. Delta liquidation:
+                    replaying 24 hours of Binance, Bybit, and MEXC order books
+                    under mock balances and assumed fees, splitting across
+                    venues cost 6.8 bps less than the venue with the largest
+                    balance, and the difference disappeared with a zero minimum
+                    transfer. The news scoring harness could not tell two
+                    instruction versions apart, and accuracy was not measured
+                    because no answer labels exist.
+                  </p>
+                  <div class="quant-experience__tech">
+                    <span class="quant-experience__tech-label">Stack:</span>
+                    <span class="quant-experience__tech-list">
+                      Go, Rust, Python
                     </span>
                   </div>
                 </div>
