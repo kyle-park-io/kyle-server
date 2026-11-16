@@ -1,6 +1,8 @@
+**English** | [한국어](README.ko.md)
+
 # kyle-server
 
-jungho.dev 의 사이트(`packages/blog-frontend`, `packages/blog-backend`)와 앞단 프록시(`packages/ingress-reverse-proxy`)다.
+The jungho.dev site (`packages/blog-frontend`, `packages/blog-backend`) and the reverse proxy in front of it (`packages/ingress-reverse-proxy`).
 
-- CV 를 고쳐 배포하는 순서: [`docs/cv-release.md`](docs/cv-release.md)
-- CV 캐시를 지우는 토큰 설정: [`docs/setup/cloudflare-cache-purge.md`](docs/setup/cloudflare-cache-purge.md)
+- Steps to edit and deploy the CV (in Korean): [`docs/cv-release.md`](docs/cv-release.md)
+- Token setup for purging the CV cache (in Korean): [`docs/setup/cloudflare-cache-purge.md`](docs/setup/cloudflare-cache-purge.md)
