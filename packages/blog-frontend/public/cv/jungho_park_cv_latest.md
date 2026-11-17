@@ -24,7 +24,7 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 *Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network*\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**, a $120K two-phase global hackathon: recruited Korean entrants to the ClawHack AI trading agent contest, where a Korean participant's agent won the volume track at $10.31M and 12 tracked Korean wallets made 26.88% of the contest's $45.5M total volume, then ran a Phase 2 hackathon workshop at the Seoul hacker house for 100+ builders
+- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**, a $120K two-phase global hackathon: recruited Korean entrants to the ClawHack AI trading agent contest, where a Korean participant's agent won the volume track at $10.31M and Korean wallets incl. the winner's made 26.88% of the contest's $45.5M total volume, then ran a Phase 2 hackathon workshop at the Seoul hacker house for 100+ builders
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: built the operations site, pay-lab v1, for a workshop where builders connected their AI agents to Q402 over MCP and paid on Mantle mainnet from chat with no wallet app or gas. 42 builders made 488 mainnet payments in three hours
 

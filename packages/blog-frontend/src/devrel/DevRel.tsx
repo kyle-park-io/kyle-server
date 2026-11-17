@@ -413,8 +413,9 @@ const DevRel: Component = (): JSX.Element => {
                 </li>
                 <li>
                   A Korean participant's agent took first place on the volume
-                  track at <strong>$10.31M</strong>, and the 12 Korean wallets
-                  tracked made up 26.88% of the contest's $45.5M total volume
+                  track at <strong>$10.31M</strong>, and the tracked Korean wallets,
+                  the winner's included, made up 26.88% of the contest's $45.5M
+                  total volume
                 </li>
                 <li>
                   Pulled Korean results from the leaderboard API into a report
