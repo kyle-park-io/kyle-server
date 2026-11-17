@@ -32,7 +32,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **한국 공식 계정 운영**: 2026년 4~9월 게시물 279건, 노출 24.6만, 참여율 1.74%로 글로벌 계정 1.03%의 1.7배. 한국팀이 기획한 캠페인과 행사 공지가 노출 상위 6개를 모두 차지
 
-- **인하대학교 스테이블코인 결제 강의 (2026년 10월)**: 파이낸스경영학과 「디지털자산과 시장인프라」 수업에서 스테이블코인 결제가 움직이는 방식과 AI 에이전트가 결제할 때 달라지는 점을 강의. 학생이 휴대폰으로 지갑을 만들어 옆 사람에게 테스트넷 USDC를 보내고 블록 익스플로러에서 영수증을 읽는 실습과, claude.ai나 Codex의 AI 에이전트에 지출 한도를 서명하고 한도를 넘는 요청이 실습 서버와 USDC 컨트랙트에서 거절되는 것을 확인하는 실습을 pay-lab으로 운영. 국회에 계류된 원화 스테이블코인 법안을 발행 주체, 준비금과 상환, 이자 지급 쟁점별로 설명\
+- **인하대학교 스테이블코인 결제 강의 (2026년 10월)**: 파이낸스경영학과 「디지털자산과 시장인프라」 수업에서 스테이블코인 결제가 움직이는 방식과 AI 에이전트가 결제할 때 달라지는 점을 강의. 학생이 휴대폰으로 지갑을 만들어 옆 사람에게 테스트넷 USDC를 보내고 블록 익스플로러에서 영수증을 읽는 실습과, claude.ai나 Codex의 AI 에이전트에 지출 한도를 서명하고 한도를 넘는 요청이 실습 서버와 USDC 컨트랙트에서 거절되는 것을 확인하는 실습을 pay-lab으로 운영. 학생 30명이 옆 사람에게 테스트넷 USDC를 보냈고, 22명이 AI 에이전트에 지출 한도를 서명하고 그 한도 안에서 에이전트로 송금. 국회에 계류된 원화 스테이블코인 법안을 발행 주체, 준비금과 상환, 이자 지급 쟁점별로 설명\
   슬라이드 링크: https://pay-lab-inha.vercel.app/slides
 
 - **한국어 기술 문서 5종 집필**: Mantle 블록 익스플로러 입문판·심화판, DEX 비교 딥다이브, AI 에이전트 트레이딩 경로 가이드, 자산 출금 가이드. 심화판은 모듈러 아키텍처, Rollup vs. Validium 분류, L2 가스 이중 구조, L2Beat Stage 0 등급 근거를 다룸\
@@ -47,10 +47,10 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 **트레이딩 시스템 백엔드 엔지니어** | 2025년 4월 - 2025년 11월 (8개월)\
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만든 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb 현물 사이, Bybit와 Jupiter 사이, Bithumb·Upbit 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 주문, 잔고, PnL을 다루는 콘솔 백엔드를 맡아, 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
-- **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석의 알파 전략 3종을 실행하는 봇을 Go로 개발. GoPlus 보안 검사와 상위 홀더 30명·신규 지갑 보유 비율 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아, 요청을 우선순위 세 단계로 줄 세우고 호출 한도를 조정 서비스에서만 적용. 호출은 작업자 풀로 처리
-- **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. Telegram 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 주문으로 연결. X 리스트 트윗 수집 모듈, Telegram 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 맡아 구현. LLM 판정은 기사 1건과 비교 기사 10건을 넣은 호출을 5회씩 반복해 점수의 흩어짐을 비교
-- **거래소 상장 스나이퍼**: Upbit와 Bithumb의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. Upbit·Bithumb 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리
+- **CEX 거래소 간 차익거래 시스템 Rothchild**: 팀과 함께 만들어 실거래로 운영한 Taker-Taker·Maker-Taker 차익거래 시스템. Go 전략 엔진이 Binance, Bybit, Bitget, KuCoin, MEXC, Gate.io, Bithumb 현물 사이, Bybit와 Jupiter 사이, Bithumb·Upbit 원화 시장과 Bybit 사이, 무기한 선물 DEX인 Paradex, Backpack, Extended, Rails 사이의 가격 차이를 거래. 주문, 잔고, PnL을 다루는 콘솔 백엔드를 맡아, 공통 거래소 인터페이스에 주문 교체와 조회 메서드를 더하고 Gate.io를 포함한 8개 거래소와 Solana DEX의 주문 등록·취소·교체·조회, 체결을 받는 사용자 데이터 WebSocket, keepalive와 재연결 구현. 1분·5분 간격 이력과 1시간·4시간·1일·7일 누적의 PnL, 자산별 합산 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈, PnL과 포지션을 실시간으로 추적하는 대시보드 구축. 거래소 응답을 기록해 연동마다 시험하는 구조 도입
+- **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석의 알파 전략 3종을 실행하는 봇을 Go로 개발. GoPlus 보안 검사와 상위 홀더 30명·신규 지갑 보유 비율 진입 필터, Jupiter 스왑과 트리거 주문, 5분·1시간 변동성을 담은 가격 캐시와 단계별 매도 규칙, Helius WebSocket으로 Pump.fun·Raydium·Orca·Meteora 풀 감시. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아, 요청을 우선순위 세 단계로 줄 세우고 호출 한도를 조정 서비스에서만 적용. 호출은 작업자 풀로 처리. Solana 메인넷에서 실주문으로 운영
+- **뉴스·KOL 시그널 트레이딩 엔진**: 팀과 함께 만든 선물 트레이딩 엔진. Telegram 비공개 채널과 X 리스트 트윗을 모아 OpenAI 어시스턴트 여러 개의 평균 점수로 이미 알려진 사건과 얼마나 닮았는지 판정하고, Binance·Bybit USDT 선물 실주문으로 연결. X 리스트 트윗 수집 모듈, Telegram 비공개 채널 구독, 어시스턴트 호출과 평균 판정을 맡아 구현. LLM 판정은 기사 1건과 비교 기사 10건을 넣은 호출을 5회씩 반복해 점수의 흩어짐을 비교
+- **거래소 상장 스나이퍼**: Upbit와 Bithumb의 상장 공지를 잡아 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘기고 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. Upbit·Bithumb 공지를 감시해 Binance 선물, Bybit, MEXC, OKX에 주문하던 앞선 상장 감지기를 개발 환경에서 돌려 분석하고 개선점 7가지 정리. VPS 20대에 나눠 둔 자체 공지 수집기로 같은 공지를 외부 공지 피드 API보다 269ms 먼저 수신(2025년 6월 시험)
 - **트레이딩 지표 수집과 분석**: 상위 알트코인 50개의 가격 변동률을 BTC와 견줘 순위를 내고 Velo의 미결제약정 대비 시가총액 비율을 함께 주는 알트코인 변동률 차트 백엔드를 팀과 함께 개발. Bybit 1분봉 WebSocket 수집기와 봉 API를 맡아 구현하고, 순위 API에 조회 기간 인자와 BTC 대비 변동률 추가. 전략 탐지기의 배치 지표 수집기 설계
 - **예측 시장 모니터링 Totoro**: Polymarket과 Kalshi의 NFL·프리미어리그 경기 시장을 경기별로 짝지어 가격을 받는 모니터링 모듈을 팀과 함께 개발
 
@@ -59,10 +59,10 @@ _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS 
 **백엔드 엔지니어** | 2022년 9월 - 2024년 2월 (1년 6개월)\
 _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, MySQL, AWS, Docker_
 
-- **크로스체인 브릿지 인프라**: 자사 L1 메인넷 RIGO(Cosmos Tendermint와 EVM), 프라이빗 컨소시엄 체인 MDL(Hyperledger Fabric 2.2.2 포크), Ethereum을 잇는 다중 서명 검증형 브릿지를 팀과 함께 개발. 체인별 Kafka 토픽(mdl, rigo, bridge)의 이벤트를 중개자와 검증자가 저마다 다른 소비자 그룹으로 모두 받는 이벤트 파이프라인. 같은 이벤트를 다시 받으면 거래 ID 기본 키 충돌로 알아보고 건너뛰며, 서버를 다시 띄우면 체인에 기록한 마지막 처리 블록부터 놓친 거래를 다시 읽어 넣음. 브릿지 체인코드 17개, Solidity 컨트랙트
-- **증권형 토큰 플랫폼 (ERC-1400)**: ERC-1400 인터페이스를 따르는 STO 토큰을 Hyperledger Fabric Go 체인코드로 설계·구현. 파티션별 발행·이전·소각, 토큰 지갑
+- **크로스체인 브릿지 인프라**: 자사 L1 메인넷 RIGO(Cosmos Tendermint와 EVM), 프라이빗 컨소시엄 체인 MDL(Hyperledger Fabric 2.2.2 포크), Ethereum을 잇는 다중 서명 검증형 브릿지를 팀과 함께 개발. 체인별 Kafka 토픽(mdl, rigo, bridge)의 이벤트를 중개자와 검증자가 저마다 다른 소비자 그룹으로 모두 받는 이벤트 파이프라인. 같은 이벤트를 다시 받으면 거래 ID 기본 키 충돌로 알아보고 건너뛰며, 서버를 다시 띄우면 체인에 기록한 마지막 처리 블록부터 놓친 거래를 다시 읽어 넣음. 브릿지 체인코드 17개, Solidity 컨트랙트. 기업 대상 B2B 시험으로 운영
+- **증권형 토큰 플랫폼 (ERC-1400)**: ERC-1400 인터페이스를 따르는 STO 토큰을 Hyperledger Fabric Go 체인코드로 설계·구현. 파티션별 발행·이전·소각, 토큰 지갑. 기업들과의 PoC 시험에 사용
 - **RIGO 체인 커뮤니케이터**: Tendermint RPC로 RIGO 트랜잭션을 보내는 Go 클라이언트 개발과 사내 배포
-- **Hyperledger Fabric 네트워크 구성 자동화**: Fabric CA 인증서 발급, 제네시스 블록과 채널 트랜잭션 생성, orderer·peer·CouchDB 기동, 채널 생성과 가입, 앵커 피어 설정, 체인코드 패키징·설치·승인·커밋, 블록 탐색기 연결을 Bash 스크립트로 자동화. 채널, 조직, orderer 수를 달리한 Docker Compose 구성 7종을 Fabric 2.2.6과 2.2.13 이미지로 작성했고, 가장 큰 구성은 조직 3개와 etcdraft orderer 2개. 자동화한 순서를 Docker 없이 Linux와 macOS에서 Fabric 바이너리로 실행하는 구성 4종 작성
+- **Hyperledger Fabric 네트워크 구성 자동화**: Fabric CA 인증서 발급, 제네시스 블록과 채널 트랜잭션 생성, orderer·peer·CouchDB 기동, 채널 생성과 가입, 앵커 피어 설정, 체인코드 패키징·설치·승인·커밋, 블록 탐색기 연결을 Bash 스크립트로 자동화. 채널, 조직, orderer 수를 달리한 Docker Compose 구성 7종을 Fabric 2.2.6과 2.2.13 이미지로 작성했고, 가장 큰 구성은 조직 3개와 etcdraft orderer 2개. 자동화한 순서를 Docker 없이 Linux와 macOS에서 Fabric 바이너리로 실행하는 구성 4종 작성. 팀이 Fabric 네트워크를 띄울 때 이 구성을 사용
 
 ### **BF Labs 주식회사**
 
@@ -198,7 +198,7 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
 
 **8기 부학회장** | 2026년 3월 - 현재 · **7기 ODA 팀 팀장** | 2025년 9월 - 2026년 2월
 
-- 대학 블록체인 리서치 학회 운영과 프로그램 방향 총괄. 8기 최종 리서치 컨퍼런스 개최 (2026년 9월, 삼성역 하나은행 라운지)
+- 대학 블록체인 리서치 학회 운영과 프로그램 방향 총괄. 8기 최종 리서치 컨퍼런스 개최 (2026년 9월, 하나은행 삼성역기업센터, Sui·Radius·CertiK 후원)
 
 - **7기 공개 DeFi 리서치 5편 집필** (CC BY 4.0)\
   리서치 링크: https://github.com/orakle-7th-sda/conference-pdf
