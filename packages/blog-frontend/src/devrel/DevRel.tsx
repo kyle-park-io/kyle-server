@@ -324,7 +324,7 @@ const DevRel: Component = (): JSX.Element => {
                   Substack, with idempotent sends even on serverless functions,
                   where a file lock and in-process serialized writes no longer
                   hold: the delivery ledger's primary key (item, type, outlet)
-                  rejects a second record of the same send
+                  keeps one record per send
                 </li>
                 <li>
                   <strong>Config split and hexagonal structure</strong>:
