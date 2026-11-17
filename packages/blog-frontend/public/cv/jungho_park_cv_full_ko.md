@@ -208,5 +208,5 @@ _기술 스택: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-p
     저장소: https://github.com/orakle-7th-sda/defi-searcher
   - 그 외 DeFi 생태계 17범주 택소노미, 범주별 스테이블코인 존재 형태 정리
 
-- **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): BitVMX-CPU 위 일방향 옵션 PoC, Go와 PostgreSQL로 만든 REST API와 WebSocket 백엔드, BitStriker 프론트엔드(React, MutinyNet 지갑 연동)
+- **6기 BTCFi 비트코인 옵션 서비스** (2025년 5월 - 11월): 콜옵션 정산 값을 오프체인에서 계산하고 Bitcoin Script로 검증하는 BitVMX-CPU PoC, Go와 PostgreSQL로 만든 REST API와 WebSocket 백엔드, BitStriker 프론트엔드(React, MutinyNet 지갑 연동)
 

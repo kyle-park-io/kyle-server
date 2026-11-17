@@ -39,7 +39,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 **Trading System Backend Engineer** | Apr 2025 - Nov 2025 (8 months)\
 _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system, traded live across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Added order replacement, lookup, and reconnection to the shared exchange interface to connect orders on 8 exchanges plus Solana DEX, and built a delta manager that clears each asset's delta on the exchange holding the largest balance and a real-time PnL dashboard
+- **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system, traded live across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Added order replacement, lookup, and reconnection to the shared exchange interface to connect orders on 8 exchanges plus Solana DEX, and built a delta manager that clears each asset's one-sided fills on the exchange holding the largest balance and a real-time PnL dashboard
 - **Solana DEX On-Chain Trading Bots**: designed Go bots running the New Pair Detection, Back From The Dead, and Fat LP Analysis alpha strategies as separate collector, listener, and executor servers. Moved the two holder-analysis services' direct Solscan calls behind one call-coordination service that enforces the rate limit in one place. Ran with live orders on Solana mainnet
 - **News and KOL Signal Trading Engine**: built the module that scores posts from private Telegram channels and X lists by averaging several OpenAI assistants, and connected its verdicts to the team's Binance and Bybit USDT-futures order engine as live orders
 - **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit. A self-built notice collector spread over 20 VPSs received one listing notice 269 ms ahead of an external notice-feed API in a June 26, 2025 test
@@ -83,7 +83,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **mantle-kr-herald**: Mantle Korea Team's Human-in-the-Loop Content Pipeline | _TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 
-- Approved translations become few-shot examples and paired official posts a translation memory in the prompt; sends are idempotent on a database primary key. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code
+- Prompts hold approved translations as few-shot examples and paired English-Korean posts as translation memory; sends are idempotent on a database primary key. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code
 
 **pay-lab**: On-Chain Payments Lab Kit Reconfigured per Workshop or Class | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
@@ -107,7 +107,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 ## AWARDS & CERTIFICATIONS
 
 - **1st Place, DeFi & Composability Track, and Mantle Incubation Grant, Mantle Global Hackathon 2025** (DOOR Protocol) | Feb 2026
-  - 500+ submissions from 2,000+ builders and $150K in prizes; only 3 teams received incubation grants. Wrote all of it: the proposal, the contracts including ERC-4626 tranche vaults, the backend, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
+  - 500+ submissions from 2,000+ builders and $150K in prizes; only 3 teams received incubation grants. Built every part: the proposal, the contracts including ERC-4626 tranche vaults, the backend, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
 - **3rd Place, Bitcoin on Solana Track (Zeus Network), Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
 - **Engineer General Machinery** (Human Resources Development Service of Korea) | Dec 2020
 
@@ -119,5 +119,5 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **Vice President (8th Cohort)** | Mar 2026 - Present · **Team Leader, ODA Team (7th Cohort)** | Sep 2025 - Feb 2026
 
-- Organized the 8th cohort's final research conference (Sep 2026, sponsored by Sui, Radius, and CertiK), wrote the 7th cohort's published DeFi papers including a stablecoin depeg survey, and built a Go searcher arbitraging only recoverable Solana depegs\
+- Organized the 8th cohort's final research conference (Sep 2026, sponsored by Sui, Radius, and CertiK), wrote the 7th cohort's published DeFi papers including a stablecoin depeg survey, and built a Go searcher that trades only Solana depegs whose cause reverts\
   Link to the papers: https://github.com/orakle-7th-sda/conference-pdf

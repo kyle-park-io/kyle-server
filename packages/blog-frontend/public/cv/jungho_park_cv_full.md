@@ -38,7 +38,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 - **Wrote the Korean technical documentation set (5 documents)**: Mantle block explorer (beginner and deep-dive editions), a DEX comparative deep dive, an AI agent trading path guide, and an asset-withdrawal guide. The deep-dive edition covers modular architecture, Rollup vs. Validium classification, L2's dual gas structure, and why Mantle sits at L2Beat Stage 0\
   Link to the documents: https://kyle-park.notion.site/Docs-3675e2b105168061b410fdf801eeaac8
 
-- **Co-hosted the Korean X livestream and presented its technical session (Apr - Sep 2026)**: co-hosted from April, ran the Phase 1 and 2 hackathon segments with ClawHack agent traders as guests, and from July presented a technical session monthly. July's RFQ session set AMM, on-chain CLOB, RFQ, and intent execution side by side and became a standalone X article. August's bridge session covered Lock & Mint against Burn & Mint and Mantle's bridge routes: the canonical bridge, LayerZero OFT, and Chainlink CCIP. September's RPC workshop compared seven Mantle RPC providers and priced three of them per month by app type. The August live post drew 18.0K views, the Korean account's second-highest over Apr-Sep 2026
+- **Co-hosted the Korean X livestream and presented its technical session (Apr - Sep 2026)**: co-hosted from April, ran the Phase 1 and 2 hackathon segments with ClawHack agent traders as guests, and from July presented a technical session monthly. July's RFQ session set AMM, on-chain CLOB, RFQ, and intent execution side by side and became a standalone X article. August's bridge session covered Lock & Mint against Burn & Mint and Mantle's bridge routes: the canonical bridge, LayerZero OFT, and Chainlink CCIP. September's RPC workshop compared seven Mantle RPC providers and priced three of them per month by app type. The X post carrying the August livestream drew 18.0K views, the Korean account's second-highest over Apr-Sep 2026
 
 - **Campus tour of university blockchain clubs (May 2026)**: presented Mantle's builder programs and hackathon tracks at seven clubs over three weeks: KAIST, Korea University, Sungkyunkwan, Ewha Womans, Ajou, Inha, and Kwangwoon. Ran a Mantle testnet contract deployment lab at Sungkyunkwan and a live build of a stablecoin pair-trading bot at Ewha. The Korea University, Ewha, Sungkyunkwan, and KAIST clubs posted session recaps on their X accounts. In the campus research contest introduced on the tour, a Sungkyunkwan club member won the grand prize and the Kwangwoon club won the most-participating-club award
 
@@ -156,7 +156,7 @@ _Tech Stack: Go, Rust_
 _Tech Stack: TypeScript, Node.js, GitHub Actions_ · https://github.com/kyle-park-io/trustline
 
 - Built after leading the response to a breach, a Next.js server taken through React2Shell (CVE-2025-55182). **9 scan modules** check the off-chain stack before deploy for the mistakes that let one breach spread: secrets in build output, management ports open to the internet, over-privileged cloud IAM, account-wide credentials, persistence artifacts, and disabled audit logs
-- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. An on-chain command finds the C2 address the EtherRAT malware reads from an Ethereum contract and the operator's other C2 contracts, and adds them to the IOC dataset so other projects can match them
+- Published on **npm** (`npx trustline-scanner scan .`) and as a **GitHub Marketplace Action**, with SARIF output for GitHub code scanning. A scanner subcommand that reads Ethereum finds the C2 address the EtherRAT malware reads from an Ethereum contract and the operator's other C2 contracts, and adds them to the IOC dataset so other projects can match them
 
 ### **skills**: Agent Skill Marketplace and Guardrail Hooks for Claude Code and Codex
 
@@ -170,7 +170,7 @@ _Tech Stack: Agent skills, Python, Bash_
 
 _Tech Stack: Markdown, Node.js, Python_
 
-- Instruction files for agent-written Korean copy, screen copy, translation, talk scripts, and documents. Each rule cites the feedback, post, or measurement behind it, and corrections update both
+- Instruction files for agent-written Korean copy, screen copy, translation, talk scripts, and documents. Each rule cites the feedback, post, or measurement behind it, and each correction updates the rule and its check pattern in the same change
 - The document checker and the agent PreToolUse hook share banned patterns, checked for parity before commit; a deck toolchain builds PDF, HTML, script, and slides from one master and checks contrast and layout
 
 ### **muster**: Local Scheduler Dashboard
@@ -185,7 +185,7 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
 
 - **1st Place, DeFi & Composability Track, and Mantle Incubation Grant, Mantle Global Hackathon 2025** (DOOR Protocol) | Feb 2026
   - 500+ submissions from 2,000+ builders across 6 tracks and $150K in prizes. Only 3 teams received Mantle incubation grants for long-term support after the event
-  - A DeFi rate protocol on Mantle that splits yield and risk into senior and junior tranches. Wrote all of it: the proposal, the 7 core contracts for ERC-4626 tranche vaults, a safety module, withdrawal epochs, and a rate oracle, the backend API, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
+  - A DeFi rate protocol on Mantle that splits yield and risk into senior and junior tranches. Planned and built the entire entry: the proposal, the 7 core contracts for ERC-4626 tranche vaults, a safety module, withdrawal epochs, and a rate oracle, the backend API, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
 - **3rd Place, Bitcoin on Solana Track (Zeus Network), Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
   - Built the Orca Whirlpool pool, position, and liquidity transactions for the entry, Stream Square
 - **Engineer General Machinery** (Human Resources Development Service of Korea) | Dec 2020
@@ -208,5 +208,5 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
     Repository: https://github.com/orakle-7th-sda/defi-searcher
   - Plus a 17-category DeFi ecosystem taxonomy and a cross-category stablecoin map
 
-- **6th Cohort BTCFi Bitcoin Options Service** (May 2025 - Nov 2025): one-way option PoC on BitVMX-CPU, a Go backend (REST API, WebSocket, PostgreSQL), and the BitStriker frontend (React, MutinyNet wallet)
+- **6th Cohort BTCFi Bitcoin Options Service** (May 2025 - Nov 2025): a BitVMX-CPU PoC that computes a call option's payoff off-chain for Bitcoin Script to verify, a Go backend (REST API, WebSocket, PostgreSQL), and the BitStriker frontend (React, MutinyNet wallet)
 

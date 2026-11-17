@@ -39,7 +39,7 @@ _기술 스택: TypeScript, Next.js, PostgreSQL, Solidity_
 **트레이딩 시스템 백엔드 엔지니어** | 2025년 4월 - 2025년 11월 (8개월)\
 _기술 스택: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX 거래소 간 차익거래 시스템 Rothchild**: Binance, Bybit, Bithumb, Upbit, 무기한 선물 DEX를 오가며 실거래로 운영한 팀의 Taker-Taker·Maker-Taker 차익거래 시스템에서 주문, 잔고, PnL 콘솔 백엔드를 담당. 공통 거래소 인터페이스에 주문 교체·조회와 재연결을 더해 8개 거래소에 Solana DEX를 더한 주문 연동을 맡고, 자산별 Delta를 잔고가 가장 많은 거래소에서 청산하는 Delta 관리와 실시간 PnL 대시보드 구현
+- **CEX 거래소 간 차익거래 시스템 Rothchild**: Binance, Bybit, Bithumb, Upbit, 무기한 선물 DEX를 오가며 실거래로 운영한 팀의 Taker-Taker·Maker-Taker 차익거래 시스템에서 주문, 잔고, PnL 콘솔 백엔드를 담당. 공통 거래소 인터페이스에 주문 교체·조회와 재연결을 더해 8개 거래소에 Solana DEX를 더한 주문 연동을 맡고, 자산별로 한쪽만 체결되어 남은 포지션(Delta)을 합산해 잔고가 가장 많은 거래소에서 청산하는 Delta 관리 모듈과 실시간 PnL 대시보드 구현
 - **Solana DEX 온체인 트레이딩 봇**: 신규 페어 탐지, Back From The Dead, Fat LP 분석 알파 전략을 실행하는 Go 봇을 수집, 감시, 실행 서버로 나눠 설계. 홀더 분석 서비스 두 개가 따로 부르던 Solscan API를 호출 조정 서비스 하나로 모아 호출 한도를 한 곳에서 적용. Solana 메인넷에서 실주문으로 운영
 - **뉴스·KOL 시그널 트레이딩 엔진**: Telegram 비공개 채널과 X 리스트에서 모은 글을 OpenAI 어시스턴트 여러 개의 평균 점수로 판정하는 모듈을 구현하고, 판정 결과를 팀의 Binance·Bybit USDT 선물 주문 엔진에 연결해 실주문으로 실행
 - **거래소 상장 스나이퍼**: Upbit·Bithumb 상장 공지의 새 심볼을 gRPC로 도쿄·싱가포르 주문 서버에 넘겨 Binance 선물, MEXC, Bybit에 주문하는 시스템을 팀과 함께 구현. VPS 20대에 나눠 둔 자체 공지 수집기가 2025년 6월 26일 시험에서 상장 공지 한 건을 외부 공지 피드 API보다 269ms 먼저 수신

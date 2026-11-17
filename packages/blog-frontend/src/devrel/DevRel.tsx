@@ -674,7 +674,7 @@ const DevRel: Component = (): JSX.Element => {
                   a vault app, a trading screen, bots, and an indexer
                 </li>
                 <li>
-                  The August live post reached <strong>18.0K</strong>, the
+                  The X post carrying the August livestream reached <strong>18.0K</strong>, the
                   second-highest-reach post on the account over Apr-Sep 2026,
                   behind only the World Cup campaign
                 </li>
