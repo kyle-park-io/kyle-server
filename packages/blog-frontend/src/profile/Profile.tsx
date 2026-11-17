@@ -260,17 +260,17 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-item__period">Nov 2026</span>
                 </div>
                 <p class="profile-item__role">
-                  Single-writer matching engine and double-entry settlement
-                  ledger · Rust
+                  Exchange matching engine and settlement ledger · Rust
                 </p>
                 <p class="profile-item__desc">
-                  Replaying 10 different synthetic order logs under 16
-                  conditions, 320 replays in all, gave 0 state-hash mismatches,
-                  and 2,000 tail corruptions of one log and 400 kill -9 runs
-                  gave 0 prefix-recovery failures. Recovering from a snapshot
-                  plus the log tail cut the recovery of a 10.2-million-record
-                  log from a median 5.43 s of full replay to 1.65 s with a
-                  snapshot every 1,000,000 records (Nov 2026, desktop WSL2).
+                  A single-writer engine matches orders on one thread in
+                  input-log order. 320 replays of 10 synthetic order logs all
+                  reached the same state, and 2,000 truncated or corrupted log
+                  tails and 400 forced process kills gave 0 failures to recover
+                  up to the last intact order. Replaying only the log after a
+                  state snapshot cut the recovery of a 10.2-million-record log
+                  from a median 5.43 s of full replay to 1.65 s in the slowest
+                  case (Nov 2026, desktop).
                 </p>
               </div>
 
@@ -280,17 +280,17 @@ const Profile: Component = (): JSX.Element => {
                   <span class="profile-item__period">Nov 2026</span>
                 </div>
                 <p class="profile-item__role">
-                  Fault tests of a messaging pipeline for article judgments ·
-                  Rust, Python, Kafka
+                  Article-judgment messaging pipeline and fault tests on 4
+                  brokers · Rust, Python, Kafka
                 </p>
                 <p class="profile-item__desc">
-                  Killing a message consumer with SIGKILL 86 times, the Redis
-                  Streams, NATS JetStream, and Kafka adapters lost 0 messages
-                  with ack after processing, and a primary-key sink took 0
-                  duplicates while a sink without the key took 9, 16, and 1,167.
-                  A transactional outbox had 0 mismatches on all 4 adapters with
-                  20 producer kills and 20 relay kills (Nov 2026; a fake judge
-                  and synthetic articles).
+                  Killing message consumers 86 times (SIGKILL), acking after
+                  processing lost 0 messages on Redis Streams, NATS JetStream,
+                  and Kafka, and a result table keyed on the article ID took 0
+                  duplicates while a table without the key took 9, 16, and
+                  1,167. A transactional outbox had 0 mismatches on all 4
+                  brokers with 20 producer kills and 20 relay kills (Nov 2026; a
+                  fake judge and synthetic articles).
                 </p>
               </div>
 

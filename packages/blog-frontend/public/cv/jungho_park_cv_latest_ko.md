@@ -90,13 +90,13 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 - 실습 모듈, 회차 설정, 체인 어댑터로 나눠 설정 값 하나로 같은 코드가 Mantle, Ethereum Sepolia, 로컬 Anvil에서 실행되는 키트. ERC-3009 가스 대납, ERC-2612 permit 한도 안에서만 송금하는 에이전트 지갑 도구, 지갑 서명 OAuth로 claude.ai와 Codex에 붙는 원격 MCP 서버
 - fail-closed 검사, 멱등 충전, 멈춘 송금의 reconciliation. 운영 부하 시험에서 찾은 Vercel 함수 사이의 논스 충돌을 PostgreSQL advisory lock과 지갑별 논스 테이블로 직렬화해, 가상 학생 30명이 2초 안에 몰아 보낸 송금을 모두 처리
 
+**matching-ledger**: 거래소 매칭 엔진과 정산 원장 | _Rust_
+
+- 스레드 하나가 입력 로그 순서대로 주문을 체결하는 single-writer 매칭 엔진과, 체결마다 같은 금액을 한 계정에서 빼고 다른 계정에 더하는 정산 원장. 합성 주문 로그 320회 재생에서 상태 불일치 0건, 프로세스 강제 종료 400회에서 복구 실패 0건, 스냅샷 복구로 로그 1,020만 건의 복구가 5.43초에서 1.65초(2026년 11월 측정, 데스크탑)
+
 **Binance 삼각 차익거래 엔진** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
 - Binance FIX API에 Ed25519 서명으로 로그온하고 시세와 주문 세션을 SBE 바이너리 인코딩으로 여는 Rust 엔진. 호가가 바뀔 때마다 BTC·ETH·USDT 삼각형 양방향의 테이커 수수료를 뺀 수익률을 계산해 임계값을 넘는 방향만 채택
-
-**Polymarket 15분 시장 complete set 차익거래 봇** | _Go, Rust_
-
-- 두 결과 토큰의 최우선 매도호가 합이 $1 미만이면 두 토큰을 함께 사는 봇. v1은 29ms를 넘은 호가로 만든 신호를 버리는 stale quote 필터, v2는 수수료 표로 다시 정한 매수 임계값과 미리 서명한 FOK 주문으로 체결되지 않은 주문이 호가창에 남지 않게 함
 
 **skills**: Claude Code·Codex 에이전트 스킬 마켓플레이스와 가드레일 훅 | _에이전트 스킬, Python, Bash_
 
