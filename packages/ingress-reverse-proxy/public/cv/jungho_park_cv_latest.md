@@ -90,13 +90,13 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 - Lab modules, per-event config, and chain adapters, so one setting runs the same code on Mantle, Ethereum Sepolia, or local Anvil. ERC-3009 gas relaying, agent wallet tools capped by an ERC-2612 permit, and a remote MCP server on wallet-signature OAuth for claude.ai and Codex
 - Fail-closed money paths, idempotent funding, and reconciliation of stalled sends. A load test found Vercel instances reusing the wallet nonce; a PostgreSQL advisory lock and a per-wallet nonce table now serialize sends, and 30 simulated students sending within 2 seconds all went through
 
+**matching-ledger**: Exchange Matching Engine and Settlement Ledger | _Rust_
+
+- Single-writer matching engine that matches orders on one thread in input-log order, with a settlement ledger that moves each fill's amount out of one account and into another. 0 state mismatches over 320 replays, 0 recovery failures over 400 forced process kills, and snapshot recovery of a 10.2-million-record log in 1.65 s instead of 5.43 s (November 2026, desktop)
+
 **Binance Triangular Arbitrage Engine** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
 - Rust engine that logs on to the Binance FIX API with an Ed25519 signature and opens market data and order sessions in SBE binary encoding. On every book update it prices both directions of the BTC, ETH, and USDT triangle after taker fees and keeps the direction that clears the threshold
-
-**Polymarket 15-Minute Market Complete-Set Arbitrage Bot** | _Go, Rust_
-
-- Buys both outcomes when their best asks sum below $1. v1 drops signals built on quotes over 29ms stale; v2 re-derives the threshold from the fee table and pre-signs FOK orders so no unfilled order rests on the book
 
 **skills**: Agent Skill Marketplace and Guardrail Hooks for Claude Code and Codex | _Agent skills, Python, Bash_
 
