@@ -92,7 +92,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **matching-ledger**: Exchange Matching Engine and Settlement Ledger | _Rust_
 
-- Single-writer matching engine that matches orders on one thread in input-log order, with a settlement ledger that moves each fill's amount out of one account and into another. 0 state mismatches over 320 replays, 0 recovery failures over 400 forced process kills, and snapshot recovery of a 10.2-million-record log in 1.65 s instead of 5.43 s (November 2026, desktop)
+- For matching-engine consistency and crash recovery, built a single-writer matching engine that matches orders on one thread in input-log order, with a settlement ledger. 320 replays reached the same state every time, 400 forced process kills lost 0 acknowledged orders, and snapshots cut recovery of a 10.2-million-record log from 5.43 s to 1.65 s. Measured in November 2026
 
 **Binance Triangular Arbitrage Engine** | _Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
