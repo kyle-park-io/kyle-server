@@ -351,19 +351,19 @@ const Quant: Component = (): JSX.Element => {
                   </div>
                 </div>
 
-                {/* Kronon Labs code re-measured */}
+                {/* Kronon Labs feature rebuild tests */}
                 <div class="quant-experience__project">
                   <h4 class="quant-experience__project-title">
-                    Kronon Labs Code Re-Measured (Nov 2026)
+                    Kronon Labs Feature Rebuild Tests (Nov 2026)
                   </h4>
                   <p class="quant-experience__project-desc">
                     Rebuilt parts of this work after leaving and tested them
                     under the same conditions on a desktop. The Solscan call
-                    coordinator: behind the same mock limit (1,000 calls per 60
-                    seconds), the earlier structure drew 155 HTTP 429 responses
-                    and a priority channel with a token bucket drew 0, and a
-                    ring buffer carrying the original code's protocol lost calls
-                    in every stress run. Listing notices: a new connection per
+                    coordinator: behind the same mock limit (1,000 calls per
+                    minute), the structure used at Kronon Labs drew 155 HTTP 429
+                    responses and a priority channel with a token bucket drew 0,
+                    and a rebuild of the Kronon Labs ring buffer lost calls in
+                    all 72 stress runs. Listing notices: a new connection per
                     request gave a p99 of 62.0 ms against 18.8 to 21.5 ms with
                     connection reuse, and at a 1-second polling interval the
                     interval outweighs the request latency. Delta liquidation:
@@ -371,9 +371,10 @@ const Quant: Component = (): JSX.Element => {
                     under mock balances and assumed fees, splitting across
                     venues cost 6.8 bps less than the venue with the largest
                     balance, and the difference disappeared with a zero minimum
-                    transfer. The news scoring harness could not tell two
-                    instruction versions apart, and accuracy was not measured
-                    because no answer labels exist.
+                    transfer. News scoring: the revised prompt's scores moved
+                    less over repeated calls (mean standard deviation 1.73
+                    against 2.92), and accuracy was not measured because no
+                    answer labels exist.
                   </p>
                   <div class="quant-experience__tech">
                     <span class="quant-experience__tech-label">Stack:</span>
