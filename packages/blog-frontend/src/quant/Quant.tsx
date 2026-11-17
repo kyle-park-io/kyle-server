@@ -362,17 +362,18 @@ const Quant: Component = (): JSX.Element => {
                     coordinator: behind the same mock limit (1,000 calls per
                     minute), the structure used at Kronon Labs drew 155 HTTP 429
                     responses and a priority channel with a token bucket drew 0,
-                    and a rebuild of the Kronon Labs ring buffer lost calls in
-                    all 72 stress runs. Listing notices: a new connection per
-                    request gave a p99 of 62.0 ms against 18.8 to 21.5 ms with
-                    connection reuse, and at a 1-second polling interval the
-                    interval outweighs the request latency. Delta liquidation:
-                    replaying 24 hours of Binance, Bybit, and MEXC order books
-                    under mock balances and assumed fees, splitting across
-                    venues cost 6.8 bps less than the venue with the largest
-                    balance, and the difference disappeared with a zero minimum
-                    transfer. News scoring: the revised prompt's scores moved
-                    less over repeated calls (mean standard deviation 1.73
+                    and a rebuild of the Kronon Labs ring buffer lost IDs in all
+                    72 stress runs that pushed and popped 1,000,000 IDs. Listing
+                    notices: a new connection per request gave a p99 of 62.0 ms
+                    against 18.8, 20.9, and 21.5 ms in the three
+                    connection-reuse modes, and at a 1-second polling interval
+                    the interval outweighs the request latency. Delta
+                    liquidation: replaying 24 hours of Binance, Bybit, and MEXC
+                    order books under mock balances and assumed fees, splitting
+                    across venues cost 6.8 bps less than the venue with the
+                    largest balance, and the difference disappeared with a zero
+                    minimum transfer. News scoring: the revised prompt's scores
+                    moved less over repeated calls (mean standard deviation 1.73
                     against 2.92), and accuracy was not measured because no
                     answer labels exist.
                   </p>

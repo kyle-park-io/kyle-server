@@ -414,7 +414,7 @@ const DevRel: Component = (): JSX.Element => {
                 <li>
                   A Korean participant's agent took first place on the volume
                   track at <strong>$10.31M</strong>, and the 12 Korean wallets
-                  tracked made up 26.88% of total volume
+                  tracked made up 26.88% of the contest's $45.5M total volume
                 </li>
                 <li>
                   Pulled Korean results from the leaderboard API into a report
@@ -769,9 +769,10 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Run the Korean official account. Over Apr-Sep 2026 that came to
-                279 posts and 246K impressions at a 1.74% engagement rate, 1.7×
-                the global account's 1.03%, with Korea-originated campaigns and
-                event announcements taking all six highest-reach slots.
+                279 posts and 246K impressions in total at a 1.74% engagement
+                rate per impression, 1.7× the global account's 1.03%, with
+                Korea-originated campaigns and event announcements taking all
+                six highest-reach slots.
               </p>
               <a
                 href={ACCOUNT_KR}

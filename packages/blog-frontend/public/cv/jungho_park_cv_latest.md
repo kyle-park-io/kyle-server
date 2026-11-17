@@ -24,13 +24,13 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 *Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network*\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**, a $120K two-phase global hackathon: recruited Korean entrants to the ClawHack AI trading agent contest, where a Korean participant's agent won the volume track at $10.31M and 12 tracked Korean wallets made 26.88% of volume, then ran a Phase 2 hackathon workshop at the Seoul hacker house for 100+ builders
+- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**, a $120K two-phase global hackathon: recruited Korean entrants to the ClawHack AI trading agent contest, where a Korean participant's agent won the volume track at $10.31M and 12 tracked Korean wallets made 26.88% of the contest's $45.5M total volume, then ran a Phase 2 hackathon workshop at the Seoul hacker house for 100+ builders
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: built the operations site, pay-lab v1, for a workshop where builders connected their AI agents to Q402 over MCP and paid on Mantle mainnet from chat with no wallet app or gas. 42 builders made 488 mainnet payments in three hours
 
 - **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers translate Mantle's English X posts into Korean and rewrite them per channel, and nothing is sent until a person approves the translation and then the channel copy. The Korean official account has published through it since July 2026 and still does
 
-- **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%
+- **Ran the Korean official account**: 279 posts, 246K impressions in total, and a 1.74% engagement rate per impression over Apr-Sep 2026, 1.7× the global account's 1.03%
 
 - **Taught a stablecoin payments class at Inha University (Oct 2026)**: in labs run on pay-lab, 30 students sent testnet USDC from phone wallets to the person next to them, and 22 signed a spending limit for an AI agent and paid through the agent within it
 
@@ -42,7 +42,7 @@ _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (EC
 - **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system, traded live across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Added order replacement, lookup, and reconnection to the shared exchange interface to connect orders on 8 exchanges plus Solana DEX, and built a delta manager that clears each asset's delta on the exchange holding the largest balance and a real-time PnL dashboard
 - **Solana DEX On-Chain Trading Bots**: designed Go bots running alpha strategies as separate collector, listener, and executor servers. Moved the two holder-analysis services' direct Solscan calls behind one call-coordination service that enforces the rate limit in one place. Ran with live orders on Solana mainnet
 - **News and KOL Signal Trading Engine**: built the module that scores posts from private Telegram channels and X lists by averaging several OpenAI assistants, and connected its verdicts to the team's Binance and Bybit USDT-futures order engine as live orders
-- **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit. A self-built notice collector spread over 20 VPSs received the same notice 269 ms ahead of an external notice-feed API (June 2025 test)
+- **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit. A self-built notice collector spread over 20 VPSs received one listing notice 269 ms ahead of an external notice-feed API in a June 26, 2025 test
 
 ### **Medium Inc.**
 
