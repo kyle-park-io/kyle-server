@@ -125,8 +125,8 @@ const Profile: Component = (): JSX.Element => {
                 <p class="profile-item__desc">
                   In a cross-exchange arbitrage system built with the team,
                   owned the console backend for orders, balances, PnL, and delta
-                  management across 8 exchanges and Solana DEX. Built Solana DEX
-                  on-chain trading bots.
+                  management across 8 exchanges plus Solana DEX. Built Solana
+                  DEX on-chain trading bots.
                 </p>
                 <a href="/quant" class="profile-item__link">
                   See the quant work →
