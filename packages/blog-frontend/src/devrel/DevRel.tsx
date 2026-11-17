@@ -481,10 +481,10 @@ const DevRel: Component = (): JSX.Element => {
                   60 one-to-three batch settlements
                 </li>
                 <li>
-                  Built the night's operations site as the first version of
-                  pay-lab: wallet registration, the live leaderboard, quest
-                  verification, a QR payment bridge for phone-only attendees,
-                  and the staff console.{' '}
+                  Built the night's operations site as pay-lab v1: wallet
+                  registration, the live leaderboard, quest verification, a QR
+                  payment bridge for phone-only attendees, and the staff
+                  console.{' '}
                   <strong>
                     Every badge and quest was judged by reading the chain
                   </strong>
@@ -573,9 +573,9 @@ const DevRel: Component = (): JSX.Element => {
                 </li>
                 <li>
                   Delegation came next. Students signed a spending limit for an
-                  AI agent in claude.ai or Codex, watched a request past the
-                  limit get refused by both the lab server and the USDC
-                  contract, and reset the limit themselves
+                  AI agent in claude.ai or Codex, sent it a request past the
+                  limit that both the lab server and the USDC contract refused,
+                  and reset the limit themselves
                 </li>
                 <li>
                   Closed on the Korean bills issue by issue, read against the

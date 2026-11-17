@@ -275,7 +275,7 @@ const Quant: Component = (): JSX.Element => {
                     take-profit and stop-loss on OKX. It ran on Kubernetes on
                     GCP in Seoul and Tokyo. In my first days I ran it in a dev
                     environment, reviewed the code with the team, and wrote up
-                    seven improvements covering configuration, error handling,
+                    improvements covering configuration, error handling,
                     logging, unit tests, locking, verifying strategies against
                     stored ticks, and coding conventions.
                   </p>
