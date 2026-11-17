@@ -2,7 +2,7 @@
 
 **Backend Engineer for Quantitative Trading and Blockchain Systems**
 
-Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-chain bridges in Rust, Go, and TypeScript. At Kronon Labs, owned 8-exchange order connectivity, PnL, and delta management in the team's arbitrage system. In 2026, joined Mantle, a global company, as Developer Relations Engineer, running Korea builder onboarding for its hackathon and a mainnet payments workshop and building the Korea team's content pipeline that the Korean official account still uses.
+Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-chain bridges in Rust, Go, and TypeScript. At Kronon Labs, owned 8-exchange order connectivity, PnL, and delta management in the team's arbitrage system. In 2026, joined Mantle, a global company, as Developer Relations Engineer, running Korea builder onboarding for its hackathon and a mainnet payments workshop and building the Korea team's content pipeline, through which the Korean official account still posts.
 
 ---
 
