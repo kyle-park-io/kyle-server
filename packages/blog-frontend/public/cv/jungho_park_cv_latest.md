@@ -28,7 +28,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: built the operations site, pay-lab v1, for a workshop where builders connected their AI agents to Q402 over MCP and paid on Mantle mainnet from chat with no wallet app or gas. 42 builders made 488 mainnet payments in three hours
 
-- **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers translate Mantle's English X posts into Korean and rewrite them per channel, and nothing is sent until a person approves the translation and then the channel copy. The Korean official account has published through it since July 2026 and still does
+- **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers collect Mantle's English X posts, translate them into Korean and rewrite them per channel; it began with a person approving each stage and automated collection, translation drafts and channel rewrites in turn. The Korean official account has published through it since July 2026 and still does
 
 - **Ran the Korean official account**: 279 posts, 246K impressions in total, and a 1.74% engagement rate per impression over Apr-Sep 2026, 1.7× the global account's 1.03%
 
