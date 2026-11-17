@@ -263,14 +263,16 @@ const Profile: Component = (): JSX.Element => {
                   Exchange matching engine and settlement ledger · Rust
                 </p>
                 <p class="profile-item__desc">
-                  A single-writer engine matches orders on one thread in
-                  input-log order. 320 replays of 10 synthetic order logs all
-                  reached the same state, and 2,000 truncated or corrupted log
-                  tails and 400 forced process kills gave 0 failures to recover
-                  up to the last intact order. Replaying only the log after a
-                  state snapshot cut the recovery of a 10.2-million-record log
-                  from a median 5.43 s of full replay to 1.65 s in the slowest
-                  case (Nov 2026, desktop).
+                  For matching-engine consistency and crash recovery, a
+                  single-writer engine matches orders on one thread in input-log
+                  order, so every rerun yields the same fills. 320 replays of 10
+                  synthetic order logs reached the same state every time,
+                  truncating or corrupting a log tail at 2,000 positions still
+                  recovered everything before the damage, and 400 forced process
+                  kills lost 0 acknowledged orders. Starting from a snapshot cut
+                  recovery of a 10.2-million-record log from a median 5.43 s of
+                  full replay to 1.65 s, even when the crash left the most log
+                  to replay. Measured in November 2026 on a desktop.
                 </p>
               </div>
 
@@ -284,13 +286,16 @@ const Profile: Component = (): JSX.Element => {
                   brokers · Rust, Python, Kafka
                 </p>
                 <p class="profile-item__desc">
-                  Killing message consumers 86 times (SIGKILL), acking after
-                  processing lost 0 messages on Redis Streams, NATS JetStream,
-                  and Kafka, and a result table keyed on the article ID took 0
-                  duplicates while a table without the key took 9, 16, and
-                  1,167. A transactional outbox had 0 mismatches on all 4
-                  brokers with 20 producer kills and 20 relay kills (Nov 2026; a
-                  fake judge and synthetic articles).
+                  To confirm that judgments land exactly once when a consumer
+                  dies mid-processing, killed message consumers 86 times per
+                  broker: acking after processing lost 0 messages on Redis
+                  Streams, NATS JetStream, and Kafka, and the result table keyed
+                  on the article ID took 0 duplicates, while a table without the
+                  key took duplicates on all three. Because a DB write and a
+                  publish can fail separately, a transactional outbox was tested
+                  too and kept 0 mismatched rows on all 4 brokers across 40
+                  producer and relay kills. Measured in November 2026 with a
+                  fake judge and synthetic articles.
                 </p>
               </div>
 
