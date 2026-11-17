@@ -144,7 +144,7 @@ _기술 스택: Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 - Binance FIX API에 Ed25519 서명으로 로그온하고 시세와 주문 세션을 SBE 바이너리 인코딩으로 여는 Rust 엔진. 스냅샷과 증분 갱신으로 호가창을 유지하고 신규 주문, 취소, 체결 보고를 처리
 - 호가가 바뀔 때마다 BTC·ETH·USDT 삼각형의 정방향과 역방향을 계산해 심볼별 테이커 수수료를 뺀 수익률이 임계값을 넘는 방향만 채택. 주문 실행은 기본으로 꺼 둔 모의 실행이고 기회마다 Telegram 알림
 
-### **Polymarket 15분 시장 complete set 차익거래 봇**
+### **Polymarket 15분 마켓 complete set 차익거래 봇**
 
 _기술 스택: Go, Rust_
 

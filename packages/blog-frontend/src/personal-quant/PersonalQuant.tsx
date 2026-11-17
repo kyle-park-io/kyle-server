@@ -52,15 +52,15 @@ const PersonalQuant: Component = (): JSX.Element => {
               <div class="strategy-card__section">
                 <h4 class="strategy-card__subtitle">Strategy Overview</h4>
                 <p class="strategy-card__description">
-                  Arbitrage strategy targeting Polymarket's 15-minute chart data
+                  Arbitrage strategy targeting Polymarket's 15-Minute Markets
                   that exploits market inefficiencies in binary outcome markets.
-                  The system monitors prediction markets where the sum of Yes
-                  and No outcome prices falls below $1.00. Once both legs fill, the
-                  pair is worth exactly $1.00 at resolution or by merging, so the
-                  profit is locked; the open risk is one leg filling without the
-                  other. This strategy takes advantage of
-                  temporary mispricing in decentralized prediction markets where
-                  the total probability should theoretically equal 100% ($1.00).
+                  The system monitors prediction markets where the sum of Up and
+                  Down outcome prices falls below $1.00. Once both legs fill,
+                  the pair is worth exactly $1.00 at resolution or by merging,
+                  so the profit is locked; the open risk is one leg filling
+                  without the other. This strategy takes advantage of temporary
+                  mispricing in decentralized prediction markets where the total
+                  probability should theoretically equal 100% ($1.00).
                 </p>
               </div>
 
@@ -98,7 +98,7 @@ const PersonalQuant: Component = (): JSX.Element => {
                 <h4 class="strategy-card__subtitle">Key Features</h4>
                 <ul class="strategy-card__features">
                   <li>
-                    Monitors binary outcome markets (Yes/No) where price sum
+                    Monitors binary outcome markets (Up/Down) where price sum
                     &lt; $1.00
                   </li>
                   <li>
@@ -110,16 +110,17 @@ const PersonalQuant: Component = (): JSX.Element => {
                     markets
                   </li>
                   <li>
-                    Locks in $1.00 per pair once both legs fill; fees and one-leg
-                    fills decide whether it pays
+                    Locks in $1.00 per pair once both legs fill; fees and
+                    one-leg fills decide whether it pays
                   </li>
                   <li>
-                    Implemented in Rust and Go; skips a signal when the two prices
-                    are more than 29 ms apart or the older one is more than 29 ms old
+                    Implemented in Rust and Go; skips a signal when the two
+                    prices are more than 29 ms apart or the older one is more
+                    than 29 ms old
                   </li>
                   <li>
-                    Order execution is off by default; each opportunity is logged
-                    and sent as a Telegram alert
+                    Order execution is off by default; each opportunity is
+                    logged and sent as a Telegram alert
                   </li>
                 </ul>
               </div>
@@ -155,10 +156,10 @@ const PersonalQuant: Component = (): JSX.Element => {
                 <p class="strategy-card__description">
                   Triangular arbitrage strategy that identifies and exploits
                   price inefficiencies across three currency pairs on Binance
-                  (e.g., BTC/USDT → ETH/BTC → ETH/USDT). The system receives order
-                  books over Binance's FIX SBE market data session, checks both
-                  directions of the triangle (USDT → BTC → ETH → USDT and the
-                  reverse), and computes the profit left after fees.
+                  (e.g., BTC/USDT → ETH/BTC → ETH/USDT). The system receives
+                  order books over Binance's FIX SBE market data session, checks
+                  both directions of the triangle (USDT → BTC → ETH → USDT and
+                  the reverse), and computes the profit left after fees.
                 </p>
               </div>
 
@@ -208,8 +209,8 @@ const PersonalQuant: Component = (): JSX.Element => {
                     and order placement
                   </li>
                   <li>
-                    Profit computed after each pair's taker fee read from the account
-                    (0.1% if the lookup fails); trades only above 0.3%
+                    Profit computed after each pair's taker fee read from the
+                    account (0.1% if the lookup fails); trades only above 0.3%
                   </li>
                 </ul>
               </div>
