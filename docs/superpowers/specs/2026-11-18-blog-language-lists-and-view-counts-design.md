@@ -290,7 +290,9 @@ Redis keys:
 | `views:seen:<slug>:<id>` | string, `EX 86400` | dedupe marker  |
 
 `VIEW`: `SET views:seen:<slug>:<id> 1 NX EX 86400`; if it was set,
-`HINCRBY views:count <slug> 1`; reply with the total either way. `VIEWS`
+`HINCRBY views:count <slug> 1`; reply with the total either way. Built
+2026-11-19 as one Lua script (`EVAL`), so a failure can no longer leave the
+marker set without the count. `VIEWS`
 reads with `HMGET`; a missing field is `0`. The counter server checks slug
 syntax (`^[a-z0-9]+(-[a-z0-9]+)*$`) and caps `VIEWS` at 100 slugs; it does not
 know which posts exist.
@@ -355,6 +357,29 @@ same-origin`, or the `Origin` host for browsers that do not send it; a
   without a CORS preflight, and each of those visitors brings a new address
   past the per-address limit. Such a POST is answered with the current
   count, like a crawler's.
+
+Changed 2026-11-19, after the final review of the first build:
+
+- An IPv6 address counts as its /64 in the `writeLimit` bucket and in the
+  visitor ID (`redirect.AddressKey`). ISPs commonly give a subscriber a whole
+  /64, so one person could otherwise pick a new address for each POST. This
+  also applies to `api-quant`'s limit and to the online count.
+- The post list is read by one request at a time without holding the lock.
+  While that read runs, other requests get the last list at once, or wait for
+  that same read when there is no list yet. After a failed read the blog is
+  not asked again for 10 s even before the first success; before, every
+  request read it again, one after another, up to 3 s each.
+- `GET` asks the counter server in chunks of 100 slugs, its `VIEWS` cap, and
+  merges the answers.
+- A 502 for an unusable counter reply is logged on the 1st and every 20th in
+  a row, like the 503.
+- The 429 from `writeLimit` carries `Cache-Control: no-store`.
+- An `/api-views` request that takes 1 s or more is logged as
+  `slow views request` with its status and the time spent reading the post
+  list and asking the counter server. On 2026-11-18 between 23:51:35 and
+  23:53:09 KST four counted POSTs got no answer for over 20 s; the proxy log
+  showed each arriving and no post list or counter error after it, so it
+  could not say whether the proxy was waiting.
 
 ### 2.4 Blog pages (`packages/blog-site`)
 
