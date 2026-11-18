@@ -9,6 +9,7 @@
  */
 
 import { viewsLabel } from './views.ts';
+import { BASE, SITE_NAME } from '../config/site.ts';
 
 export type Lang = 'ko' | 'en';
 
@@ -17,13 +18,6 @@ export const LANGS: readonly Lang[] = ['ko', 'en'];
 export function isLang(value: unknown): value is Lang {
   return value === 'ko' || value === 'en';
 }
-
-const BASE = '/blog';
-/* The site's name is the domain, which is what the home page's own <title>
-   says. "Kyle Park | Blog" named a person and then a category, and read as a
-   different site's title next to the home page's `jungho.dev`. Every page
-   title on the blog is now `<what this page is> | jungho.dev`. */
-const SITE_NAME = 'jungho.dev';
 
 export function listPath(lang: Lang): string {
   return lang === 'en' ? `${BASE}/en` : BASE;

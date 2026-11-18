@@ -14,8 +14,12 @@ import (
 	"testing"
 	"time"
 
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zaptest/observer"
 	"gopkg.in/yaml.v3"
 
+	"ingress-reverse-proxy/logger"
 	"ingress-reverse-proxy/redirect"
 	"ingress-reverse-proxy/types"
 )
@@ -27,6 +31,7 @@ type fakeCounter struct {
 	lines   []string
 	replies map[string]string
 	addr    string
+	delay   time.Duration // how long to wait before each reply
 }
 
 func startCounter(t *testing.T, replies map[string]string) *fakeCounter {
@@ -56,12 +61,21 @@ func startCounter(t *testing.T, replies map[string]string) *fakeCounter {
 					f.mu.Unlock()
 					verb, arg, _ := strings.Cut(line, " ")
 					reply := f.replies[verb]
+					// "each" answers 1 for every slug asked, and refuses more
+					// than 100 the way the counter server does.
+					if verb == "VIEWS" && reply == "each" {
+						reply = countEach(arg)
+					}
 					// A VIEW reply names the post it was asked about.
 					if verb == "VIEW" && strings.Contains(reply, "%s") {
 						var v struct{ Slug string }
 						json.Unmarshal([]byte(arg), &v)
 						reply = fmt.Sprintf(reply, v.Slug)
 					}
+					f.mu.Lock()
+					delay := f.delay
+					f.mu.Unlock()
+					time.Sleep(delay)
 					c.Write([]byte(reply + "\n"))
 				}
 			}(c)
@@ -69,6 +83,19 @@ func startCounter(t *testing.T, replies map[string]string) *fakeCounter {
 	}()
 	t.Cleanup(func() { ln.Close() })
 	return f
+}
+
+func countEach(arg string) string {
+	slugs := strings.Split(arg, ",")
+	if len(slugs) > 100 {
+		return "ERR at most 100 slugs"
+	}
+	m := map[string]int{}
+	for _, s := range slugs {
+		m[s] = 1
+	}
+	b, _ := json.Marshal(m)
+	return string(b)
 }
 
 func (f *fakeCounter) seen() []string {
@@ -88,6 +115,8 @@ type fakeBlog struct {
 	hits   atomic.Int64
 	mu     sync.Mutex
 	slugs  []string
+	status int           // when set, index.json answers this instead
+	gate   chan struct{} // when set, index.json waits until it is closed
 }
 
 func startBlog(t *testing.T, slugs ...string) *fakeBlog {
@@ -100,6 +129,16 @@ func startBlog(t *testing.T, slugs ...string) *fakeBlog {
 		}
 		b.hits.Add(1)
 		b.mu.Lock()
+		gate, status := b.gate, b.status
+		b.mu.Unlock()
+		if gate != nil {
+			<-gate
+		}
+		if status != 0 {
+			w.WriteHeader(status)
+			return
+		}
+		b.mu.Lock()
 		items := make([]map[string]string, len(b.slugs))
 		for i, s := range b.slugs {
 			items[i] = map[string]string{"slug": s, "title": s}
@@ -109,6 +148,23 @@ func startBlog(t *testing.T, slugs ...string) *fakeBlog {
 	}))
 	t.Cleanup(b.server.Close)
 	return b
+}
+
+// fail makes index.json answer status; 0 puts it back.
+func (b *fakeBlog) fail(status int) {
+	b.mu.Lock()
+	b.status = status
+	b.mu.Unlock()
+}
+
+// hold makes index.json wait until the returned func is called.
+func (b *fakeBlog) hold() func() {
+	gate := make(chan struct{})
+	b.mu.Lock()
+	b.gate = gate
+	b.mu.Unlock()
+	var once sync.Once
+	return func() { once.Do(func() { close(gate) }) }
 }
 
 func (b *fakeBlog) add(slug string) {
@@ -129,9 +185,11 @@ func setup(t *testing.T, replies map[string]string) (*fakeCounter, *fakeBlog, *t
 	clock := time.Date(2026, 11, 18, 12, 0, 0, 0, time.UTC)
 	viewsNow = func() time.Time { return clock }
 	postList = &slugCache{}
+	badReplies.Store(0)
 	t.Cleanup(func() {
 		viewsNow = time.Now
 		postList = &slugCache{}
+		badReplies.Store(0)
 		delete(redirect.Redirects, "/blog")
 	})
 
@@ -468,5 +526,155 @@ func TestAPostFromTheBlogItselfCounts(t *testing.T) {
 				t.Errorf("counter saw %q, want one VIEW", got)
 			}
 		})
+	}
+}
+
+// observeLogs sends the proxy's log to a buffer the test can read.
+func observeLogs(t *testing.T) *observer.ObservedLogs {
+	t.Helper()
+	core, logs := observer.New(zapcore.InfoLevel)
+	prev := logger.Log
+	logger.Log = zap.New(core).Sugar()
+	t.Cleanup(func() { logger.Log = prev })
+	return logs
+}
+
+func TestAFailedFirstReadOfThePostListWaitsBeforeTryingAgain(t *testing.T) {
+	_, blog, link, clock := setup(t, defaultReplies)
+	blog.fail(http.StatusInternalServerError)
+	post := func() int {
+		return serveViews(link, http.MethodPost, "/api-views/rfq-deep-dive", browserUA).Code
+	}
+
+	if got := post(); got != http.StatusServiceUnavailable {
+		t.Fatalf("status %d while the blog fails, want 503", got)
+	}
+	*clock = clock.Add(5 * time.Second)
+	if got := post(); got != http.StatusServiceUnavailable {
+		t.Fatalf("status %d 5s later, want 503", got)
+	}
+	if got := blog.hits.Load(); got != 1 {
+		t.Errorf("index.json was read %d times within 10s of a failure, want 1", got)
+	}
+
+	blog.fail(0)
+	*clock = clock.Add(6 * time.Second)
+	if got := post(); got != http.StatusOK {
+		t.Errorf("status %d 11s after the failure with the blog back, want 200", got)
+	}
+}
+
+// While the blog hangs, the refresh takes up to indexTimeout. Requests that
+// arrive meanwhile used to queue behind it one by one.
+func TestARequestDoesNotWaitBehindAPostListRefresh(t *testing.T) {
+	_, blog, link, clock := setup(t, defaultReplies)
+	get := func() int {
+		return serveViews(link, http.MethodGet, "/api-views?slugs=rfq-deep-dive", browserUA).Code
+	}
+	if got := get(); got != http.StatusOK {
+		t.Fatalf("status %d, want 200", got)
+	}
+
+	*clock = clock.Add(2 * listedTTL)
+	release := blog.hold()
+	defer release()
+	first := make(chan int, 1)
+	go func() { first <- get() }()
+	for deadline := time.Now().Add(2 * time.Second); blog.hits.Load() < 2; {
+		if time.Now().After(deadline) {
+			t.Fatal("the refresh never reached the blog")
+		}
+		time.Sleep(5 * time.Millisecond)
+	}
+
+	start := time.Now()
+	got := get()
+	if took := time.Since(start); took > time.Second {
+		t.Errorf("a request waited %v behind the refresh, want the last list at once", took)
+	}
+	if got != http.StatusOK {
+		t.Errorf("status %d during the refresh, want 200", got)
+	}
+	release()
+	if got := <-first; got != http.StatusOK {
+		t.Errorf("the refreshing request answered %d, want 200", got)
+	}
+}
+
+// The counter server answers ERR to more than 100 slugs, which left every
+// count on a long list page empty.
+func TestAListOfMoreThanAHundredPostsIsAskedInChunks(t *testing.T) {
+	counter, blog, link, _ := setup(t, map[string]string{"VIEWS": "each"})
+	var slugs []string
+	for i := 0; i < 250; i++ {
+		s := fmt.Sprintf("post-%d", i)
+		slugs = append(slugs, s)
+		blog.add(s)
+	}
+
+	rec := serveViews(link, http.MethodGet, "/api-views?slugs="+strings.Join(slugs, ","), browserUA)
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status %d, body %s", rec.Code, rec.Body.String())
+	}
+	var got map[string]int64
+	if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 250 {
+		t.Errorf("answered %d counts, want 250", len(got))
+	}
+	lines := counter.seen()
+	for _, line := range lines {
+		if n := len(strings.Split(strings.TrimPrefix(line, "VIEWS "), ",")); n > 100 {
+			t.Errorf("asked the counter for %d slugs in one line", n)
+		}
+	}
+	if len(lines) != 3 {
+		t.Errorf("sent %d lines for 250 slugs, want 3", len(lines))
+	}
+}
+
+func TestAnUnusableCounterReplyIsLoggedOnceAndThenEveryTwentieth(t *testing.T) {
+	_, _, link, _ := setup(t, map[string]string{"VIEWS": "ERR unknown command"})
+	logs := observeLogs(t)
+	for i := 0; i < 25; i++ {
+		rec := serveViews(link, http.MethodGet, "/api-views?slugs=rfq-deep-dive", browserUA)
+		if rec.Code != http.StatusBadGateway {
+			t.Fatalf("status %d, want 502", rec.Code)
+		}
+	}
+	if n := logs.FilterMessage("counter server answered views with something unusable").Len(); n != 2 {
+		t.Errorf("25 bad replies were logged %d times, want 2 (the 1st and the 20th)", n)
+	}
+}
+
+// On 2026-11-18 four counted POSTs reached the proxy and got no answer for
+// over 20 seconds, and the log could not say whether the proxy was the one
+// waiting. A slow /api-views request now says so, with where the time went.
+func TestASlowViewsRequestIsLogged(t *testing.T) {
+	counter, _, link, _ := setup(t, defaultReplies)
+	logs := observeLogs(t)
+	serveViews(link, http.MethodGet, "/api-views?slugs=rfq-deep-dive", browserUA)
+	if n := logs.FilterMessage("slow views request").Len(); n != 0 {
+		t.Fatalf("a fast request was logged as slow %d times", n)
+	}
+
+	counter.mu.Lock()
+	counter.delay = slowViews + 200*time.Millisecond
+	counter.mu.Unlock()
+	serveViews(link, http.MethodPost, "/api-views/rfq-deep-dive", browserUA)
+
+	slow := logs.FilterMessage("slow views request").All()
+	if len(slow) != 1 {
+		t.Fatalf("logged %d slow requests, want 1", len(slow))
+	}
+	f := slow[0].ContextMap()
+	if f["method"] != "POST" || f["status"] != int64(http.StatusOK) {
+		t.Errorf("fields %v, want method POST and status 200", f)
+	}
+	for _, k := range []string{"took", "post_list", "counter"} {
+		if _, ok := f[k]; !ok {
+			t.Errorf("no %q in %v", k, f)
+		}
 	}
 }

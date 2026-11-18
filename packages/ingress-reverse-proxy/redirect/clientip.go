@@ -62,3 +62,21 @@ func ClientIP(r *http.Request) string {
 	}
 	return remote.Unmap().String()
 }
+
+// AddressKey is what one subscriber is counted by: an IPv4 address as is,
+// and an IPv6 address as its /64. ISPs commonly give each subscriber a whole
+// /64, and the device picks any address inside it (privacy addresses change
+// daily, and anyone can add more), so a per-address key gave one person as
+// many write budgets and visitor IDs as they cared to make. Anything that
+// does not parse is returned unchanged.
+func AddressKey(ip string) string {
+	addr, err := netip.ParseAddr(ip)
+	if err != nil {
+		return ip
+	}
+	addr = addr.Unmap()
+	if addr.Is4() {
+		return addr.String()
+	}
+	return netip.PrefixFrom(addr, 64).Masked().String()
+}

@@ -120,7 +120,7 @@ func WriteAllowed(w http.ResponseWriter, r *http.Request, link *types.Config) bo
 	}
 
 	ip := ClientIP(r)
-	ok, wait := limiterFor(link).allow(ip)
+	ok, wait := limiterFor(link).allow(AddressKey(ip))
 	if ok {
 		return true
 	}
@@ -129,6 +129,9 @@ func WriteAllowed(w http.ResponseWriter, r *http.Request, link *types.Config) bo
 	logger.Log.Warnf("429: %s %s from %s, retry in %ds", r.Method, r.URL.Path, ip, secs)
 
 	w.Header().Set("Retry-After", strconv.Itoa(secs))
+	// The refusal is about this address at this moment; a cache in front
+	// must not hand it to anyone else.
+	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusTooManyRequests)
 	fmt.Fprintf(w, `{"error":"Too many changes from this address. Try again in %d seconds."}`, secs)

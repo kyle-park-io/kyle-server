@@ -52,9 +52,46 @@ var (
 	indexClient = &http.Client{Timeout: indexTimeout}
 
 	// viewFailures counts consecutive failures to reach the counter server,
-	// so an outage is logged once and then every 20th time, as presence does.
+	// and badReplies consecutive replies it could not use (a counter rolled
+	// back to a version without VIEW answers ERR to every page view), so each
+	// is logged once and then every 20th time, as presence does.
 	viewFailures atomic.Int64
+	badReplies   atomic.Int64
 )
+
+// maxSlugsPerAsk is how many slugs the counter server takes in one VIEWS
+// line (kyle-db realtime.MaxViewSlugs); it answers ERR to more.
+const maxSlugsPerAsk = 100
+
+// slowViews is how long an /api-views request may take before it is logged
+// with where the time went. Its own waits are capped at indexTimeout (3 s)
+// for the post list and 2 s + 3 s for the counter, and one answered in
+// 0.4 to 1.8 s through Cloudflare on 2026-11-18, most of that outside the
+// proxy, so a second inside it is already unusual.
+const slowViews = time.Second
+
+// viewTrace is where one /api-views request spent its time.
+type viewTrace struct {
+	postList time.Duration
+	counter  time.Duration
+}
+
+func (tr *viewTrace) listed() (map[string]bool, error) {
+	start := time.Now()
+	defer func() { tr.postList += time.Since(start) }()
+	return postList.listed()
+}
+
+// statusRecorder remembers the status written, for the slow request log.
+type statusRecorder struct {
+	http.ResponseWriter
+	status int
+}
+
+func (s *statusRecorder) WriteHeader(code int) {
+	s.status = code
+	s.ResponseWriter.WriteHeader(code)
+}
 
 var errNoPostList = errors.New("the blog's post list has never been read")
 
@@ -64,23 +101,49 @@ type slugCache struct {
 	slugs     map[string]bool
 	fetchedAt time.Time
 	retryAt   time.Time
+	// reading is closed when the read in progress ends; nil when none is.
+	reading chan struct{}
 }
 
 // listed returns the current post list, reading it again once it is older
 // than listedTTL. A failed read keeps the previous list; with no previous
 // list it is an error, so a blog that is still starting is a 503 rather
-// than a 404 for every post.
+// than a 404 for every post. After a failure the blog is not asked again
+// for listedRetry, list or no list.
+//
+// One request reads at a time, without holding the lock: the read can take
+// indexTimeout, and requests used to queue behind it one by one, each then
+// starting its own read. Meanwhile the others get the last list, or, when
+// there is none yet, wait for that one read.
 func (c *slugCache) listed() (map[string]bool, error) {
 	c.mu.Lock()
-	defer c.mu.Unlock()
-
 	now := viewsNow()
 	fresh := c.slugs != nil && now.Sub(c.fetchedAt) < listedTTL
-	if fresh || (c.slugs != nil && now.Before(c.retryAt)) {
-		return c.slugs, nil
+	if fresh || now.Before(c.retryAt) || (c.reading != nil && c.slugs != nil) {
+		slugs := c.slugs
+		c.mu.Unlock()
+		return slugsOrErr(slugs)
 	}
+	if c.reading != nil {
+		reading := c.reading
+		c.mu.Unlock()
+		<-reading
+		c.mu.Lock()
+		slugs := c.slugs
+		c.mu.Unlock()
+		return slugsOrErr(slugs)
+	}
+	reading := make(chan struct{})
+	c.reading = reading
+	c.mu.Unlock()
 
 	slugs, err := fetchListedSlugs()
+
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.reading = nil
+	close(reading)
+	now = viewsNow()
 	if err != nil {
 		c.retryAt = now.Add(listedRetry)
 		if c.slugs != nil {
@@ -94,6 +157,13 @@ func (c *slugCache) listed() (map[string]bool, error) {
 	c.slugs = slugs
 	c.fetchedAt = now
 	return c.slugs, nil
+}
+
+func slugsOrErr(slugs map[string]bool) (map[string]bool, error) {
+	if slugs == nil {
+		return nil, errNoPostList
+	}
+	return slugs, nil
 }
 
 func fetchListedSlugs() (map[string]bool, error) {
@@ -126,6 +196,18 @@ func fetchListedSlugs() (map[string]bool, error) {
 
 // ViewsHandler answers /api-views.
 func ViewsHandler(w http.ResponseWriter, r *http.Request, link *types.Config) {
+	start := time.Now()
+	rec := &statusRecorder{ResponseWriter: w, status: http.StatusOK}
+	w = rec
+	tr := &viewTrace{}
+	defer func() {
+		if took := time.Since(start); took >= slowViews {
+			logger.Log.Warnw("slow views request",
+				"method", r.Method, "path", r.URL.Path, "status", rec.status,
+				"took", took, "post_list", tr.postList, "counter", tr.counter)
+		}
+	}()
+
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Type", "application/json")
 
@@ -137,23 +219,23 @@ func ViewsHandler(w http.ResponseWriter, r *http.Request, link *types.Config) {
 			writeViewsError(w, http.StatusMethodNotAllowed, "use GET")
 			return
 		}
-		listViews(w, r, link)
+		listViews(w, r, link, tr)
 	default:
 		if r.Method != http.MethodPost {
 			w.Header().Set("Allow", http.MethodPost)
 			writeViewsError(w, http.StatusMethodNotAllowed, "use POST")
 			return
 		}
-		recordView(w, r, link, strings.TrimPrefix(rest, "/"))
+		recordView(w, r, link, tr, strings.TrimPrefix(rest, "/"))
 	}
 }
 
-func recordView(w http.ResponseWriter, r *http.Request, link *types.Config, slug string) {
+func recordView(w http.ResponseWriter, r *http.Request, link *types.Config, tr *viewTrace, slug string) {
 	if !viewSlugPattern.MatchString(slug) {
 		writeViewsError(w, http.StatusNotFound, "not a listed post")
 		return
 	}
-	listed, err := postList.listed()
+	listed, err := tr.listed()
 	if err != nil {
 		writeViewsError(w, http.StatusServiceUnavailable, "post list unavailable")
 		return
@@ -164,7 +246,7 @@ func recordView(w http.ResponseWriter, r *http.Request, link *types.Config, slug
 	}
 
 	if botPattern.MatchString(r.Header.Get("User-Agent")) || !fromOwnPage(r) {
-		counts, ok := askCounter(w, link, "VIEWS "+slug)
+		counts, ok := askCounter(w, tr, link, "VIEWS "+slug)
 		if !ok {
 			return
 		}
@@ -173,6 +255,7 @@ func recordView(w http.ResponseWriter, r *http.Request, link *types.Config, slug
 			badCounterReply(w, counts, err)
 			return
 		}
+		counterReplyUsable()
 		writeViewsJSON(w, viewReply{Slug: slug, Views: m[slug]})
 		return
 	}
@@ -181,7 +264,7 @@ func recordView(w http.ResponseWriter, r *http.Request, link *types.Config, slug
 		Slug string `json:"slug"`
 		ID   string `json:"id"`
 	}{slug, IdentifyVisitor(r).ID})
-	raw, ok := askCounter(w, link, "VIEW "+string(payload))
+	raw, ok := askCounter(w, tr, link, "VIEW "+string(payload))
 	if !ok {
 		return
 	}
@@ -190,6 +273,7 @@ func recordView(w http.ResponseWriter, r *http.Request, link *types.Config, slug
 		badCounterReply(w, raw, err)
 		return
 	}
+	counterReplyUsable()
 	writeViewsJSON(w, v)
 }
 
@@ -210,7 +294,7 @@ func fromOwnPage(r *http.Request) bool {
 	return true
 }
 
-func listViews(w http.ResponseWriter, r *http.Request, link *types.Config) {
+func listViews(w http.ResponseWriter, r *http.Request, link *types.Config, tr *viewTrace) {
 	var asked []string
 	if q := r.URL.Query().Get("slugs"); q != "" {
 		asked = strings.Split(q, ",")
@@ -219,7 +303,7 @@ func listViews(w http.ResponseWriter, r *http.Request, link *types.Config) {
 		writeViewsJSON(w, map[string]int64{})
 		return
 	}
-	listed, err := postList.listed()
+	listed, err := tr.listed()
 	if err != nil {
 		writeViewsError(w, http.StatusServiceUnavailable, "post list unavailable")
 		return
@@ -237,15 +321,23 @@ func listViews(w http.ResponseWriter, r *http.Request, link *types.Config) {
 		writeViewsJSON(w, map[string]int64{})
 		return
 	}
-	raw, ok := askCounter(w, link, "VIEWS "+strings.Join(slugs, ","))
-	if !ok {
-		return
+	counts := make(map[string]int64, len(slugs))
+	for start := 0; start < len(slugs); start += maxSlugsPerAsk {
+		chunk := slugs[start:min(start+maxSlugsPerAsk, len(slugs))]
+		raw, ok := askCounter(w, tr, link, "VIEWS "+strings.Join(chunk, ","))
+		if !ok {
+			return
+		}
+		var part map[string]int64
+		if err := json.Unmarshal([]byte(raw), &part); err != nil {
+			badCounterReply(w, raw, err)
+			return
+		}
+		for s, n := range part {
+			counts[s] = n
+		}
 	}
-	var counts map[string]int64
-	if err := json.Unmarshal([]byte(raw), &counts); err != nil {
-		badCounterReply(w, raw, err)
-		return
-	}
+	counterReplyUsable()
 	writeViewsJSON(w, counts)
 }
 
@@ -256,14 +348,16 @@ type viewReply struct {
 
 // askCounter sends one line to the counter server named by the link and
 // returns its reply. When it fails it has already answered the request.
-func askCounter(w http.ResponseWriter, link *types.Config, line string) (string, bool) {
+func askCounter(w http.ResponseWriter, tr *viewTrace, link *types.Config, line string) (string, bool) {
 	u, err := url.Parse(link.Url)
 	if err != nil {
 		logger.Log.Errorw("api-views link url is unreadable", "url", link.Url, "err", err)
 		writeViewsError(w, http.StatusServiceUnavailable, "view counter unavailable")
 		return "", false
 	}
+	asked := time.Now()
 	reply, err := commandAt(u.Host, line)
+	tr.counter += time.Since(asked)
 	if err != nil {
 		n := viewFailures.Add(1)
 		if n == 1 || n%20 == 0 {
@@ -284,10 +378,20 @@ func askCounter(w http.ResponseWriter, link *types.Config, line string) (string,
 	return reply, true
 }
 
+// badCounterReply answers 502 for a reply the proxy cannot use.
 func badCounterReply(w http.ResponseWriter, reply string, err error) {
-	logger.Log.Errorw("counter server answered views with something unusable",
-		"reply", reply, "err", err)
+	if n := badReplies.Add(1); n == 1 || n%20 == 0 {
+		logger.Log.Errorw("counter server answered views with something unusable",
+			"reply", reply, "err", err, "consecutive", n)
+	}
 	writeViewsError(w, http.StatusBadGateway, "view counter error")
+}
+
+// counterReplyUsable marks the end of a run of unusable replies.
+func counterReplyUsable() {
+	if n := badReplies.Swap(0); n > 0 {
+		logger.Log.Infow("counter server answers views usably again", "after_bad_replies", n)
+	}
 }
 
 func writeViewsJSON(w http.ResponseWriter, v any) {

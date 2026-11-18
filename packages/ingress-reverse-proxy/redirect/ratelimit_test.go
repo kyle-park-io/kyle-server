@@ -19,6 +19,15 @@ type fakeClock struct{ t time.Time }
 func (c *fakeClock) now() time.Time          { return c.t }
 func (c *fakeClock) advance(d time.Duration) { c.t = c.t.Add(d) }
 
+// freshLimiter drops the limiter an earlier run left for route: limiters live
+// as long as the process, and go test -count=2 runs each test twice in one.
+func freshLimiter(t *testing.T, route string) {
+	t.Helper()
+	writeLimitersMu.Lock()
+	delete(writeLimiters, route)
+	writeLimitersMu.Unlock()
+}
+
 func TestWriteLimiterBurstAndRefill(t *testing.T) {
 	clock := &fakeClock{t: time.Unix(1_700_000_000, 0)}
 	l := newWriteLimiter(types.RateLimit{Burst: 3, Every: time.Minute}, clock.now)
@@ -116,6 +125,7 @@ func TestWriteAllowed(t *testing.T) {
 		Route:      "/api-quant-test",
 		WriteLimit: &types.RateLimit{Burst: 2, Every: time.Minute},
 	}
+	freshLimiter(t, "/api-quant-test")
 	send := func(method, remote string) *httptest.ResponseRecorder {
 		r := httptest.NewRequest(method, "/api-quant-test/v1/watchlist/BTC", nil)
 		r.RemoteAddr = remote
@@ -153,5 +163,71 @@ func TestWriteAllowed(t *testing.T) {
 	r := httptest.NewRequest(http.MethodPost, "/blog-test/x", nil)
 	if !WriteAllowed(httptest.NewRecorder(), r, public) {
 		t.Fatal("a link without writeLimit was limited")
+	}
+}
+
+// An IPv6 subscriber usually gets a whole /64 and can pick any address in
+// it, so a per-address bucket was one bucket per pick.
+func TestWriteAllowedPutsAnIPv6Slash64InOneBucket(t *testing.T) {
+	link := &types.Config{
+		Name:       "api-v6-test",
+		Route:      "/api-v6-test",
+		WriteLimit: &types.RateLimit{Burst: 1, Every: time.Hour},
+	}
+	freshLimiter(t, "/api-v6-test")
+	send := func(remote string) int {
+		r := httptest.NewRequest(http.MethodPost, "/api-v6-test/x", nil)
+		r.RemoteAddr = remote
+		w := httptest.NewRecorder()
+		if WriteAllowed(w, r, link) {
+			return http.StatusOK
+		}
+		return w.Code
+	}
+	if got := send("[2001:db8:1:2::1]:443"); got != http.StatusOK {
+		t.Fatalf("first write = %d", got)
+	}
+	if got := send("[2001:db8:1:2:aaaa::9]:443"); got != http.StatusTooManyRequests {
+		t.Errorf("another address in the same /64 = %d, want 429", got)
+	}
+	if got := send("[2001:db8:1:3::1]:443"); got != http.StatusOK {
+		t.Errorf("a different /64 = %d, want 200", got)
+	}
+}
+
+func TestAddressKey(t *testing.T) {
+	cases := map[string]string{
+		"203.0.113.7":             "203.0.113.7",
+		"2001:db8:1:2::1":         "2001:db8:1:2::/64",
+		"2001:db8:1:2:ffff::abcd": "2001:db8:1:2::/64",
+		"::ffff:203.0.113.7":      "203.0.113.7",
+		"not an address":          "not an address",
+	}
+	for in, want := range cases {
+		if got := AddressKey(in); got != want {
+			t.Errorf("AddressKey(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
+
+func TestA429IsNeverCached(t *testing.T) {
+	link := &types.Config{
+		Name:       "api-cache-test",
+		Route:      "/api-cache-test",
+		WriteLimit: &types.RateLimit{Burst: 1, Every: time.Hour},
+	}
+	freshLimiter(t, "/api-cache-test")
+	var w *httptest.ResponseRecorder
+	for i := 0; i < 2; i++ {
+		r := httptest.NewRequest(http.MethodPost, "/api-cache-test/x", nil)
+		r.RemoteAddr = "203.0.113.50:1"
+		w = httptest.NewRecorder()
+		WriteAllowed(w, r, link)
+	}
+	if w.Code != http.StatusTooManyRequests {
+		t.Fatalf("second write = %d, want 429", w.Code)
+	}
+	if got := w.Header().Get("Cache-Control"); got != "no-store" {
+		t.Errorf("429 Cache-Control = %q, want no-store", got)
 	}
 }

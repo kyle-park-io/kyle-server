@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,6 +13,10 @@ import (
 )
 
 func init() { logger.InitLogger() }
+
+// runs counts how many times TestViewWritesAreRateLimitedButReadsAreNot ran
+// in this process.
+var runs int
 
 // The writeLimit on the api-views link is what stops one address from
 // inflating a post's count by rotating User-Agents. It is applied in
@@ -34,10 +39,17 @@ func TestViewWritesAreRateLimitedButReadsAreNot(t *testing.T) {
 	defer delete(redirect.Redirects, "/blog")
 	defer delete(redirect.Redirects, "/api-views")
 
+	// The limiters live as long as the process, so each run of this test
+	// writes from an address no earlier run used (go test -count=2 used to
+	// find the bucket already empty).
+	runs++
+	remote := fmt.Sprintf("198.51.100.%d:1234", runs)
 	codes := []int{}
 	for i := 0; i < 3; i++ {
 		rec := httptest.NewRecorder()
-		MainHandler(rec, httptest.NewRequest(http.MethodPost, "/api-views/rfq-deep-dive", nil))
+		req := httptest.NewRequest(http.MethodPost, "/api-views/rfq-deep-dive", nil)
+		req.RemoteAddr = remote
+		MainHandler(rec, req)
 		codes = append(codes, rec.Code)
 	}
 	if codes[0] == http.StatusTooManyRequests || codes[1] == http.StatusTooManyRequests || codes[2] != http.StatusTooManyRequests {

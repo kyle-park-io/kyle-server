@@ -24,7 +24,7 @@ const LABEL: Record<Lang, string> = { ko: '한국어', en: 'English' };
       <>
         {i > 0 && <span aria-hidden="true">·</span>}
         {code === lang ? (
-          <span aria-current="page" lang={code}>
+          <span aria-current="true" lang={code}>
             {LABEL[code]}
           </span>
         ) : (

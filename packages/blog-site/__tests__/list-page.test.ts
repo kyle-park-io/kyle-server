@@ -79,9 +79,11 @@ test('both lists carry the toggle, pointing at the other language', () => {
   const en = enHtml();
   assert.match(ko, /class="lang-toggle"/);
   assert.match(en, /class="lang-toggle"/);
-  assert.match(ko, /aria-current="page"[^>]*>한국어</);
+  // "true", not "page": the toggle marks the current language, and on a tag
+  // page the current page is the tag page, not the list.
+  assert.match(ko, /aria-current="true"[^>]*>한국어</);
   assert.match(ko, /href="\/blog\?lang=en"[^>]*>English</);
-  assert.match(en, /aria-current="page"[^>]*>English</);
+  assert.match(en, /aria-current="true"[^>]*>English</);
   assert.match(en, /href="\/blog\?lang=ko"[^>]*>한국어</);
 });
 
