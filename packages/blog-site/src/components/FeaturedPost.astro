@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { BASE } from '../config/site';
+import { formatDate } from '../lib/i18n';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -11,12 +12,7 @@ const { post } = Astro.props;
 const iso = post.data.date.toISOString().slice(0, 10);
 // Match PostIndexRow's localized long form, not a raw ISO date, so the two
 // date formats in one viewport don't disagree with each other.
-const shown = post.data.date.toLocaleDateString('ko-KR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'Asia/Seoul',
-});
+const shown = formatDate(post.data.date, post.data.lang);
 ---
 
 <article class="featured" data-featured>

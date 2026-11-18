@@ -4,6 +4,7 @@ import Shell from '../../layouts/Shell.astro';
 import PostArticle from '../../components/PostArticle.astro';
 import { archived } from '../../lib/posts';
 import { BASE, SITE_NAME } from '../../config/site';
+import { COPY, formatDate } from '../../lib/i18n';
 import '../../styles/post.css';
 
 export async function getStaticPaths() {
@@ -20,16 +21,12 @@ if (post.data.supersededBy && !next) {
     `${post.id}: supersededBy "${post.data.supersededBy}" is not a post`,
   );
 }
-const written = post.data.date.toLocaleDateString('ko-KR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'Asia/Seoul',
-});
+const copy = COPY[post.data.lang];
+const written = formatDate(post.data.date, post.data.lang);
 ---
 
 <Shell
-  title={`${post.data.title} (보관) | ${SITE_NAME}`}
+  title={`${post.data.title} ${copy.archivedSuffix} | ${SITE_NAME}`}
   description={post.data.summary}
   canonicalPath={`${BASE}/archive/${post.id}`}
   ogType="article"
@@ -39,14 +36,11 @@ const written = post.data.date.toLocaleDateString('ko-KR', {
 >
   <PostArticle post={post} root={`${BASE}/archive`}>
     <aside class="post__archived" slot="notice">
-      <p>
-        보관한 글입니다. {written}에 쓴 내용을 고치지 않고 그대로 두었고, 블로그
-        글 목록과 검색 엔진 결과에는 나오지 않습니다.
-      </p>
+      <p>{copy.archivedNotice(written)}</p>
       {
         next && (
           <p>
-            새로 쓴 글: <a href={`${BASE}/${next.id}`}>{next.data.title}</a>
+            {copy.newPost} <a href={`${BASE}/${next.id}`}>{next.data.title}</a>
           </p>
         )
       }

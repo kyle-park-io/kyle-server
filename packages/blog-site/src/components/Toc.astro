@@ -1,4 +1,5 @@
 ---
+import { COPY, type Lang } from '../lib/i18n';
 export interface Heading {
   depth: number;
   slug: string;
@@ -7,9 +8,11 @@ export interface Heading {
 
 interface Props {
   headings: Heading[];
+  lang?: Lang;
 }
 
-const { headings } = Astro.props;
+const { headings, lang = 'ko' } = Astro.props;
+const label = COPY[lang].contents;
 
 // h2 and h3 only; deeper levels make the rail unreadable on a phone.
 const entries = headings.filter((h) => h.depth === 2 || h.depth === 3);
@@ -33,9 +36,9 @@ const show = entries.length >= 3;
 
 {
   show && (
-    <aside class="toc" aria-label="목차">
+    <aside class="toc" aria-label={label}>
       <details class="toc__details" open>
-        <summary class="toc__summary">목차</summary>
+        <summary class="toc__summary">{label}</summary>
         <ol class="toc__list">
           {entries.map((h) => (
             <li class:list={['toc__item', `toc__item--h${h.depth}`]}>

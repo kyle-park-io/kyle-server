@@ -1,17 +1,18 @@
 ---
-import { BASE } from '../config/site';
+import { listLinkPath, tagPath, type Lang } from '../lib/i18n';
 
 interface Props {
   tags: Array<{ tag: string; count: number }>;
   active?: string;
+  lang?: Lang;
 }
 
-const { tags, active } = Astro.props;
+const { tags, active, lang = 'ko' } = Astro.props;
 ---
 
 <nav class="tag-bar" aria-label="Tags">
   <a
-    href={BASE}
+    href={listLinkPath(lang)}
     class:list={['tag-bar__item', !active && 'tag-bar__item--active']}
   >
     All
@@ -19,7 +20,7 @@ const { tags, active } = Astro.props;
   {
     tags.map(({ tag, count }) => (
       <a
-        href={`${BASE}/tags/${tag}`}
+        href={tagPath(lang, tag)}
         class:list={[
           'tag-bar__item',
           active === tag && 'tag-bar__item--active',

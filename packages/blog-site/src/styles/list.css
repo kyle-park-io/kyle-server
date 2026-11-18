@@ -52,6 +52,39 @@
   color: var(--shell-fg);
 }
 
+/* The right-hand group of the list header: language toggle, then RSS. */
+.list-header__aside {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+/* Same small caps-weight line as RSS so the two read as one row of
+   controls. Hangul has no case, so uppercase is left to the Latin label. */
+.lang-toggle {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--shell-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--shell-muted);
+}
+
+.lang-toggle a {
+  color: var(--shell-muted);
+  text-decoration: none;
+}
+
+.lang-toggle a:hover {
+  color: var(--shell-fg);
+}
+
+.lang-toggle [aria-current='page'] {
+  color: var(--shell-fg);
+}
+
 /* --- tag filter ---------------------------------------------------------- */
 
 /* Chips, not pills: the home page has no 999px radius anywhere, so these
@@ -282,14 +315,6 @@
 
 .post-row__tags a:hover {
   color: var(--shell-fg);
-}
-
-.post-row__lang {
-  border: 1px solid var(--shell-rule);
-  border-radius: 3px;
-  padding: 1px 4px;
-  font-size: 10px;
-  letter-spacing: 0.08em;
 }
 
 .post-list__empty {

@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import TagPage from '../../../components/TagPage.astro';
+import { listed, inLang } from '../../../lib/posts';
+
+// One page per tag used by an English post.
+export async function getStaticPaths() {
+  const posts = inLang(
+    listed(await getCollection('posts'), import.meta.env.DEV),
+    'en',
+  );
+  const tags = new Set(posts.flatMap((post) => post.data.tags));
+  return [...tags].map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+---
+
+<TagPage lang="en" tag={tag!} />

@@ -1,7 +1,8 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_URL, SITE_NAME, BLOG_TITLE } from '../config/site';
+import { SITE_URL, SITE_NAME } from '../config/site';
+import { COPY, rssPath, type Lang } from '../lib/i18n';
 import 'site-shell/src/styles/tokens.css';
 import 'site-shell/src/styles/presence.css';
 import '../styles/shell.css';
@@ -13,10 +14,16 @@ interface Props {
   canonicalPath: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
-  lang?: 'ko' | 'en';
+  lang?: Lang;
   current?: string;
   /** When true, emit a robots noindex directive instead of a canonical link. */
   noindex?: boolean;
+  /**
+   * `<link rel="alternate" hreflang>` entries, paths relative to the site
+   * root. Only the two list pages carry them: they are the one pair of pages
+   * that are versions of each other.
+   */
+  alternates?: Array<{ hreflang: Lang | 'x-default'; path: string }>;
 }
 
 const {
@@ -28,6 +35,7 @@ const {
   lang = 'ko',
   current,
   noindex = false,
+  alternates = [],
 } = Astro.props;
 
 const canonical = new URL(canonicalPath, SITE_URL).href;
@@ -92,15 +100,24 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={BLOG_TITLE}
-      href="/blog/rss.xml"
+      title={COPY[lang].listTitle}
+      href={rssPath(lang)}
     />
+    {
+      alternates.map(({ hreflang, path }) => (
+        <link
+          rel="alternate"
+          hreflang={hreflang}
+          href={new URL(path, SITE_URL).href}
+        />
+      ))
+    }
   </head>
   <body class="shell-body">
     <Header current={current} />
     <main class="shell-main">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

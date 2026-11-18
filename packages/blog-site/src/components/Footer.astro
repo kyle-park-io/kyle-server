@@ -1,5 +1,11 @@
 ---
-import { BASE } from '../config/site';
+import { rssPath, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'ko' } = Astro.props;
 
 /*
   Element for element, this is blog-frontend/src/layout/Footer.tsx: a 2px
@@ -58,7 +64,7 @@ const social = [
 
     <div class="shell-footer__social">
       <a
-        href={`${BASE}/rss.xml`}
+        href={rssPath(lang)}
         class="shell-footer__social-btn"
         aria-label="RSS feed"
       >

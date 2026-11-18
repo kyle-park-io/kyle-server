@@ -28,3 +28,13 @@ test('the list page does not load giscus', () => {
   const list = readFileSync(join(SERVE_ROOT, 'index.html'), 'utf8');
   assert.ok(!list.includes('giscus.app'));
 });
+
+test('giscus and the comments heading follow the post language', () => {
+  const en = readFileSync(join(SERVE_ROOT, 'english-post.html'), 'utf8');
+  assert.match(en, /data-lang="en"/);
+  assert.match(en, /class="comments__heading">Comments</);
+  assert.match(en, /aria-label="Comments"/);
+  const ko = page();
+  assert.match(ko, /data-lang="ko"/);
+  assert.match(ko, /class="comments__heading">댓글</);
+});

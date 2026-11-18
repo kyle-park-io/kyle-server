@@ -91,6 +91,13 @@ if [ ! -f "$BUILT/index.html" ]; then
   exit 1
 fi
 
+# express serves the English list from en.html by name (src/blog/serve.ts),
+# so a build without it would answer /blog/en with a 503 until the next one.
+if [ ! -f "$BUILT/en.html" ]; then
+  log "build produced no en.html; keeping the previous output"
+  exit 1
+fi
+
 log "publishing"
 mkdir -p "$(dirname "$BLOG_DIST")"
 cp -R "$BUILT" "$STAGING"

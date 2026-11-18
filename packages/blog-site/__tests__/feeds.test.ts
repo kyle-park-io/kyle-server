@@ -26,7 +26,7 @@ test('a tag page is canonical to itself', () => {
   );
 });
 
-test('rss lists every post with absolute links', () => {
+test('rss lists every korean post with absolute links', () => {
   const xml = read('rss.xml');
   assert.match(
     xml,
@@ -57,9 +57,9 @@ test('rss item links have no trailing slash and match the canonical URL', () => 
   // Cross-check against the homepage JSON feed's `url` (the same post must
   // not be addressed differently across the site).
   const items = JSON.parse(read('index.json'));
-  const jsonLinks = items.map(
-    (item: { url: string }) => `https://jungho.dev${item.url}`,
-  );
+  const jsonLinks = items
+    .filter((item: { lang: string }) => item.lang === 'ko')
+    .map((item: { url: string }) => `https://jungho.dev${item.url}`);
   assert.deepEqual(itemLinks, jsonLinks);
 
   // Cross-check against the article page's own canonical <link>.
@@ -75,17 +75,21 @@ test('rss item links have no trailing slash and match the canonical URL', () => 
 
 test('index.json is newest-first and carries what the homepage needs', () => {
   const items = JSON.parse(read('index.json'));
-  assert.equal(items.length, 2);
-  assert.equal(items[0].slug, 'hello-world');
+  assert.equal(items.length, 3);
+  assert.equal(items[0].slug, 'english-post');
+  assert.equal(items[0].lang, 'en');
+  assert.equal(items[1].slug, 'hello-world');
+  assert.equal(items[1].lang, 'ko');
   assert.deepEqual(Object.keys(items[0]).sort(), [
     'date',
+    'lang',
     'slug',
     'summary',
     'tags',
     'title',
     'url',
   ]);
-  assert.equal(items[0].url, '/blog/hello-world');
+  assert.equal(items[1].url, '/blog/hello-world');
   assert.match(items[0].date, /^\d{4}-\d{2}-\d{2}$/);
 });
 
@@ -96,7 +100,7 @@ test('a 404 page is emitted', () => {
 
 test('the 404 page offers the index, home and the newest listed posts', () => {
   const page = read('404.html');
-  assert.match(page, /<a class="nf__btn nf__btn--primary"[^>]*href="\/blog"[^>]*>글 목록 보기<\/a>/);
+  assert.match(page, /<a class="nf__btn nf__btn--primary"[^>]*href="\/blog\?lang=ko"[^>]*>글 목록 보기<\/a>/);
   assert.match(page, /href="\/"[^>]*>홈으로 가기<\/a>/);
   const recent = page.split('<ul class="nf__recent-list"')[1] ?? '';
   assert.match(recent, /href="\/blog\/second-post"/);
@@ -157,5 +161,56 @@ test('no sitemap URL carries a trailing slash', () => {
   assert.ok(
     urls.includes('https://jungho.dev/blog'),
     'the blog index must be addressed the same way as its own canonical link',
+  );
+});
+
+test('the english feed holds only english posts', () => {
+  const xml = read(join('en', 'rss.xml'));
+  assert.match(xml, /English Fixture/);
+  assert.match(xml, /https:\/\/jungho\.dev\/blog\/english-post/);
+  assert.ok(!xml.includes('첫 번째 글'));
+  assert.ok(!read('rss.xml').includes('English Fixture'));
+});
+
+test('tag pages split by language', () => {
+  const has = (f: string) => existsSync(join(SERVE_ROOT, f));
+  assert.ok(has(join('tags', 'astro.html')));
+  assert.ok(has(join('en', 'tags', 'astro.html')));
+  assert.ok(!has(join('tags', 'english-only.html')));
+  assert.ok(has(join('en', 'tags', 'english-only.html')));
+  assert.ok(!has(join('en', 'tags', 'ethereum.html')));
+  const koAstro = read(join('tags', 'astro.html'));
+  assert.ok(!koAstro.includes('English Fixture'));
+  assert.match(koAstro, /첫 번째 글/);
+  const enAstro = read(join('en', 'tags', 'astro.html'));
+  assert.match(enAstro, /English Fixture/);
+  assert.ok(!enAstro.includes('첫 번째 글'));
+  assert.match(enAstro, /1 post</);
+  assert.match(enAstro, /<html lang="en"/);
+  assert.match(
+    enAstro,
+    /<link rel="canonical" href="https:\/\/jungho\.dev\/blog\/en\/tags\/astro"/,
+  );
+  assert.match(enAstro, /class="lang-toggle"/);
+});
+
+test('the korean tag bar never links an english-only tag', () => {
+  assert.ok(!read('index.html').includes('/blog/tags/english-only'));
+  assert.ok(!read(join('tags', 'astro.html')).includes('english-only'));
+});
+
+test('the 404 page speaks both languages, korean first', () => {
+  const page = read('404.html');
+  const body = page.split('<main')[1] ?? '';
+  const ko = body.indexOf('글을 찾을 수 없습니다');
+  const en = body.indexOf('Page not found');
+  assert.ok(ko > -1 && en > ko, 'korean heading, then english');
+  assert.match(body, /href="\/blog\/en"[^>]*>English posts<\/a>/);
+});
+
+test('the sitemap lists the english list', () => {
+  assert.match(
+    read('sitemap-0.xml'),
+    /<loc>https:\/\/jungho\.dev\/blog\/en<\/loc>/,
   );
 });

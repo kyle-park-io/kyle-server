@@ -1,0 +1,38 @@
+---
+import { COPY, LANGS, togglePath, type Lang } from '../lib/i18n';
+
+interface Props {
+  /** The language of the page the toggle sits on. */
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const LABEL: Record<Lang, string> = { ko: '한국어', en: 'English' };
+---
+
+{
+  /*
+  The other language links to /blog?lang=<it> rather than straight to its
+  list: express stores the choice in a cookie there, which is what keeps a
+  reader whose browser asks for another language from being switched back
+  the next time they open /blog. See blog-backend/src/blog/lang.ts.
+*/
+}
+<nav class="lang-toggle" aria-label={COPY[lang].langNav}>
+  {
+    LANGS.map((code, i) => (
+      <>
+        {i > 0 && <span aria-hidden="true">·</span>}
+        {code === lang ? (
+          <span aria-current="page" lang={code}>
+            {LABEL[code]}
+          </span>
+        ) : (
+          <a href={togglePath(code)} hreflang={code} lang={code}>
+            {LABEL[code]}
+          </a>
+        )}
+      </>
+    ))
+  }
+</nav>

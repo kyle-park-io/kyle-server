@@ -1,11 +1,17 @@
 ---
+import { COPY, type Lang } from '../lib/i18n';
 
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'ko' } = Astro.props;
 ---
 
 <div
   class="progress-bar"
   role="progressbar"
-  aria-label="읽기 진행률"
+  aria-label={COPY[lang].progress}
   aria-valuemin="0"
   aria-valuemax="100"
 >

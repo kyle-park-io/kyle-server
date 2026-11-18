@@ -29,7 +29,8 @@ function sandbox({ buildExitCode = 0 } = {}) {
   const siteDir = join(root, 'site');
   mkdirSync(siteDir, { recursive: true });
 
-  // Stub build command: writes dist/index.html then exits with the given code.
+  // Stub build command: writes both list pages (dist/index.html, dist/en.html)
+  // then exits with the given code.
   const stub = join(siteDir, 'fake-build.sh');
   writeFileSync(
     stub,
@@ -37,6 +38,7 @@ function sandbox({ buildExitCode = 0 } = {}) {
       '#!/bin/sh',
       'mkdir -p "$PWD/dist"',
       'echo "<h1>built $(date +%s%N)</h1>" > "$PWD/dist/index.html"',
+      'echo "<h1>english list</h1>" > "$PWD/dist/en.html"',
       `exit ${buildExitCode}`,
     ].join('\n') + '\n',
   );
@@ -150,6 +152,36 @@ test('a build that exits 0 but produces no index.html leaves the previously publ
   }
 });
 
+test('a build that exits 0 but produces no en.html leaves the previously published output in place', () => {
+  // express serves /blog/en from en.html by name (src/blog/serve.ts); a build
+  // without it would answer every English reader with a 503 until the next
+  // good build.
+  const good = sandbox();
+  try {
+    run(good.env);
+    const before = readFileSync(join(good.blogDist, 'index.html'), 'utf8');
+
+    const stub = join(good.env.SITE_DIR, 'no-en-build.sh');
+    writeFileSync(
+      stub,
+      '#!/bin/sh\nmkdir -p "$PWD/dist"\necho "<h1>ko only</h1>" > "$PWD/dist/index.html"\nexit 0\n',
+    );
+    chmodSync(stub, 0o755);
+
+    const result = run({ ...good.env, BUILD_CMD: stub });
+    assert.equal(result.ok, false, 'the script must exit non-zero');
+    assert.match(result.output, /no en\.html/);
+    assert.equal(
+      readFileSync(join(good.blogDist, 'index.html'), 'utf8'),
+      before,
+      'published output must be untouched',
+    );
+    assert.ok(existsSync(join(good.blogDist, 'en.html')));
+  } finally {
+    rmSync(good.root, { recursive: true, force: true });
+  }
+});
+
 test('a build that nests its output under dist/blog still publishes index.html at the root of BLOG_DIST', () => {
   const box = sandbox();
   try {
@@ -160,6 +192,7 @@ test('a build that nests its output under dist/blog still publishes index.html a
         '#!/bin/sh',
         'mkdir -p "$PWD/dist/blog"',
         'echo "<h1>nested build</h1>" > "$PWD/dist/blog/index.html"',
+        'echo "<h1>nested english</h1>" > "$PWD/dist/blog/en.html"',
         'exit 0',
       ].join('\n') + '\n',
     );
