@@ -164,6 +164,24 @@ test('a request without accept-language gets the korean list', async () => {
   assert.equal(res.status, 200);
 });
 
+// fetch always sends accept-language (`*` when not told otherwise), so the
+// test above sends an empty one. node:http sends only the headers it is
+// given, which is what a crawler without the header looks like.
+test('a request with no accept-language header at all gets the korean list', async () => {
+  const { request } = await import('node:http');
+  const res = await new Promise<{ status: number; body: string }>((resolve, reject) => {
+    const req = request(`${base}/blog`, (r) => {
+      let body = '';
+      r.on('data', (c) => (body += c));
+      r.on('end', () => resolve({ status: r.statusCode ?? 0, body }));
+    });
+    req.on('error', reject);
+    req.end();
+  });
+  assert.equal(res.status, 200);
+  assert.match(res.body, /Blog list/);
+});
+
 test('the cookie beats the header both ways', async () => {
   const ko = await get('/blog', {
     'accept-language': 'en-US',
