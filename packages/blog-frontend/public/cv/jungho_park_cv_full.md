@@ -142,13 +142,13 @@ _Tech Stack: Go, Rust, Python_
 _Tech Stack: Rust, FIX 4.4, SBE (Simple Binary Encoding), rustls_
 
 - Rust engine that logs on to the Binance FIX API with an Ed25519 signature and opens market data and order entry sessions in SBE binary encoding, keeping order books from snapshots and incremental refreshes and handling new orders, cancels, and execution reports
-- On every book update, prices both directions of the BTC, ETH, and USDT triangle after each symbol's taker fee and keeps the direction that clears the threshold. Runs as a dry run by default, with Telegram alerts
+- On every book update, prices both directions of the BTC, ETH, and USDT triangle after each symbol's taker fee and flags as an opportunity the direction whose return clears the threshold. Runs as a dry run by default, with Telegram alerts
 
 ### **Polymarket 15-Minute Market Complete-Set Arbitrage Bot**
 
 _Tech Stack: Go, Rust_
 
-- Buys both outcomes in Polymarket's 15-minute crypto Up/Down markets when their best asks sum below $1. Once both legs fill, each pair is worth $1 at settlement or on a merge; fees and leg risk decide whether it pays
+- Buys both outcomes in Polymarket's 15-minute crypto Up/Down markets when their best asks sum below $1. Once both legs fill, each pair is worth $1 at settlement or on a merge, so the profit is $1 minus the two asks and the fees, and when only one leg fills, the bot holds a single outcome token instead of a pair
 - In v1, a stale-quote filter drops a signal when the two quotes are over 29ms apart, the older one is over 29ms old, or over 29ms passes before the order. v2 re-derives the threshold from the fee table and pre-signs orders across price levels to send both legs as FOK, so no unfilled order rests on the book. Execution is off by default, with Telegram alerts
 
 ### **trustline**: Off-Chain Security Scanner for Web3 Projects
