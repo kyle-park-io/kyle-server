@@ -18,6 +18,9 @@ links:
   - name: redis-tcp
     route: /redis-tcp
     url: http://localhost:3005
+  - name: api-views
+    route: /api-views
+    url: http://localhost:3005
   # static
   - name: blog-static
     route: /blog-static
