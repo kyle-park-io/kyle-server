@@ -96,7 +96,7 @@ export interface Copy {
 
 export const COPY: Record<Lang, Copy> = {
   ko: {
-    readingTime: (m) => `약 ${m}분`,
+    readingTime: (m) => `읽는 데 약 ${m}분`,
     updated: (d) => `수정: ${d}`,
     contents: '목차',
     comments: '댓글',

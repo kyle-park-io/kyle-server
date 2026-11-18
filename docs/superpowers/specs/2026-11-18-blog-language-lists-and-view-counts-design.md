@@ -27,7 +27,7 @@ other:
   `<html lang>`. The 2026-09-04 spec, section 10, put i18n routing and view
   counts out of scope.
 - Blog UI copy is mixed: masthead, date line and `online` are English; reading
-  time (`약 N분`), `수정:`, `목차`, `댓글`, the markdown download link, `← 글
+  time (`읽는 데 약 N분`), `수정:`, `목차`, `댓글`, the markdown download link, `← 글
 목록`, empty state, tag page subtitle, archive notice and 404 are Korean.
   Dates are formatted `ko-KR` everywhere. giscus is `data-lang="ko"`.
 - Serving: `blog-backend/src/blog/serve.ts` answers `GET /blog` explicitly
@@ -205,9 +205,11 @@ development; both URLs are reachable directly.
 
 Korean strings are unchanged unless listed. New English strings:
 
+On 2026-11-18 the Korean reading time and the tag chips' bare numbers were named after a reader asked what `약 22분` was ("약 22분 이런건 뭐야?"): the English already said `min read`.
+
 | Where              | Korean                          | English                          |
 | ------------------ | ------------------------------- | -------------------------------- |
-| Reading time       | `약 N분`                        | `N min read`                     |
+| Reading time       | `읽는 데 약 N분` (was `약 N분`) | `N min read`                     |
 | Updated date       | `수정: <date>`                  | `Updated <date>`                 |
 | Dates              | `ko-KR`, e.g. `2026년 11월 3일` | `en-US`, e.g. `November 3, 2026` |
 | Table of contents  | `목차`                          | `Contents`                       |
@@ -217,6 +219,7 @@ Korean strings are unchanged unless listed. New English strings:
 | Progress bar label | `읽기 진행률`                   | `Reading progress`               |
 | Empty list         | `아직 발행한 글이 없습니다.`    | `No posts yet.`                  |
 | Tag page subtitle  | `N편`                           | `N posts` (`1 post`)             |
+| Tag chip count     | `#defi 2편`                     | `#defi 2 posts`                  |
 | Views              | `조회 1,234`                    | `1,234 views` (`1 view`)         |
 | List page title    | `Blog \| jungho.dev`            | `Blog (English) \| jungho.dev`   |
 | List description   | Korean description (new)        | current `BLOG_DESCRIPTION`       |

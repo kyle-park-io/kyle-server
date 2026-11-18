@@ -54,7 +54,7 @@ test('code blocks are highlighted by shiki and horizontally scrollable', () => {
 });
 
 test('reading time is shown', () => {
-  assert.match(read('hello-world.html'), /약 \d+분/);
+  assert.match(read('hello-world.html'), /읽는 데 약 \d+분/);
 });
 
 test('the raw markdown is downloadable', () => {
@@ -320,7 +320,7 @@ test('an english post renders english copy', () => {
 
 test('a korean post keeps korean copy and korean tag links', () => {
   const page = read('hello-world.html');
-  assert.match(page, /약 \d+분/);
+  assert.match(page, /읽는 데 약 \d+분/);
   assert.match(page, /href="\/blog\/tags\/astro"/);
   assert.match(page, /← 글 목록/);
   // /blog would send a browser that asks only for English to /blog/en; a

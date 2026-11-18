@@ -190,3 +190,11 @@ test('the inlined view script carries no copy table', () => {
   // English pages.
   assert.ok(!/목차|글 목록|읽기 진행률/.test(enHtml()));
 });
+
+test('a tag chip says its number counts posts', () => {
+  // A bare `#defi 2` left readers asking what the 2 was.
+  assert.match(html(), /<span class="tag-bar__count">\d+편<\/span>/);
+  assert.match(enHtml(), /<span class="tag-bar__count">\d+ posts?<\/span>/);
+  assert.ok(!/<span class="tag-bar__count">\d+<\/span>/.test(html()));
+  assert.ok(!/<span class="tag-bar__count">\d+<\/span>/.test(enHtml()));
+});

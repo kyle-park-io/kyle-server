@@ -24,7 +24,7 @@ test('paths per language', () => {
 });
 
 test('copy matches the spec table', () => {
-  assert.equal(COPY.ko.readingTime(7), '약 7분');
+  assert.equal(COPY.ko.readingTime(7), '읽는 데 약 7분');
   assert.equal(COPY.en.readingTime(7), '7 min read');
   assert.equal(COPY.en.updated('November 3, 2026'), 'Updated November 3, 2026');
   assert.equal(COPY.ko.updated('2026년 11월 3일'), '수정: 2026년 11월 3일');
