@@ -1,5 +1,5 @@
 ---
-import { listLinkPath, tagPath, type Lang } from '../lib/i18n';
+import { COPY, listLinkPath, tagPath, type Lang } from '../lib/i18n';
 
 interface Props {
   tags: Array<{ tag: string; count: number }>;
@@ -26,7 +26,7 @@ const { tags, active, lang = 'ko' } = Astro.props;
           active === tag && 'tag-bar__item--active',
         ]}
       >
-        #{tag} <span class="tag-bar__count">{count}</span>
+        #{tag} <span class="tag-bar__count">{COPY[lang].postCount(count)}</span>
       </a>
     ))
   }

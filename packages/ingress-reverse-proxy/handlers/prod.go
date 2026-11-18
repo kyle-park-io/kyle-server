@@ -86,6 +86,8 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 				redirect.RedirectHandler(w, r, link)
 			case "redis-tcp":
 				redis.HTTPToTCPHandler(w, r, link)
+			case "api-views":
+				redis.ViewsHandler(w, r, link)
 
 			// static
 			case "blog-static":

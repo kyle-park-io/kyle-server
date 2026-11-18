@@ -1,0 +1,60 @@
+<!--
+  Fills every ViewCount on the page: the post page records the read with one
+  POST, list pages ask for all their counts with one GET. Any failure leaves
+  the spans invisible. There are no retries: a count is decoration.
+-->
+<script>
+  // Only views.ts: see the note at its top on why not i18n.ts.
+  import {
+    VIEWS_API,
+    isLocalHost,
+    listQuery,
+    readCount,
+    readCounts,
+    viewsLabel,
+  } from '../lib/views';
+
+  const spans = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-views]'),
+  );
+
+  const show = (el: HTMLElement, n: number): void => {
+    const label = viewsLabel(n, el.dataset.viewsLang);
+    const text = el.querySelector('[data-views-text]');
+    if (!text || label === null) return;
+    text.textContent = label;
+    el.removeAttribute('data-views-pending');
+  };
+
+  const json = (res: Response): Promise<unknown> =>
+    res.ok ? res.json() : Promise.resolve(null);
+
+  if (spans.length > 0 && !isLocalHost(location.hostname)) {
+    const recorded = spans.filter((el) => el.hasAttribute('data-views-record'));
+    const listed = spans.filter((el) => !el.hasAttribute('data-views-record'));
+
+    for (const el of recorded) {
+      const slug = el.dataset.views ?? '';
+      fetch(`${VIEWS_API}/${slug}`, { method: 'POST' })
+        .then(json)
+        .then((body) => {
+          const n = readCount(body, slug);
+          if (n !== null) show(el, n);
+        })
+        .catch(() => {});
+    }
+
+    if (listed.length > 0) {
+      fetch(listQuery(listed.map((el) => el.dataset.views ?? '')))
+        .then(json)
+        .then((body) => {
+          const counts = readCounts(body);
+          for (const el of listed) {
+            const n = counts[el.dataset.views ?? ''];
+            if (n !== undefined) show(el, n);
+          }
+        })
+        .catch(() => {});
+    }
+  }
+</script>

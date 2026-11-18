@@ -54,7 +54,7 @@ test('code blocks are highlighted by shiki and horizontally scrollable', () => {
 });
 
 test('reading time is shown', () => {
-  assert.match(read('hello-world.html'), /약 \d+분/);
+  assert.match(read('hello-world.html'), /읽는 데 약 \d+분/);
 });
 
 test('the raw markdown is downloadable', () => {
@@ -320,11 +320,44 @@ test('an english post renders english copy', () => {
 
 test('a korean post keeps korean copy and korean tag links', () => {
   const page = read('hello-world.html');
-  assert.match(page, /약 \d+분/);
+  assert.match(page, /읽는 데 약 \d+분/);
   assert.match(page, /href="\/blog\/tags\/astro"/);
   assert.match(page, /← 글 목록/);
   // /blog would send a browser that asks only for English to /blog/en; a
   // link written in Korean goes through the toggle instead.
   assert.match(page, /class="post__back" href="\/blog\?lang=ko"/);
   assert.match(page, /2024년 9월 5일/);
+});
+
+test('a post carries a pending view count that records the visit', () => {
+  assert.match(
+    read('hello-world.html'),
+    /<span class="views" data-views="hello-world" data-views-lang="ko" data-views-record="true" data-views-pending>/,
+  );
+  assert.match(
+    read('english-post.html'),
+    /data-views="english-post" data-views-lang="en" data-views-record="true" data-views-pending>/,
+  );
+});
+
+test('the count keeps room for its widest label from the first paint', () => {
+  // The meta line is laid out once: a count that arrives later, or never,
+  // does not make it wrap and push the post down. The widest label is an
+  // attribute drawn by CSS, so it is not text a reader can copy or a search
+  // engine can quote.
+  assert.match(
+    read('hello-world.html'),
+    /<span class="views__count" data-room="조회 99,999"><span data-views-text><\/span><\/span>/,
+  );
+  assert.match(read('english-post.html'), /data-room="99,999 views"/);
+  assert.ok(!read('hello-world.html').includes('>조회 99,999<'));
+  // `hidden` would collapse that room.
+  assert.ok(
+    !/<span class="views"[^>]*\shidden[\s>]/.test(read('hello-world.html')),
+  );
+});
+
+test('an archived post shows no view count', () => {
+  // The page still carries the shared script, so look for the span itself.
+  assert.ok(!read('archive/old-snippet.html').includes('<span class="views"'));
 });

@@ -1,0 +1,61 @@
+---
+import type { Lang } from '../lib/i18n';
+import { viewsLabel } from '../lib/views';
+
+interface Props {
+  slug: string;
+  lang: Lang;
+  /** Count this page load as a read. Only the post page itself does. */
+  record?: boolean;
+}
+
+const { slug, lang, record = false } = Astro.props;
+// The widest label the room is sized for: five digits.
+const room = viewsLabel(99_999, lang);
+---
+
+<!--
+  Invisible but laid out until ViewCounts.astro has a number for it. The
+  number and an invisible copy of the widest label (drawn from data-room by
+  CSS, so it is not text anyone can copy or quote) share one grid cell, so
+  the meta line takes its final shape at the first paint: a count that
+  arrives later does not make the line wrap and push the page down, and one
+  that never arrives leaves nothing to see.
+-->
+<span
+  class="views"
+  data-views={slug}
+  data-views-lang={lang}
+  data-views-record={record || undefined}
+  data-views-pending
+  ><span class="views__dot" aria-hidden="true">·</span><span
+    class="views__count"
+    data-room={room}><span data-views-text></span></span
+  ></span
+>
+
+<style is:global>
+  .views {
+    display: inline-flex;
+    gap: 0.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .views[data-views-pending] {
+    visibility: hidden;
+  }
+
+  .views__count {
+    display: inline-grid;
+  }
+
+  .views__count::before {
+    content: attr(data-room);
+    visibility: hidden;
+  }
+
+  .views__count::before,
+  .views__count > * {
+    grid-area: 1 / 1;
+  }
+</style>

@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { BASE } from '../config/site';
 import { formatDate } from '../lib/i18n';
+import ViewCount from './ViewCount.astro';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -35,5 +36,6 @@ const shown = formatDate(post.data.date, post.data.lang);
     </h2>
     <p class="featured__summary">{post.data.summary}</p>
     <time datetime={iso}>{shown}</time>
+    <ViewCount slug={post.id} lang={post.data.lang} />
   </div>
 </article>

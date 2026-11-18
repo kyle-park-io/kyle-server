@@ -98,7 +98,13 @@ func command(line string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	return commandAt(addr, line)
+}
 
+// commandAt is command against an address the caller names. The views
+// handler uses its own link's address (api-views in prod-links.yaml), so
+// the YAML entry is what routes it.
+func commandAt(addr, line string) (string, error) {
 	conn, err := net.DialTimeout("tcp", addr, dialTimeout)
 	if err != nil {
 		return "", fmt.Errorf("dialing the counter server: %w", err)

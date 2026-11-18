@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Toc from './Toc.astro';
 import ProgressBar from './ProgressBar.astro';
+import ViewCount from './ViewCount.astro';
 import { readingMinutes } from '../lib/reading-time';
 import { COPY, formatDate, listLinkPath, tagPath } from '../lib/i18n';
 
@@ -14,9 +15,11 @@ interface Props {
    * for an archived one. The markdown download sits next to the page.
    */
   root: string;
+  /** Show the read count. Archived copies do not. */
+  views?: boolean;
 }
 
-const { post, root } = Astro.props;
+const { post, root, views = true } = Astro.props;
 const { Content, headings } = await render(post);
 const lang = post.data.lang;
 const copy = COPY[lang];
@@ -40,6 +43,7 @@ const updatedShown = post.data.updated
         <span>{copy.readingTime(minutes)}</span>
         {updatedShown && <span class="post__dot">·</span>}
         {updatedShown && <span>{copy.updated(updatedShown)}</span>}
+        {views && <ViewCount slug={post.id} lang={lang} record />}
       </p>
       <ul class="post__tags">
         {

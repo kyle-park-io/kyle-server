@@ -18,6 +18,18 @@ links:
   - name: redis-tcp
     route: /redis-tcp
     url: http://redis-tcp-app-server-service.default.svc.cluster.local:8080
+  # Blog view counts (redis/views.go), answered by the same counter server.
+  - name: api-views
+    route: /api-views
+    url: http://redis-tcp-app-server-service.default.svc.cluster.local:8080
+    # Only POST counts, and one visitor (IP + browser) counts once per post
+    # per day, so an honest reader spends one write per post they open. Six
+    # posts are listed today: 20 at once covers reading all of them several
+    # times, and one more every 30 seconds caps an address that rotates
+    # User-Agents at about 120 extra views an hour.
+    writeLimit:
+      burst: 20
+      every: 30s
   # static
   - name: blog-static
     route: /blog-static

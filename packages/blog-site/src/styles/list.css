@@ -198,10 +198,17 @@
   margin: 0 0 12px;
 }
 
-.featured time {
+.featured time,
+.featured .views {
   font-family: var(--shell-sans);
   font-size: 12px;
   color: var(--shell-muted);
+}
+
+/* The read count after the date (ViewCount.astro). The card's date stands
+   alone on its line, so the count needs its own space before the dot. */
+.featured .views {
+  margin-left: 0.4em;
 }
 
 /* --- post cards ---------------------------------------------------------- */
@@ -297,6 +304,21 @@
   font-family: var(--shell-sans);
   font-size: 12px;
   color: var(--shell-muted);
+}
+
+/* A row's count sits at the right end of the meta line, flush right in its
+   room (ViewCount.astro), so the room's unused width is never a gap between
+   two things. A row separates its parts by space alone, so no dot. */
+.post-row__meta .views {
+  margin-left: auto;
+}
+
+.post-row__meta .views__count {
+  justify-items: end;
+}
+
+.post-row__meta .views__dot {
+  display: none;
 }
 
 .post-row__tags {
