@@ -101,11 +101,24 @@ test('a 404 page is emitted', () => {
 test('the 404 page offers the index, home and the newest listed posts', () => {
   const page = read('404.html');
   assert.match(page, /<a class="nf__btn nf__btn--primary"[^>]*href="\/blog\?lang=ko"[^>]*>글 목록 보기<\/a>/);
-  assert.match(page, /href="\/"[^>]*>홈으로 가기<\/a>/);
+  assert.match(page, /href="\/"[^>]*>홈으로 가기 <span lang="en"[^>]*>Home<\/span><\/a>/);
   const recent = page.split('<ul class="nf__recent-list"')[1] ?? '';
   assert.match(recent, /href="\/blog\/second-post"/);
   assert.match(recent, /href="\/blog\/hello-world"/);
   assert.ok(!recent.includes('old-snippet'), 'an archived post must not be offered');
+});
+
+// The reader's language is unknown on the 404 page, so every label carries
+// its English next to the Korean, as the title and the recent posts do.
+test('the 404 page says every label in English too', () => {
+  const page = read('404.html');
+  assert.match(page, /<title>글을 찾을 수 없습니다 · Page not found \| jungho\.dev<\/title>/);
+  assert.match(page, /요청한 주소 <span lang="en"[^>]*>Requested address<\/span>/);
+});
+
+test('each feed names its language', () => {
+  assert.match(read('rss.xml'), /<channel>[\s\S]*<language>ko<\/language>/);
+  assert.match(read(join('en', 'rss.xml')), /<channel>[\s\S]*<language>en<\/language>/);
 });
 
 test('the 404 page styles itself instead of borrowing unloaded index classes', () => {

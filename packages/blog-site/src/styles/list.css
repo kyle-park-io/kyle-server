@@ -81,7 +81,7 @@
   color: var(--shell-fg);
 }
 
-.lang-toggle [aria-current='page'] {
+.lang-toggle [aria-current='true'] {
   color: var(--shell-fg);
 }
 
