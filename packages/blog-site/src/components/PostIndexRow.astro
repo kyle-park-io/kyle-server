@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { BASE } from '../config/site';
+import { formatDate, tagPath } from '../lib/i18n';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -8,12 +9,7 @@ interface Props {
 
 const { post } = Astro.props;
 const iso = post.data.date.toISOString().slice(0, 10);
-const shown = post.data.date.toLocaleDateString('ko-KR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'Asia/Seoul',
-});
+const shown = formatDate(post.data.date, post.data.lang);
 ---
 
 <!--
@@ -33,12 +29,11 @@ const shown = post.data.date.toLocaleDateString('ko-KR', {
   <p class="post-row__summary">{post.data.summary}</p>
   <div class="post-row__meta">
     <time datetime={iso}>{shown}</time>
-    {post.data.lang === 'en' && <span class="post-row__lang">EN</span>}
     <ul class="post-row__tags">
       {
         post.data.tags.map((tag) => (
           <li>
-            <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
+            <a href={tagPath(post.data.lang, tag)}>#{tag}</a>
           </li>
         ))
       }

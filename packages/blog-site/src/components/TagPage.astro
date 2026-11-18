@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import Shell from '../layouts/Shell.astro';
+import PostIndexRow from './PostIndexRow.astro';
+import TagBar from './TagBar.astro';
+import LangToggle from './LangToggle.astro';
+import { listed, tagCounts, postsWithTag, inLang } from '../lib/posts';
+import { BASE, SITE_NAME } from '../config/site';
+import { COPY, tagPath, type Lang } from '../lib/i18n';
+import '../styles/list.css';
+
+interface Props {
+  lang: Lang;
+  tag: string;
+}
+
+const { lang, tag } = Astro.props;
+const all = inLang(
+  listed(await getCollection('posts'), import.meta.env.DEV),
+  lang,
+);
+const posts = postsWithTag(all, tag);
+const tags = tagCounts(all);
+const count = COPY[lang].postCount(posts.length);
+const description =
+  lang === 'en'
+    ? `Posts tagged ${tag}: ${count}.`
+    : `${tag} 태그가 붙은 글 ${count}.`;
+---
+
+<Shell
+  title={`#${tag} | ${SITE_NAME}`}
+  description={description}
+  canonicalPath={tagPath(lang, tag)}
+  current={BASE}
+  lang={lang}
+>
+  <div class="list-page">
+    <header class="list-header">
+      <h1 class="list-header__title">#{tag}</h1>
+      <div class="list-header__aside">
+        <p class="list-header__subtitle">{count}</p>
+        <LangToggle lang={lang} />
+      </div>
+    </header>
+
+    <TagBar tags={tags} active={tag} lang={lang} />
+
+    <div class="post-list">
+      {posts.map((post) => <PostIndexRow post={post} />)}
+    </div>
+  </div>
+</Shell>

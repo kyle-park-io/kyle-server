@@ -1,3 +1,5 @@
+import type { Lang } from './i18n.ts';
+
 export interface PostLike {
   id: string;
   data: {
@@ -6,6 +8,7 @@ export interface PostLike {
     tags: string[];
     draft: boolean;
     archived?: boolean;
+    lang: Lang;
   };
 }
 
@@ -60,4 +63,9 @@ export function tagCounts<T extends PostLike>(
 
 export function postsWithTag<T extends PostLike>(posts: T[], tag: string): T[] {
   return sortByDateDesc(posts.filter((p) => p.data.tags.includes(tag)));
+}
+
+/** Posts written in `lang`. Each list and tag page shows one language. */
+export function inLang<T extends PostLike>(posts: T[], lang: Lang): T[] {
+  return posts.filter((p) => p.data.lang === lang);
 }

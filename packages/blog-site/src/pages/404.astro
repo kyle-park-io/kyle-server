@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Shell from '../layouts/Shell.astro';
 import { sortByDateDesc, listed } from '../lib/posts';
 import { BASE, SITE_NAME } from '../config/site';
+import { formatDate, listLinkPath } from '../lib/i18n';
 
 // The proxy serves this page for every missing address under /blog, so it
 // borrows the frame of the site's own 404 (blog-frontend NotFoundPage): the
@@ -12,17 +13,12 @@ import { BASE, SITE_NAME } from '../config/site';
 //
 // A blog reader who lands here was usually after a post, so the three newest
 // listed posts sit under the buttons. Archived posts stay out, as on the index.
+//
+// The reader's language is unknown here, so the page says everything in
+// Korean first and then in English, and offers both lists.
 const recent = sortByDateDesc(
   listed(await getCollection('posts'), import.meta.env.DEV),
 ).slice(0, 3);
-
-const shown = (date: Date): string =>
-  date.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'Asia/Seoul',
-  });
 ---
 
 <Shell
@@ -39,9 +35,16 @@ const shown = (date: Date): string =>
       <span class="nf__line"></span>
     </div>
 
-    <h1 class="nf__title">글을 찾을 수 없습니다</h1>
+    <h1 class="nf__title">
+      글을 찾을 수 없습니다
+      <span class="nf__title-en" lang="en">Page not found</span>
+    </h1>
     <p class="nf__msg">
       이 주소에는 글이 없습니다. 글 목록이나 아래 최근 글에서 찾아 주세요.
+    </p>
+    <p class="nf__msg" lang="en">
+      There is no post at this address. Find it in the post lists or the recent
+      posts below.
     </p>
     <p class="nf__addr" data-nf-addr hidden>
       <span class="nf__addr-label">요청한 주소</span>
@@ -49,7 +52,12 @@ const shown = (date: Date): string =>
     </p>
 
     <div class="nf__actions">
-      <a class="nf__btn nf__btn--primary" href={BASE}>글 목록 보기</a>
+      <a class="nf__btn nf__btn--primary" href={listLinkPath('ko')}
+        >글 목록 보기</a
+      >
+      <a class="nf__btn nf__btn--secondary" href={listLinkPath('en')} lang="en"
+        >English posts</a
+      >
       <a class="nf__btn nf__btn--secondary" href="/">홈으로 가기</a>
     </div>
 
@@ -57,14 +65,14 @@ const shown = (date: Date): string =>
       recent.length > 0 && (
         <section class="nf__recent" aria-labelledby="nf-recent">
           <h2 id="nf-recent" class="nf__recent-title">
-            최근 글
+            최근 글 <span lang="en">Recent posts</span>
           </h2>
           <ul class="nf__recent-list">
             {recent.map((post) => (
               <li class="nf__recent-item">
                 <a href={`${BASE}/${post.id}`}>{post.data.title}</a>
                 <time datetime={post.data.date.toISOString().slice(0, 10)}>
-                  {shown(post.data.date)}
+                  {formatDate(post.data.date, post.data.lang)}
                 </time>
               </li>
             ))}
@@ -131,6 +139,17 @@ const shown = (date: Date): string =>
     letter-spacing: -0.01em;
     color: var(--shell-fg);
     margin: 0 0 14px;
+  }
+
+  /* The English heading sits under the Korean one, smaller and muted, so the
+     page still has one title. */
+  .nf__title-en {
+    display: block;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--shell-muted);
   }
 
   .nf__msg {

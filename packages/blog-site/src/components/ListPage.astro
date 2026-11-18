@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import Shell from '../layouts/Shell.astro';
+import PostIndexRow from './PostIndexRow.astro';
+import FeaturedPost from './FeaturedPost.astro';
+import TagBar from './TagBar.astro';
+import LangToggle from './LangToggle.astro';
+import { sortByDateDesc, listed, tagCounts, inLang } from '../lib/posts';
+import { BASE } from '../config/site';
+import { COPY, listPath, rssPath, type Lang } from '../lib/i18n';
+import '../styles/list.css';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = COPY[lang];
+const all = inLang(
+  listed(await getCollection('posts'), import.meta.env.DEV),
+  lang,
+);
+const posts = sortByDateDesc(all);
+const tags = tagCounts(all);
+
+// A cover on the newest post of this list promotes it to a featured block;
+// without one the page is a plain index. This is why a cover is a bonus,
+// not a requirement.
+const featured = posts[0]?.data.cover ? posts[0] : undefined;
+const rows = featured ? posts.slice(1) : posts;
+
+// The two lists are the one pair of pages that are versions of each other.
+// x-default is the Korean list, which is also what /blog serves a request
+// that names no language.
+const alternates = [
+  { hreflang: 'ko' as const, path: listPath('ko') },
+  { hreflang: 'en' as const, path: listPath('en') },
+  { hreflang: 'x-default' as const, path: listPath('ko') },
+];
+---
+
+<Shell
+  title={copy.listTitle}
+  description={copy.listDescription}
+  canonicalPath={listPath(lang)}
+  current={BASE}
+  lang={lang}
+  alternates={alternates}
+>
+  <div class="list-page">
+    <header class="list-header">
+      <h1 class="list-header__title">Blog</h1>
+      <div class="list-header__aside">
+        <LangToggle lang={lang} />
+        <a class="list-header__rss" href={rssPath(lang)}>RSS</a>
+      </div>
+    </header>
+
+    <TagBar tags={tags} lang={lang} />
+
+    {featured && <FeaturedPost post={featured} />}
+
+    <div class="post-list">
+      {rows.map((post) => <PostIndexRow post={post} />)}
+    </div>
+
+    {posts.length === 0 && <p class="post-list__empty">{copy.empty}</p>}
+  </div>
+</Shell>

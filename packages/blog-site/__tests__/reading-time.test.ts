@@ -22,3 +22,17 @@ test('fenced code blocks do not count', () => {
 test('whitespace does not count', () => {
   assert.equal(readingMinutes('가 '.repeat(500)), 1);
 });
+
+test('english counts words at 238 per minute', () => {
+  assert.equal(readingMinutes('word '.repeat(238), 'en'), 1);
+  assert.equal(readingMinutes('word '.repeat(239), 'en'), 2);
+});
+
+test('english code fences do not count', () => {
+  const md = '```\n' + 'x '.repeat(5000) + '\n```\nhi';
+  assert.equal(readingMinutes(md, 'en'), 1);
+});
+
+test('korean stays the default', () => {
+  assert.equal(readingMinutes('가'.repeat(501), 'ko'), 2);
+});

@@ -5,7 +5,8 @@ import { BASE } from '../config/site';
 
 /**
  * Consumed by the SPA homepage's Writing section. Replaces the deleted
- * /api-blog/api/blog/sorted-by-date/top-10 endpoint.
+ * /api-blog/api/blog/sorted-by-date/top-10 endpoint. Lists both languages;
+ * `lang` says which list each post belongs to.
  */
 export const GET: APIRoute = async () => {
   const posts = sortByDateDesc(listed(await getCollection('posts'), false));
@@ -16,6 +17,7 @@ export const GET: APIRoute = async () => {
     summary: post.data.summary,
     date: post.data.date.toISOString().slice(0, 10),
     tags: post.data.tags,
+    lang: post.data.lang,
     url: `${BASE}/${post.id}`,
   }));
 

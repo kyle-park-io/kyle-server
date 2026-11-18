@@ -301,3 +301,30 @@ test('a rule before a heading draws once, not twice', () => {
   assert.ok(rule, 'expected the hr to be styled');
   assert.match(rule[1], /border-top:\s*1px solid var\(--shell-rule\)/);
 });
+
+test('an english post renders english copy', () => {
+  const page = read('english-post.html');
+  assert.match(page, /<html lang="en"/);
+  assert.match(page, /<article class="post" lang="en"/);
+  // 357 words at 238 a minute; the Korean character rule would say 4.
+  assert.match(page, /2 min read/);
+  assert.match(page, />Contents</);
+  assert.match(page, /← All posts/);
+  assert.match(page, /class="post__back" href="\/blog\/en"/);
+  assert.match(page, /January 2, 2025/);
+  assert.match(page, /href="\/blog\/en\/tags\/astro"/);
+  assert.match(page, /Download the Markdown source/);
+  assert.match(page, /aria-label="Reading progress"/);
+  assert.ok(!/약 \d+분|목차|글 목록|읽기 진행률/.test(page));
+});
+
+test('a korean post keeps korean copy and korean tag links', () => {
+  const page = read('hello-world.html');
+  assert.match(page, /약 \d+분/);
+  assert.match(page, /href="\/blog\/tags\/astro"/);
+  assert.match(page, /← 글 목록/);
+  // /blog would send a browser that asks only for English to /blog/en; a
+  // link written in Korean goes through the toggle instead.
+  assert.match(page, /class="post__back" href="\/blog\?lang=ko"/);
+  assert.match(page, /2024년 9월 5일/);
+});

@@ -15,7 +15,7 @@ const post = (
   draft = false,
 ): PostLike => ({
   id,
-  data: { title: id, date: new Date(date), tags, draft },
+  data: { title: id, date: new Date(date), tags, draft, lang: 'ko' },
 });
 
 const fixture = [

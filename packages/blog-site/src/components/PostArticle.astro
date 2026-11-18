@@ -5,7 +5,7 @@ import { Image } from 'astro:assets';
 import Toc from './Toc.astro';
 import ProgressBar from './ProgressBar.astro';
 import { readingMinutes } from '../lib/reading-time';
-import { BASE } from '../config/site';
+import { COPY, formatDate, listLinkPath, tagPath } from '../lib/i18n';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -18,38 +18,34 @@ interface Props {
 
 const { post, root } = Astro.props;
 const { Content, headings } = await render(post);
-const minutes = readingMinutes(post.body ?? '');
+const lang = post.data.lang;
+const copy = COPY[lang];
+const minutes = readingMinutes(post.body ?? '', lang);
 const iso = post.data.date.toISOString().slice(0, 10);
-const dateOptions = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'Asia/Seoul',
-} as const;
-const shown = post.data.date.toLocaleDateString('ko-KR', dateOptions);
+const shown = formatDate(post.data.date, lang);
 const updatedShown = post.data.updated
-  ? post.data.updated.toLocaleDateString('ko-KR', dateOptions)
+  ? formatDate(post.data.updated, lang)
   : undefined;
 ---
 
-<ProgressBar />
+<ProgressBar lang={lang} />
 
 <div class="post-page">
-  <article class="post" lang={post.data.lang}>
+  <article class="post" lang={lang}>
     <header class="post__header">
       <h1 class="post__title">{post.data.title}</h1>
       <p class="post__meta">
         <time datetime={iso}>{shown}</time>
         <span class="post__dot">·</span>
-        <span>약 {minutes}분</span>
+        <span>{copy.readingTime(minutes)}</span>
         {updatedShown && <span class="post__dot">·</span>}
-        {updatedShown && <span>수정: {updatedShown}</span>}
+        {updatedShown && <span>{copy.updated(updatedShown)}</span>}
       </p>
       <ul class="post__tags">
         {
           post.data.tags.map((tag) => (
             <li>
-              <a href={`${BASE}/tags/${tag}`}>#{tag}</a>
+              <a href={tagPath(lang, tag)}>#{tag}</a>
             </li>
           ))
         }
@@ -77,11 +73,11 @@ const updatedShown = post.data.updated
 
     <footer class="post__footer">
       <a class="post__download" href={`${root}/${post.id}.md`} download>
-        원문 마크다운 내려받기
+        {copy.download}
       </a>
-      <a class="post__back" href={BASE}>← 글 목록</a>
+      <a class="post__back" href={listLinkPath(lang)}>{copy.back}</a>
     </footer>
   </article>
 
-  <Toc headings={headings} />
+  <Toc headings={headings} lang={lang} />
 </div>

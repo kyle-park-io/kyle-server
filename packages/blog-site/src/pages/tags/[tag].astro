@@ -1,40 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
-import Shell from '../../layouts/Shell.astro';
-import PostIndexRow from '../../components/PostIndexRow.astro';
-import TagBar from '../../components/TagBar.astro';
-import { listed, tagCounts, postsWithTag } from '../../lib/posts';
-import { BASE, SITE_NAME } from '../../config/site';
-import '../../styles/list.css';
+import TagPage from '../../components/TagPage.astro';
+import { listed, inLang } from '../../lib/posts';
 
+// One page per tag used by a Korean post. A tag used only by English posts
+// has no page here; it lives under /blog/en/tags.
 export async function getStaticPaths() {
-  const posts = listed(await getCollection('posts'), import.meta.env.DEV);
+  const posts = inLang(
+    listed(await getCollection('posts'), import.meta.env.DEV),
+    'ko',
+  );
   const tags = new Set(posts.flatMap((post) => post.data.tags));
   return [...tags].map((tag) => ({ params: { tag } }));
 }
 
 const { tag } = Astro.params;
-const all = listed(await getCollection('posts'), import.meta.env.DEV);
-const posts = postsWithTag(all, tag!);
-const tags = tagCounts(all);
 ---
 
-<Shell
-  title={`#${tag} | ${SITE_NAME}`}
-  description={`${tag} 태그가 붙은 글 ${posts.length}편.`}
-  canonicalPath={`${BASE}/tags/${tag}`}
-  current={BASE}
->
-  <div class="list-page">
-    <header class="list-header">
-      <h1 class="list-header__title">#{tag}</h1>
-      <p class="list-header__subtitle">{posts.length}편</p>
-    </header>
-
-    <TagBar tags={tags} active={tag} />
-
-    <div class="post-list">
-      {posts.map((post) => <PostIndexRow post={post} />)}
-    </div>
-  </div>
-</Shell>
+<TagPage lang="ko" tag={tag!} />
