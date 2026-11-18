@@ -24,13 +24,13 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 *Global institutional infrastructure for real-world assets on the Ethereum L2 Mantle Network*\
 _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
-- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**, a $120K two-phase global hackathon: recruited Korean entrants to the ClawHack AI trading agent contest, where a Korean participant's agent won the volume track at $10.31M and 12 tracked Korean wallets made 26.88% of volume, then ran a Phase 2 hackathon workshop at the Seoul hacker house for 100+ builders
+- **Owned Korea builder onboarding for The Turing Test Hackathon 2026**, a $120K two-phase global hackathon: recruited Korean entrants to the ClawHack AI trading agent contest, where a Korean participant's agent won the volume track at $10.31M and Korean wallets incl. the winner's made 26.88% of the contest's $45.5M total volume, then ran a Phase 2 hackathon workshop at the Seoul hacker house for 100+ builders
 
 - **Ran the Q402 builder workshop on agent payments (Mantle × Quack AI, Aug 2026)**: built the operations site, pay-lab v1, for a workshop where builders connected their AI agents to Q402 over MCP and paid on Mantle mainnet from chat with no wallet app or gas. 42 builders made 488 mainnet payments in three hours
 
-- **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers translate Mantle's English X posts into Korean and rewrite them per channel, and nothing is sent until a person approves the translation and then the channel copy. The Korean official account has published through it since July 2026 and still does
+- **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers collect Mantle's English X posts, translate them into Korean and rewrite them per channel; it began with a person approving each stage and automated collection, translation drafts and channel rewrites in turn. The Korean official account has published through it since July 2026 and still does
 
-- **Ran the Korean official account**: 279 posts, 246K impressions, and a 1.74% engagement rate over Apr-Sep 2026, 1.7× the global account's 1.03%
+- **Ran the Korean official account**: 279 posts, 246K impressions in total, and a 1.74% engagement rate per impression over Apr-Sep 2026, 1.7× the global account's 1.03%
 
 - **Taught a stablecoin payments class at Inha University (Oct 2026)**: in labs run on pay-lab, 30 students sent testnet USDC from phone wallets to the person next to them, and 22 signed a spending limit for an AI agent and paid through the agent within it
 
@@ -39,10 +39,10 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 **Trading System Backend Engineer** | Apr 2025 - Nov 2025 (8 months)\
 _Tech Stack: Go (Fiber, Fx, gRPC), Python (Django), PostgreSQL, MongoDB, AWS (ECS, ECR, EC2, Parameter Store, KMS), Docker_
 
-- **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system, traded live across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Added order replacement, lookup, and reconnection to the shared exchange interface to connect orders on 8 exchanges plus Solana DEX, and built a delta manager that clears each asset's delta on the exchange holding the largest balance and a real-time PnL dashboard
-- **Solana DEX On-Chain Trading Bots**: designed Go bots running alpha strategies as separate collector, listener, and executor servers. Moved the two holder-analysis services' direct Solscan calls behind one call-coordination service that enforces the rate limit in one place. Ran with live orders on Solana mainnet
+- **CEX Cross-Exchange Arbitrage System (Rothchild)**: owned the console backend for orders, balances, and PnL in the team's Taker-Taker and Maker-Taker arbitrage system, traded live across Binance, Bybit, Bithumb, Upbit, and perpetual DEXs. Added order replacement, lookup, and reconnection to the shared exchange interface to connect orders on 8 exchanges plus Solana DEX, and built a delta manager that clears each asset's one-sided fills on the exchange holding the largest balance and a real-time PnL dashboard
+- **Solana DEX On-Chain Trading Bots**: designed Go bots running the New Pair Detection, Back From The Dead, and Fat LP Analysis alpha strategies as separate collector, listener, and executor servers. Moved the two holder-analysis services' direct Solscan calls behind one call-coordination service that enforces the rate limit in one place. Ran with live orders on Solana mainnet
 - **News and KOL Signal Trading Engine**: built the module that scores posts from private Telegram channels and X lists by averaging several OpenAI assistants, and connected its verdicts to the team's Binance and Bybit USDT-futures order engine as live orders
-- **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit. A self-built notice collector spread over 20 VPSs received the same notice 269 ms ahead of an external notice-feed API (June 2025 test)
+- **Exchange Listing Sniper**: with the team, caught Upbit and Bithumb listing notices and sent new symbols over gRPC to Tokyo and Singapore order servers trading on Binance futures, MEXC, and Bybit. A self-built notice collector spread over 20 VPSs received one listing notice 269 ms ahead of an external notice-feed API in a June 26, 2025 test
 
 ### **Medium Inc.**
 
@@ -83,7 +83,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **mantle-kr-herald**: Mantle Korea Team's Human-in-the-Loop Content Pipeline | _TypeScript, PostgreSQL, Vercel, Vitest, Claude Code_
 
-- Approved translations become few-shot examples and paired official posts a translation memory in the prompt; sends are idempotent on a database primary key. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code
+- Prompts hold approved translations as few-shot examples and paired English-Korean posts as translation memory; sends are idempotent on a database primary key. With APIs and storage behind 34 ports, moving from files to PostgreSQL on Vercel added 19 adapters without touching domain code
 
 **pay-lab**: On-Chain Payments Lab Kit Reconfigured per Workshop or Class | _Next.js, PostgreSQL, Privy, viem, MCP, Foundry, Vercel_
 
@@ -107,7 +107,7 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 ## AWARDS & CERTIFICATIONS
 
 - **1st Place, DeFi & Composability Track, and Mantle Incubation Grant, Mantle Global Hackathon 2025** (DOOR Protocol) | Feb 2026
-  - 500+ submissions from 2,000+ builders and $150K in prizes; only 3 teams received incubation grants. Wrote all of it: the proposal, the contracts including ERC-4626 tranche vaults, the backend, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
+  - 500+ submissions from 2,000+ builders and $150K in prizes; only 3 teams received incubation grants. Built every part: the proposal, the contracts including ERC-4626 tranche vaults, the backend, the rate-oracle collectors, the Next.js dashboard, and the keeper bot
 - **3rd Place, Bitcoin on Solana Track (Zeus Network), Seoulana Hackathon 2025** (Solana blockchain development competition) | Apr 2025
 - **Engineer General Machinery** (Human Resources Development Service of Korea) | Dec 2020
 
@@ -119,5 +119,5 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 **Vice President (8th Cohort)** | Mar 2026 - Present · **Team Leader, ODA Team (7th Cohort)** | Sep 2025 - Feb 2026
 
-- Organized the 8th cohort's final research conference (Sep 2026, sponsored by Sui, Radius, and CertiK), wrote the 7th cohort's published DeFi papers including a stablecoin depeg survey, and built a Go searcher arbitraging only recoverable Solana depegs\
+- Organized the 8th cohort's final research conference (Sep 2026, sponsored by Sui, Radius, and CertiK), wrote the 7th cohort's published DeFi papers including a stablecoin depeg survey, and built a Go searcher that sorts Solana depegs by cause and skips structural collapses\
   Link to the papers: https://github.com/orakle-7th-sda/conference-pdf
