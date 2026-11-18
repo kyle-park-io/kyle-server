@@ -20,6 +20,10 @@ before(async () => {
   writeFileSync(join(blogDist, 'rss.xml'), '<rss></rss>');
   writeFileSync(join(blogDist, '404.html'), '<h1>글을 찾을 수 없습니다</h1>');
   writeFileSync(join(blogDist, 'tags', 'ethereum.html'), '<h1>#ethereum</h1>');
+  writeFileSync(join(blogDist, 'en.html'), '<h1>English list</h1>');
+  mkdirSync(join(blogDist, 'en', 'tags'), { recursive: true });
+  writeFileSync(join(blogDist, 'en', 'tags', 'astro.html'), '<h1>#astro</h1>');
+  writeFileSync(join(blogDist, 'en', 'rss.xml'), '<rss></rss>');
 
   const spaStatic = join(root, 'spa');
   mkdirSync(join(spaStatic, 'assets'), { recursive: true });
@@ -136,4 +140,131 @@ test('a missing BLOG_DIST degrades to 503, not a crawler-hostile 404', async () 
     await new Promise((resolve) => missingServer.close(resolve));
     rmSync(missingRoot, { recursive: true, force: true });
   }
+});
+
+// Node's fetch sends `accept-language: *` unless told otherwise, so every
+// language test below sets the header it means.
+const get = (path: string, headers: Record<string, string> = {}) =>
+  fetch(`${base}${path}`, { redirect: 'manual', headers });
+
+test('an english browser is sent to /blog/en', async () => {
+  const res = await get('/blog', { 'accept-language': 'en-US,en;q=0.9' });
+  assert.equal(res.status, 302);
+  assert.equal(res.headers.get('location'), '/blog/en');
+});
+
+test('a korean browser gets the korean list', async () => {
+  const res = await get('/blog', { 'accept-language': 'ko-KR,ko;q=0.9' });
+  assert.equal(res.status, 200);
+  assert.match(await res.text(), /Blog list/);
+});
+
+test('a request without accept-language gets the korean list', async () => {
+  const res = await get('/blog', { 'accept-language': '' });
+  assert.equal(res.status, 200);
+});
+
+test('the cookie beats the header both ways', async () => {
+  const ko = await get('/blog', {
+    'accept-language': 'en-US',
+    cookie: 'blog_lang=ko',
+  });
+  assert.equal(ko.status, 200);
+  const en = await get('/blog', {
+    'accept-language': 'ko-KR',
+    cookie: 'blog_lang=en',
+  });
+  assert.equal(en.status, 302);
+  assert.equal(en.headers.get('location'), '/blog/en');
+});
+
+test('?lang sets the cookie and redirects to the canonical list', async () => {
+  const ko = await get('/blog?lang=ko', { 'accept-language': 'en-US' });
+  assert.equal(ko.status, 302);
+  assert.equal(ko.headers.get('location'), '/blog');
+  const cookie = ko.headers.get('set-cookie') ?? '';
+  for (const part of [
+    'blog_lang=ko',
+    'Path=/blog',
+    'Max-Age=31536000',
+    'SameSite=Lax',
+    'Secure',
+  ]) {
+    assert.ok(cookie.includes(part), `${part} in ${cookie}`);
+  }
+
+  const en = await get('/blog?lang=en&utm_source=x', {
+    'accept-language': 'ko',
+  });
+  assert.equal(en.status, 302);
+  assert.equal(en.headers.get('location'), '/blog/en');
+  assert.match(en.headers.get('set-cookie') ?? '', /blog_lang=en/);
+});
+
+test('an unknown ?lang is ignored and sets no cookie', async () => {
+  const res = await get('/blog?lang=fr', { 'accept-language': 'ko' });
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('set-cookie'), null);
+});
+
+test('every /blog response varies on language and cookie and is not shared-cached', async () => {
+  for (const headers of [
+    { 'accept-language': 'en-US' },
+    { 'accept-language': 'ko' },
+    { 'accept-language': 'en-US', cookie: 'blog_lang=ko' },
+  ]) {
+    const res = await get('/blog', headers);
+    const vary = res.headers.get('vary') ?? '';
+    assert.match(vary, /Accept-Language/, JSON.stringify(headers));
+    assert.match(vary, /Cookie/, JSON.stringify(headers));
+    assert.equal(res.headers.get('cache-control'), 'private, no-cache');
+  }
+});
+
+test('a trailing slash and HEAD follow the same rule', async () => {
+  const slash = await get('/blog/', { 'accept-language': 'en-US' });
+  assert.equal(slash.status, 302);
+  const head = await fetch(`${base}/blog`, {
+    method: 'HEAD',
+    redirect: 'manual',
+    headers: { 'accept-language': 'en-US' },
+  });
+  assert.equal(head.status, 302);
+});
+
+test('/blog/en serves the english list and is never redirected', async () => {
+  const res = await get('/blog/en', {
+    'accept-language': 'ko-KR',
+    cookie: 'blog_lang=ko',
+  });
+  assert.equal(res.status, 200);
+  assert.match(await res.text(), /English list/);
+});
+
+test('english tag pages and the english feed are served', async () => {
+  assert.equal((await get('/blog/en/tags/astro')).status, 200);
+  assert.equal((await get('/blog/en/rss.xml')).status, 200);
+});
+
+test('a korean post is not redirected by language', async () => {
+  const res = await get('/blog/hello-world', { 'accept-language': 'en-US' });
+  assert.equal(res.status, 200);
+});
+
+test('an old address of an english-only tag forwards to the english tag page', async () => {
+  // /blog/tags/<tag> served every tag before the lists split by language;
+  // tags only English posts use now live under /blog/en/tags.
+  const res = await get('/blog/tags/astro');
+  assert.equal(res.status, 301);
+  assert.equal(res.headers.get('location'), '/blog/en/tags/astro');
+});
+
+test('a korean tag page is still served where it was', async () => {
+  assert.equal((await get('/blog/tags/ethereum')).status, 200);
+});
+
+test('a tag that exists in neither language is a 404', async () => {
+  assert.equal((await get('/blog/tags/nothing-here')).status, 404);
+  assert.equal((await get('/blog/tags/..%2Fen')).status, 404);
+  assert.equal((await get('/blog/tags/Astro')).status, 404);
 });

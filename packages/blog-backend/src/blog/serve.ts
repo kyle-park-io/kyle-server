@@ -3,8 +3,10 @@ import express, {
   type Response,
   type NextFunction,
 } from 'express';
+import { existsSync } from 'fs';
 import * as path from 'path';
 import { resolveLegacySlug } from './legacy-slugs';
+import { chooseList, LANG_COOKIE } from './lang';
 
 /**
  * Mounts the statically built blog at /blog.
@@ -65,8 +67,46 @@ export function mountBlog(app: express.Express, blogDist: string): void {
   // "/blog/" the same), so unlike `app.use` — which runs for every HTTP
   // method — a POST (or anything but GET/HEAD) to /blog now falls through
   // to the 404 handler below instead of getting a 200 with the list page.
-  app.get('/blog', (_req: Request, res: Response, next: NextFunction) => {
+  //
+  // This is also the one address that picks a language: the Korean list is
+  // served here, the English one is a redirect to /blog/en. lang.ts has the
+  // order (?lang, cookie, Accept-Language) and why a request with no
+  // Accept-Language gets Korean. The answer depends on two request headers,
+  // so every response says so in Vary and is kept out of shared caches.
+  app.get('/blog', (req: Request, res: Response, next: NextFunction) => {
+    res.set('Vary', 'Accept-Language, Cookie');
+    res.set('Cache-Control', 'private, no-cache');
+
+    const choice = chooseList({
+      query: req.query.lang,
+      cookie: req.get('cookie'),
+      acceptLanguage: req.get('accept-language'),
+    });
+
+    if (choice.kind === 'set') {
+      res.cookie(LANG_COOKIE, choice.lang, {
+        path: '/blog',
+        maxAge: 31_536_000_000,
+        sameSite: 'lax',
+        secure: true,
+      });
+    }
+    if (choice.kind === 'set' || choice.lang === 'en') {
+      res.redirect(302, choice.lang === 'en' ? '/blog/en' : '/blog');
+      return;
+    }
     sendBlogFile(res, next, path.join(blogDist, 'index.html'));
+  });
+
+  // The English list is en.html, but once there are English tag pages
+  // dist/en is also a directory. send 0.19.0 (under serve-static 1.16.2)
+  // stats the path, finds a directory and goes to its redirect handler
+  // before it ever tries the `.html` extension (node_modules/send/index.js
+  // line 722), and `redirect: false` turns that into a 404. So, like the
+  // mount root above, /blog/en is served explicitly. It is never redirected
+  // by language: a link to the English list opens the English list.
+  app.get('/blog/en', (_req: Request, res: Response, next: NextFunction) => {
+    sendBlogFile(res, next, path.join(blogDist, 'en.html'));
   });
 
   app.use(
@@ -79,6 +119,23 @@ export function mountBlog(app: express.Express, blogDist: string): void {
       redirect: false,
     }),
   );
+
+  // Before the lists split by language every tag page lived at
+  // /blog/tags/<tag>, and those addresses are in search indexes and the old
+  // sitemap. A tag that only English posts use has no Korean page now, so
+  // its old address forwards to the English one. Reaching this handler means
+  // express.static found no Korean page for the path.
+  app.use('/blog', (req: Request, res: Response, next: NextFunction) => {
+    const match = /^\/tags\/([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(req.path);
+    if (
+      match &&
+      existsSync(path.join(blogDist, 'en', 'tags', `${match[1]}.html`))
+    ) {
+      res.redirect(301, `/blog/en/tags/${match[1]}`);
+      return;
+    }
+    next();
+  });
 
   app.use('/blog', (req: Request, res: Response, next: NextFunction) => {
     const target = resolveLegacySlug(req.path);
