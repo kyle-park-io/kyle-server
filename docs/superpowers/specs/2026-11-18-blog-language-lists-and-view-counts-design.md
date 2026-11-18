@@ -331,6 +331,28 @@ reasoning next to them, as the `api-quant` entry does.
 
 Responses carry `Cache-Control: no-store`.
 
+Built 2026-11-18 (`redis/views.go`):
+
+- The handler talks to the counter server at the `api-views` link's own URL,
+  so the YAML entry is what routes it.
+- The post list is read through the `blog` link URL
+  (`<blog url>/blog/index.json`, 3 s timeout) and kept 60 s. A failed refresh
+  keeps the last good list and is retried after 10 s; before the first
+  success every request is a 503, so a site pod that is still starting does
+  not turn every post into a 404.
+- `writeLimit` is burst 20, one more every 30 s. One reader spends one write
+  per post opened and six posts are listed, so 20 covers reading all of them
+  several times; an address rotating User-Agents gets about 120 extra views
+  an hour.
+- A `VIEW` reply that names another slug, or an `ERR` line, is a 502.
+- Only a POST from a page on the same host counts (`Sec-Fetch-Site:
+same-origin`, or the `Origin` host for browsers that do not send it; a
+  request with neither, like curl, counts and meets the `writeLimit`). Any
+  page on the web can make its visitors' browsers send a body-less POST
+  without a CORS preflight, and each of those visitors brings a new address
+  past the per-address limit. Such a POST is answered with the current
+  count, like a crawler's.
+
 ### 2.4 Blog pages (`packages/blog-site`)
 
 - **Post page** (`PostArticle.astro`): a `<span data-views hidden>` at the end
@@ -344,6 +366,22 @@ Responses carry `Cache-Control: no-store`.
 - **Archive pages**: no count.
 - No `0` flash: nothing is shown until the number arrives. A listed post
   with no views yet shows `조회 0` / `0 views` on the list once loaded.
+- Built 2026-11-18: the wording lives in `lib/views.ts` (`viewsLabel`), and
+  `COPY.views` calls it. Astro inlines the small script into every page, and
+  importing `i18n.ts` from it put the whole Korean copy table into the HTML
+  of English pages. List rows drop the separator dot: a row separates its
+  date and tags by space alone.
+- Built 2026-11-18: the count is laid out from the first paint and kept
+  invisible until its number arrives. Its width is reserved for the widest
+  five-digit label (`조회 99,999` / `99,999 views`, drawn by CSS from a
+  `data-room` attribute so it is not text), so the meta line wraps the same
+  way before and after. Measured with the real posts at 375 to 1280 px:
+  0 px of movement when the number arrives or the request fails; before
+  this, the English post with an update date and the list rows moved by
+  27.2 to 54.4 px. In list rows the count sits at the right end of the meta
+  line, flush right, so the unused part of its width is never a gap. When
+  the request fails, the reserved width stays empty: on a 390 px phone the
+  English post with an update date keeps one empty line under its date.
 
 ## Verification
 
@@ -380,12 +418,13 @@ that day, `rdb_last_bgsave_status:ok`. Snapshots land on `redis-pvc`. A crash
 can lose up to the last hour of counts; accepted, so the manifest is not
 changed.
 
-## Unverified, to check before relying on it
+## Checked after this spec was written
 
-- **Astro output path** for the English list page with `build.format:
-'file'` (`dist/en.html` expected).
-- **English reading speed.** 200 words per minute is a placeholder until a
-  source is cited.
+- **Astro output path** for the English list page: `dist/en.html`, confirmed
+  in the part 1 build (2026-11-18).
+- **English reading speed:** 238 words per minute, from Brysbaert 2019
+  (Journal of Memory and Language 109, 104047), read from the paper on
+  2026-11-18. The 200 placeholder is not used.
 
 ## Left to the builder
 
