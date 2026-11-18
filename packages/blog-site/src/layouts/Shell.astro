@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ViewCounts from '../components/ViewCounts.astro';
 import { SITE_URL, SITE_NAME } from '../config/site';
 import { COPY, rssPath, type Lang } from '../lib/i18n';
 import 'site-shell/src/styles/tokens.css';
@@ -119,5 +120,6 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
       <slot />
     </main>
     <Footer lang={lang} />
+    <ViewCounts />
   </body>
 </html>

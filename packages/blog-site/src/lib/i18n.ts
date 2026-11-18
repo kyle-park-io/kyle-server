@@ -8,6 +8,8 @@
  * stays free of `astro:*` imports.
  */
 
+import { viewsLabel } from './views.ts';
+
 export type Lang = 'ko' | 'en';
 
 export const LANGS: readonly Lang[] = ['ko', 'en'];
@@ -92,9 +94,6 @@ export interface Copy {
   newPost: string;
 }
 
-const thousands = (n: number, locale: string) =>
-  new Intl.NumberFormat(locale).format(n);
-
 export const COPY: Record<Lang, Copy> = {
   ko: {
     readingTime: (m) => `약 ${m}분`,
@@ -106,7 +105,7 @@ export const COPY: Record<Lang, Copy> = {
     progress: '읽기 진행률',
     empty: '아직 발행한 글이 없습니다.',
     postCount: (n) => `${n}편`,
-    views: (n) => `조회 ${thousands(n, 'ko-KR')}`,
+    views: (n) => viewsLabel(n, 'ko') as string,
     listTitle: `Blog | ${SITE_NAME}`,
     listDescription: '블록체인, 퀀트 시스템, 데브렐을 다룬 기술 글입니다.',
     giscusLang: 'ko',
@@ -126,7 +125,7 @@ export const COPY: Record<Lang, Copy> = {
     progress: 'Reading progress',
     empty: 'No posts yet.',
     postCount: (n) => `${n} ${n === 1 ? 'post' : 'posts'}`,
-    views: (n) => `${thousands(n, 'en-US')} ${n === 1 ? 'view' : 'views'}`,
+    views: (n) => viewsLabel(n, 'en') as string,
     listTitle: `Blog (English) | ${SITE_NAME}`,
     listDescription:
       'Technical writings on blockchain, quant systems, and developer relations.',

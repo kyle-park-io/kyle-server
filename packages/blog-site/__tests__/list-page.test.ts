@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SERVE_ROOT = existsSync(join('dist', 'blog'))
@@ -135,4 +135,58 @@ test('the korean tag bar starts at the korean list through the toggle', () => {
     readFileSync(join(SERVE_ROOT, 'tags', 'astro.html'), 'utf8'),
     /href="\/blog\?lang=ko"[^>]*class="tag-bar__item/,
   );
+});
+
+test('list rows carry a pending view count that does not record', () => {
+  assert.match(
+    html(),
+    /data-views="second-post" data-views-lang="ko" data-views-pending>/,
+  );
+  assert.match(
+    enHtml(),
+    /data-views="english-post" data-views-lang="en" data-views-pending>/,
+  );
+  const recording = /<span class="views"[^>]*data-views-record/;
+  assert.ok(!recording.test(html()));
+  assert.ok(!recording.test(enHtml()));
+});
+
+test('a row puts its count after the tags', () => {
+  // Pushed to the right end of the meta line, the number sits flush right in
+  // its room, so the room's unused width is never a gap between two things.
+  const row = html()
+    .split('<article class="post-row"')
+    .find((r) => r.includes('data-views="second-post"'));
+  assert.ok(row, 'no row for second-post');
+  assert.ok(
+    row.indexOf('class="post-row__tags"') <
+      row.indexOf('<span class="views" data-views="second-post"'),
+  );
+});
+
+test('a tag page carries the same counts', () => {
+  assert.match(
+    readFileSync(join(SERVE_ROOT, 'tags', 'astro.html'), 'utf8'),
+    /data-views="[a-z0-9-]+" data-views-lang="ko" data-views-pending>/,
+  );
+});
+
+test('the view script ships with the page', () => {
+  // Astro inlines a script this small; if it grows past the inline limit it
+  // moves to _astro/, and either place counts.
+  const dir = join(SERVE_ROOT, '_astro');
+  const scripts = readdirSync(dir).filter((f) => f.endsWith('.js'));
+  assert.ok(
+    html().includes('/api-views') ||
+      scripts.some((f) =>
+        readFileSync(join(dir, f), 'utf8').includes('/api-views'),
+      ),
+    'neither the page nor a bundled script mentions /api-views',
+  );
+});
+
+test('the inlined view script carries no copy table', () => {
+  // It once imported i18n.ts, which put every Korean label into the HTML of
+  // English pages.
+  assert.ok(!/목차|글 목록|읽기 진행률/.test(enHtml()));
 });

@@ -34,7 +34,7 @@ const written = formatDate(post.data.date, post.data.lang);
   current={BASE}
   noindex
 >
-  <PostArticle post={post} root={`${BASE}/archive`}>
+  <PostArticle post={post} root={`${BASE}/archive`} views={false}>
     <aside class="post__archived" slot="notice">
       <p>{copy.archivedNotice(written)}</p>
       {
