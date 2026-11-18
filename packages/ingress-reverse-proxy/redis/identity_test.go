@@ -138,3 +138,27 @@ func TestBrandsAreReadOffTheUserAgentMostSpecificFirst(t *testing.T) {
 		}
 	}
 }
+
+// An IPv6 subscriber usually gets a whole /64 and can pick any address in
+// it, so one person would otherwise be a new visitor per address: a new
+// view of every post, and a new face in the online count.
+func TestOneIPv6Slash64IsOneVisitor(t *testing.T) {
+	visit := func(ip string) Visitor {
+		r := httptest.NewRequest("GET", "/", nil)
+		r.Header.Set("CF-Connecting-IP", ip)
+		r.Header.Set("User-Agent", "Mozilla/5.0")
+		return IdentifyVisitor(r)
+	}
+	if visit("2001:db8:1:2::1").ID != visit("2001:db8:1:2:aaaa::9").ID {
+		t.Error("two addresses in one /64 are two visitors")
+	}
+	if visit("2001:db8:1:2::1").ID == visit("2001:db8:1:3::1").ID {
+		t.Error("two different /64s are one visitor")
+	}
+	if visit("203.0.113.7").ID == visit("203.0.113.8").ID {
+		t.Error("two IPv4 addresses are one visitor")
+	}
+	if got := visit("2001:db8:1:2::1").IP; got != "2001:db8:1:2::1" {
+		t.Errorf("IP = %q, want the address itself for the visitor's own view", got)
+	}
+}

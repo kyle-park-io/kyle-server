@@ -6,6 +6,8 @@ import (
 	"net"
 	"net/http"
 	"strings"
+
+	"ingress-reverse-proxy/redirect"
 )
 
 // A Visitor is one person, as far as the online count is concerned.
@@ -17,8 +19,9 @@ import (
 // then expired one by one. Measured on 2026-09-04: nine requests produced
 // thirteen distinct members across thirteen distinct Cloudflare IPs.
 //
-// The identity is a hash of the real client IP and the User-Agent. Same
-// person, same browser, any number of tabs and requests: one id. It is a
+// The identity is a hash of the real client IP (its /64 for IPv6) and the
+// User-Agent. Same person, same browser, any number of tabs and requests:
+// one id. It is a
 // hash rather than the address itself so nothing that leaves this process
 // carries an IP that belongs to someone else.
 type Visitor struct {
@@ -58,7 +61,9 @@ func IdentifyVisitor(r *http.Request) Visitor {
 	ip := clientIP(r)
 	ua := r.Header.Get("User-Agent")
 
-	sum := sha256.Sum256([]byte(ip + "\x00" + ua))
+	// An IPv6 visitor is hashed by their /64 (redirect.AddressKey), so
+	// moving to another address of their own does not make a new visitor.
+	sum := sha256.Sum256([]byte(redirect.AddressKey(ip) + "\x00" + ua))
 
 	return Visitor{
 		ID:      hex.EncodeToString(sum[:8]),
