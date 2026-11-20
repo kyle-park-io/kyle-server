@@ -16,6 +16,18 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 
 ---
 
+## TECHNICAL SKILLS
+
+- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL/Delta Management, Cross-Exchange & Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-2612, ERC-3009), Security Tokens (ERC-1400 style), Workflow Automation, Technical Writing
+- **Languages**: Rust, Go, Python, TypeScript
+- **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
+- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
+- **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
+- **AI Tooling**: Claude Code, Codex, MCP servers, agent skills, trigger evals, guardrail hooks, human-in-the-loop pipelines
+- **Frontend**: React, SolidJS, Astro
+
+---
+
 ## PROFESSIONAL EXPERIENCE
 
 ### **Mantle**
@@ -76,18 +88,6 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 - **Kyung Hee University, Seoul**: Bachelor of Engineering in Mechanical Engineering | Mar 2014 - Aug 2022
 - **English**: TOEIC Speaking 150/200, Intermediate High · **Korean**: Native
-
----
-
-## TECHNICAL SKILLS
-
-- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL/Delta Management, Cross-Exchange & Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-2612, ERC-3009), Security Tokens (ERC-1400 style), Workflow Automation, Technical Writing
-- **Languages**: Rust, Go, Python, TypeScript
-- **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
-- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
-- **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
-- **AI Tooling**: Claude Code, Codex, MCP servers, agent skills, trigger evals, guardrail hooks, human-in-the-loop pipelines
-- **Frontend**: React, SolidJS, Astro
 
 ---
 
@@ -209,4 +209,3 @@ _Tech Stack: React, Vite, Tailwind CSS, Fastify_ · https://github.com/kyle-park
   - Plus a 17-category DeFi ecosystem taxonomy and a cross-category stablecoin map
 
 - **6th Cohort BTCFi Bitcoin Options Service** (May 2025 - Nov 2025): a BitVMX-CPU PoC that computes a call option's payoff off-chain for Bitcoin Script to verify, a Go backend (REST API, WebSocket, PostgreSQL), and the BitStriker frontend (React, MutinyNet wallet)
-

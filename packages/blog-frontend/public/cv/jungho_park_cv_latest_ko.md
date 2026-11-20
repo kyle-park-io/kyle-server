@@ -16,6 +16,17 @@
 
 ---
 
+## 기술 스택
+
+- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-2612, ERC-3009), 증권형 토큰(ERC-1400 방식)
+- **언어**: Rust, Go, Python, TypeScript
+- **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
+- **백엔드 프레임워크**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
+- **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
+- **AI 도구**: Claude Code, Codex, MCP 서버, 에이전트 스킬, 트리거 평가, 가드레일 훅, Human-in-the-loop 파이프라인
+
+---
+
 ## 경력 사항
 
 ### **Mantle**
@@ -65,17 +76,6 @@ _기술 스택: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka
 
 - **경희대학교**: 기계공학과 공학사 | 2014년 3월 - 2022년 8월
 - **영어**: TOEIC Speaking 150/200, Intermediate High · **한국어**: 원어민
-
----
-
-## 기술 스택
-
-- **전문 분야**: CEX·DEX 트레이딩 시스템, 거래소 연동과 주문 관리(REST, WebSocket, FIX·SBE), PnL·Delta 관리, 거래소 간·삼각 차익거래, DeFi 프로토콜, 크로스체인 브릿지, 스마트 컨트랙트(ERC-4626, ERC-2612, ERC-3009), 증권형 토큰(ERC-1400 방식)
-- **언어**: Rust, Go, Python, TypeScript
-- **블록체인**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
-- **백엔드 프레임워크**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
-- **인프라**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
-- **AI 도구**: Claude Code, Codex, MCP 서버, 에이전트 스킬, 트리거 평가, 가드레일 훅, Human-in-the-loop 파이프라인
 
 ---
 
