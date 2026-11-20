@@ -16,6 +16,17 @@ Backend engineer building cross-exchange arbitrage, on-chain trading, and cross-
 
 ---
 
+## TECHNICAL SKILLS
+
+- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL/Delta Management, Cross-Exchange & Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-2612, ERC-3009), Security Tokens (ERC-1400 style)
+- **Languages**: Rust, Go, Python, TypeScript
+- **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
+- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
+- **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
+- **AI Tooling**: Claude Code, Codex, MCP servers, agent skills, trigger evals, guardrail hooks, human-in-the-loop pipelines
+
+---
+
 ## PROFESSIONAL EXPERIENCE
 
 ### **Mantle**
@@ -65,17 +76,6 @@ _Tech Stack: Go, TypeScript (NestJS), Solidity, Hyperledger Fabric 2.2, Kafka, M
 
 - **Kyung Hee University, Seoul**: Bachelor of Engineering in Mechanical Engineering | Mar 2014 - Aug 2022
 - **English**: TOEIC Speaking 150/200, Intermediate High · **Korean**: Native
-
----
-
-## TECHNICAL SKILLS
-
-- **Specializations**: CEX/DEX Trading Systems, Exchange Connectivity and Order Management (REST, WebSocket, FIX/SBE), PnL/Delta Management, Cross-Exchange & Triangular Arbitrage, DeFi Protocols, Cross-Chain Bridges, Smart Contracts (ERC-4626, ERC-2612, ERC-3009), Security Tokens (ERC-1400 style)
-- **Languages**: Rust, Go, Python, TypeScript
-- **Blockchain**: Solidity (Foundry, Hardhat), Solana (Rust), Hyperledger Fabric
-- **Backend Frameworks**: NestJS, Next.js, Fastify, Django, Gin, Fiber, Fx
-- **Infrastructure**: AWS, GCP, Docker, Kubernetes, PostgreSQL, MySQL, Kafka, Redis, Vercel
-- **AI Tooling**: Claude Code, Codex, MCP servers, agent skills, trigger evals, guardrail hooks, human-in-the-loop pipelines
 
 ---
 
