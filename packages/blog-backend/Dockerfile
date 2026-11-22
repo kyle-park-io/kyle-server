@@ -4,8 +4,8 @@ FROM node:22 AS builder
 
 WORKDIR /usr/src/app
 
-COPY packages/blog-backend/production/package*.json ./
-COPY packages/blog-backend/production/tsconfig.json ./
+COPY packages/blog-backend/docker-image/package*.json ./
+COPY packages/blog-backend/docker-image/tsconfig.json ./
 
 RUN npm install
 
