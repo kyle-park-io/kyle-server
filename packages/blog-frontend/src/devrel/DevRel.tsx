@@ -190,15 +190,15 @@ const metrics: Metric[] = [
     note: 'August Korean livestream post',
   },
   {
-    value: '279',
+    value: '489',
     label: 'Posts',
     note: 'Korean official account, Apr-Sep 2026',
   },
-  { value: '246K', label: 'Impressions', note: 'Across the same period' },
+  { value: '278K', label: 'Impressions', note: 'Across the same period' },
   {
-    value: '1.74%',
+    value: '1.06%',
     label: 'Engagement',
-    note: "1.7× the global account's 1.03%",
+    note: "1.6× the global account's 0.66%",
   },
 ];
 
@@ -770,10 +770,11 @@ const DevRel: Component = (): JSX.Element => {
               </div>
               <p class="devrel-work__desc">
                 Run the Korean official account. Over Apr-Sep 2026 that came to
-                279 posts and 246K impressions in total at a 1.74% engagement
-                rate per impression, 1.7× the global account's 1.03%, with
-                Korea-originated campaigns and event announcements taking all
-                six highest-reach slots.
+                489 posts and 278K impressions in total. Likes, reposts,
+                replies, and quotes came to 1.06% of impressions, 1.6× the
+                global account's 0.66% over the same period, and
+                Korea-originated campaigns and event announcements took all six
+                highest-reach slots.
               </p>
               <a
                 href={ACCOUNT_KR}
