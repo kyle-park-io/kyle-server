@@ -41,7 +41,7 @@ _Tech Stack: TypeScript, Next.js, PostgreSQL, Solidity_
 
 - **Designed, built, and deployed the Korea team's content operations pipeline**: schedulers collect Mantle's English X posts, translate them into Korean and rewrite them per channel; it began with a person approving each stage and automated collection, translation drafts and channel rewrites in turn. The Korean official account has published through it since July 2026 and still does
 
-- **Ran the Korean official account**: 279 posts, 246K impressions in total, and a 1.74% engagement rate per impression over Apr-Sep 2026, 1.7× the global account's 1.03%
+- **Ran the Korean official account**: 489 posts and 278K impressions in total over Apr-Sep 2026, with likes, reposts, replies, and quotes at 1.06% of impressions, 1.6× the global account's 0.66% over the same period
 
 - **Taught a stablecoin payments class at Inha University (Oct 2026)**: in labs run on pay-lab, 30 students sent testnet USDC from phone wallets to the person next to them, and 22 signed a spending limit for an AI agent and paid through the agent within it
 
