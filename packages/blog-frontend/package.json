@@ -21,7 +21,7 @@
     "clean-start": "yarn run clean && yarn run webpack-build && http-server static",
     "dev": "vite",
     "preview": "vite preview",
-    "test": "node --test __tests__/spa-cleanup.test.mts",
+    "test": "node --test __tests__/*.test.mts",
     "webpack-build": "webpack --mode development",
     "webpack-build-prod": "webpack --mode production --config webpack.config.prod.js",
     "webpack-server": "webpack serve --mode development --open"

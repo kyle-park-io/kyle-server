@@ -1,3 +1,4 @@
+import { type ParentComponent } from 'solid-js';
 import { render } from 'solid-js/web';
 import { Router, Route } from '@solidjs/router';
 
@@ -27,35 +28,44 @@ import NotFoundPage from './components/404/NotFoundPage';
  */
 const root = document.getElementById('root');
 
+/**
+ * The masthead and footer around every route. They sit inside the Router
+ * (as its root) so the Header can follow the current path: the Navigate
+ * panel closes when a route changes, which it could not see from outside.
+ */
+const Layout: ParentComponent = (props) => (
+  <div class="nyt-app-container tw-flex tw-flex-col tw-min-h-screen">
+    {/* Header Section - NYT style masthead */}
+    <div class="nyt-header-wrapper">
+      <Header />
+    </div>
+
+    {/* Main Content Section - White background */}
+    <main class="nyt-main-content tw-flex-grow tw-flex tw-flex-wrap tw-bg-white">
+      {props.children}
+    </main>
+
+    {/* Footer Section - Minimal NYT style */}
+    <div class="nyt-footer-wrapper">
+      <Footer />
+    </div>
+  </div>
+);
+
 if (root != null) {
   render(
     () => (
-      <div class="nyt-app-container tw-flex tw-flex-col tw-min-h-screen">
-        {/* Header Section - NYT style masthead */}
-        <div class="nyt-header-wrapper">
-          <Header />
-        </div>
-
-        {/* Main Content Section - White background */}
-        <main class="nyt-main-content tw-flex-grow tw-flex tw-flex-wrap tw-bg-white">
-          <Router>
-            <Route path="/" component={App} />
-            <Route path="/about" component={About} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/devrel" component={DevRel} />
-            <Route path="/quant" component={Quant} />
-            <Route path="/personal-quant" component={PersonalQuant} />
-            <Route path="/chat" component={Chat} />
-            <Route path="/404" component={NotFoundPage} />
-            <Route path="*" component={NotFoundPage} />
-          </Router>
-        </main>
-
-        {/* Footer Section - Minimal NYT style */}
-        <div class="nyt-footer-wrapper">
-          <Footer />
-        </div>
-      </div>
+      <Router root={Layout}>
+        <Route path="/" component={App} />
+        <Route path="/about" component={About} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/devrel" component={DevRel} />
+        <Route path="/quant" component={Quant} />
+        <Route path="/personal-quant" component={PersonalQuant} />
+        <Route path="/chat" component={Chat} />
+        <Route path="/404" component={NotFoundPage} />
+        <Route path="*" component={NotFoundPage} />
+      </Router>
     ),
     root,
   );

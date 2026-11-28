@@ -1,5 +1,13 @@
 import { type Component, type JSX } from 'solid-js';
-import { createSignal, For, onCleanup, onMount } from 'solid-js';
+import {
+  createEffect,
+  createSignal,
+  For,
+  on,
+  onCleanup,
+  onMount,
+} from 'solid-js';
+import { useLocation } from '@solidjs/router';
 // image
 import HomeLogo from '@public/home.svg';
 // component
@@ -28,6 +36,20 @@ const Header: Component = (): JSX.Element => {
   const handleClose = (): void => {
     setShow(false);
   };
+
+  // Picking a destination in the panel moves to another route without
+  // reloading the page, and this Header stays mounted across routes, so
+  // the panel has to close itself when the path changes (also on Back).
+  const location = useLocation();
+  createEffect(
+    on(
+      () => location.pathname,
+      () => {
+        setShow(false);
+      },
+      { defer: true },
+    ),
+  );
 
   // Live presence: the count in the masthead, and the panel behind it.
   const [count, setCount] = createSignal(0);
