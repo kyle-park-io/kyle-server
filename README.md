@@ -64,3 +64,7 @@ Every folder down to three levels and the non-standard root files. Paths are cou
 | [`git.sh`](git.sh) | Sets up this clone: local git identity |
 | [`init.sh`](init.sh) | First-time yarn and husky setup commands |
 | [`lerna.json`](lerna.json) | Lerna workspace settings |
+
+## License
+
+This repository is public for reading. All rights reserved by Kyle Park.
