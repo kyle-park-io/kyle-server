@@ -64,3 +64,7 @@ jungho.dev 의 사이트(`packages/blog-frontend`, `packages/blog-backend`)와 �
 | [`git.sh`](git.sh) | 이 클론의 로컬 git 사용자 설정 |
 | [`init.sh`](init.sh) | 처음 한 번 하는 yarn 과 husky 설정 명령 |
 | [`lerna.json`](lerna.json) | Lerna 워크스페이스 설정 |
+
+## 라이선스
+
+읽기 위해 공개한 레포다. 모든 권리는 Kyle Park에게 있다.
