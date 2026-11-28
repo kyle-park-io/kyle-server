@@ -24,5 +24,8 @@ export const PRIVACY_PATH = `${BASE}/privacy`;
    are, so the policy is not published with a blank line.
    PRIVACY_CONTACT: how a visitor reaches the operator about their data.
    SERVER_LOG_RETENTION: how long the cluster keeps container logs. */
-export const PRIVACY_CONTACT = { ko: '', en: '' };
+export const PRIVACY_CONTACT = {
+  ko: '메일 andy3638@naver.com',
+  en: 'Email andy3638@naver.com',
+};
 export const SERVER_LOG_RETENTION = { ko: '', en: '' };
