@@ -1,0 +1,381 @@
+---
+import Shell from '../layouts/Shell.astro';
+import {
+  BASE,
+  SITE_NAME,
+  PRIVACY_CONTACT,
+  SERVER_LOG_RETENTION,
+} from '../config/site';
+
+// The privacy policy for the whole of jungho.dev. AdSense requires one that
+// discloses third-party advertising cookies and how to opt out
+// (support.google.com/adsense/answer/1348695), and its European consent
+// message asks for this page's address.
+//
+// Every row below is what the code does today. Change the row in the same
+// commit that changes the behaviour:
+//   visitor id   ingress-reverse-proxy/redis/identity.go (SHA-256, 16 hex)
+//   view marker  kyle-db VIEW window, 24h (docs/superpowers/plans/2026-11-18-blog-view-counts.md)
+//   presence     ingress-reverse-proxy/redis/presence.go (30s TTL)
+//   blog_lang    blog-backend/src/blog/serve.ts (maxAge one year)
+//
+// The reader's language is unknown, so as on the 404 page the policy is
+// written in Korean first and then in English.
+const EFFECTIVE = '2026-11-28';
+---
+
+<Shell
+  title={`개인정보처리방침 · Privacy policy | ${SITE_NAME}`}
+  description="jungho.dev가 다루는 방문자 정보와 광고 쿠키. What jungho.dev keeps about visitors and how its ads use cookies."
+  canonicalPath={`${BASE}/privacy`}
+  current={BASE}
+>
+  <article class="pv">
+    <h1 class="pv__title">개인정보처리방침</h1>
+    <p class="pv__meta">시행일 {EFFECTIVE}</p>
+
+    <p>
+      이 방침은 jungho.dev의 모든 화면(블로그와 CV 화면)에 적용됩니다. 이
+      사이트는 회원 가입이 없고, 이름이나 메일 주소를 받는 입력칸도 없습니다.
+    </p>
+
+    <h2>사이트가 남기는 정보</h2>
+    <p>아래 표는 이 사이트의 서버가 남기는 정보와 보관 기간입니다.</p>
+    <table>
+      <thead>
+        <tr><th>정보</th><th>쓰는 곳</th><th>보관 기간</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            >방문자 식별값. IP 주소(IPv6는 앞 64비트)와 브라우저
+            정보(User-Agent)를 SHA-256으로 바꾼 값의 앞 16자리</td
+          >
+          <td
+            >글마다 같은 사람의 조회를 하루에 한 번만 세는 데, 지금 접속한 사람
+            수를 보이는 데</td
+          >
+          <td>조회 기록은 24시간, 접속 표시는 30초 뒤 지워집니다</td>
+        </tr>
+        <tr>
+          <td>나라, 브라우저 이름, 운영체제 이름</td>
+          <td>접속한 사람 표시</td>
+          <td>30초</td>
+        </tr>
+        <tr>
+          <td>글마다의 조회 수(숫자만)</td>
+          <td>글 아래 조회 수 표시</td>
+          <td>글이 있는 동안</td>
+        </tr>
+        <tr>
+          <td>언어 선택 쿠키 <code>blog_lang</code></td>
+          <td>다음 방문에도 고른 언어로 보이는 데</td>
+          <td>1년. 브라우저에서 지울 수 있습니다</td>
+        </tr>
+        <tr>
+          <td>서버 요청 기록(요청한 주소, 시각, IP 주소, 브라우저 정보)</td>
+          <td>장애 원인을 찾는 데</td>
+          <td>{SERVER_LOG_RETENTION.ko}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>다른 회사로 가는 정보</h2>
+    <p>
+      화면을 열면 브라우저가 아래 회사의 서버에도 연결합니다. 이 회사들은 한국
+      밖에 서버를 두고 있어, 연결 기록이 한국 밖에서 처리될 수 있습니다.
+    </p>
+    <ul>
+      <li>
+        <strong>Cloudflare</strong>: 사이트로 가는 모든 요청을 전달하고 공격을
+        막습니다.
+      </li>
+      <li><strong>Google Fonts, jsDelivr</strong>: 글꼴 파일을 보냅니다.</li>
+      <li>
+        <strong>Giscus(GitHub)</strong>: 글 아래 댓글 칸입니다. 댓글을 쓰려면
+        GitHub 계정으로 로그인하고, 쓴 댓글은 GitHub의
+        <a href="https://github.com/kyle-park-io/blog/discussions"
+          >kyle-park-io/blog</a
+        >
+        토론에 공개로 남습니다.
+      </li>
+      <li>
+        <strong>Google AdSense</strong>: 블로그 화면의 광고입니다. 광고가 쓰는
+        쿠키는 「광고와 쿠키」에서 설명합니다.
+      </li>
+    </ul>
+
+    <h2>광고와 쿠키</h2>
+    <p>
+      블로그 화면에는 Google AdSense 광고가 나옵니다. Google을 비롯한 제3자 광고
+      업체는 쿠키를 사용해 방문자가 이 사이트나 다른 사이트에 방문한 기록에 따라
+      광고를 보여 줍니다. Google은 광고 쿠키로 이 사이트와 인터넷의 다른 사이트
+      방문 기록에 맞춘 광고를 Google과 파트너가 보여 줄 수 있게 합니다.
+    </p>
+    <ul>
+      <li>
+        맞춤 광고는 <a href="https://adssettings.google.com">Google 광고 설정</a
+        >에서 끌 수 있습니다.
+      </li>
+      <li>
+        다른 광고 업체의 맞춤 광고 쿠키는
+        <a href="https://www.aboutads.info">www.aboutads.info</a>에서 끌 수
+        있습니다.
+      </li>
+      <li>
+        유럽 경제 지역(EEA), 영국, 스위스에서 연 방문자에게는 광고 쿠키를 쓰기
+        전에 동의 창이 먼저 나옵니다.
+      </li>
+    </ul>
+
+    <h2>방문자가 할 수 있는 일</h2>
+    <ul>
+      <li>
+        쿠키는 브라우저 설정에서 지우거나 막을 수 있습니다. 막아도 글은 읽을 수
+        있습니다.
+      </li>
+      <li>방문자 식별값은 위 표의 기간이 지나면 저절로 지워집니다.</li>
+      <li>정보를 묻거나 지워 달라고 하려면 「연락처」의 방법을 사용합니다.</li>
+    </ul>
+
+    <h2>연락처</h2>
+    <p>운영자: Kyle Park(박정호). {PRIVACY_CONTACT.ko}</p>
+
+    <h2>바뀐 내용</h2>
+    <p>방침을 바꾸면 이 화면의 시행일을 고칩니다.</p>
+
+    <section class="pv__en" lang="en">
+      <h1 class="pv__title">Privacy policy</h1>
+      <p class="pv__meta">Effective {EFFECTIVE}</p>
+
+      <p>
+        This policy covers every page of jungho.dev, the blog and the CV pages.
+        The site has no sign-up and no field that asks for a name or an email
+        address.
+      </p>
+
+      <h2>What the site keeps</h2>
+      <p>The table lists what the site's servers keep and for how long.</p>
+      <table>
+        <thead>
+          <tr><th>Data</th><th>Used for</th><th>Kept for</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              >A visitor id: the first 16 hex characters of a SHA-256 hash of
+              the IP address (the first 64 bits for IPv6) and the browser's
+              User-Agent</td
+            >
+            <td
+              >Counting one view per visitor per post per day, and showing how
+              many people are on the site</td
+            >
+            <td
+              >24 hours for the view record, 30 seconds for the presence record</td
+            >
+          </tr>
+          <tr>
+            <td>Country, browser name and operating system name</td>
+            <td>The list of people on the site</td>
+            <td>30 seconds</td>
+          </tr>
+          <tr>
+            <td>View totals per post (numbers only)</td>
+            <td>The view count under each post</td>
+            <td>As long as the post exists</td>
+          </tr>
+          <tr>
+            <td>The language cookie <code>blog_lang</code></td>
+            <td>Showing the chosen language on the next visit</td>
+            <td>One year. You can delete it in your browser</td>
+          </tr>
+          <tr>
+            <td
+              >Server request logs (requested address, time, IP address, browser
+              details)</td
+            >
+            <td>Finding the cause of outages</td>
+            <td>{SERVER_LOG_RETENTION.en}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Other companies</h2>
+      <p>
+        Opening a page also connects your browser to the servers of the
+        companies below. They run servers outside Korea, so connection records
+        may be processed outside Korea.
+      </p>
+      <ul>
+        <li>
+          <strong>Cloudflare</strong> passes every request to the site and blocks
+          attacks.
+        </li>
+        <li>
+          <strong>Google Fonts and jsDelivr</strong> serve the font files.
+        </li>
+        <li>
+          <strong>Giscus (GitHub)</strong> is the comment box under posts. Commenting
+          needs a GitHub sign-in, and comments are kept in public on the <a
+            href="https://github.com/kyle-park-io/blog/discussions"
+            >kyle-park-io/blog</a
+          >
+          discussions.
+        </li>
+        <li>
+          <strong>Google AdSense</strong> shows the ads on blog pages. See Ads and
+          cookies below.
+        </li>
+      </ul>
+
+      <h2>Ads and cookies</h2>
+      <p>
+        Third party vendors, including Google, use cookies to serve ads based on
+        a user's prior visits to this website or other websites. Google's use of
+        advertising cookies enables it and its partners to serve ads to users
+        based on their visit to this site and/or other sites on the Internet.
+      </p>
+      <ul>
+        <li>
+          You may opt out of personalized advertising by visiting
+          <a href="https://adssettings.google.com">Ads Settings</a>.
+        </li>
+        <li>
+          You can opt out of other vendors' cookies for personalized advertising
+          at <a href="https://www.aboutads.info">www.aboutads.info</a>.
+        </li>
+        <li>
+          Visitors from the European Economic Area, the UK and Switzerland see a
+          consent message before any advertising cookie is used.
+        </li>
+      </ul>
+
+      <h2>What you can do</h2>
+      <ul>
+        <li>
+          You can delete or block cookies in your browser settings. Posts stay
+          readable either way.
+        </li>
+        <li>
+          Visitor ids are deleted on their own after the periods in the table.
+        </li>
+        <li>
+          To ask about your data or to have it deleted, use the contact below.
+        </li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>Operator: Kyle Park. {PRIVACY_CONTACT.en}</p>
+
+      <h2>Changes</h2>
+      <p>When this policy changes, the effective date above changes with it.</p>
+    </section>
+  </article>
+</Shell>
+
+<style>
+  .pv {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 0 24px;
+    font-family: var(--shell-sans);
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--shell-fg-soft);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .pv__title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--shell-fg);
+    margin: 0 0 4px;
+  }
+
+  .pv__meta {
+    font-size: 13px;
+    color: var(--shell-muted);
+    margin: 0 0 24px;
+  }
+
+  .pv h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--shell-fg);
+    margin: 36px 0 10px;
+  }
+
+  .pv a {
+    color: var(--shell-fg);
+    text-underline-offset: 3px;
+  }
+
+  .pv a:focus-visible {
+    outline: 2px solid var(--shell-accent);
+    outline-offset: 3px;
+  }
+
+  .pv table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .pv th,
+  .pv td {
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--shell-rule);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .pv th {
+    color: var(--shell-fg);
+    font-weight: 700;
+  }
+
+  .pv code {
+    font-family: var(--shell-mono);
+    font-size: 13px;
+  }
+
+  .pv__en {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--shell-rule);
+  }
+
+  /* A three-column table does not fit a phone: each row becomes a card. */
+  @media (max-width: 600px) {
+    .pv {
+      padding-top: 24px;
+    }
+
+    .pv thead {
+      display: none;
+    }
+
+    .pv tr,
+    .pv td {
+      display: block;
+    }
+
+    .pv tr {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--shell-rule);
+    }
+
+    .pv td {
+      padding: 2px 0;
+      border: 0;
+    }
+
+    .pv td:first-child {
+      color: var(--shell-fg);
+      font-weight: 600;
+    }
+  }
+</style>

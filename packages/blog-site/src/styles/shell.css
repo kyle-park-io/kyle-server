@@ -419,6 +419,25 @@
   letter-spacing: 0.05em;
 }
 
+/* The one footer item the SPA's footer does not have: the blog carries the
+   ads, so the blog links the policy that covers them. */
+.shell-footer__privacy {
+  margin-left: 12px;
+  font-family: var(--shell-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--shell-muted);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.shell-footer__privacy:hover,
+.shell-footer__privacy:focus-visible {
+  color: var(--shell-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .shell-footer__tagline {
   flex: 1;
   display: flex;
@@ -543,7 +562,8 @@
     justify-content: center;
   }
 
-  .shell-footer__copyright-text {
+  .shell-footer__copyright-text,
+  .shell-footer__privacy {
     font-size: 10px;
   }
 

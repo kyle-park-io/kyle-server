@@ -2,7 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ViewCounts from '../components/ViewCounts.astro';
-import { SITE_URL, SITE_NAME } from '../config/site';
+import { SITE_URL, SITE_NAME, ADSENSE_CLIENT } from '../config/site';
 import { COPY, rssPath, type Lang } from '../lib/i18n';
 import 'site-shell/src/styles/tokens.css';
 import 'site-shell/src/styles/presence.css';
@@ -113,6 +113,20 @@ const absoluteOgImage = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
         />
       ))
     }
+
+    <!--
+      AdSense code. Google reviews a site only when this tag is on its pages,
+      and it goes inside the head element
+      (support.google.com/adsense/answer/6245307). This comment is sent to
+      the browser, so it must not spell the closing head tag. Which ads show and where
+      is set in the AdSense account (Auto ads), not here. The CV pages are the
+      SPA's and do not carry it: ads stay on the blog.
+    -->
+    <script
+      is:inline
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+      crossorigin="anonymous"></script>
   </head>
   <body class="shell-body">
     <Header current={current} />
