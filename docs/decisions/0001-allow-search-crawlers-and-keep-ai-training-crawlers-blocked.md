@@ -2,7 +2,7 @@
 
 > Status: accepted
 > Date: 2026-11-28
-> Decision makers: Kyle Park (repository owner)
+> Decision makers: Kyle Park
 > Related: [`packages/ingress-reverse-proxy/public/root/robots.txt`](../../packages/ingress-reverse-proxy/public/root/robots.txt)
 
 ## Context
