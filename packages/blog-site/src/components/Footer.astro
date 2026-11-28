@@ -1,5 +1,6 @@
 ---
 import { rssPath, type Lang } from '../lib/i18n';
+import { PRIVACY_PATH } from '../config/site';
 
 interface Props {
   lang?: Lang;
@@ -56,6 +57,9 @@ const social = [
       <span class="shell-footer__copyright-text">
         © {new Date().getFullYear()} kyle-park-io. All rights reserved.
       </span>
+      <a class="shell-footer__privacy" href={PRIVACY_PATH}>
+        {lang === 'en' ? 'Privacy policy' : '개인정보처리방침'}
+      </a>
     </div>
 
     <div class="shell-footer__tagline">

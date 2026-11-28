@@ -9,3 +9,20 @@ export const AUTHOR = 'Kyle Park';
 export const SITE_NAME = 'jungho.dev';
 
 export const CONTENT_REPO = 'kyle-park-io/blog';
+
+/* AdSense publisher id. The same id is in ingress-reverse-proxy
+   public/root/ads.txt, and __tests__/ads-privacy.test.ts fails if the two
+   differ. */
+export const ADSENSE_CLIENT = 'ca-pub-4497070363693187';
+
+/* The privacy policy every footer links to. AdSense's European consent
+   message asks for this address. */
+export const PRIVACY_PATH = `${BASE}/privacy`;
+
+/* Two values of the privacy policy that the owner has not chosen yet. They
+   stay empty until then, and __tests__/ads-privacy.test.ts fails while they
+   are, so the policy is not published with a blank line.
+   PRIVACY_CONTACT: how a visitor reaches the operator about their data.
+   SERVER_LOG_RETENTION: how long the cluster keeps container logs. */
+export const PRIVACY_CONTACT = { ko: '', en: '' };
+export const SERVER_LOG_RETENTION = { ko: '', en: '' };
