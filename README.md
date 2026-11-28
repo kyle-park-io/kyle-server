@@ -17,6 +17,7 @@ Every folder down to three levels and the non-standard root files. Paths are cou
 | &nbsp;&nbsp;&nbsp;&nbsp;[`workflows/`](.github/workflows/) | image-build.yml builds both Docker images on every pull request and pushes nothing |
 | [`.husky/`](.husky/) | Git hook scripts: commit-msg runs commitlint, pre-commit runs prettier-format, the rest are empty |
 | [`docs/`](docs/) | Procedures and design records |
+| &nbsp;&nbsp;&nbsp;&nbsp;[`decisions/`](docs/decisions/) | Decision records (MADR), one file per decision, named `NNNN-<title>.md` |
 | &nbsp;&nbsp;&nbsp;&nbsp;[`setup/`](docs/setup/) | One-time account and token setup (Cloudflare cache purge) |
 | &nbsp;&nbsp;&nbsp;&nbsp;[`superpowers/`](docs/superpowers/) | Plans and design specs written before each larger change |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`plans/`](docs/superpowers/plans/) | Implementation plans, one file per change, named `YYYY-MM-DD-<topic>.md` |

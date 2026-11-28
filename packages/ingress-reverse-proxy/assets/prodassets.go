@@ -6,6 +6,8 @@ var assetsForProd = map[string]*Asset{
 	"/robots.txt":  {contentType: "text/plain", dataPath: "/app/public/root/robots.txt"},
 	"/sitemap.xml": {contentType: "text/xml", dataPath: "/app/public/root/sitemap.xml"},
 	"/ads.txt":     {contentType: "text/plain", dataPath: "/app/public/root/ads.txt"},
+	// well-known (RFC 9116)
+	"/.well-known/security.txt": {contentType: "text/plain", dataPath: "/app/public/root/security.txt"},
 	// svg
 	"/home.svg":          {contentType: "image/svg+xml", dataPath: "/app/public/home.svg"},
 	"/notion-icon.svg":   {contentType: "image/svg+xml", dataPath: "/app/public/notion-icon.svg"},
