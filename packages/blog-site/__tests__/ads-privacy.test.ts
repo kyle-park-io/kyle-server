@@ -86,3 +86,18 @@ test('the privacy policy names a contact and a log retention period', async () =
     assert.doesNotMatch(line, /''/, `${name} still has an empty value`);
   }
 });
+
+/*
+  The Korean policy comes first, as everywhere else on the blog, so readers
+  who arrive from /blog/en or review the site for AdSense need one link from
+  the top of the page to the English section.
+*/
+test('the top of the privacy page links to the English section', () => {
+  const page = read('privacy.html');
+  const top = page.slice(0, page.indexOf('<section class="pv__en"'));
+  assert.match(top, /<a[^>]*href="#en"[^>]*>English version<\/a>/);
+  assert.match(
+    page,
+    /<section class="pv__en"[^>]*id="en"|<section[^>]*id="en"[^>]*class="pv__en"/,
+  );
+});
