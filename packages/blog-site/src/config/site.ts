@@ -28,4 +28,12 @@ export const PRIVACY_CONTACT = {
   ko: '메일 andy3638@naver.com',
   en: 'Email andy3638@naver.com',
 };
-export const SERVER_LOG_RETENTION = { ko: '', en: '' };
+// Read 2026-11-28: the cluster's loggingService is "none", so nothing
+// reaches Cloud Logging. The ingress writes /app/logs/logs.log inside the
+// container (logger/zap.go: lumberjack MaxAge 30, MaxSize 10 MB, 5 backups),
+// which a new deployment replaces, and the kubelet keeps stdout as five 10Mi
+// files per container (node configz containerLogMaxSize, MaxFiles).
+export const SERVER_LOG_RETENTION = {
+  ko: '최대 30일. 파일 크기 한도에 닿거나 서버를 새 버전으로 바꾸면 더 일찍 지워집니다',
+  en: 'Up to 30 days. They are deleted sooner when they reach their size limit or the server is replaced with a new version',
+};
