@@ -6,6 +6,8 @@ var assetsForDev = map[string]*Asset{
 	"/robots.txt":  {contentType: "text/plain", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/root/robots.txt"},
 	"/sitemap.xml": {contentType: "text/xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/root/sitemap.xml"},
 	"/ads.txt":     {contentType: "text/plain", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/root/ads.txt"},
+	// well-known (RFC 9116)
+	"/.well-known/security.txt": {contentType: "text/plain", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/root/security.txt"},
 	// svg
 	"/home.svg":          {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/home.svg"},
 	"/notion-icon.svg":   {contentType: "image/svg+xml", dataPath: "/home/kyle/code/kyle-server/packages/ingress-reverse-proxy/public/notion-icon.svg"},
