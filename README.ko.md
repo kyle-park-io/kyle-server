@@ -15,7 +15,7 @@ jungho.dev 의 사이트(`packages/blog-frontend`, `packages/blog-backend`)와 �
 |---|---|
 | [`.github/`](.github/) | GitHub 설정 |
 | &nbsp;&nbsp;&nbsp;&nbsp;[`workflows/`](.github/workflows/) | image-build.yml 이 풀 리퀘스트마다 도커 이미지 둘을 빌드한다. 푸시는 하지 않는다 |
-| [`.husky/`](.husky/) | Git 훅 스크립트. commit-msg 는 commitlint, pre-commit 은 prettier-format 을 돌리고 나머지는 비어 있다 |
+| [`.husky/`](.husky/) | Git 훅 스크립트. commit-msg 는 commitlint, pre-commit 은 prettier-format 을 실행하고 나머지는 비어 있다 |
 | [`docs/`](docs/) | 작업 순서와 설계 기록 |
 | &nbsp;&nbsp;&nbsp;&nbsp;[`decisions/`](docs/decisions/) | 결정 기록(MADR). 결정마다 하나, `NNNN-<제목>.md` |
 | &nbsp;&nbsp;&nbsp;&nbsp;[`setup/`](docs/setup/) | 처음 한 번 하는 계정과 토큰 설정(Cloudflare 캐시 지우기) |
