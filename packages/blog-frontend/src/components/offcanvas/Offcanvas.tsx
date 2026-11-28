@@ -70,7 +70,17 @@ export const Move: Component<MoveProps> = (props): JSX.Element => {
         </div>
 
         {/* Body */}
-        <div class="nav-panel__body">
+        {/* Any link or button in the panel is a destination: close the panel
+            once one is picked, including the ones that open a new tab and
+            leave this page's route as it was. */}
+        <div
+          class="nav-panel__body"
+          onClick={(event) => {
+            if ((event.target as Element).closest('a, button') !== null) {
+              props.onHide();
+            }
+          }}
+        >
           {/* Site */}
           <div class="nav-section">
             <span class="nav-section__label">Site</span>
